@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
 
     $('.select2_search_ctm').select2({
         placeholder: function () {
@@ -54,14 +54,26 @@
     // Trigger change event on page load
     $('#isChlidDropdown').on('change', function () {
         var isChildValue = $("#isChlidDropdown option:selected").text().trim();
+        console.log('Child dropdown changed to:', isChildValue);
+        
         if (isChildValue === 'Yes') {
             $('#isParentDropdown').prop('disabled', false);
             $('#isParentDropdown').attr('required', true);
-            loadDropdown('#isParentDropdown', '/DropDown/FetchIsParentPaycomponentDropdown');
             $('#isParentDropdown-error').show(); // Show error by default if no selection
+            
+            // ✅ IMPROVED: Clear existing options and load fresh data
+            $('#isParentDropdown').empty().append($('<option>', {
+                value: '',
+                text: '-- Select --'
+            }));
+            
+            loadDropdown('#isParentDropdown', '/DropDown/FetchIsParentPaycomponentDropdown');
         } else {
             $('#isParentDropdown').prop('disabled', true);
-            $('#isParentDropdown').text('');
+            $('#isParentDropdown').empty().append($('<option>', {
+                value: '',
+                text: '-- Select --'
+            }));
             $('#isParentDropdown').removeAttr('required');
             $('#isParentDropdown-error').hide();
         }
@@ -300,21 +312,28 @@
                         $('#amountSection').show();
                         $('#amountval').val(data.amount);
                     }
-                    // Load and select child dropdown (Yes/No)
+                    
+                    // ✅ FIXED: Proper sequence for child/parent dropdown handling
                     loadDropdownWithSelectedValue('#isChlidDropdown', '/DropDown/FetchIsChildPayComponentDropdown', function () {
                         const isChildValue = data.is_Child ? "1" : "0";
                         setSelectedValueInDropdown('#isChlidDropdown', isChildValue);
 
-                        // Trigger change manually to enable/disable parent dropdown
-                        $('#isChlidDropdown').trigger('change');
-
-                        // If is_Child is true, load parent dropdown after enabling
-                        if (data.is_Child) {
-                            loadDropdownWithSelectedValue('#isParentDropdown', '/DropDown/FetchIsParentPaycomponentDropdown', function () {
-                                setSelectedValueInDropdown('#isParentDropdown', data.parent_EarningDeduction_Id);
-                            });
-                        }
+                        // ✅ CRITICAL: Use setTimeout to ensure the change event completes first
+                        setTimeout(function() {
+                            // If is_Child is true, load parent dropdown AFTER the change event has processed
+                            if (data.is_Child) {
+                                // ✅ Wait for parent dropdown to be enabled and loaded
+                                loadDropdownWithSelectedValue('#isParentDropdown', '/DropDown/FetchIsParentPaycomponentDropdown', function () {
+                                    // ✅ Add additional delay to ensure dropdown is fully rendered
+                                    setTimeout(function() {
+                                        setSelectedValueInDropdown('#isParentDropdown', data.parent_EarningDeduction_Id);
+                                        console.log('Parent dropdown value set:', data.parent_EarningDeduction_Id);
+                                    }, 100);
+                                });
+                            }
+                        }, 200); // Allow change event to complete
                     });
+                    
                     $('#formula').val(data.formula || '');
                     // Status toggle
                     const isActive = data.isActive ?? false; // use the correct field name
@@ -672,13 +691,24 @@ function TogglePayComponentForm() {
 function setSelectedValueInDropdown(selector, value) {
     const $dropdown = $(selector);
 
-    // Check if the value exists in the dropdown
-    if ($dropdown.find(`option[value='${value}']`).length > 0) {
-        //console.log(`Setting value '${value}' in the dropdown`);
-        $dropdown.val(value).trigger('change'); // Trigger 'change' to handle select2 events
-    } else {
-        console.warn(`Value '${value}' not found in dropdown: ${selector}`);
+    // ✅ IMPROVED: Add retry mechanism for better reliability
+    function attemptSelection(retries = 3) {
+        // Check if the value exists in the dropdown
+        if ($dropdown.find(`option[value='${value}']`).length > 0) {
+            console.log(`✅ Setting value '${value}' in dropdown ${selector}`);
+            $dropdown.val(value).trigger('change'); // Trigger 'change' to handle select2 events
+            return true;
+        } else if (retries > 0) {
+            console.log(`⏳ Value '${value}' not found in ${selector}, retrying... (${retries} attempts left)`);
+            setTimeout(() => attemptSelection(retries - 1), 50);
+            return false;
+        } else {
+            console.warn(`❌ Value '${value}' not found in dropdown: ${selector} after multiple attempts`);
+            return false;
+        }
     }
+    
+    return attemptSelection();
 }
 
 function loadDropdownWithSelectedValue(selector, url, callback) {
