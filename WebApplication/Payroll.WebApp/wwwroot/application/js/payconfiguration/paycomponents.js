@@ -24,26 +24,42 @@
     // Disable button on page load
     $('#Parent').prop('disabled', true);
     $('#calculationTypeDropdown').on('change', function () {
+        debugger;
         //////////////////////////Added For Formula:-start///////////////////////////
         var isEditFormulaBTN = $('#payComponentForm').data('edit-id') !== undefined;
         //console.log("isEditFormulaBTN", isEditFormulaBTN);
         var selectedText = $("#calculationTypeDropdown option:selected").text().trim();
-        if (selectedText === "Calculate") {
+        if (selectedText === "Calculation") {
             $('#formulaSection').show();
+
             if (!isEditFormulaBTN) {
+                $('#FormulaComposition').show();
+                $('#formualcomp').show();
                 $('#formulaSectionbutton').show();
+
             } else {
-                $('#formulaSectionbutton').hide();
+                $('#formualcomp').show();
+                $('#formulaSectionbutton').show();
+                $('#FormulaComposition').show();
             }
+            $('#spanmin').text('');
+            $('#spanmax').text('');
             loadDropdown('#formulaDropdown', '/DropDown/FetchFormulaTypeDropdown');
         } else {
             $('#formulaSection').hide();
             $('#formulaSectionbutton').hide();
+            $('#FormulaComposition').hide();
         }
         if (selectedText === "Fixed") {
+            $('#spanmin').text('*');
+            $('#spanmax').text('*');
             $('#amountSection').show();
         } else {
             $('#amountSection').hide();
+        }
+        if (selectedText === "Variable") {
+            $('#spanmin').text('*');
+            $('#spanmax').text('*');
         }
         //////////////////////////Added For Formula:-End///////////////////////////
         if ($(this).val()) {
@@ -57,7 +73,20 @@
         if (isChildValue === 'Yes') {
             $('#isParentDropdown').prop('disabled', false);
             $('#isParentDropdown').attr('required', true);
-            loadDropdown('#isParentDropdown', '/DropDown/FetchIsParentPaycomponentDropdown');
+            //loadDropdown('#isParentDropdown', '/DropDown/FetchIsParentPaycomponentDropdown');
+            var earnDedType = $('#payrollHeadDropdown').val();
+            var isChildRaw = $('#isChlidDropdown').val();
+            var isChild = isChildRaw === '1' ? false : isChildRaw === '0' ? true : null;
+            //LoadPayComponents();
+            loadDropdown(
+                '#isParentDropdown',
+                '/DropDown/FetchIsParentPaycomponentDropdown',
+                null,
+                {
+                    EarnDedType: earnDedType,
+                    IsChild: isChild
+                }
+            );
             $('#isParentDropdown-error').show(); // Show error by default if no selection
         } else {
             $('#isParentDropdown').prop('disabled', true);
@@ -74,7 +103,11 @@
             $('#isParentDropdown-error').text('');
         }
     });
-
+    $('#formulaDropdown').on('change', function () {
+        if ($(this).val()) {
+            $('#formulaDropdown-error').text('');
+        }
+    });
     $('#minval').on('input', function () {
         const val = $(this).val().trim();
         const regex = /^\d+(\.\d{1,2})?$/;
@@ -109,6 +142,7 @@
         const payrollHead = $('#payrollHeadDropdown').val();
         const payComponent = $('#payComponent').val().trim();
         const calculationType = $('#calculationTypeDropdown').val();
+        const formulaDP = $('#formulaDropdown').val();
         const minVal = $('#minval').val().trim();
         const maxVal = $('#maxval').val().trim();
         const amountVal = $('#amountval').val().trim();
@@ -117,7 +151,9 @@
         var parentValue = $('#isParentDropdown').val();
         const decimalRegex = /^\d+(\.\d{1,2})?$/;
         // Payroll Head
+
         if (!payrollHead) {
+
             $('#payrollHeadDropdown-error').text('Please select the Pay Head.');
             isValid = false;
         }
@@ -139,6 +175,25 @@
             $('#calculationTypeDropdown-error').text('Please select the Calculate Type.');
             isValid = false;
         }
+        // Make the formula field compulsory:-- START
+
+        if (calculationType === "3" || calculationType?.toLowerCase() === 'Calculation') {
+            if (!formulaDP) {
+                $('#formulaDropdown-error').text('Please select the Formula.');
+                isValid = false;
+            }
+        }
+        if (calculationType === "1" || calculationType === "2") {
+            if (!minVal) {
+                $('#minval-error').text('Please enter minimum Amount.');
+                isValid = false;
+            }
+            if (!maxVal) {
+                $('#maxval-error').text('Please enter minimum Amount.');
+                isValid = false;
+            }
+        }
+        // Make the formula field compulsory:-- END
 
         //// Decimal format regex
         // Min value validation (always visible)
@@ -227,10 +282,36 @@
     });
 
     // Function to populate dropdown from URL
-    function loadDropdown(selector, url, onComplete) {
+    //function loadDropdown(selector, url, onComplete) {
+    //    $.ajax({
+    //        url: url,
+    //        type: 'GET',
+    //        success: function (data) {
+    //            const $dropdown = $(selector);
+    //            $dropdown.empty().append($('<option>', {
+    //                value: '',
+    //                text: '-- Select --'
+    //            }));
+
+    //            $.each(data, function (i, item) {
+    //                $dropdown.append($('<option>', {
+    //                    value: item.value,
+    //                    text: item.text
+    //                }));
+    //            });
+    //            if (onComplete) onComplete();  // Call callback after loading
+    //            $dropdown.trigger('change'); // for select2 or any events
+    //        },
+    //        error: function () {
+    //            console.error('Failed to load dropdown data for:', selector);
+    //        }
+    //    });
+    //}
+    function loadDropdown(selector, url, onComplete, params = {}) {
         $.ajax({
             url: url,
             type: 'GET',
+            data: params,  // These become query params
             success: function (data) {
                 const $dropdown = $(selector);
                 $dropdown.empty().append($('<option>', {
@@ -244,14 +325,18 @@
                         text: item.text
                     }));
                 });
-                if (onComplete) onComplete();  // Call callback after loading
-                $dropdown.trigger('change'); // for select2 or any events
+
+                if (onComplete) onComplete();
+                $dropdown.trigger('change');
             },
             error: function () {
                 console.error('Failed to load dropdown data for:', selector);
             }
         });
     }
+
+
+
 
     // Call this function on page load
     loadDropdown('#payrollHeadDropdown', '/DropDown/FetchPayrollHeadsDropdown');
@@ -285,9 +370,11 @@
                     $('#calculationTypeDropdown').val(data.calculationType).trigger('change');
 
                     ///////////////////////////For Formula Check:- Start
-                    if (data.calculationTypeName?.toLowerCase() === 'calculate' || data.calculationType === 3) {
+                    if (data.calculationTypeName?.toLowerCase() === 'Calculation' || data.calculationType === 3) {
                         $('#formulaSection').show();
-                        $('#formulaSectionbutton').hide();
+                        $('#formualcomp').show();
+                        $('#formulaSectionbutton').show();
+                        $('#FormulaComposition').show();
                         loadDropdownWithSelectedValue('#formulaDropdown', '/DropDown/FetchFormulaTypeDropdown', function () {
                             setSelectedValueInDropdown('#formulaDropdown', data.formula_Id);
                         });
@@ -296,6 +383,7 @@
                     $('#payrollHeadDropdown').val(data.earningDeductionType).trigger('change');
                     $('#minval').val(data.minimumUnit_value);
                     $('#maxval').val(data.maximumUnit_value);
+                    $('#formualcomp').val(data.formula_Computation);
                     if (data.calculationTypeName?.toLowerCase() === 'fixed' || data.calculationType === 2) {
                         $('#amountSection').show();
                         $('#amountval').val(data.amount);
@@ -310,8 +398,12 @@
 
                         // If is_Child is true, load parent dropdown after enabling
                         if (data.is_Child) {
+
                             loadDropdownWithSelectedValue('#isParentDropdown', '/DropDown/FetchIsParentPaycomponentDropdown', function () {
-                                setSelectedValueInDropdown('#isParentDropdown', data.parent_EarningDeduction_Id);
+                                setTimeout(function () {
+                                    setSelectedValueInDropdown('#isParentDropdown', data.parent_EarningDeduction_Id);
+                                    $('#isParentDropdown').trigger('change');
+                                }, 150); // 100ms delay is usually safe
                             });
                         }
                     });
@@ -355,12 +447,13 @@
         var isEdit = $('#payComponentForm').data('edit-id') !== undefined;
         var earningDeductionId = isEdit ? $('#payComponentForm').data('edit-id') : 0;
 
-        var earningDeductionName = $('#payComponent').val().trim().split(' ').map(function (word) {
-            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-        }).join(' ');
+        //var earningDeductionName = $('#payComponent').val().trim().split(' ').map(function (word) {
+        //    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        //}).join(' ');
 
         var dto = {
-            earningDeductionName: earningDeductionName,
+            //earningDeductionName: earningDeductionName,
+            earningDeductionName: $('#payComponent').val().trim(),
             calculationType: parseInt($('#calculationTypeDropdown').val()),
             earningDeductionType: parseInt($('#payrollHeadDropdown').val()),
             minimumUnit_value: parseFloat($('#minval').val()) || 0,
@@ -435,13 +528,18 @@
                     setTimeout(function () {
                         showAlert("success", response.message);
                     }, 1000);
+                    $('#cancelComponentFormbtn').hide();
                     LoadPayComponents();
                 } else {
                     showAlert("danger", response.message);
                 }
             },
-            error: function () {
-                toastr.error("Something went wrong while saving the data.");
+            error: function (error) {
+                if (error.status === 401) {
+                    window.location.href = "/Account/LoginPage"; // Redirect if session expired
+                } else {
+                    alert('An error occurred: ' + error.statusText);
+                }
             }
         });
     }
@@ -470,12 +568,74 @@
         }
     });
 
+    $(document).on('click', '.viewpaycomponent', function () {
+        var id = $(this).data('id');
+
+        $.ajax({
+            url: `/PayConfiguration/GetPayComponentDetailsById/${id}`,
+            type: 'GET',
+            success: function (response) {
+                if (response.success) {
+                    const data = response.data;
+                    console.log(data);
+                    const calculationTypeMap = {
+                        1: "Variable",
+                        2: "Fixed",
+                        3: "Calculation",
+                        4: "Rate"
+                    };
+
+                    const earningTypeMap = {
+                        1: "Earning",
+                        2: "Deduction",
+                    };
+
+                    $('#payhead').text(data.earningDeductionTypeName || earningTypeMap[data.earningDeductionType] || '—');
+                    $('#calculatetype').text(data.calculationTypeName || calculationTypeMap[data.calculationType] || '—');
+
+                    //$('#payhead').text(data.earningDeductionTypeName || '—');
+                    $('#paycomponentname').text(data.earningDeductionName || '—');
+                    $('#formulaname').text(data.formulaName || '—');
+                    $('#formulaComputation').text(data.formula_Computation || '—');
+                    //$('#calculatetype').text(data.calculationTypeName || '—');
+                    $('#minamount').text(data.minimumUnit_value ?? '—');
+                    $('#maxamount').text(data.maximumUnit_value ?? '—');
+                    $('#amount').text(data.amount ?? '—');
+                    $('#parentComponent').text(data.parentEarningDeduction ?? '—');
+                    const isActive = Boolean(data.isActive);
+                    console.log("isActive label value:", isActive);
+
+                    // Update the toggle switch and label
+                    $('#activeStatusToggle').prop('checked', isActive);
+                    $('#activeStatusToggleLabel').text(isActive ? 'Active' : 'Inactive');
+
+
+
+                    $('#paycomponentview').modal('show');
+                } else {
+                    toastr.error(response.message || "Failed to load data.");
+                }
+            },
+            error: function (error) {
+                if (error.status === 401) {
+                    window.location.href = "/Account/LoginPage"; // Redirect if session expired
+                } else {
+                    alert('An error occurred: ' + error.statusText);
+                }
+            }
+        });
+    });
+
+
+
+
 
 });
 $(document).ready(function () {
     LoadPayComponents();
 });
 function LoadPayComponents() {
+
     $.ajax({
         url: '/PayConfiguration/PayComponentList',
         //url: '@Url.Action("PayComponentList", "PayConfiguration")', // Change to your controller name
@@ -589,8 +749,12 @@ $(document).on('click', '#confirmPayComponentDelete', function () {
             }
             $('#deletePayComponent').modal('hide');
         },
-        error: function () {
-            showAlert("danger", "An error occurred. Please try again.");
+        error: function (error) {
+            if (error.status === 401) {
+                window.location.href = "/Account/LoginPage"; // Redirect if session expired
+            } else {
+                showAlert("danger", "An error occurred: " + (error.statusText || "Please try again."));
+            }
             $('#deletePayComponent').modal('hide');
         },
         complete: function () {
@@ -708,6 +872,69 @@ function loadDropdownWithSelectedValue(selector, url, callback) {
         }
     });
 }
+
+$(document).ready(function () {
+    // Initially hide isParentDropdown
+    $('#isParentDropdown').closest('.col-lg-3').hide();
+
+    // On change of isChlidDropdown
+    $('#isChlidDropdown').on('change', function () {
+        var selectedValue = $(this).val();
+
+        if (selectedValue === "1") { // Compare by value
+            //LoadPayComponents();
+            $('#isParentDropdown').closest('.col-lg-3').show();
+        } else {
+            $('#isParentDropdown').closest('.col-lg-3').hide();
+        }
+    });
+});
+
+
+//$('#maxval').on('change', function () {
+//    var value = parseFloat($(this).val());
+//    var minvalue = parseFloat($('#minval').val());
+
+//    if ((!isNaN(value) && value > 0) && (!isNaN(minvalue) && minvalue > 0)) {
+//        const div = document.getElementById('formulaSectionbutton');
+//        const btn = div.querySelector('button');
+//        // Disable the button
+//        btn.disabled = false;
+//    }
+//}); 
+
+//$('#minval').on('change', function () {
+//    var value = parseFloat($(this).val());
+//    var maxvalue = parseFloat($('#maxval').val());
+
+//    if ((!isNaN(value) && value > 0) && (!isNaN(maxvalue) && maxvalue > 0)) {
+//        const div = document.getElementById('formulaSectionbutton');
+//        const btn = div.querySelector('button');
+//        // Disable the button
+//        btn.disabled = false;
+//    }
+//}); 
+
+$('#formulaDropdown').on('change', function () {
+    var formulaId = parseInt($("#formulaDropdown").val()) || 0;
+    if (formulaId > 0) {
+        $.ajax({
+            url: `/formulamaster/getformulabyid?formulaId=${formulaId}`, // Replace with actual route
+            method: 'GET',
+            async: false, // Make it synchronous to assign before next line
+            success: function (response) {
+                if (response.success && response.data) {
+                    $('#formualcomp').val(response.data.formula_Computation);
+                }
+            },
+            error: function (xhr) {
+                console.error("Error fetching formula:", xhr);
+            }
+        });
+    }
+});
+
+
 
 
 ////////////////////////////////////Implementing Formula Code:-End//////////////////////////////

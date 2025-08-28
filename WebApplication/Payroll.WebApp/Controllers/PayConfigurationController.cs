@@ -94,6 +94,10 @@ namespace Payroll.WebApp.Controllers
                 }
 
             }
+            catch (SessionExpiredException ex)
+            {
+                return StatusCode(401, new { success = false, message = "Session Expired." });
+            }
             catch (Exception ex)
             {
                 return new JsonResult(new ApiResponseModel<PayComponentDTO>
@@ -138,6 +142,7 @@ namespace Payroll.WebApp.Controllers
                     MaximumUnit_value = p.MaximumUnit_value,
                     Amount = p.Amount,
                     Is_Child = p.Is_Child,
+                    IsChild = p.IsChild,
                     Parent_EarningDeduction_Id = p.Parent_EarningDeduction_Id,
                     IsEditable = p.IsEditable,
                     IsActive = p.IsActive
@@ -150,6 +155,10 @@ namespace Payroll.WebApp.Controllers
                     html = html,
                     count = dtoList.Count
                 });
+            }
+            catch (SessionExpiredException ex)
+            {
+                return StatusCode(401, new { success = false, message = "Session Expired." });
             }
             catch (Exception ex)
             {
@@ -182,7 +191,34 @@ namespace Payroll.WebApp.Controllers
             catch (SessionExpiredException ex)
             {
                 return StatusCode(401, new { success = false, message = "Session Expired." });
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                return Json(new { success = false, message = "An error occurred while fetching area details." });
+            }
+        }
 
+        [Route("PayConfiguration/[action]/{Id}")]
+        [HttpGet]
+        public async Task<IActionResult> GetPaySubComponentDetailsById([FromRoute] int Id)
+        {
+            try
+            {
+                int company_Id = SessionCompanyId;
+                var apikey = await _userServiceHelper.GenerateApiKeyAsync();
+                var getApiUrl = $"{_apiSettings.PayrollTransactionEndpoints.GetByIdPaySubComponentsUrl}/{Id}";
+                var response = await _transactionServiceHelper.GetByIdCommonAsync<PayComponentDTO>(getApiUrl, apikey);
+
+                if (!response.IsSuccess || response.Result == null)
+                {
+                    return Json(new { success = false, message = response.Message });
+                }
+                return Json(new { success = true, data = response.Result });
+            }
+            catch (SessionExpiredException ex)
+            {
+                return StatusCode(401, new { success = false, message = "Session Expired." });
             }
             catch (Exception ex)
             {
@@ -244,9 +280,11 @@ namespace Payroll.WebApp.Controllers
             }
             try
             {
+                var Company_Id = SessionCompanyId;
                 var apikey = await _userServiceHelper.GenerateApiKeyAsync();
                 payComponentDTO.UpdatedBy = SessionUserId;
                 payComponentDTO.UpdatedDate = DateTime.Now;
+                payComponentDTO.Company_Id = Company_Id;
                 // Assuming you are updating the area using a service or repository
                 var updateApiUrl = $"{_apiSettings.PayrollTransactionEndpoints.PutPayComponentsUrl}/{payComponentDTO.EarningDeduction_Id}";
                 var updateResponse = await _transactionServiceHelper.PutCommonAsync<PayComponentDTO, PayComponentMaster>(updateApiUrl, payComponentDTO, apikey);
@@ -260,6 +298,10 @@ namespace Payroll.WebApp.Controllers
                     return Json(new { success = false, message = updateResponse.Message ?? "Failed to update the area." });
                 }
             }
+            catch (SessionExpiredException ex)
+            {
+                return StatusCode(401, new { success = false, message = "Session Expired." });
+            }
             catch (Exception ex)
             {
                 // Optionally log the exception details
@@ -270,24 +312,31 @@ namespace Payroll.WebApp.Controllers
 
         public async Task<IActionResult> DeletePayComponent([FromBody] PayComponentDTO model)
         {
-            await SetUserPermissions();
-            // Set UpdatedBy from session
-            var apikey = await _userServiceHelper.GenerateApiKeyAsync();
-            model.UpdatedBy = SessionUserId;
-            // Construct API URL
-            var deleteApiUrl = $"{_apiSettings.PayrollTransactionEndpoints.DeletePayComponentsUrl}/{model.EarningDeduction_Id}";
-
-            // Call the common delete method (sending the request body)
-            var deleteResponse = await _transactionServiceHelper.DeleteCommonAsync<PayComponentDTO, PayComponentMaster>(deleteApiUrl, model, apikey);
-
-            // Return appropriate response
-            if (deleteResponse != null && deleteResponse.IsSuccess)
+            try
             {
-                return Json(new { success = true, message = deleteResponse.Message });
+                await SetUserPermissions();
+                // Set UpdatedBy from session
+                var apikey = await _userServiceHelper.GenerateApiKeyAsync();
+                model.UpdatedBy = SessionUserId;
+                // Construct API URL
+                var deleteApiUrl = $"{_apiSettings.PayrollTransactionEndpoints.DeletePayComponentsUrl}/{model.EarningDeduction_Id}";
+
+                // Call the common delete method (sending the request body)
+                var deleteResponse = await _transactionServiceHelper.DeleteCommonAsync<PayComponentDTO, PayComponentMaster>(deleteApiUrl, model, apikey);
+
+                // Return appropriate response
+                if (deleteResponse != null && deleteResponse.IsSuccess)
+                {
+                    return Json(new { success = true, message = deleteResponse.Message });
+                }
+                else
+                {
+                    return Json(new { success = false, message = deleteResponse.Message ?? "Failed to delete the pay component." });
+                }
             }
-            else
+            catch (SessionExpiredException ex)
             {
-                return Json(new { success = false, message = deleteResponse.Message ?? "Failed to delete the pay component." });
+                return StatusCode(401, new { success = false, message = "Session Expired." });
             }
         }
         #endregion
@@ -463,9 +512,11 @@ namespace Payroll.WebApp.Controllers
             }
             try
             {
+                var Company_Id = SessionCompanyId;
                 var apikey = await _userServiceHelper.GenerateApiKeyAsync();
                 payGradeMasterDTO.UpdatedBy = SessionUserId;
                 payGradeMasterDTO.UpdatedDate = DateTime.Now;
+                payGradeMasterDTO.Cmp_Id = Company_Id;
                 // Assuming you are updating the area using a service or repository
                 var updateApiUrl = $"{_apiSettings.PayrollTransactionEndpoints.PutPayGradesUrl}/{payGradeMasterDTO.PayGrade_Id}";
                 var updateResponse = await _transactionServiceHelper.PutCommonAsync<PayGradeMasterDTO, PayGradeMaster>(updateApiUrl, payGradeMasterDTO, apikey);
@@ -520,6 +571,10 @@ namespace Payroll.WebApp.Controllers
                 ViewBag.SessionCompanyId = SessionCompanyId;
                 ViewBag.SessionRoleId = SessionRoleId;
                 return View(new List<PayGradeConfigDTO>());
+            }
+            catch (SessionExpiredException ex)
+            {
+                return StatusCode(401, new { success = false, message = "Session Expired." });
             }
             catch (Exception ex)
             {
@@ -577,6 +632,10 @@ namespace Payroll.WebApp.Controllers
                     count = payGradeConfigList.Count
                 });
             }
+            catch (SessionExpiredException ex)
+            {
+                return StatusCode(401, new { success = false, message = "Session Expired." });
+            }
             catch (Exception ex)
             {
                 return Json(new
@@ -603,6 +662,10 @@ namespace Payroll.WebApp.Controllers
                     return Json(new { success = false, message = response.Message });
                 }
                 return Json(new { success = true, data = response.Result });
+            }
+            catch (SessionExpiredException ex)
+            {
+                return StatusCode(401, new { success = false, message = "Session Expired." });
             }
             catch (Exception ex)
             {
@@ -680,6 +743,10 @@ namespace Payroll.WebApp.Controllers
                     return Json(new { success = false, message = updateResponse.Message ?? "Failed to update the area." });
                 }
             }
+            catch (SessionExpiredException ex)
+            {
+                return StatusCode(401, new { success = false, message = "Session Expired." });
+            }
             catch (Exception ex)
             {
                 // Optionally log the exception details
@@ -690,79 +757,32 @@ namespace Payroll.WebApp.Controllers
 
         public async Task<IActionResult> DeletePayGradeMapping([FromBody] PayGradeConfigDTO model)
         {
-            await SetUserPermissions();
-            var apikey = await _userServiceHelper.GenerateApiKeyAsync();
-            // Set UpdatedBy from session
-            model.UpdatedBy = SessionUserId;
-            // Construct API URL
-            var deleteApiUrl = $"{_apiSettings.PayrollTransactionEndpoints.DeletePayGreadConfigUrl}/{model.PayGradeConfig_Id}";
-            // Call the common delete method (sending the request body)
-            var deleteResponse = await _transactionServiceHelper.DeleteCommonAsync<PayGradeConfigDTO, PayGradeConfigMaster>(deleteApiUrl, model, apikey);
-
-            // Return appropriate response
-            if (deleteResponse != null && deleteResponse.IsSuccess)
-            {
-                return Json(new { success = true, message = deleteResponse.Message });
-            }
-            else
-            {
-                return Json(new { success = false, message = deleteResponse.Message ?? "Failed to delete the pay component." });
-            }
-        }
-        #endregion
-
-        #region Formula Details
-        #region TEST FORMULA DESIGN 
-        public async Task<IActionResult> ViewFormaHTML()
-        {
-            return View();
-        }
-        [HttpGet]
-        public async Task<IActionResult> GetPayComponentList()
-        {
-            var apikey = await _userServiceHelper.GenerateApiKeyAsync();
-            if (apikey != null)
-            {
-                var payrollgroup = await GetPayComponentList(apikey);
-
-                var filtered = payrollgroup.Select(x => new
-                {
-                    x.EarningDeduction_Id,
-                    x.EarningDeductionType,
-                    x.EarningDeductionName
-                });
-
-                //return Json(filtered);
-                return Json(new { success = true, data = filtered });
-            }
-            return Json(new { success = false, message = "Generate Key Failed " });
-
-        }
-        private async Task<List<PayComponentMaster>> GetPayComponentList(string apiKey)
-        {
-            //string apiUrl = $"{_apiSettings.PayrollTransactionEndpoints.GetAllPayComponentsUrl}?companyId={SessionCompanyId}";
-            string apiUrl = $"{_apiSettings.PayrollTransactionEndpoints.GetAllPayComponentsUrl}/{SessionCompanyId}";
-            var payComponent = new List<PayComponentMaster>();
-
             try
             {
-                var apiResponse = await _transactionServiceHelper.GetListWithKeyAsync<PayComponentMaster>(apiUrl, apiKey);
-                if (apiResponse != null && apiResponse.Any())
+                await SetUserPermissions();
+                var apikey = await _userServiceHelper.GenerateApiKeyAsync();
+                // Set UpdatedBy from session
+                model.UpdatedBy = SessionUserId;
+                // Construct API URL
+                var deleteApiUrl = $"{_apiSettings.PayrollTransactionEndpoints.DeletePayGreadConfigUrl}/{model.PayGradeConfig_Id}";
+                // Call the common delete method (sending the request body)
+                var deleteResponse = await _transactionServiceHelper.DeleteCommonAsync<PayGradeConfigDTO, PayGradeConfigMaster>(deleteApiUrl, model, apikey);
+
+                // Return appropriate response
+                if (deleteResponse != null && deleteResponse.IsSuccess)
                 {
-                    payComponent = apiResponse;
+                    return Json(new { success = true, message = deleteResponse.Message });
+                }
+                else
+                {
+                    return Json(new { success = false, message = deleteResponse.Message ?? "Failed to delete the pay component." });
                 }
             }
-            catch (Exception ex)
+            catch (SessionExpiredException ex)
             {
-                // Log error or handle accordingly
-                Console.WriteLine("Error fetching component: " + ex.Message);
+                return StatusCode(401, new { success = false, message = "Session Expired." });
             }
-
-            return payComponent;
         }
-
-        #endregion
-
         #endregion
     }
 }
