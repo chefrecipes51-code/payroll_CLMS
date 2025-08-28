@@ -1,0 +1,271 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.DepartmentMasterDTO>
+
+@{
+    ViewBag.Title = "Department Master List";
+}
+
+<div class="export-buttons">
+    <!-- Excel Export Button -->
+    <button id="exportExcel" class="btn btn-primary" title="Download Excel">
+        <img src="~/assets/img/icons/Microsoft_Excel_logo.svg" alt="Excel" width="20" height="20"> Export to Excel
+    </button>
+    <!-- PDF Export Button -->
+    <button id="exportPDF" class="btn btn-danger" title="Download PDF">
+        <img src="~/assets/img/icons/PDF_logo.svg" alt="PDF" width="20" height="20"> Export to PDF
+    </button>
+</div>
+
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-user-list-tab" data-bs-toggle="tab"
+                data-bs-target="#nav-user-list" type="button" role="tab" aria-controls="nav-user-list"
+                aria-selected="true">
+            Department List
+        </button>
+
+       @* Enable Tab when required:- Start *@
+       @*  
+           <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+            Role &
+            Permission
+        </button> 
+        *@
+        @* Enable Tab when required:- End *@
+
+        <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+            type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
+    </div>
+</nav>
+<div class="quick-filter-container">
+    @* Display Total,Active & Suspended Button when required:- Start *@
+    <div class="btn-group-left">
+        @* <button class="btn btn_primary">Total Users: <span>03</span> </button>
+        <button class="btn btn-success-light">Active Users: <span>04</span> </button>
+        <button class="btn btn-danger-light">Suspended Users: <span>00</span> </button> *@
+    </div>
+    @* Display Total,Active & Suspended Button when required:- End *@
+
+    <button class="btn btn_primary"><span class="sprite-icons add-light"></span> Add Department</button>
+</div>
+
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+         aria-labelledby="nav-user-list-tab">
+        <div class="table-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive table-user-list">
+                        <table id="user-list" class="table custom-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="sticky_cell">Department Code</th>
+                                    <th>External Unique ID</th>
+                                    <th>Department Name</th>
+                                    <th>External Data</th>
+                                    <th>Is Imported</th>
+                                    <th>Export Log ID</th>
+                                    <th class="sticky_cell">Actions</th>
+                                  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    int rowIndex = 1;
+                                    foreach (var department in Model)
+                                    {
+                                        <tr>
+                                            <td>@rowIndex</td>
+                                            <td class="sticky_cell">@department.DepartmentCode</td>
+                                            <td>@department.ExternalUnique_Id</td>
+                                            <td>@department.DepartmentName</td>
+                                            <td>
+                                                @if (department.ExternalData)
+                                                {
+                                                    <span class="badge bg-success">Yes</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">No</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (department.Isimporterd)
+                                                {
+                                                    <span class="badge bg-success">Yes</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">No</span>
+                                                }
+                                            </td>
+                                            <td>@department.ExportLogId</td>
+                                            <td class="sticky_cell">
+                                                <div class="table-button-group">
+                                                    <button class="btn btn-primary-light-icon-md"
+                                                            onclick="window.location.href='user-profile.html'">
+                                                        <span class="sprite-icons eye-primary-dark"></span>
+                                                    </button>
+                                                    <button class="btn btn-danger-light-icon"
+                                                            data-bs-toggle="modal" data-bs-target="#deleteUser">
+                                                        <span class="sprite-icons delete-danger"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger-light-icon"
+                                                            data-bs-toggle="modal" data-bs-target="#suspendUser">
+                                                        <span class="sprite-icons user-suspend"></span>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            @* <td>
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-primary btn-sm" onclick="editDepartment(@department.Department_Id)">
+                                                        <i class="bi bi-pencil"></i> Edit
+                                                    </button>
+                                                    <button class="btn btn-danger btn-sm" onclick="deleteDepartment(@department.Department_Id)">
+                                                        <i class="bi bi-trash"></i> Delete
+                                                    </button>
+                                                </div>
+                                            </td> *@
+                                        </tr>
+                                        rowIndex++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="8" class="text-center">No departments found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas1" aria-labelledby="offcanvas1Label">
+    <div class="offcanvas-header">
+        <h5 id="offcanvas1Label">Offcanvas 1</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        Content for the first offcanvas goes here.
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas2" aria-labelledby="offcanvas2Label">
+    <div class="offcanvas-header">
+        <h5 id="offcanvas2Label">Offcanvas 2</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        Content for the second offcanvas goes here.
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas3" aria-labelledby="offcanvas3Label">
+    <div class="offcanvas-header">
+        <h5 id="offcanvas3Label">Offcanvas 3</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        Content for the third offcanvas goes here.
+    </div>
+</div>
+
+<!-- </div> -->
+
+
+<!-- modals start -->
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="suspendUser" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="suspendUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Want to suspend this user?</p>
+                <p class="sm-text-gray-neutral mb-3">
+                    This action will suspend the user's account. They will not be
+                    able
+                    to log in or access any system resources.
+                </p>
+                <label for="suspendUser" class="form-label">Remarks <sup>*</sup></label>
+                <textarea class="textarea" id="suspendUser" rows="3" maxlength="120"
+                          placeholder="Enter Text here"></textarea>
+                <div class="counter sm-text-gray-neutral text-end">0 / 120</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                <!-- <button type="button" class="btn btn_primary">Understood</button> -->
+                <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteUser" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Want to delete this user?</p>
+                <p class="sm-text-gray-neutral mb-3">
+                    This action will suspend the user's account. They will not be
+                    able
+                    to log in or access any system resources.
+                </p>
+                <label for="deleteRemarks" class="form-label">Remarks <sup>*</sup></label>
+                <textarea class="textarea" id="deleteRemarks" rows="3" maxlength="120"
+                          placeholder="Enter Text here"></textarea>
+                <div class="counter sm-text-gray-neutral text-end">0 / 120</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                <!-- <button type="button" class="btn btn_primary">Understood</button> -->
+                <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-custom modal-primary-confirmation" id="nonsuspendUser" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="nonsuspendUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Want to suspend this user?</p>
+                <p class="sm-text-gray-neutral">
+                    This action will suspend the user's account. They will not be able
+                    to log in or access any system resources.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn_primary loader-dot-pulse">Yes</button>
+                <!-- <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@*  Added By Harshida Parmar (18-12-'24) *@
+@*  Download PDF and Excel From Grid:- Start *@
+<script src="~/devassets/xlsx.full.min.js"></script>
+<script src="~/devassets/jspdf.umd.min.js"></script>
+<script src="~/devassets/jspdf.plugin.autotable.min.js"></script>
+<script src="~/devassets/export.js"></script>
+@*  Download PDF and Excel From Grid:- End *@
+
+
+<script>
+    sessionStorage.setItem("fileName", "departmentdata-list");
+
+    document.getElementById('exportExcel').addEventListener('click', function () {
+        exportTableToExcel('department-list', 'fileName');
+    });
+
+    document.getElementById('exportPDF').addEventListener('click', function () {
+        exportTableToPDF('department-list', 'fileName');
+    });
+</script>

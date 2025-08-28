@@ -1,0 +1,147 @@
+﻿<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<!-- date picker plugin -->
+<link rel="stylesheet" href="~/assets/src/css/bootstrap-datepicker.min.css" />
+<style>
+    .disabled-input {
+        background-color: #e9ecef !important;
+        color: #6c757d !important;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+</style>
+@* <div class="button-group">
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+</div> *@
+<div class="tab-pane fade show" id="v-pills-financial" role="tabpanel"
+     aria-labelledby="v-pills-financial-tab" tabindex="0">
+
+    <div class="vertical-tabs-content-fixed-layout form-body">
+        <div class="row mb-4">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="sdate" class="form-label">
+                                Financial Year Start Date
+                                <sup>*</sup>
+                            </label>
+                            <div class="date-picker-container">
+                                <input type="text" class="form-control datepicker disabled-input"
+                                       placeholder="enter date" id="sdate" name="sdate">
+                                <button class="btn btn-datepicker">
+                                    <span class="sprite-icons2 date-picker"></span>
+                                </button>
+                            </div>
+                            <span id="sdate-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="edate" class="form-label">
+                                Financial Year End Date
+                                <sup>*</sup>
+                            </label>
+                            <div class="date-picker-container">
+                                <input type="text" class="form-control datepicker disabled-input"
+                                       placeholder="enter date" id="edate" name="edate">
+                                <button class="btn btn-datepicker">
+                                    <span class="sprite-icons2 date-picker"></span>
+                                </button>
+                            </div>
+                            <span id="edate-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div lass="row mb-4">
+            <div class="col-lg-6">
+                <div class="row">                    
+                    <div class="col-lg-12" >
+                        <div class="form-group">
+                            <label for="CompanyCurrency_ID" class="form-label">
+                                Company Currency<sup>*</sup>
+                            </label>
+                            <div class="select2_search_container_ctm">
+                                <select id="CompanyCurrency_ID" class="form-control select2_search_ctm">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-footer">
+       @*   <button class="btn btn_primary_outline_md">
+        <span class="sprite-icons prev-primary"></span>Previous
+        </button> *@
+        <button class="btn btn_primary btn-add-hide" id="saveCompanyConfigurationButton" type="button">
+            <input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+            Save@* <span class="sprite-icons next-light"></span> *@
+        </button>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+            $('#sdate').datepicker({
+                format: 'yyyy-mm-dd', // Ensure correct format
+                startDate: new Date(), // Disable past dates
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function (e) {
+                $(this).val(e.format('yyyy-mm-dd')); // Set format correctly
+                $("#sdate-error").text("").hide(); // Hide error on valid selection
+
+                // Set min date for end date picker based on selected start date
+                $('#edate').datepicker('setStartDate', $(this).val());
+                $('#edate').val(""); // Clear end date when start date is changed
+                 $("#edate-error").text("Please select an end date.").show();
+            });
+
+            // Initialize end date picker
+            $('#edate').datepicker({
+                format: 'yyyy-mm-dd',
+                startDate: new Date(), // Disable past dates initially
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function (e) {
+                $(this).val(e.format('yyyy-mm-dd'));
+                $("#edate-error").text("").hide();
+            });
+
+            // Prevent manual entry of past dates for end date
+            $("#edate").on("change", function () {
+                let selectedDate = new Date($(this).val());
+                let minStartDate = new Date($('#sdate').val());
+
+                if (selectedDate < minStartDate) {
+                    $(this).val(""); // Clear input if invalid
+                    $("#edate-error").text("End date cannot be before the start date.").show();
+                } else {
+                    $("#edate-error").text("").hide();
+                }
+            });
+
+            // Open datepicker on button click
+            $(".btn-datepicker").on("click", function () {
+                //$("#sdate").datepicker("show");
+            $(this).prev("input").datepicker("show"); // Show respective datepicker
+            });
+    });
+
+</script>

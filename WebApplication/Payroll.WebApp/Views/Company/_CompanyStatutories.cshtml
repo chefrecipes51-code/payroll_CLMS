@@ -1,0 +1,61 @@
+﻿@model List<PayrollMasterService.BAL.Models.CompanyStatutory>
+
+@* <table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Statutory Type</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var statutory in Model)
+        {
+            <tr>
+                <td>@statutory.StatutoryType_Name</td>
+                <td>@(statutory.IsActive ? "Active" : "Inactive")</td>
+            </tr>
+        }
+    </tbody>
+</table> *@
+<table id="company-statutory-list" class="table custom-table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Statutory Type</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            int rowIndex = 1;
+            foreach (var statutory in Model)
+            {
+                <tr id="row-@statutory.Statutory_Type_Id">
+                    <td>@rowIndex</td>
+                    <td>@statutory.StatutoryType_Name</td>
+                    <td>@(statutory.IsActive ? "Active" : "Inactive")</td>
+                    <td>
+                        <div class="table-button-group">
+                            <button class="btn btn-primary-light-icon-md" title="View Details">
+                                <span class="sprite-icons eye-primary-dark"></span>
+                            </button>
+                            <button class="btn btn-danger-light-icon" data-bs-toggle="modal" data-bs-target="#deleteStatutory"
+                                    title="Delete Statutory">
+                                <span class="sprite-icons delete-danger"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                rowIndex++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">No statutory details found.</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,17 @@
+.pay-component-card-wrapper {
+    padding: 8px 24px;
+    height: calc(100vh - 130px);
+    overflow-y: auto;
+
+    .pay-component-card {
+        padding: 16px;
+        border: 1px solid var(--lavender-mist);
+        border-radius: 8px;
+
+        .btn_primary_outline {
+            &.btn_md_sqr {
+                margin-top: -5px;
+            }
+        }
+    }
+}

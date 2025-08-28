@@ -1,0 +1,228 @@
+﻿@model List<PayrollMasterService.BAL.Models.CompanyCorrespondance>
+@* <button class="btn btn_primary add-button" data-bs-toggle="offcanvas" id="addCompanyCorrespondanceButton" 
+    data-bs-target="#editCorrespondanceOffcanvas" aria-controls="addCompanyCorrespondance">
+    <span class="sprite-icons add-light"></span> Add Correspondance
+</button> *@
+<style>
+    #btn1, #btn2, #btn3, #btn4 {
+        display: none !important;
+    }
+</style>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4></h4>
+   @*  <button class="btn btn_primary add-button btn-add-hide" data-bs-toggle="offcanvas" id="addCompanyCorrespondanceButton"
+            data-bs-target="#editCorrespondanceOffcanvas" aria-controls="addCompanyCorrespondance">
+        <span class="sprite-icons add-light"></span> Add Correspondence
+    </button> *@
+</div>
+
+@* <div class="alert-custom" style="display:none;">   
+</div>
+ *@
+<div class="vertical-tabs-content-fixed-layout form-body">
+<table id="company-correspondances-list" class="table custom-table">
+    <thead>
+        <tr>
+                <th class="sticky_cell">Location Name</th>
+                <th>Building No</th>
+                <th>Building Name</th>
+                <th>Company Address</th>
+            <th>Street</th>           
+            <th>Primary Email</th>
+            <th>Secondary Email</th>
+            <th>Website</th>
+            <th>Status</th>
+            <th class="sticky_cell">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            int rowIndex = 1;
+            foreach (var item in Model)
+            {
+                <tr id="row-@item.Correspondance_ID">
+                    <td class="sticky_cell">@item.LocationName</td>
+                    <td >@item.Building_No</td>
+                    <td>@item.Building_Name</td>
+                    <td >@item.CompanyAddress</td>
+                    <td>@item.Street</td>                    
+                    <td>@item.Primary_Email_Id</td>
+                    <td>@item.Secondary_Email_ID</td>
+                    <td>
+                        <a href="@item.WebsiteUrl" target="_blank">@item.WebsiteUrl</a>
+                    </td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" disabled type="checkbox" id="status-@item.Correspondance_ID" @(item.IsActive ? "checked" : "")>
+                            <label class="form-check-label" for="status-@item.Correspondance_ID">
+                                @(item.IsActive ? "Active" : "Inactive")
+                            </label>
+                        </div>
+                    </td>
+                    <td class="sticky_cell">
+                        <div class="table-button-group">
+                           @*  <button class="btn btn-primary-light-icon-md">
+                                <span class="sprite-icons eye-primary-dark"></span>
+                            </button> *@
+                            <button class="btn btn-primary-light-icon-md btn-edit-hide" onclick="editCorrespondance(@item.Correspondance_ID)">
+                                @* <span class="sprite-icons eye-primary-dark"></span> *@
+                                <span class="sprite-icons edit-primary"></span>
+                            </button>
+                         @*    <button class="btn btn-danger-light-icon" data-bs-target="#deleteCompanyCorrespondanceModal"
+                                    data-bs-toggle="modal" onclick="confirmCompanyCorrespondanceDelete(@item.Correspondance_ID)"> *@
+                           @*  <button class="btn btn-danger-light-icon btn-delete-hide" data-bs-target="#deleteCompanyCorrespondanceModal"
+                                    data-bs-toggle="modal" data-companycorrespondanceid="@item.Correspondance_ID">
+                                 
+                                <span class="sprite-icons delete-danger"></span>
+                            </button> *@
+                        </div>
+                    </td>
+                </tr>
+                rowIndex++;
+            }
+        }
+        else
+        {
+           
+        }
+    </tbody>
+</table>
+</div>
+
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+<script src="~/assets/src/js/jquery.min.js"></script>
+<script src="~/application/js/companymaster/companycorrespondances.js"></script>
+                                            
+<!-- Offcanvas for Edit Correspondence -->
+<div class="offcanvas offcanvas-end offcanvas-primary" tabindex="-1" id="editCorrespondanceOffcanvas" aria-labelledby="editCorrespondanceOffcanvasLabel">
+    <div class="offcanvas-header">
+        <p class="title-primary-md-600" id="editCorrespondanceOffcanvasLabel"></p>
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <span class="sprite-icons close-icon"></span>
+        </button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="offcanvas-fixed-form">
+            <!-- Form fields will be loaded here via AJAX -->
+            <form id="editCorrespondanceForm">
+                @*  <input type="hidden" name="Correspondance_ID" id="Correspondance_ID" />
+                <input type="hidden" name="Company_Id" id="Company_Id" /> *@
+                <input type="hidden" class="form-control" name="Correspondance_ID" id="Correspondance_ID" />
+                <input type="hidden" class="form-control" name="Company_Id" id="Company_Id" />
+                <input type="hidden" class="form-control" name="CreatedBy" id="CreatedBy" />
+                <div class="form-group">
+                    <label class="form-label">Company Address<sup>*</sup></label>
+                    <input class="form-control" type="text" name="CompanyAddress" id="CompanyAddress" placeholder="Enter Company Address" maxlength="400" />
+                    <span id="CompanyAddress-error" class="input_error_msg"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Building No</label>
+                    <input type="text" name="Building_No" id="Building_No" class="form-control" placeholder="Enter Building No" maxlength="20" />
+                    <span id="Building-No-error" class="input_error_msg"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Building Name</label>
+                    <input type="text" name="Building_Name" id="Building_Name" class="form-control" placeholder="Enter Building Name" maxlength="100" />
+                    <span id="Building-Name-error" class="input_error_msg"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Street</label>
+                    <input type="text" name="Street" id="Street" class="form-control" placeholder="Enter Street Name" maxlength="100" />
+                    <span id="Street-error" class="input_error_msg"></span>
+                </div>
+                <!-- Country -->
+                <div class="form-group mb-3">
+                    <label for="companyCorrespondanceCountryDropdown" class="form-label">Country<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="companyCorrespondanceCountryDropdown" name="companyCorrespondanceCountryDropdown" required></select>
+                    <span id="companyCorrespondancecountryDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <!-- State -->
+                <div class="form-group mb-3">
+                    <label for="companyCorrespondanceStateDropdown" class="form-label">State<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="companyCorrespondanceStateDropdown" name="companyCorrespondanceStateDropdown" required></select>
+                    <span id="companyCorrespondancestateDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <!-- City -->
+                <div class="form-group mb-3">
+                    <label for="companyCorrespondanceCityDropdown" class="form-label">City<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="companyCorrespondanceCityDropdown" name="companyCorrespondanceCityDropdown" required></select>
+                    <span id="companyCorrespondancecityDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <!-- Location Name -->
+                <div class="form-group mb-3">
+                    <label for="companyCorrespondanceLocationDropdown" class="form-label">Location<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="companyCorrespondanceLocationDropdown" name="companyCorrespondanceLocationDropdown" required></select>
+                    <span id="companyCorrespondanceLocationDropdown-error" class="input_error_msg"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Primary Phone No<sup>*</sup></label>
+                    <input type="tel" name="Primary_Phone_No" id="Primary_Phone_No" class="form-control" maxlength="10"  placeholder="Enter Primary Phone No" />
+                    <span id="Primary-Phone-No-error" class="input_error_msg"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Secondary Phone No</label>
+                    <input type="tel" name="Secondary_Phone_No" id="Secondary_Phone_No" class="form-control" maxlength="10" placeholder="Enter Secondary Phone No" />
+                    <span id="Secondary-Phone-No-error" class="input_error_msg"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Primary Email Id<sup>*</sup></label>
+                    <input type="text" name="Primary_Email_Id" id="Primary_Email_Id" class="form-control" placeholder="Enter Primary Email" maxlength="100" />
+                    <span id="Primary-Email-Id-error" class="input_error_msg"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Secondary Email Id</label>
+                    <input type="text" name="Secondary_Email_ID" id="Secondary_Email_ID" class="form-control" placeholder="Enter Secondary Email" maxlength="100" />
+                    <span id="Secondary-Email-ID-error" class="input_error_msg"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Website Url</label>
+                    <input type="text" name="Website_url" id="Website_url" class="form-control" placeholder="Enter Website" maxlength="100" />
+                    <span id="Website-url-error" class="input_error_msg"></span>
+                </div>
+                <!-- Active Toggle -->
+                <div id="toggleContainer" class="form-group mb-3">
+                    <label class="form-label" for="companyCorrespondanceActiveToggle">Status</label>
+                    <div class="form-check form-switch d-flex align-items-center">
+                        <input type="checkbox" id="companyCorrespondanceActiveToggle" class="form-check-input" role="switch">
+                        <label class="form-check-label" for="companyCorrespondanceActiveToggle" id="companyCorrespondanceStatusLabel" class="ml-2">Inactive</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="offcanvas-footer">
+        <div class="btn_group">
+            <button class="btn btn-transparent-danger" id="btnResetCompanyCorrespondance">Reset All</button>
+            <div class="btn-action-variants">
+                <button class="btn btn_primary_outline_md" data-bs-dismiss="offcanvas" aria-label="Close">Cancel</button>
+@*                 <button class="btn btn_primary loader-dot-pulse"  onclick="saveCorrespondance()">Save</button>
+ *@               
+         <button class="btn btn_primary loader-dot-pulse" id="saveCompanyCorrespondanceButton">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteCompanyCorrespondanceModal" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteCompanyCorrespondanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="title-primary">Are you sure want to delete Company Correspondance?</p>
+            </div>
+            <div class="modal-footer">
+                <div class="form-action d-flex align-items-center justify-content-center w-100">
+                    <button type="button" class="btn btn_danger_outline me-2 w-25" id="confirmCompanyCorrespondanceDelete">Yes</button>
+                    <button type="button" class="btn btn_primary w-25" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

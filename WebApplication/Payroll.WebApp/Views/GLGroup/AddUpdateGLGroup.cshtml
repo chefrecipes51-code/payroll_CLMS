@@ -1,0 +1,89 @@
+﻿<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<div class="breadcrumb-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <p class="breadcrumb-text"><span class="sprite-icons home-primary"></span></p>
+            </li>
+            <li class="breadcrumb-item primary">
+                <p class="breadcrumb-text">Account</p>
+            </li>
+            <li class="breadcrumb-item active">
+                <p class="breadcrumb-text">GL Group Master</p>
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<div class="app-layout">
+    <div class="alert-custom" style="display:none;"></div>
+
+    <div class="title-container">
+        <div class="current-back">
+            <button class="btn btn-back-icon" onclick="window.location.href='/GLGroup/Index'">
+                <span class="sprite-icons back-violet"></span>
+            </button>
+            <p class="title-primary">GL Group Master</p>
+        </div>
+        <div class="button-group">
+            <button class="btn btn-transparent-danger" id="btnResetGLGroup">Reset All</button>
+            <button class="btn btn_primary_outline_md" onclick="window.location.href='/GLGroup/Index'">Cancel</button>
+        </div>
+    </div>
+
+    <div class="vertical-tab-content">
+        <div class="vertical-tabs-content-fixed-layout form-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="form-label">GL Group Name <sup>*</sup></label>
+                        <input type="hidden" id="GL_Group_Id" />
+                        <input type="text" class="form-control" id="Group_Name" placeholder="Enter GL Group Name" />
+                        <span id="Group_Name-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="form-label">Parent GL Group</label>
+                        <select id="Parent_Gl_Group_Id" class="form-control select2_search_ctm">
+                            <option value="">Select Parent GL Group</option>
+                        </select>
+                        <span id="Parent_Gl_Group_Id-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="form-label">Level</label>
+                        <input type="number" class="form-control" id="Level" placeholder="Enter Level" min="1" value="1" />
+                        <span id="Level-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="form-group" id="toggleContainer" style="display: none;">
+                        <label class="form-label" for="glGroupActiveToggle">Status</label>
+                        <div class="form-check form-switch d-flex align-items-center">
+                            <input type="checkbox" id="glGroupActiveToggle" class="form-check-input" role="switch" />
+                            <label class="form-check-label ml-2" for="glGroupActiveToggle" id="glGroupStatusLabel"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <button class="btn btn_primary" id="btnGLGroup"></button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/application/js/common/commonvalidation.js"></script>
+    <script src="~/application/js/glgroup/glgroupoperation.js"></script>
+}

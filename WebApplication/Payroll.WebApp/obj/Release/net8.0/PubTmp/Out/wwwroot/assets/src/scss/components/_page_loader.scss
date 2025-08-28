@@ -1,0 +1,49 @@
+#progress {
+    position: fixed;
+    z-index: 1;
+    top: 51px;
+    left: 64px;
+    width: 1%;
+    height: 3px;
+    background-color: var(--primary);
+
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+
+    -moz-transition: width 600ms ease-out, opacity 500ms linear;
+    -ms-transition: width 600ms ease-out, opacity 500ms linear;
+    -o-transition: width 600ms ease-out, opacity 500ms linear;
+    -webkit-transition: width 600ms ease-out, opacity 500ms linear;
+    transition: width 1000ms ease-out, opacity 500ms linear;
+
+    // b,
+    // i {
+    //     position: absolute;
+    //     top: 0;
+    //     height: 4px;
+
+    //     -moz-box-shadow: #777777 1px 0 6px 1px;
+    //     -ms-box-shadow: #777777 1px 0 6px 1px;
+    //     -webkit-box-shadow: #777777 1px 0 6px 1px;
+    //     box-shadow: #777777 1px 0 6px 1px;
+
+    //     -moz-border-radius: 100%;
+    //     -webkit-border-radius: 100%;
+    //     border-radius: 100%;
+    // }
+
+    // b {
+    //     clip: rect(-6px, 22px, 14px, 10px);
+    //     opacity: .6;
+    //     width: 20px;
+    //     right: 0;
+    // }
+
+    // i {
+    //     clip: rect(-6px, 90px, 14px, -6px);
+    //     opacity: .6;
+    //     width: 180px;
+    //     right: -80px;
+    // }
+}

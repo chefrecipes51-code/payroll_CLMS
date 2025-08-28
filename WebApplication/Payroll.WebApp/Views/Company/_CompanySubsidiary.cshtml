@@ -1,0 +1,122 @@
+﻿@model IEnumerable< PayrollMasterService.BAL.Models.SubsidiaryMaster>
+
+
+@* 
+MOST IMP NOTE ADDED BELOW:-
+
+Below DIV is commented 06-05-25 By Harshida Intructed By Purojit SIR
+WE WILL NOT ADD ANY COMPANY SUBSIDIARY 
+
+
+
+<div class="d-flex justify-content-end">
+	<button class="btn btn_primary add-button" data-bs-toggle="offcanvas" id="addSubsidiaryButton"
+			aria-controls="addSubsidiary">
+		<span class="sprite-icons add-light"></span> Add Subsidiary
+	</button>
+</div> 
+*@ 
+
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+@* 
+<div class="alert-custom" style="display:none;">
+</div> *@
+
+
+<div class="vertical-tabs-content-fixed-layout form-body">
+	<table id="subsidiarymaster-list" class="table custom-table">
+		<thead>
+			<tr>
+				<th hidden>#</th>
+				<th class="sticky_cell">Code </th>
+				<th>Parent Company</th>
+				<th>Name</th>
+				<th>Location</th>
+				<th>Status</th>
+				<th class="sticky_cell">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@if (Model != null && Model.Any())
+			{
+				int rowIndex = 1;
+				foreach (var items in Model)
+				{
+					@* <tr itemid="@items.Subsidiary_Id"> *@
+					<tr id="row-@items.Subsidiary_Id" itemid="@items.Subsidiary_Id">
+						<td hidden id="rowrd" itemid="@items.Subsidiary_Id">@rowIndex</td>
+						<td class="sticky_cell">@items.Subsidiary_Code</td>					
+						<td>@items.CompanyName</td>
+						<td>@items.Subsidiary_Name</td>
+						<td>@items.LocationName</td>
+						<td>
+							<div class="form-check form-switch">
+								<input class="form-check-input" disabled type="checkbox" id="status-@items.Subsidiary_Id" @(items.IsActive ? "checked" : "")>
+								<label class="form-check-label" for="status-@items.Subsidiary_Id">
+									@(items.IsActive ? "Active" : "Inactive")
+								</label>
+							</div>
+						</td>
+
+
+						<td class="sticky_cell">
+							<div class="table-button-group">
+								<button id="getDataButton" type="button"
+										value="@items.Subsidiary_Id" itemid="@items.Subsidiary_Id"
+										class="btn btn-primary-light-icon-md btn-edit-hide">
+									@* <span class="sprite-icons eye-primary-dark"></span> *@
+									<span class="sprite-icons edit-primary"></span>
+								</button>
+
+								@* <button id="subsidiaryMasterDelete" class="btn btn-danger-light-icon btn-delete-hide"
+										data-subsidiaryid="@items.Subsidiary_Id"
+										data-bs-toggle="modal"
+										data-bs-target="#deleteSubsidiary">
+									<span class="sprite-icons delete-danger"></span>
+								</button> *@
+							</div>
+						</td>
+
+					</tr>
+					rowIndex++;
+				}
+			}
+			else
+			{
+				@* <tr>
+			<td colspan="8" class="text-center">No subsidiary found.</td>
+			</tr> *@
+			}
+
+		</tbody>
+	</table>
+</div>
+
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteSubsidiary" data-bs-backdrop="static"
+	 data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteSubsidiaryLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<p class="md-text-500">Want to delete this Subsidiary?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+
+				<button type="button" class="btn btn_danger loader-dot-pulse" id="confirmSubsidiaryDelete">Yes</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+<script src="~/assets/src/js/jquery.min.js"></script>
+<script src="~/application/js/SubsidiaryMaster/SubsidiaryList.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$("#addSubsidiaryButton").click(function () {		
+			window.location.href = "/SubsidiaryMaster/AddSubsidiaryMaster";
+		});
+	});
+</script>

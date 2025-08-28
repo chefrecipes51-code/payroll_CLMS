@@ -1,0 +1,78 @@
+﻿@model Payroll.WebApp.Models.DTOs.EntityFilterResponseDTO
+@* <link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<div class="main-page-filter">
+    <div class="offcanvas-header">
+        <p class="title-primary-md-600">Filters</p>
+    </div>
+    <div class="offcanvas-body">
+        <div class="filter-body-fixed"> *@
+            <form id="mapEntityGradeForm">
+                <div class="row">
+                    <input type="hidden" id="hdnSessionFinancialYear" value="@ViewBag.SessionCompanyId" />
+                    <input type="hidden" id="hdnSessionFinancialYearValue" value="@ViewBag.SessionFinancialYear" />
+
+                    <div class="form-group">
+                        <label for="financialYearDropdown" class="form-label">Financial Year<sup>*</sup></label>
+                        <div class="financialYear-selection">
+                            <select id="financialYearDropdown" name="financialYearDropdown" data-placeholder="Select a financial year" class="form-control select2_search_ctm" required>
+                            </select>
+                            <span id="financialYearDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contractorDropdown" class="form-label">Contractor<sup>*</sup></label>
+                        <div class="contractor-selection">
+                            <!-- Contractor -->
+                            <select id="contractorDropdown" name="contractorDropdown" data-placeholder="Select a contractor" class="form-control select2_search_ctm" required>
+                            </select>
+                            <span id="contractorDropdown-error" class="input_error_msg"></span>
+                        </div>
+                        @* <ul class="dropdown-menu" id="contractorDropdown"></ul> *@
+                    </div>
+                    <div class="form-group">
+                        <label for="entityNameDropdown" class="form-label">Entity Name</label>
+                        <div class="entityName-selection">
+                            <!-- Entity Name -->
+                            <select id="entityNameDropdown" name="entityNameDropdown" data-placeholder="Select an entity name" class="form-control select2_search_ctm" required>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="entityCodeDropdown" class="form-label">Entity Code</label>
+                        <div class="entityCodeDropdown-selection">
+                            <!-- Entity Code -->
+                            <select id="entityCodeDropdown" name="entityCodeDropdown" data-placeholder="Select an entity code" class="form-control select2_search_ctm" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="taxregimeDropdown" class="form-label">
+                            Current Year Tax
+                            Regime<sup>*</sup>
+                        </label>
+                        <div class="taxregimeDropdown-selection">
+                            <!-- Entity Code -->
+                            <select id="taxregimeDropdown" name="taxregimeDropdown" data-placeholder="Select a tax regime" class="form-control select2_search_ctm" required>
+                            </select>
+                            <span id="taxregimeDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        @* </div>
+    </div>
+</div>
+
+<div class="btn_group py-2 px-3 text-end">
+    <button type="button" class="btn btn-transparent-danger" id="resetFilterBtn">Reset</button>
+    <button type="button" id="applyFilterBtn" class="btn btn_primary loader-dot-pulse">Apply Filter</button>
+</div>
+<script>
+
+</script>
+
+
+ *@

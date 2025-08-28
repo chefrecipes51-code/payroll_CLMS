@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PayrollTransactionService.BAL.ReportModel.ProfessionalTaxSlabViewModel>
+
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Frequency</td>
+            <td>@item.Min_Income</td>
+            <td>@item.Max_Income</td>
+            <td>@item.PTaxAmt</td>
+            <td>@((item.Is_YearEnd_Adjustment ?? false) ? "Yes" : "No")</td>
+            <td>@item.Effective_From.ToString("dd-MMM-yyyy")</td>
+            <td>@item.Effective_To?.ToString("dd-MMM-yyyy")</td>
+            <td class="sticky_cell">
+                <div class="table-button-group">
+                    <button type="button" class="redirectFromPTaxSlabList btn btn-primary-light-icon-md btn-edit-hide" id="btnEdit"
+                            data-ptaxslabid="@item.Ptax_Slab_Id">
+                        <span class="sprite-icons edit-primary"></span>
+                    </button>
+                    <button class="pTaxSlabDelete btn btn-danger-light-icon btn-delete-hide"
+                            data-ptaxslabid="@item.Ptax_Slab_Id"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deletePTaxSlab">
+                        <span class="sprite-icons delete-danger"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    }
+}
+<div class="modal fade modal-custom modal-primary-confirmation" id="deletePTaxSlab"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deletePTaxSlabLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this P Tax Slab?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmPTaxSlabDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

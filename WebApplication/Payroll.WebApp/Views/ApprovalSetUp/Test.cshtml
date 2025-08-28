@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approval Matrix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+
+    <div class="container">
+        <!-- Main Row: Level Selection -->
+        <div class="row mb-3 align-items-center">
+            <div class="col-md-3">
+                <label class="form-label">Level</label>
+                <select class="form-select">
+                    <option value="1">Level 1</option>
+                    <option value="2">Level 2</option>
+                    <option value="3">Level 3</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Approval Type</label>
+                <select class="form-select">
+                    <option value="sequence">Sequential</option>
+                    <option value="parallel">Parallel</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary mt-4" onclick="addLevel()">Add Level</button>
+                <button class="btn btn-danger mt-4" onclick="removeLevel()">Remove Level</button>
+            </div>
+        </div>
+
+        <!-- Child Row: Approver Selection -->
+        <div class="approver-section">
+            <div class="row mb-2 align-items-center approver-row">
+                <div class="col-md-3">
+                    <label class="form-label">Sequence</label>
+                    <input type="text" class="form-control" placeholder="Enter Sequence">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Approver Name</label>
+                    <select class="form-select">
+                        <option value="John">John Doe</option>
+                        <option value="Jane">Jane Smith</option>
+                        <option value="Michael">Michael Johnson</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-success mt-4" onclick="addApprover(this)">Add Approver</button>
+                    <button class="btn btn-warning mt-4" onclick="removeApprover(this)">Remove Approver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function addLevel() {
+            alert("Add Level clicked! Implement logic here.");
+        }
+
+        function removeLevel() {
+            alert("Remove Level clicked! Implement logic here.");
+        }
+
+        function addApprover(button) {
+            let approverRow = button.closest(".approver-row");
+            let newApproverRow = approverRow.cloneNode(true);
+            document.querySelector(".approver-section").appendChild(newApproverRow);
+        }
+
+        function removeApprover(button) {
+            let approverRow = button.closest(".approver-row");
+            if (document.querySelectorAll(".approver-row").length > 1) {
+                approverRow.remove();
+            } else {
+                alert("At least one approver is required.");
+            }
+        }
+    </script>
+
+</body>
+</html>

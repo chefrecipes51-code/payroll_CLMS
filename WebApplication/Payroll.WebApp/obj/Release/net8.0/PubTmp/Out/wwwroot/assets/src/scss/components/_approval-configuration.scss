@@ -1,0 +1,62 @@
+.approval-configuration {
+
+    .approval-configuration-left {
+        height: calc(100vh - 160px);
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 4px;
+
+        .form-check {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 0;
+
+            .form-check-label{
+                color: var(--blue-deep-ink);
+            }
+        }
+
+
+        .option-separator-container {
+            position: relative;
+            padding-bottom: 16px;
+
+            .option-separator {
+                content: '';
+                position: absolute;
+                background-color: var(--blue-soft);
+                height: 43px;
+                width: 1px;
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                right: 0;
+                transform: translate(-50%, -50%);            
+            }
+
+            .or-text {
+                position: absolute;
+                background-color: var(--white);
+                left: 50%;
+                // height: 32px;
+                // width: 2px;
+                transform: translate(-50%, -50%);
+                padding-right: 4px;
+                padding-left: 4px;
+            }
+        }
+    }
+
+    .approval-configuration-right {
+        height: calc(100vh - 200px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-right: 4px;
+
+        .accordion-body{
+            max-height: calc(100vh - 553px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    }
+}

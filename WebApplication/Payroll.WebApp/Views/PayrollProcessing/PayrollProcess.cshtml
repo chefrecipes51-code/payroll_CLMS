@@ -1,0 +1,293 @@
+﻿<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<div class="alert-custom" style="display:none;">
+</div>
+<div class="payroll-tabs-content-container" id="filterDiv">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" onclick="window.location.href='#'">Payroll Process</button>
+            <!-- <button class="nav-link" onclick="window.location.href='#'">Tab 2</button>
+            <button class="nav-link" onclick="window.location.href='#'">Tab 3</button>
+            <button class="nav-link" onclick="window.location.href='#'">Tab 4</button> -->
+            <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
+        </div>
+    </nav>
+
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+             aria-labelledby="nav-user-list-tab">
+            <div class="salary-structure-card-wrapper">
+                <div class="salary-structure-card mb-3">
+                    <p class="title-primary-sm mb-3">Filers</p>
+                    <input type="hidden" id="sessionCompanyId" value="@ViewBag.SessionCompanyId" />
+
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="monthyear" class="form-label">Month-Year <sup>*</sup></label>
+                                <div class="monthyear-selection">
+                                    <select class="form-control select2_search_ctm" data-placeholder="Select Month-Year"
+                                            id="monthyear" required>
+                                    </select>
+                                </div>
+                                <span id="monthyear-error" class="input_error_msg"></span>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="companies" class="form-label">
+                                    Company
+                                    <sup>*</sup>
+                                </label>
+                                <div class="companies-selection">
+                                    <select class="form-control select2_search_ctm" data-placeholder="Select company"
+                                            id="Companies" required>
+                                    </select>
+                                </div>
+                                <span id="Companies-error" class="input_error_msg"></span>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="location" class="form-label">
+                                    Location
+                                </label>
+                                <div class="location-selection">
+                                    <select class="form-control multi-selection" multiple="multiple" data-placeholder="Select location"
+                                            id="location" required>
+                                    </select>
+                                </div>
+                                <span id="location-error" class="input_error_msg"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="contractor" class="form-label">
+                                    Contractor
+                                </label>
+                                <div class="contractor-selection">
+                                    <select class="form-control multi-selection" multiple="multiple" data-placeholder="Select contractor"
+                                            id="contractor" required>
+                                    </select>
+                                </div>
+                                <span id="contractor-error" class="input_error_msg"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="workorder" class="form-label">
+                                    Work Order No.
+                                </label>
+                                <div class="workorder-selection">
+                                    <select class="form-control multi-selection" multiple="multiple" data-placeholder="Select work order no."
+                                            id="workorder" required>
+                                    </select>
+                                </div>
+                                <span id="workorder-error" class="input_error_msg"></span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="btn_group text-end px-3">
+                    <button class="btn btn-transparent-danger me-3">Reset</button>
+                    <button class="btn btn_primary" @* data-bs-toggle="modal"
+                            data-bs-target="#calculateConfirmation" *@ id="btnfilterProcessCalculate">
+                        Calculate
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dynamicTableSection" style="display: none">
+    <div class="title-container">
+        <div class="current-back">
+            @* <button class="btn btn-back-icon" onclick="window.location.href='user-profile.html'">
+                <span class="sprite-icons back-violet"></span>
+            </button> *@
+            <p class="title-primary" id="titlephase">Earning</p>
+        </div>
+        @* <div class="button-group">
+            <button class="btn btn_primary_outline_md">Cancel</button>
+        </div> *@
+    </div>
+
+    <div class="table-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="dynamic-payroll-table" class="table custom-table">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-footer px-3">
+        <button id="nextphaseButton" type="button" class="btn btn_primary">Next Phase</button>
+    </div>
+    @* <div class="btn_group mt-3 text-end">
+        <button id="nextphaseButton" type="button" class="btn btn_primary">Next Phase</button>
+    </div> *@
+</div>
+
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="calculateConfirmation" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="calculateConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-end border-0">
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><span class="sprite-icons close-icon"></span></button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="~/assets/img/info-danger.svg" height="77" width="134" alt="Confirmation">
+                <p class="title-primary">Do you want to process payroll phase wise or process in single run?</p>
+            </div>
+            <div class="modal-footer">
+                <div class="form-action d-flex align-items-center justify-content-center w-100">
+                    <button type="button" class="btn btn_primary_outline me-2 w-25" @* data-bs-toggle="modal"
+                            data-bs-target="#calculateProgress" *@ id="btnSingleRun">
+                        Single Run
+                    </button>
+                    <a type="button" class="btn btn_primary w-25" id="btnPhaseWise" @* href="/PayrollProcessing/PayrollProcessList" *@>Phase Wise</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="calculateAbort" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="calculateAbortLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/info-danger.svg" height="77" width="134" alt="Confirmation">
+                <p class="title-primary">Are you sure want to abort this calculation?</p>
+            </div>
+            <div class="modal-footer">
+                <div class="form-action d-flex align-items-center justify-content-center w-100">
+                    <button type="button" class="btn btn_danger_outline me-2 w-25">Yes</button>
+                    <button type="button" class="btn btn_primary w-25" data-bs-dismiss="modal">
+                        Run in
+                        Background
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="calculateProgress" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="calculateProgressLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between border-0">
+                <p class="title-primary" id="phasepopup">Phase 1/2</p>
+                @* <button type="button" class="btn" data-bs-toggle="modal"
+                        data-bs-target="#calculateAbort">
+                    <span class="sprite-icons close-icon"></span>
+                </button> *@
+            </div>
+            <div class="modal-body p-3">
+                <!-- <div class="calculation-progress-wrapper"> -->
+                <div class="calculation-progress-container">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <p class="md-text-500 text-black-terminal" id="phasepopupdetail">
+                            Payroll calculation is in progress. Please wait
+                            for a while.
+                        </p>
+                        <!-- <button type="button" class="btn-close" aria-label="Close"></button> -->
+                    </div>
+                    <div class="conpany-setup-container">
+                        <div class="progress">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="sm-text text-center mt-1" id="progress-percent">0%</p>
+                    </div>
+                    <div class="status-indicator d-flex align-items-center justify-content-between">
+                        <div class="status-display">
+                            <span class="status-dot dot-success"></span>
+                            <p class="sm-text text_success" id="notif-completed">Completed: 0</p>
+                        </div>
+                        <div class="status-display">
+                            <span class="status-dot dot-warning"></span>
+                            <p class="sm-text text_warning" id="notif-remaining">Remaining: 0</p>
+                        </div>
+                        <div class="status-display">
+                            <span class="status-dot dot-primary"></span>
+                            <p class="sm-text text_primary" id="notif-total">Total: 0</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- </div> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script src="~/application/js/payrollprocess/payrollprocess.js"></script>
+
+    <!-- textarea character counter -->
+    <script>
+        // Select all textareas
+        const textareas = document.querySelectorAll('.textarea');
+
+        // Loop through each textarea
+        textareas.forEach((textarea) => {
+            const counter = textarea.nextElementSibling; // Select the associated counter element
+
+            textarea.addEventListener('input', () => {
+                const charCount = textarea.value.length;
+                const maxLength = textarea.getAttribute('maxlength');
+                counter.textContent = `${charCount} / ${maxLength}`;
+            });
+        });
+    </script>
+
+    <script>
+        // button loader on click
+        $('.loader-dot-pulse').on('click', function () {
+            var self = this;
+            $(this).addClass('btn__dots--loading');
+            $(this).append('<span class="btn__dots"><i></i><i></i><i></i></span>');
+            setTimeout(function () {
+                $(self).removeClass('btn__dots--loading');
+                $(self).find('.btn__dots').remove();
+            }, 2000);
+
+        });
+    </script>
+
+    <!-- dropdown active -->
+
+
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+}

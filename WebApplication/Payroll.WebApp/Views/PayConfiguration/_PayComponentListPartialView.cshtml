@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.PayComponentDTO>
+@{
+    var renderedPayIds = new HashSet<int>(); // To track rendered AreaIds
+}
+<style>
+    .edit-btn.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
+</style>
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+<table id="pay-component-list" class="table custom-table">
+    <thead>
+        <tr>
+            <th hidden>EarningDeduction_Id</th> <!-- column index 0 -->
+            <th hidden>Company_Id</th><!-- column index 1 -->
+            <th>Pay Head</th><!-- column index 2 -->
+            <th>Pay Component Name</th><!-- column index 3 -->
+            <th>Formula Name</th>
+            <th>Calculate Type</th><!-- column index 4 -->
+            <th>Minimum Amount</th><!-- column index 4 -->
+            <th>Maximum Amount</th><!-- column index 4 -->
+            <th>Amount</th><!-- column index 5 -->
+            <th class="sticky_cell">Status</th><!-- column index 6 -->
+            <th class="sticky_cell">Actions</th><!-- column index 7 -->
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var pay in Model)
+            {
+                if (!renderedPayIds.Contains(pay.EarningDeduction_Id)) // Only render if not already added
+                {
+                    renderedPayIds.Add(pay.EarningDeduction_Id);
+                    <tr id="row-@pay.EarningDeduction_Id">
+                        <!-- Added unique row ID -->
+                        <td hidden>@pay.EarningDeduction_Id</td><!-- column index 0 -->
+                        <td hidden>@pay.Company_Id</td><!-- column index 1 -->
+                        <td>@pay.EarningDeductionTypeName</td><!-- column index 2 -->
+                        <td>@pay.EarningDeductionName</td><!-- column index 3 -->
+                        <td>@pay.FormulaName</td>
+                        <td>@pay.CalculationTypeName</td><!-- column index 4 -->
+                        <td>@pay.MinimumUnit_value</td><!-- column index 4 -->
+                        <td>@pay.MaximumUnit_value</td><!-- column index 4 -->
+                        <td>@pay.Amount</td><!-- column index 5 -->
+                        <td class="sticky_cell">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" role="switch" id="status-@pay.EarningDeduction_Id" @(pay.IsActive ? "checked" : "")>
+                                <label class="form-check-label" for="status-@pay.IsActive">
+                                    @(pay.IsActive ? "Active" : "Inactive")
+                                </label>
+                            </div>
+                        </td>
+                        <td class="sticky_cell">
+                            <div class="table-button-group">
+                                <button class="btn btn-primary-light-icon-md edit-btn paycomponent btn-edit-hide" data-id="@pay.EarningDeduction_Id" data-iseditable="@pay.IsEditable.ToString().ToLower()" id="editPayComponent-@pay.EarningDeduction_Id">
+                                    <span class="sprite-icons edit-primary"></span>
+                                </button>
+
+                                <button class="btn btn-danger-light-icon delete-btn btn-delete-hide"
+                                        data-paycomponent-id="@pay.EarningDeduction_Id"
+                                        data-iseditable="@pay.IsEditable.ToString().ToLower()"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deletePayComponent">
+                                    <span class="sprite-icons delete-danger"></span>
+                                </button>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+       @*  else
+        {
+            <tr>
+                <td colspan="11" class="text-center">No data available</td>
+            </tr>
+        } *@
+    </tbody>
+</table>
+<div class="modal fade modal-custom modal-primary-confirmation" id="deletePayComponent"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deleteAreaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this pay component?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmPayComponentDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+@keyframes stretch {
+    0% {
+        transform: scale(0.5);
+        background-color: #aaaaaa;
+    }
+    50% {
+        background-color: #cccccc;
+    }
+    100% {
+        transform: scale(1);
+        background-color: #ffffff;
+    }
+}
+
+@mixin dot-animation {
+    animation: {
+        direction: alternate;
+        duration: 0.5s;
+        fill-mode: none;
+        iteration-count: infinite;
+        name: stretch;
+        play-state: running;
+        timing-function: ease-out;
+    }
+    border-radius: 100%;
+    display: block;
+    height: 10px;
+    margin: 0 1px;
+    width: 10px;
+}
+
+.loader-dot-pulse {
+    align-items: center;    
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+
+    &.btn__dots--loading {
+        font-size: 0;
+        .btn__dots {
+            display: flex;
+            i {
+                @include dot-animation;
+                animation-delay: .1s;
+                margin: 0 5px;
+                &:first-child {
+                    animation-delay: 0s;
+                    margin: 0;
+                }
+                &:last-child {
+                    animation-delay: .2s;
+                    margin: 0;
+                }
+            }
+        }
+    }
+    i {
+        font-weight: normal;
+    }
+    .btn__dots {
+        display: none;
+    }
+}

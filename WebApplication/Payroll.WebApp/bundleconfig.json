@@ -1,0 +1,22 @@
+//[
+//  {
+//    "outputFileName": "wwwroot/css/bundle.css",
+//    "inputFiles": [
+//      "wwwroot/application/css/**/*.css"
+//    ],
+//    "minify": {
+//      "enabled": true
+//    },
+//    "sourceMap": true
+//  },
+//  {
+//    "outputFileName": "wwwroot/js/bundle.js",
+//    "inputFiles": [
+//      "wwwroot/application/js/**/*.js"
+//    ],
+//    "minify": {
+//      "enabled": true
+//    },
+//    "sourceMap": true
+//  }
+//]

@@ -1,0 +1,523 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Payroll.WebApp
+build_property.RootNamespace = Payroll.WebApp
+build_property.ProjectDir = E:\Abhishek\Developers_Work\Abhishek\Payroll_Backup_23_07_2025\PayrollApplication\WebApplication\Payroll.WebApp\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.MSBuildProjectDirectory = E:\Abhishek\Developers_Work\Abhishek\Payroll_Backup_23_07_2025\PayrollApplication\WebApplication\Payroll.WebApp
+build_property._RazorSourceGeneratorDebug = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Account/Access_Denied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxBY2Nlc3NfRGVuaWVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Account/_BiometricLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxfQmlvbWV0cmljTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Account/_ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxfRm9yZ290UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Account/_LoginPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxfTG9naW5QYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Account/_OTPVerification.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxfT1RQVmVyaWZpY2F0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Account/_UpdatePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxfVXBkYXRlUGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ApprovalList/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxMaXN0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ApprovalSetUp/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxTZXRVcFxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ApprovalSetUp/ApprovalConfigGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxTZXRVcFxBcHByb3ZhbENvbmZpZ0dyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ApprovalSetUp/GetApprovalConfig.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxTZXRVcFxHZXRBcHByb3ZhbENvbmZpZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ApprovalSetUp/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxTZXRVcFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ApprovalSetUp/Index2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxTZXRVcFxJbmRleDIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ApprovalSetUp/Test.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXBwcm92YWxTZXRVcFxUZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/AttendancePayrollMonth/AttendancePayrollMonthList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVBheXJvbGxNb250aFxBdHRlbmRhbmNlUGF5cm9sbE1vbnRoTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/AttendancePayrollMonth/GenerateAttendancePayrollMonth.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVBheXJvbGxNb250aFxHZW5lcmF0ZUF0dGVuZGFuY2VQYXlyb2xsTW9udGguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/AttendancePayrollMonth/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXR0ZW5kYW5jZVBheXJvbGxNb250aFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Base/_AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFzZVxfQWNjZXNzRGVuaWVkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/CLMSLandingPage/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ0xNU0xhbmRpbmdQYWdlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Company/CompanyList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxDb21wYW55TGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Company/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Company/_CompanyConfiguration.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueUNvbmZpZ3VyYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Company/_CompanyCorrespondances.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueUNvcnJlc3BvbmRhbmNlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Company/_CompanyMaster.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueU1hc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Company/_CompanyStatutories.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueVN0YXR1dG9yaWVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Company/_CompanySubsidiary.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueVN1YnNpZGlhcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ContractorValidation/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJhY3RvclZhbGlkYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ConvertHTML/useradd.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udmVydEhUTUxcdXNlcmFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ConvertHTML/userlist.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udmVydEhUTUxcdXNlcmxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Dashboard/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/DataVisualisation/ContractorList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVZpc3VhbGlzYXRpb25cQ29udHJhY3Rvckxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/DataVisualisation/ContractorProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVZpc3VhbGlzYXRpb25cQ29udHJhY3RvclByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/DataVisualisation/WorkOrderList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVZpc3VhbGlzYXRpb25cV29ya09yZGVyTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/DataVisualisation/WorkOrderProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0YVZpc3VhbGlzYXRpb25cV29ya09yZGVyUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/DepartmentMaster/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudE1hc3RlclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/DepartmentMaster/TestDepartment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVwYXJ0bWVudE1hc3RlclxUZXN0RGVwYXJ0bWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/DTOMappingExample/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRFRPTWFwcGluZ0V4YW1wbGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Employee/Detail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRGV0YWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Employee/EmpIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRW1wSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Employee/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Employee/Index1.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcSW5kZXgxLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/EntityMaster/EntityList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50aXR5TWFzdGVyXEVudGl0eUxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/EntityMaster/EntityProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50aXR5TWFzdGVyXEVudGl0eVByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/EntityMaster/GradeEntityMapping.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50aXR5TWFzdGVyXEdyYWRlRW50aXR5TWFwcGluZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/EntityMaster/_MapEntityGradePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW50aXR5TWFzdGVyXF9NYXBFbnRpdHlHcmFkZVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/FinalDataApproval/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmluYWxEYXRhQXBwcm92YWxcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/FormulaMaster/AddUpdateFormula.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9ybXVsYU1hc3RlclxBZGRVcGRhdGVGb3JtdWxhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/FormulaMaster/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9ybXVsYU1hc3RlclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/GeneralAccount/AddUpdateAccountMaster.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VuZXJhbEFjY291bnRcQWRkVXBkYXRlQWNjb3VudE1hc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/GeneralAccount/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2VuZXJhbEFjY291bnRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/GLGroup/AddUpdateGLGroup.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR0xHcm91cFxBZGRVcGRhdGVHTEdyb3VwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/GLGroup/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR0xHcm91cFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Home/DashboardV2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYXNoYm9hcmRWMi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayConfiguration/PayComponents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5Q29uZmlndXJhdGlvblxQYXlDb21wb25lbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayConfiguration/PayGrade.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5Q29uZmlndXJhdGlvblxQYXlHcmFkZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayConfiguration/PayGradeMapping.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5Q29uZmlndXJhdGlvblxQYXlHcmFkZU1hcHBpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayConfiguration/ViewFormaHTML.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5Q29uZmlndXJhdGlvblxWaWV3Rm9ybWFIVE1MLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayConfiguration/_PayComponentListPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5Q29uZmlndXJhdGlvblxfUGF5Q29tcG9uZW50TGlzdFBhcnRpYWxWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayConfiguration/_PayGradeConfigListPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5Q29uZmlndXJhdGlvblxfUGF5R3JhZGVDb25maWdMaXN0UGFydGlhbFZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayConfiguration/_PayGradeListPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5Q29uZmlndXJhdGlvblxfUGF5R3JhZGVMaXN0UGFydGlhbFZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollBulkUpload/DisplayGridSample.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbEJ1bGtVcGxvYWRcRGlzcGxheUdyaWRTYW1wbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollBulkUpload/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbEJ1bGtVcGxvYWRcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollGlobalParameters/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbEdsb2JhbFBhcmFtZXRlcnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollMaster/FetchDepartmentList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbE1hc3RlclxGZXRjaERlcGFydG1lbnRMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollMaster/OrgIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbE1hc3RlclxPcmdJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollMaster/_AddUpdateDepartmentPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbE1hc3RlclxfQWRkVXBkYXRlRGVwYXJ0bWVudFBhcnRpYWxWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollMaster/_AddUpdateMapDepartmentPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbE1hc3RlclxfQWRkVXBkYXRlTWFwRGVwYXJ0bWVudFBhcnRpYWxWaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollMaster/_AreaListPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbE1hc3RlclxfQXJlYUxpc3RQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollMaster/_DepartmentListPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbE1hc3RlclxfRGVwYXJ0bWVudExpc3RQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollMaster/_LocationListPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbE1hc3RlclxfTG9jYXRpb25MaXN0UGFydGlhbFZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollMaster/_MapDepartmentLocationListPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbE1hc3RlclxfTWFwRGVwYXJ0bWVudExvY2F0aW9uTGlzdFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollPeriod/GeneratePayrollMonth.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbFBlcmlvZFxHZW5lcmF0ZVBheXJvbGxNb250aC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollPeriod/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbFBlcmlvZFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollPeriod/PayrollPeriodList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbFBlcmlvZFxQYXlyb2xsUGVyaW9kTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollProcessing/PayrollProcess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbFByb2Nlc3NpbmdcUGF5cm9sbFByb2Nlc3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/PayrollProcessing/PayrollProcessList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF5cm9sbFByb2Nlc3NpbmdcUGF5cm9sbFByb2Nlc3NMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ProfessionalTaxSlab/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmVzc2lvbmFsVGF4U2xhYlxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ProfessionalTaxSlab/_PTaxSlabTableRows.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmVzc2lvbmFsVGF4U2xhYlxfUFRheFNsYWJUYWJsZVJvd3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/RegisterWagesReport/ComplianceReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJXYWdlc1JlcG9ydFxDb21wbGlhbmNlUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/RegisterWagesReport/FineRegisterReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJXYWdlc1JlcG9ydFxGaW5lUmVnaXN0ZXJSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/RegisterWagesReport/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJXYWdlc1JlcG9ydFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/RegisterWagesReport/LoanandAdvanceReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJXYWdlc1JlcG9ydFxMb2FuYW5kQWR2YW5jZVJlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/RegisterWagesReport/OvertimeReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJXYWdlc1JlcG9ydFxPdmVydGltZVJlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/RegisterWagesReport/SalarySlipReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJXYWdlc1JlcG9ydFxTYWxhcnlTbGlwUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Report/ContractorPaymentRegisterReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0XENvbnRyYWN0b3JQYXltZW50UmVnaXN0ZXJSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Report/LossDamageRegisterData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0XExvc3NEYW1hZ2VSZWdpc3RlckRhdGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Report/PayRegisterReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0XFBheVJlZ2lzdGVyUmVwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Report/TaxDeductionReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVwb3J0XFRheERlZHVjdGlvblJlcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/SalaryStructure/GetSalaryStructure.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXJ5U3RydWN0dXJlXEdldFNhbGFyeVN0cnVjdHVyZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/SalaryStructure/SalaryStructureGrid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXJ5U3RydWN0dXJlXFNhbGFyeVN0cnVjdHVyZUdyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/SalaryStructure/SalaryStructureSimulator.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsYXJ5U3RydWN0dXJlXFNhbGFyeVN0cnVjdHVyZVNpbXVsYXRvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/SampleDownloadMoreFilesAtOneGo/DownloadAllFiles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FtcGxlRG93bmxvYWRNb3JlRmlsZXNBdE9uZUdvXERvd25sb2FkQWxsRmlsZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/SampleDownloadMoreFilesAtOneGo/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FtcGxlRG93bmxvYWRNb3JlRmlsZXNBdE9uZUdvXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Shared/Components/BreadCrumbs/BreadCrumbPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcQnJlYWRDcnVtYnNcQnJlYWRDcnVtYlBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Shared/Components/HeaderOffcanvas/HeaderOffcanvasViewComponent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcSGVhZGVyT2ZmY2FudmFzXEhlYWRlck9mZmNhbnZhc1ZpZXdDb21wb25lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Shared/Components/MenuPartial/MenuPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENvbXBvbmVudHNcTWVudVBhcnRpYWxcTWVudVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/SubsidiaryMaster/AddSubsidiaryMaster.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3Vic2lkaWFyeU1hc3RlclxBZGRTdWJzaWRpYXJ5TWFzdGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/SubsidiaryMaster/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3Vic2lkaWFyeU1hc3RlclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/TaxSlab/AssignIncomeTaxSlab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4U2xhYlxBc3NpZ25JbmNvbWVUYXhTbGFiLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/TaxSlab/TaxSlab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4U2xhYlxUYXhTbGFiLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/TaxSlab/_EntityFilterPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4U2xhYlxfRW50aXR5RmlsdGVyUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/TaxSlab/_TaxSlabListPartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGF4U2xhYlxfVGF4U2xhYkxpc3RQYXJ0aWFsVmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/UploadDocumentToFTP/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXBsb2FkRG9jdW1lbnRUb0ZUUFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/UploadDocumentToFTP/Test.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXBsb2FkRG9jdW1lbnRUb0ZUUFxUZXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/UserRoleMapping/AddRecord.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJvbGVNYXBwaW5nXEFkZFJlY29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/UserRoleMapping/GetUserRoleMappings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJvbGVNYXBwaW5nXEdldFVzZXJSb2xlTWFwcGluZ3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/UserRoleMapping/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclJvbGVNYXBwaW5nXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/User/AddRecord.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxBZGRSZWNvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/User/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxDaGFuZ2VQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/User/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/User/UpdateRecord.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxVcGRhdGVSZWNvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/User/UserProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxVc2VyUHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/User/_LinkAlreadyUsedPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfTGlua0FscmVhZHlVc2VkUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/User/_LinkExpiredPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfTGlua0V4cGlyZWRQYWdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/User/_LinkNotFoundPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfTGlua05vdEZvdW5kUGFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/User/_PasswordResetPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfUGFzc3dvcmRSZXNldFBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/ViewNotification/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlld05vdGlmaWNhdGlvblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/WageGradeMaster/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2FnZUdyYWRlTWFzdGVyXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/Abhishek/Developers_Work/Abhishek/Payroll_Backup_23_07_2025/PayrollApplication/WebApplication/Payroll.WebApp/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

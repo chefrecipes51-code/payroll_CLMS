@@ -1,0 +1,9 @@
+﻿
+/* New css added on 24-10-2024 by rohit tiwari */
+
+#imgCaptcha {
+    border: 0.5px solid #ccc; /* Light gray border around the captcha */
+    border-radius: 5px; /* Slight rounding of the corners */
+    background-color: #e9eefa; /* Light background color similar to the image you provided */
+    /*box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);*/ /* Subtle shadow for a clean, modern look */
+}

@@ -1,0 +1,20 @@
+﻿@* @{
+    Layout = null;
+} *@
+@{
+    ViewData["Title"] = "Upload File";
+}
+
+<h2>Upload File</h2>
+
+<!-- index.cshtml -->
+<a href="@Url.Action("DownloadFile", "UploadDocumentToFTP", new { fileName = "hdfcsonalibhar.pdf" })" id="downloadFileLink">Download Sample PDF</a>
+<a href="@Url.Action("DownloadFile", "UploadDocumentToFTP", new { fileName = "Payroll Setup_20241107_164319.xlsx" })" id="downloadFileLink">Download Sample Excel</a>
+
+<form asp-action="UploadFile" method="post" enctype="multipart/form-data">
+    <div>
+        <label>Select file to upload:</label>
+        <input type="file" name="file" accept=".xls,.xlsx,.csv" />
+    </div>
+    <button type="submit">Upload</button>
+</form>

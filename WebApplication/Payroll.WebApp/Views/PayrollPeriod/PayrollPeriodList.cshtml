@@ -1,0 +1,126 @@
+﻿<div class="alert-custom" style="display:none;">
+</div>
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" onclick="window.location.href='/PayrollMonth/Index'">
+            Financial
+            Year
+        </button>
+    </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+         aria-labelledby="nav-user-list-tab">
+        <input type="hidden" id="comFinYearSDate" />
+        <input type="hidden" id="comFinYearEDate" />
+
+        <div class="table-card">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Select Company <sup>*</sup></label>
+                                <div class="dropdown">
+                                    <a class="btn dropdown-link dropdown-toggle w-100" id="dropdownCompany"
+                                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Select Company
+                                    </a>
+                                    <ul class="dropdown-menu w-100" id="dropdownMenuCompany">
+                                        <!-- Company list will be appended here dynamically -->
+                                    </ul>
+                                    <input type="hidden" id="SelectedCompanyId" name="SelectedCompanyId" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="dropdownPayGroup">Select Company Pay Group</label>
+                                <div class="dropdown">
+                                    <a class="btn dropdown-link dropdown-toggle w-100" id="dropdownPayGroup" role="button"
+                                       data-bs-toggle="dropdown" aria-expanded="false">
+                                        Select Pay Group
+                                    </a>
+                                    <ul class="dropdown-menu w-100" id="dropdownMenuPayGroup">
+                                        <!-- Pay Group list will be appended here dynamically -->
+                                    </ul>
+                                    <input type="hidden" id="SelectedPayGroupId" name="SelectedPayGroupId" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="financial-year-list-container">
+                            <!-- <div class="title-wrapper" style="display: flex; justify-content: space-between; background-color: #F5F5F5;"> -->
+                            <div class="financial-year-wrapper">
+                                <table id="payroll-month-list" class="table custom-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Period Code</th>
+                                            <th>Period Name</th>
+                                            <th>Type</th>
+                                            <th>From Date</th>
+                                            <th>To Date</th>
+                                            <th>Days</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                    <div class="btn_group text-end py-2">
+                     @*    <button class="btn btn-transparent-danger">reset</button> *@
+                    @*     <button class="btn btn_primary loader-dot-pulse" id="btnGeneratePayroll">Save</button> *@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* ////////////////////////// *@
+@* <div class="alert-custom" style="display:none;">
+</div>
+<div class="row">  
+    <div class="col-md-2"></div>   
+    <div class="col-md-3">
+        <label class="form-label">Select Company</label>
+        <a class="btn btn-secondary dropdown-toggle w-100" id="dropdownCompany" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            Select Company
+        </a>
+        <ul class="dropdown-menu w-100" id="dropdownMenuCompany">           
+        </ul>
+        <input type="hidden" id="SelectedCompanyId" name="SelectedCompanyId" />
+    </div>
+    <div class="col-md-3">
+        <label class="form-label">Select Company Pay Group</label>
+        <a class="btn btn-secondary dropdown-toggle w-100" id="dropdownPayGroup" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            Select Pay Group
+        </a>
+        <ul class="dropdown-menu w-100" id="dropdownMenuPayGroup">
+        </ul>
+        <input type="hidden" id="SelectedPayGroupId" name="SelectedPayGroupId" />
+    </div>
+    <div class="col-md-1">
+    </div>
+</div>
+<div class="row" style="padding-bottom: 70px;"></div>
+<div class="row">
+    <div class="col-md-2"></div>
+
+    <div class="col-md-6">
+       
+
+    </div>
+    <div class="col-md-2"></div>
+</div> *@
+
+@section Scripts {
+    <script src="~/application/js/payrollmonth/payrollmonthlist.js"></script>
+}

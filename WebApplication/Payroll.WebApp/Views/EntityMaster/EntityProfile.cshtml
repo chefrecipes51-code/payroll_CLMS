@@ -1,0 +1,507 @@
+﻿@model Payroll.WebApp.Models.DTOs.EntityMasterDTO
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<style>
+    .select2_search_ctm .select2-selection {
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        padding: 6px;
+        height: auto;
+    }
+
+    .select2-container {
+        z-index: 999999 !important;
+    }
+
+    .select2-dropdown {
+        z-index: 999999 !important;
+    }
+
+</style>
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+    <!-- Alert content will be dynamically inserted based on the alert type -->
+</div>
+<div class="title-container">
+    <div class="current-back">
+        <a href="/EntityMaster/EntityList" class="btn btn-back-icon">
+            <span class="sprite-icons back-violet"></span>
+        </a>
+        <p class="title-primary">Entity Profile</p>
+    </div>
+</div>
+<input type="hidden"  id="Entity_ID" value=@ViewBag.EntityId />
+<div class="vertical-tab-content">
+    <div class="vertical-tabs-content-fixed-layout form-body" style="border:none">
+        <!-- Content structure repeated -->
+        <div class="bordered-title-content-wrapper">
+            <div class="bordered-title">
+                <p class="title-primary">
+                    Basic Entity Information
+                </p>
+            </div>
+            <div class="row custom_form_page" >
+
+                <div class="col-lg-11">
+                    <div class="row" >
+                        <input hidden id="Entity_ID" data-entity-id="@ViewBag.EntityId" />
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Entity Code</p>
+                            <p class="lg-text label-input-text">
+                                @Model.Entity_Code
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Plant
+                            </p>
+                            <p class="lg-text label-input-text">@Model.LocationName</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Contractor Type</p>
+                            <p class="lg-text label-input-text">-</p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Entity Name</p>
+                            <p class="lg-text label-input-text">
+                                @Model.Entity_Name
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Skill Category
+                            </p>
+                            <p class="lg-text label-input-text">@Model.Skillcategory_Name</p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Sub Contractor
+                            </p>
+                            <p class="lg-text label-input-text">-</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Location
+                            </p>
+                            <p class="lg-text label-input-text">@Model.LocationName</p>
+                        </div>
+                        <!-- Grade -->
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3">
+                            <p class="md-text label-title">Grade</p>
+                            <p class="lg-text label-input-text" id="gradeText" data-grade-id="@Model.Pay_Grade_Id">
+                                @Model.Pay_Grade_Id
+                            </p>
+                            <select class="form-control select2_search_ctm" id="gradeDropdown" name="Pay_Grade_Id"
+                                    data-placeholder="Select Pay Grade"></select>
+                        </div>
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Trade
+                            </p>
+                            <p class="lg-text label-input-text">@Model.Trade_Name</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Department</p>
+                            <p class="lg-text label-input-text">
+                                @Model.DepartmentName
+                            </p>
+                        </div>
+ 
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Salary Basis</p>
+                            <p class="lg-text label-input-text">@Model.Salary_Basis</p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Type</p>
+                            <p class="lg-text label-input-text">
+                                -
+                            </p>
+                        </div>
+                        <!-- Salary Structure -->
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                            <p class="md-text label-title">Salary Structure</p>
+                            <p class="lg-text label-input-text" id="salaryStructureText" data-salary-id="@Model.Salarystructure_ID">
+                                @Model.Salarystructure_ID
+                            </p>
+                            <select class="form-control select2_search_ctm" id="salaryStructureDropdown" name="Salarystructure_ID"
+                                    data-placeholder="Select Salary Structure"></select>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Salary Frequency
+                            </p>
+                            <p class="lg-text label-input-text">-</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Old Entity Code
+                            </p>
+                            <p class="lg-text label-input-text">@Model.Entity_Old_Code</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Salary Amount
+                            </p>
+                            <p class="lg-text label-input-text">@Model.Net_Salary</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Validity Date
+                            </p>
+                            <p class="lg-text label-input-text">@Model.Validity_Date</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Company
+                            </p>
+                            <p class="lg-text label-input-text">@Model.CompanyName</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Date of Deployment
+                            </p>
+                            <p class="lg-text label-input-text">@Model.Dateof_Deployment</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Contractor
+                            </p>
+                            <p class="lg-text label-input-text">@Model.Contractor_Name</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <button id="cancelbasicentityinfobtn" class="btn btn_primary_outline_md d-none">Cancel</button>
+
+                    <button class="btn btn-primary-light-icon-md edit-btn btn-edit-hide" id="editBasicEntity">
+                        <span class="sprite-icons edit-primary"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bordered-title-content-wrapper">
+            <div class="bordered-title">
+                <p class="title-primary">Current Work Details</p>
+            </div>
+            <div class="row custom_form_page">
+                <div class="col-lg-11">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Work Order Code</p>
+                            <p class="lg-text label-input-text">
+                                @Model.WorkOrder_No
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Current Shift
+                            </p>
+                            <p class="lg-text label-input-text">-</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Week Off Day 1</p>
+                            <p class="lg-text label-input-text">@Model.Wk_Off1</p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Work Order Start Date</p>
+                            <p class="lg-text label-input-text">
+                                @Model.Wo_Start_Date
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Shift Time
+                            </p>
+                            <p class="lg-text label-input-text">-</p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Week Off Day 2
+                            </p>
+                            <p class="lg-text label-input-text">@Model.Wk_Off2</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Work Order End Date
+                            </p>
+                            <p class="lg-text label-input-text">@Model.Wo_End_Date</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bordered-title-content-wrapper">
+            <div class="bordered-title">
+                <p class="title-primary">Compliance & Identification Info</p>
+            </div>
+            <div class="row custom_form_page">
+                <div class="col-lg-11">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">PF Applicable</p>
+                            <p class="lg-text label-input-text" id="pfApplicableText">
+                                @(Model.Pf_Applicable == 1 ? "Yes" : "No")
+                            </p>
+                            <select data-placeholder="Select" class="form-control d-none" id="pfApplicableInput">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3" id="pfCalculationTypeContainer" style="display: none;">
+                            <label class="md-text label-title">PF Calculation Type</label>
+                            <select id="pfCalculationType" class="form-control">
+                                <option value="">Select PF Calculation Type</option>
+                                <option value="Percent">Percent</option>
+                                <option value="Amount">Amount</option>
+                            </select>
+                            <span id="pfCalculationType-error" class="input_error_msg"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3" id="pfPercentContainer" style="display: none;">
+                            <label class="md-text label-title">PF Percent</label>
+                            <input type="text" id="pfPercentInput" class="form-control" placeholder="Enter PF %" />
+                            <span id="pfPercent-error" class="input_error_msg"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3" id="pfAmountContainer" style="display: none;">
+                            <label class="md-text label-title">PF Amount</label>
+                            <input type="text" id="pfAmountInput" class="form-control" placeholder="Enter PF Amount" />
+                            <span id="pfAmount-error" class="input_error_msg"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                VPF Value
+                            </p>
+                            <p class="lg-text label-input-text" id="vpfValueText">@Model.VPF_Percent</p>
+                            <input type="number" class="form-control d-none" id="vpfValueInput" value="@Model.VPF_Percent">
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">LWF Applicable</p>
+                            <p class="lg-text label-input-text" id="LwfApplicableText">
+                                @(Model.Lwf_Applicable == 1 ? "Yes" : "No")
+                            </p>
+                            <select data-placeholder="Select" class="form-control d-none" id="LwfApplicableInput">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">PF No.</p>
+                            <p class="lg-text label-input-text">
+                                @Model.Pf_No
+                            </p>
+                            <input type="text" class="form-control d-none" id="pfNoInput" value="@Model.Pf_No" disabled>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                ESIC No.
+                            </p>
+                            <p class="lg-text label-input-text" id="esicNoText">@Model.Esic_No</p>
+                            <input type="text" class="form-control d-none" id="esicNoInput" value="@Model.Esic_No" disabled>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Gratutiy Applicable
+                            </p>
+                            <p class="lg-text label-input-text" id="gyApplicableText">
+                                @(Model.GratuityApplicable == 1 ? "Yes" : "No")
+                            </p>
+                            <select class="form-control d-none" id="gyApplicableInput">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                UAN
+                            </p>
+                            <p class="lg-text label-input-text" id="uanText">@Model.Uan_No</p>
+                            <input type="text" class="form-control d-none" id="uanInput" value="@Model.Uan_No" disabled>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                ESIC Exit date.
+                            </p>
+                            <p class="lg-text label-input-text" id="esicExitDateText">@Model.Esic_Exit_Date</p>
+                            <input type="date" class="form-control d-none" id="esicExitDateInput" disabled>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Premium Deduction
+                            </p>
+                            <p class="lg-text label-input-text" id="premimumDeductionText">
+                                -</p>
+                            <select class="form-control d-none" id="premimumDeductionInput">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">PF Amount</p>
+                            <p class="lg-text label-input-text" id="pfamountText">@Model.Pf_Amount</p>
+                            <input type="text" class="form-control d-none" id="pfamountInput" value="@Model.Pf_Amount">
+                            <span id="pfamountText-error" class="input_error_msg"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                PT Applicable
+                            </p>
+                            <p class="lg-text label-input-text" id="ptApplicableText">
+                                @(Model.PT_Applicable == 1 ? "Yes" : "No")
+                            </p>
+                            <select data-placeholder="Select" class="form-control d-none" id="ptApplicableInput">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Deduction Amount</p>
+                            <p class="lg-text label-input-text" id="dedAmountText">@Model.Deduction_Amount</p>
+                            <input type="text" class="form-control d-none" id="dedAmountInput" value="@Model.Deduction_Amount">
+                            <span id="dedAmountText-error" class="input_error_msg"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">VPF Applicable</p>
+                            <p class="lg-text label-input-text" id="VpfApplicableText">
+                                @(Model.Vpf_Applicable == 1 ? "Yes" : "No")
+                            </p>
+                            <select data-placeholder="Select" class="form-control d-none" id="VpfApplicableInput">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3" id="vpfCalculationTypeContainer" style="display: none;">
+                            <label class="md-text label-title">VPF Calculation Type</label>
+                            <select id="vpfCalculationType" class="form-control">
+                                <option value="">Select VPF Calculation Type</option>
+                                <option value="Percent">Percent</option>
+                                <option value="Amount">Amount</option>
+                            </select>
+                            <span id="vpfCalculationType-error" class="input_error_msg"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3" id="vpfPercentContainer" style="display: none;">
+                            <label class="md-text label-title">VPF Percent</label>
+                            <input type="text" id="vpfPercentInput" class="form-control" placeholder="Enter VPF %" />
+                            <span id="vpfPercent-error" class="input_error_msg"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3" id="vpfAmountContainer" style="display: none;">
+                            <label class="md-text label-title">VPF Amount</label>
+                            <input type="text" id="vpfAmountInput" class="form-control" placeholder="Enter VPF Amount" />
+                            <span id="vpfAmount-error" class="input_error_msg"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <label for="ptStateInput" class="md-text label-title" id="ptStateLabel">PT State</label>
+                            <select class="form-control select2_search_ctm" id="ptStateInput" name="PT_State_Id" data-placeholder="Select PT State" disabled></select>
+
+                            <!-- Hidden input to store selected state ID from the model -->
+                            <input type="hidden" id="ptStateSelectedId" value="@Model.PT_State_Id" />
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Policy No.
+                            </p>
+                            <p class="lg-text label-input-text" id="policyNoText">@Model.Policy_No</p>
+                            <input type="text" class="form-control d-none" id="policyNoInput" value="@Model.Policy_No">
+                            <span id="policyNoInput-error" class="input_error_msg"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                VPF Type
+                            </p>
+                            <p class="lg-text label-input-text" id="vpftypeText">@Model.VPF_Type</p>
+                            <input type="number" class="form-control d-none" id="vpftypeInput" value="@Model.VPF_Type">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <button class="btn btn-primary-light-icon-md edit-btn btn-edit-hide" id="editComplainceIdentification">
+                        <span class="sprite-icons edit-primary"></span>
+                    </button>
+                    <button id="cancelComplainceIdentification" class="btn btn_primary_outline_md d-none">Cancel</button>
+                    <button class="btn btn_primary loader-dot-pulse d-none"  id="saveComplainceIdentification">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="bordered-title-content-wrapper">
+            <div class="bordered-title">
+                <p class="title-primary">Work Order History</p>
+            </div>
+            <div class="row custom_form_page">
+                <div class="col-lg-11">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Work Order Code</p>
+                            <p class="lg-text label-input-text">
+                                @Model.WorkOrder_No
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Start Date
+                            </p>
+                            <p class="lg-text label-input-text">@Model.Wo_Start_Date</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Modified On</p>
+                            <p class="lg-text label-input-text">-</p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">Contractor Name</p>
+                            <p class="lg-text label-input-text">
+                                @Model.Contractor_Name
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                End Date
+                            </p>
+                            <p class="lg-text label-input-text">@Model.Wo_End_Date</p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Status
+                            </p>
+                            <p class="lg-text label-input-text @(Model.IsActive ? "text-success" : "text-danger")">
+                                @(Model.IsActive ? "Active" : "Inactive")
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Location
+                            </p>
+                            <p class="lg-text label-input-text">@Model.LocationName</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Completion Date
+                            </p>
+                            <p class="lg-text label-input-text">-</p>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                            <p class="md-text label-title">
+                                Remarks
+                            </p>
+                            <p class="lg-text label-input-text">-</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/application/js/entitymaster/entitymaster.js"></script>
+    <script src="~/application/js/common/form-validation.js"></script>
+}

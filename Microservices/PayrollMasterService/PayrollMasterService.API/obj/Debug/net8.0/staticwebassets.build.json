@@ -1,0 +1,23 @@
+{
+  "Version": 1,
+  "Hash": "+T/Og0cKNPufCIoPHueDpLYfB8fYbtY5pXvd6Xf1g0M=",
+  "Source": "PayrollMasterService.API",
+  "BasePath": "_content/PayrollMasterService.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\CommonLibrary\\Payroll.Common\\Payroll.Common.csproj",
+      "Version": 2,
+      "Source": "Payroll.Common",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

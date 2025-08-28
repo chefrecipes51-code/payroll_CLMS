@@ -1,0 +1,23 @@
+﻿<a href="#" id="downloadLink">Download Files</a>
+
+<script>
+    document.getElementById("downloadLink").addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const csvFileUrl = '/SampleDownloadMoreFilesAtOneGo/DownloadCsvFile';
+        const csvAnchor = document.createElement('a');
+        csvAnchor.href = csvFileUrl;
+        csvAnchor.download = 'sample.csv'; 
+        document.body.appendChild(csvAnchor);
+        csvAnchor.click();
+        document.body.removeChild(csvAnchor);
+
+        const textFileUrl = '/SampleDownloadMoreFilesAtOneGo/DownloadTextFile';
+        const textAnchor = document.createElement('a');
+        textAnchor.href = textFileUrl;
+        textAnchor.download = 'sample.txt'; 
+        document.body.appendChild(textAnchor);
+        textAnchor.click();
+        document.body.removeChild(textAnchor);
+    });
+</script>

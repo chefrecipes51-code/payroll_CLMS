@@ -1,0 +1,191 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.LocationMasterDTO>
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<style>
+    #btn1, #btn2, #btn3 {
+        display: none !important;
+    }
+</style>
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+<div class="button-group">
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+</div>
+
+<div class="title-container">
+    <div class="current-back">
+
+        <p class="title-primary"></p>
+    </div>
+    @* <div class="button-group">
+        <button class="btn btn_primary add-button btn-add-hide" data-bs-toggle="offcanvas" id="addLocationButton" data-bs-target="#addLocation"
+                aria-controls="addLocation">
+            <span class="sprite-icons add-light"></span> Add Location
+        </button>
+    </div> *@
+</div>
+
+
+<div class="table-responsive table-user-list">
+    <table id="tblLocation" class="table custom-table">
+        <thead>
+            <tr>
+                <th hidden>Location Id</th>
+                <th hidden>City</th>
+                <th>City</th>
+                <th>Location</th>
+                <th class="sticky_cell">Status</th>
+                <th class="sticky_cell">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                foreach (var location in Model)
+                {
+                    <tr id="row-@location.Location_Id">
+                        <td hidden>@location.Location_Id</td>
+                        <td hidden>@location.CityId</td>
+                        <td>@location.City_Name</td>
+                        <td>@location.LocationName</td>
+                        <td class="sticky_cell">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" id="status-@location.Location_Id" @(location.IsActive ? "checked" : "")>
+                                <label class="form-check-label" for="status-@location.Location_Id">
+                                    @(location.IsActive ? "Active" : "Inactive")
+                                </label>
+                            </div>
+                        </td>
+                        <td class="sticky_cell">
+                            <div class="table-button-group">
+                                <button class="btn btn-primary-light-icon-md btn-edit-hide" data-bs-toggle="offcanvas" data-bs-target="#addLocation"
+                                        onclick="openEditLocationForm(@location.Location_Id)">
+                                    <span class="sprite-icons edit-primary"></span>
+                                </button>
+                               @*  <button class="btn btn-danger-light-icon btn-delete-hide"
+                                        data-location-id="@location.Location_Id"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteLocation">
+                                    <span class="sprite-icons delete-danger"></span>
+                                </button> *@
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="text-center">No data available</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="offcanvas offcanvas-end offcanvas-primary" tabindex="-1" id="addLocation" aria-labelledby="addLocationLabel">
+    <div class="offcanvas-header">
+        <p class="title-primary-md-600" id="formTitle"></p>
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <span class="sprite-icons close-icon"></span>
+        </button>
+
+    </div>
+    <div class="offcanvas-body">
+        <div class="offcanvas-fixed-form">
+
+            <form id="locationForm">
+                <!-- Hidden Field for Location ID -->
+                <input type="hidden" id="locationId" name="locationId">
+
+                <!-- Country -->
+                <div class="form-group mb-3">
+                    <label for="locationCountryDropdown" class="form-label">Country<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="locationCountryDropdown" name="locationCountryDropdown" data-placeholder="Select a country" required></select>
+                    <span id="locationcountryDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <!-- State -->
+                <div class="form-group mb-3">
+                    <label for="locationStateDropdown" class="form-label">State<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="locationStateDropdown" name="locationStateDropdown" data-placeholder="Select a state" required></select>
+                    <span id="locationstateDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <!-- City -->
+                <div class="form-group mb-3">
+                    <label for="locationCityDropdown" class="form-label">City<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="locationCityDropdown" name="locationCityDropdown" data-placeholder="Select a city" required></select>
+                    <span id="locationcityDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <!-- Location Name -->
+                <div class="form-group mb-3">
+                    <label for="locationname" class="form-label">Location Name<sup>*</sup></label>
+                    <input type="text" class="form-control" id="locationname" name="locationname" placeholder="Enter location name" maxlength="100" required>
+                    <span id="locationname-error" class="input_error_msg"></span>
+                </div>
+                <!-- Active Toggle -->
+                @* <div id="toggleContainer" class="form-group mb-3">
+                    <label class="form-label" for="locationActiveToggle">Status</label>
+                    <div class="form-check form-switch d-flex align-items-center">
+                        <input type="checkbox" id="locationActiveToggle" class="form-check-input" role="switch">
+                        <label class="form-check-label" for="locationActiveToggle" id="activeStatusLabel" class="ml-2">Inactive</label>
+                    </div>
+                </div> *@
+            </form>
+        </div>
+    </div>
+    <div class="offcanvas-footer">
+        <div class="btn_group">
+            <button class="btn btn-transparent-danger" id="resetLocationButton">reset All</button>
+            <div class="btn-action-variants">
+                <button class="btn btn_primary_outline_md" data-bs-dismiss="offcanvas"
+                        aria-label="Close">
+                    Cancel
+                </button>
+                <button id="saveLocationButton" type="button" class="btn btn_primary loader-dot-pulse">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Confirmation Modal -->
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteLocation"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deleteLocationLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this location?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmLocationDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+@* <script src="~/assets/src/custom-js/select2.js"></script> *@
+@* <script src="~/application/js/payrollmaster/locationmaster.js"></script> *@
+<script>
+    $(document).ready(function () {
+        var userPermissionsData = $("#userPermissionsData").val();
+        if (userPermissionsData && userPermissionsData.trim() !== "" && userPermissionsData !== "null") {  // Check if element has a value
+            try {
+                var userPermissions = JSON.parse($("#userPermissionsData").val()); // Convert to object
+
+                if (!userPermissions.grantAdd) $(".btn-add-hide").hide();
+                if (!userPermissions.grantEdit) $(".btn-edit-hide").hide();
+                if (!userPermissions.grantDelete) $(".btn-delete-hide").hide();
+
+            }
+            catch (error) {
+                console.error("Error parsing userPermissionsData:", error);
+            }
+        }
+    });
+</script>
+

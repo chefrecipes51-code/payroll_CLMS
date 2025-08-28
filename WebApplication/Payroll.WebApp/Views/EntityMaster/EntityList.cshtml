@@ -1,0 +1,202 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.EntityFilterResponseDTO>
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<link href="~/application/css/custom-datatable/custom-datatable.css" rel="stylesheet" />
+<style>
+    .select2-container {
+        z-index: 999999 !important;
+    }
+
+    .select2-dropdown {
+        z-index: 999999 !important;
+    }
+
+</style>
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+<style>
+    #btn1, #btn3 {
+        display: none !important;
+    }
+   /*  #customSearch input[type="search"] {
+        height: 36px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding-left: 36px !important;
+        font-size: 14px;
+        width: 220px;
+    }
+
+    #customSearch img {
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        position: absolute;
+    }
+
+    .custom_table_length label {
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .custom_table_length select {
+        width: auto;
+        padding: 4px 8px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    #pagination-controls .page-btn {
+        border: 1px solid #ccc;
+        background: #fff;
+        padding: 4px 10px;
+        font-size: 14px;
+        border-radius: 4px;
+        margin: 0 2px;
+        transition: all 0.2s;
+    }
+
+        #pagination-controls .page-btn:hover {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+    #pagination-controls .btn-primary {
+        background-color: #666;
+        color: white;
+        border-color: #666;
+    }
+ */
+</style>
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+    <!-- Alert content will be dynamically inserted based on the alert type -->
+</div>
+<div class="payroll-tabs-content-container">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-link" href="/EntityMaster/EntityList" id="entityMasterTab">Entity</a>
+            <a class="nav-link" href="/EntityMaster/GradeEntityMapping" id="gradeEntityMappingTab">Grade-Entity Mapping</a>
+        </div>
+    </nav>
+    <div class="row g-0">
+        <div class="col-lg-12 col-md-8 col-sm-8">
+            <div class="app-layout">
+                <div class="quick-filter-container">
+                    <div class="btn-group-left">
+                        <button class="btn btn_primary" id="totalEntityCount">Total Entity: <span>00</span> </button>
+                        <button class="btn btn-success-light" id="totalActiveCount">Active Entity: <span>00</span> </button>
+                        <button class="btn btn-danger-light" id="totalInactiveCount">Inactive Entity: <span>00</span> </button>
+                    </div>
+                </div>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+                         aria-labelledby="nav-user-list-tab">
+                        <div class="table-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive table-user-list">
+                                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 px-3 pt-3">
+                                            <div class="d-flex align-items-center gap-2" id="customSearch"></div>
+                                            <div id="last_section" class="d-flex align-items-center gap-3">
+                                                <div id="customButtons" class="d-flex align-items-center gap-2 me-3"></div>
+                                                <div id="dt_length" class="custom_table_length">
+                                                    <label>
+                                                        Show rows per page
+                                                        <select id="pageSizeDropdown" class="form-select form-select-sm w-auto ms-2">
+                                                            <option value="10">10</option>
+                                                            <option value="25">25</option>
+                                                            <option value="50">50</option>
+                                                            <option value="100">100</option>
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                                <div id="dt_info"></div>
+                                                <div id="dt_paginate" class="dt_paginate"></div>
+                                                <div id="pagination-container" class="d-flex justify-content-between align-items-center mt-3">
+                                                    <div id="pagination-info" class="text-muted"></div>
+                                                    <div id="pagination-controls" class="btn-group"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table id="entity-master-list" class="table custom-table">
+                                            <thead>
+                                                <tr>
+                                                    <th hidden>contractor_ID</th>
+                                                    <th hidden>entity_ID</th>
+                                                    <th hidden>contractor_Mast_Code</th>
+                                                    <th class="sticky_cell">Entity Code</th>
+                                                    <th>Entity Name</th>
+                                                    <th>Company Name</th>
+                                                    <th>Contratcor Name</th>
+                                                    <th>Location</th>
+                                                    <th>Department</th>
+                                                    <th>Status</th>
+                                                    <th class="sticky_cell">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+               @* <div class="col-lg-3 col-md-4 col-sm-4" id="mapEntityGradeContainer"> *@
+        @*        <div id="mapEntityGradeContainer">
+        @await Html.PartialAsync("_MapEntityGradePartial", Model)
+        </div> *@
+
+    </div>
+</div>
+@* <input type="hidden" id="sessionCompanyId" value="@ViewBag.SessionCompanyId" />
+<input type="hidden" id="sessionRoleId" value="@ViewBag.SessionRoleId" /> *@
+
+<div class="modal fade right-align standard-filter-modal drawer" id="standardFilterModal" tabindex="-1"
+     data-bs-backdrop="true" tabindex="-1" aria-hidden="true" data-keyword="true">
+    <div class="modal-dialog modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="title-primary-md-600">Filter</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <div class="modal-body" id="mapEntityGradeContainer">
+                ViewData["SessionCompanyId"] = yourSessionCompanyId;
+                ViewData["SessionRoleId"] = yourSessionRoleId;
+                @await Html.PartialAsync("_MapEntityGradePartial", Model)
+            </div>
+            <div class="modal-footer">
+                <div class="btn_group">
+                    <button type="button" class="btn btn-transparent-danger" id="resetEntityFilterBtn">reset</button>
+                    <div class="btn-action-variants">
+                        <button class="btn btn_primary_outline_md" data-bs-dismiss="modal"
+                                aria-label="Close">
+                            Cancel
+                        </button>
+                        <button type="button" id="applyEntityFilterBtn" class="btn btn_primary loader-dot-pulse">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/application/js/entitymaster/entitymaster.js"></script>
+    <script src="~/application/js/custom-datatable/custom-datatable.js"></script>
+}

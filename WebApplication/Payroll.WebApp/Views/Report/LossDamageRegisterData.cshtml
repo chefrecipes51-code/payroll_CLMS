@@ -1,0 +1,166 @@
+﻿<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<link href="~/application/css/custom-datatable/custom-datatable.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/assets/src/css/bootstrap-datepicker.min.css" />
+
+<style>
+    #btn1, #btn3 {
+        display: none !important;
+    }
+</style>
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+</div>
+
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" onclick="window.location.href='lossdamage.html'">Loss/Damage Register</button>
+    </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+         aria-labelledby="nav-user-list-tab">
+
+        <div class="table-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive approval-list">
+                        <table id="lossdamage-list" class="table table-bordered table-striped custom-table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Entity Code</th>
+                                    <th>Entity Name</th>
+                                    <th>Father Name</th>
+                                    <th>Skill Name</th>
+                                    <th>Type</th>
+                                    <th>Damage Date</th>
+                                    <th>Name Of Witness</th>
+                                    <th>Total Amount</th>
+                                    <th>No. of Installments</th>
+                                    <th>Recovery Date</th>
+                                    <th>Remarks</th>
+                                    <th>EMI Amount</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <!-- jQuery will populate this -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- route modal start --><!-- route modal start -->
+<div class="modal fade right-align standard-filter-modal drawer" id="standardFilterModal" tabindex="-1"
+     data-bs-backdrop="true" tabindex="-1" aria-hidden="true" data-keyword="true">
+    <div class="modal-dialog modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="title-primary-md-600">Filter</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <div class="modal-body" id="mapEntityGradeContainer">
+                <div class="row">
+                    <input type="hidden" id="sessionCompanyId" value="@ViewData["SessionCompanyId"]" />
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="mapCompanyDropdown" class="form-label">Company<sup>*</sup></label>
+                            <div class="mapCompanyDropdown-selection">
+                                <select id="mapCompanyDropdown" name="mapCompanyDropdown" data-placeholder="Select company" class="form-control select2_search_ctm" required>
+                                </select>
+                                <span id="mapCompanyDropdown-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="mapContractorDropdown" class="form-label">Contractor<sup>*</sup></label>
+                            <div class="mapContractorDropdown-selection">
+                                <select id="mapContractorDropdown" name="mapContractorDropdown"
+                                        data-placeholder="Select contractor"
+                                        class="form-control multi-selection" multiple="multiple" style="width: 100%;">
+                                </select>
+                                <span id="mapContractorDropdown-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="mapLocationDropdown" class="form-label">Location</label>
+                            <div class="mapLocationDropdown-selection">
+                                <select id="mapLocationDropdown" name="mapLocationDropdown" data-placeholder="Select location"
+                                        class="form-control multi-selection" multiple="multiple" style="width: 100%;">
+                                </select>
+                                <span id="mapLocationDropdown-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="approvallevels" class="form-label">Financial Year</label>
+                            <div class="date-picker-container">
+                                <input type="text" class="form-control datepicker" placeholder="From Date"
+                                       id="edatef" name="edatef">
+                                <button class="btn btn-datepicker">
+                                    <span class="sprite-icons2 date-picker"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="form-label">Month</label>
+                            <div class="row g-2">
+                                <input type="hidden" id="hiddenMonthId" />
+                                <div class="col">
+                                    <input type="text" class="form-control" id="monthName" placeholder="Month" readonly />
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="year" placeholder="Year" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn_group">
+                    <button type="button" class="btn btn-transparent-danger" id="resetEntityFilterBtn">reset</button>
+                    <div class="btn-action-variants">
+                        <button class="btn btn_primary_outline_md" data-bs-dismiss="modal"
+                                aria-label="Close">
+                            Cancel
+                        </button>
+                        <button type="button" id="applyEntityFilterBtn" class="btn btn_primary loader-dot-pulse">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+   @*  <script src="~/application/js/common/filter-modal.js"></script>
+    <script>
+        $(document).ready(function () {
+            FilterModal.init(); // initializes dropdowns one-by-one safely
+        });
+    </script> *@
+    <script src="~/application/js/summaryreports/lossdamage.js"></script>
+    <script src="~/application/js/custom-datatable/custom-datatable.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/src/custom-js/datepicker-ctm.js"></script>
+}

@@ -1,0 +1,169 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="~/assets/plugins/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/assets/plugins/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/assets/src/css/fonts.css">
+    <link rel="stylesheet" href="~/assets/src/scss/style.css">
+
+    @* Added by Rohit Tiwari *@
+    <link href="~/application/css/login/login.css" rel="stylesheet" />
+    <link href="~/application/css/common/toastr.min.css" rel="stylesheet" />
+
+    @* bundling purpose *@
+    @* <link rel="stylesheet" href="~/css/site.min.css" /> *@ 
+
+</head>
+
+<body>
+    <section class="page_wrapper_main">
+        <div class="login_wrapper">
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-center">
+
+                    <!-- Left Side Static Fixed View -->
+
+                    <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-5 col-10">
+                        <div class="login_slider_wrapper">
+                            <div class="owl-carousel owl-theme owl-slider">
+                                <div class="item">
+                                    <img src="~/assets/img/login-slider1.svg" class="img-fluid d-block" height="248"
+                                         width="448" alt="slider-image-1">
+                                    <div class="slider-content">
+                                        <p class="slider-title">Payroll System</p>
+                                        <p class="slider-text">The Simplest Way to Manage your Payroll</p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="~/assets/img/login-slider1.svg" class="img-fluid d-block" height="248"
+                                         width="448" alt="slider-image-1">
+                                    <div class="slider-content">
+                                        <p class="slider-title">Payroll System</p>
+                                        <p class="slider-text">The Simplest Way to Manage your Payroll</p>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <img src="~/assets/img/login-slider1.svg" class="img-fluid d-block" height="248"
+                                         width="448" alt="slider-image-1">
+                                    <div class="slider-content">
+                                        <p class="slider-title">Payroll System</p>
+                                        <p class="slider-text">The Simplest Way to Manage your Payroll</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Side Dynamic View -->
+                    <!-- Sign In Form -->
+                    <div class="col-xxl-3 col-xl-5 offset-md-1 col-lg-4 col-md-4 col-9 d-block" id="LoginForm">
+                        <div class="login_form_wrapper">
+                            <img class="login-logo" src="~/assets/img/icons/mantra-logo.png" height="60" width="222" alt="logo">
+
+                            <p class="sub-title-secondary">Welcome</p>
+                            <p class="title-primary">Log in to your account</p>
+
+                            <div class="form-section">
+
+                                <div class="form-group">
+                                    <label for="txtUserName" class="form-label">Username <sup>*</sup></label>
+                                   @*  <input id="txtUsername" name="txtUsername" type="text" class="form-control" placeholder="Enter employee code / username / email address" tabindex="1"> *@
+                                    <input id="txtUsername" name="txtUsername" type="text" class="form-control"
+                                           placeholder="Enter employee code / username / email address"
+                                           tabindex="1" value="@(ViewBag.Username ?? "")" />
+
+                                    @* <p id="username-validation-message" class="input_error_msg"></p> *@
+                                </div>
+
+                                <div class="form-group" id="password-Div">
+                                    <label for="txtpassword" class="form-label">Password <sup>*</sup></label>
+                                    <div class="password-area">
+                                        <input id="txtPassword" name="txtPassword" type="password" class="form-control" placeholder="Enter password" tabindex="2">
+                                        <button class="btn btn-password-show-hide">
+                                            <span class="sprite-icons open-eye"></span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="auth-options" id="rememberMe-Div">
+                                    <div class="input-group">
+                                        <input id="rememberme" class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" tabindex="3"
+                                        @(ViewBag.Username != null ? "checked" : "")>
+                                        <label for="rememberme" class="form-label">Remember me</label>
+                                    </div>
+                                    <button type="button" id="btnForgotPassword" class="btn btn-link-primary loader-dot-pulse" tabindex="4">Forgot Password?</button>
+                                </div>
+
+                                <div class="captcha-state" id="captcha-Div">
+                                    <div class="captcha-container">
+                                        <div class="captcha-controls">
+                                            <img id="imgCaptcha" src="/Account/GenerateCaptcha" height="40" width="158" alt="captcha">
+                                            <button id="refCaptcha" type="button" class="btn btn-captha-refresh" onclick="refreshCaptcha()" tabindex="5">
+                                                <span class="sprite-icons captcha-refresh"></span>
+                                            </button>
+                                        </div>
+                                        <input id="txtCaptcha" type="text" class="form-control" placeholder="#$%^J&f" tabindex="6">
+                                    </div>
+                                    <p id="common-validation-message" class="input_error_msg"></p>
+                                </div>
+
+                                <button type="button" class="btn_primary_md w-100 loader-dot-pulse" id="btnSignIn" tabindex="7">Login</button>
+
+                            </div>
+
+                            <!-- <div class="tac-wrapper"> -->
+                            <div class="tac-container">
+                                <p class="sm-text-gray-neutral">
+                                    By Clicking on Login, you are agree to Payroll’s
+                                </p><a href="#" class="btn-link-primary">Terms and conditions of Use</a>
+                            </div>
+                            <!-- </div> -->
+
+                        </div>
+                    </div>
+
+                    <!-- ForgotPassword Form -->
+                    <div class="col-xxl-3 col-xl-5 offset-md-1 col-lg-4 col-md-4 col-9 d-none" id="ForgotPasswordForm">
+                    </div>
+
+                    <!-- UpdatePassword Form -->
+                    <div class="col-xxl-3 col-xl-5 offset-md-1 col-lg-4 col-md-4 col-9 d-none" id="UpdatePasswordForm">
+                    </div>
+
+                    <!-- OTP Verification Form -->
+                    <div class="col-xxl-3 col-xl-5 offset-md-1 col-lg-4 col-md-4 col-9 d-none" id="OTPVerificationForm">
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/assets/src/js/jquery.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+    <script src="~/assets/src/js/popper.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+    <script src="~/assets/plugins/OwlCarousel2-2.3.4/src/js/owl.carousel.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+
+    @* // added by dev... team // *@
+    <script src="~/application/js/common/toastr.min.js"></script>
+    <script src="~/application/js/login/login.js"></script>
+
+    @* bundling purpose *@
+    @* <link rel="stylesheet" href="~/css/site.min.js" /> *@
+
+</body>
+</html>

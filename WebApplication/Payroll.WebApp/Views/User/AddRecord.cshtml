@@ -1,0 +1,586 @@
+﻿<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+<!-- date picker plugin -->
+<link rel="stylesheet" href="~/assets/src/css/bootstrap-datepicker.min.css" />
+<div class="breadcrumb-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/Index" class="breadcrumb-text"><span class="sprite-icons home-primary"></span></a>
+            </li>
+            <li class="breadcrumb-item primary">
+                <a href="/User/Index" class="breadcrumb-text">User List</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a class="breadcrumb-text">User Detail</a>
+            </li>
+        </ol>
+    </nav>
+</div>
+<div class="app-layout">
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+    <div class="title-container">
+        <div class="current-back">
+            <a href="/User/Index" class="btn btn-back-icon">
+                <span class="sprite-icons back-violet"></span>
+            </a>
+            <p class="title-primary">Create New User</p>
+        </div>
+        <div class="button-group">
+            <button class="btn btn-transparent-danger" id="resetButton">reset All</button>
+            <a href="/User/Index" class="btn btn_primary_outline_md">Cancel</a>
+        </div>
+    </div>
+
+    <div class="row g-0">
+        <div class="col-lg-3 col-md-3">
+            <div class="vertical-tabs">
+                <div class="vertical-tabs-fixed-layout">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                         aria-orientation="vertical">
+                        <button class="nav-link checked active" id="v-pills-home-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-home" type="button" role="tab"
+                                aria-controls="v-pills-home" aria-selected="true">
+                            User Information
+                        </button>
+
+                        <button class="nav-link " id="v-pills-profile-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-profile" type="button" role="tab"
+                                aria-controls="v-pills-profile" aria-selected="false">
+                            Company Details
+                        </button>
+
+                        <button hidden class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-messages" type="button" role="tab"
+                                aria-controls="v-pills-messages" aria-selected="false">
+                            Permission
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <div class="vertical-tab-content">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                         aria-labelledby="v-pills-home-tab" tabindex="0">
+                        <form id="firstTab">
+                            <div class="vertical-tabs-content-fixed-layout form-body ">
+                                <div class="row">
+                                    <input type="hidden" id="userId" value="" />
+
+
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="usertype" class="form-label">User Type<sup>*</sup></label>
+                                                    <div class="usertype-selection"> 
+                                                        <select id="usertype" name="usertype" class="form-control select2_search_ctm"  required>
+                                                        </select>
+                                                        <span id="usertype-error" class="input_error_msg"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12" hidden>
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1" class="form-label">
+                                                        Select
+                                                        Entity
+                                                    </label>
+                                                    <div class="dropdown">
+                                                        <a class="btn dropdown-link dropdown-toggle"
+                                                           id="dropdownTextbox" role="button"
+                                                           data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Entity-1
+                                                        </a>
+                                                        <ul class="dropdown-menu" id="dropdownMenu">
+                                                            <li>
+                                                                <a class="dropdown-item"
+                                                                   data-value="1">Entity-1</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item"
+                                                                   data-value="2">Entity-2</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item"
+                                                                   data-value="3">Entity-3</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item"
+                                                                   data-value="3">Entity-4</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item"
+                                                                   data-value="3">Entity-5</a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item"
+                                                                   data-value="3">Entity-6</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="salutationsDropdown"
+                                                           class="form-label">Salutation <sup>*</sup></label>
+                                                    <div class="salutationsDropdown-selection">
+                                                        <select id="salutationsDropdown" name="salutationsDropdown" class="form-control select2_search_ctm" required>
+                                                        </select>
+                                                        <span id="salutationsDropdown-error" class="input_error_msg"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="fname" class="form-label">
+                                                        First Name
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <input type="text" class="form-control"
+                                                           placeholder="Enter first name" id="fname" name="fname" maxlength="50" required>
+                                                    <span id="fname-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="mname" class="form-label">Middle Name</label>
+                                                    <input type="text" class="form-control"
+                                                           placeholder="Enter middle name" id="mname" name="mname" maxlength="50">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="lname" class="form-label">
+                                                        Last Name
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <input type="text" class="form-control"
+                                                           placeholder="Enter last name" id="lname" name="lname" maxlength="50" required>
+                                                    <span id="lname-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group countries-selection">
+                                                    <label for="countries" class="form-label">
+                                                        Country<sup>*</sup>
+                                                    </label>
+                                                    <div class="countries-selection">
+                                                        <select class="form-control select2_search_ctm" id="countries" name="countries" required>
+                                                        </select>
+                                                        <span id="countries-error" class="input_error_msg"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-8">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label">
+                                                        Phone Number
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <input type="tel" class="form-control"
+                                                           placeholder="Enter phone number" maxlength="15" id="phone"
+                                                           name="phone" required>
+                                                    <span id="phone-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="email" class="form-label">
+                                                        Email
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <input type="email" class="form-control"
+                                                           placeholder="Enter email address" id="email"
+                                                           name="email" maxlength="150" required>
+                                                    <span id="email-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="username" class="form-label">
+                                                        Username
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <input type="text" class="form-control"
+                                                           placeholder="Enter username" id="username"
+                                                           name="username" maxlength="150" required>
+                                                    <span id="username-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-footer">
+                                <button type="button" class="btn btn_primary" id="nextTab">
+                                    Next<span class="sprite-icons next-light"></span>
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div class="tab-pane fade " id="v-pills-profile" role="tabpanel"
+                         aria-labelledby="v-pills-profile-tab" tabindex="0">
+                        <form id="secondTab">
+                            <div class="vertical-tabs-content-fixed-layout form-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="Companies" class="form-label">
+                                                        Company
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <div class="companies-selection">
+                                                        <select class="form-control select2_search_ctm" data-placeholder="Select a company"
+                                                                id="Companies" required>
+                                                        </select>
+                                                    </div>
+                                                    <span id="Companies-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="countriesname" class="form-label">
+                                                        Country<sup>*</sup>
+                                                    </label>
+                                                    <div class="countriesname-selection">
+                                                        <select class="form-control select2_search_ctm" id="countriesname" data-placeholder="Select a country" required>
+                                                        </select>
+                                                    </div>
+                                                    <span id="countriesname-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="state" class="form-label">
+                                                        State<sup>*</sup>
+                                                    </label>
+                                                    <div class="state-selection">
+                                                        <select class="form-control select2_search_ctm" data-placeholder="Select a state" id="state" required>
+                                                        </select>
+                                                    </div>
+                                                    <span id="state-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="effectiveFromDt" class="form-label">
+                                                        Effective Date
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <div class="date-picker-container">
+                                                        <input type="text" class="form-control datepicker"
+                                                               placeholder="Enter Effective Date" id="effectiveFromDt"
+                                                               name="effectiveFromDt" required>
+                                                        <button class="btn btn-datepicker">
+                                                            <span class="sprite-icons2 date-picker"></span>
+                                                        </button>
+                                                    </div>
+                                                    <span id="effectiveFromDt-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="row">
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="branch" class="form-label">
+                                                        City<sup>*</sup>
+                                                    </label>
+                                                    <div class="branch-selection">
+                                                        <select class="form-control select2_search_ctm" data-placeholder="Select a city" id="branch" required>
+                                                        </select>
+                                                    </div>
+                                                    <span id="branch-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="department" class="form-label">
+                                                        Locations<sup>*</sup>
+                                                    </label>
+                                                    <div class="department-selection">
+                                                        <select class="form-control multi-selection" data-placeholder="Select locations"
+                                                                multiple="multiple" id="department" required>
+                                                        </select>
+                                                    </div>
+                                                    <span id="department-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="role" class="form-label">
+                                                        Roles<sup>*</sup>
+                                                    </label>
+                                                    <div class="role-selection">
+                                                        <select class="form-control multi-selection" data-placeholder="Select role"
+                                                                multiple="multiple" id="role" required>
+                                                        </select>
+                                                    </div>
+                                                    <span id="role-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-footer">
+                                <button class="btn btn_primary_outline_md" id="previousFirstTab">
+                                    <span class="sprite-icons prev-primary"></span>Previous
+                                </button>
+                                <button type="button" class="btn btn_primary" id="nextButton">
+                                    Save<span class="sprite-icons next-light"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                         aria-labelledby="v-pills-messages-tab" tabindex="0">
+
+                        <div class="vertical-tabs-content-fixed-layout form-body">
+                            <p class="lg-text-500 treeview-title">
+                                View permissions assigned to this role.
+                            </p>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="userRole" class="form-label">
+                                                Role
+                                                <sup>*</sup>
+                                            </label>
+                                            <div class="userRole-selection">
+                                                <select class="form-control select2_search_ctm" data-placeholder="Select a Role"
+                                                        id="userRole" required>
+                                                </select>
+                                            </div>
+                                            <span id="userRole-error" class="input_error_msg"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="treeview-container">
+                                <ul class="treeview">
+                                    <!-- Dynamic menu structure will be generated User.Js -->
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="form-footer">
+                            <button class="btn btn_primary_outline_md">
+                                <span class="sprite-icons prev-primary"></span>Previous
+                            </button>                           
+                          @* Comment By Harshida 20-01-'25 *@ 
+
+                        @*  <button class="btn btn_primary" type="button" id="savePermissions" data-bs-toggle="modal" data-bs-target="#userAddedModal"> *@
+                            <button class="btn btn_primary" type="button" id="savePermissions" data-bs-toggle="modal">
+                                Save Permissions<span class="sprite-icons next-light"></span>
+                            </button>
+                        </div>
+                        <div>
+                            <input hidden type="text" name="userId" id="userId" />
+                            <input hidden type="text" name="usereffectiveFromDt" id="usereffectiveFromDt" />
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal primary -->
+<div class="modal fade modal-custom modal-primary" id="userAddedModal" tabindex="-1"
+     aria-labelledby="userAddedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/icons/priamry-done-modal.svg" width="134" height="77" alt="successfully done">
+                <p class="title-primary mb-2">Successfully User Added</p>
+                <p class="sm-text-gray-neutral">You can now view the user list or add another user.</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" onclick="goToUserList()" class="btn btn_primary_outline_md" data-bs-dismiss="modal">
+                    Go to user
+                    list
+                </button>
+                <button type="button" onclick="addNewUser()" class="btn btn_primary">Add new user</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="headerProfile" aria-labelledby="headerProfileLabel">
+    <div class="offcanvas-header offcanvas-header-close-only">
+        <!-- <h5 id="headerProfileLabel">Offcanvas right</h5> -->
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <span class="sprite-icons close-icon"></span>
+        </button>
+    </div>
+    <div class="offcanvas-body pt-0">
+        <div class="profile-summary">
+            <img class="profile-photo" src="~/assets/img/profile.svg" height="120" width="120" alt="profile photo">
+            <p class="profile-name">vigna bagdai</p>
+            <p class="profile-email">vigna.bagdai@mantratec.com</p>
+        </div>
+
+        <div class="select-role-list">
+            <label for="exampleInputEmail1" class="form-label">Select Role:</label>
+            <div class="dropdown">
+                <a class="btn dropdown-link dropdown-toggle" id="dropdownTextbox" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    Admin
+                </a>
+                <ul class="dropdown-menu" id="dropdownMenu">
+                    <li><a class="dropdown-item" data-value="1">Action</a></li>
+                    <li><a class="dropdown-item" data-value="2">Another action</a></li>
+                    <li><a class="dropdown-item" data-value="3">Something else here</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="own-profile-security">
+            <button class="btn btn-primary-light"><span class="sprite-icons user-icon"></span>profile</button>
+            <button class="btn btn-primary-light">
+                <span class="sprite-icons password-lock"></span>change
+                password
+            </button>
+        </div>
+
+        <hr />
+
+        <div class="theme-selection">
+            <div class="light-dark-mode">
+                <div class="icon-title">
+                    <span class="sprite-icons non-handle-bag"></span>
+                    <p class="form-check-label">Select Theme</p>
+                </div>
+                <div class="theme-box">
+                    <div class="light-theme-box">
+                        <img src="~/assets/img/dark-theme.svg" height="44" width="74" alt="dark theme">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                   id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1" id="toggleLight">
+                                Light Theme
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="dark-theme-box">
+                        <img src="~/assets/img/light-theme.svg" height="44" width="74" alt="light theme">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                   id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Dark Theme
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="offcanvas-footer">
+        <div class="logout-container">
+            <button class="btn btn-danger-light" onclick="window.location.href='login.html'">
+                <span class="sprite-icons logout-icon"></span>Logout
+            </button>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @*  <script src="~/assets/src/js/jquery.min.js"></script>
+    <script src="~/assets/src/js/popper.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script> *@
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/application/js/common/userdropdown.js"></script>
+    <script src="~/application/js/user/user.js"></script>
+    <!-- date picker plugins -->
+    <script src="~/assets/src/js/bootstrap-datepicker.min.js"></script>
+    <!-- date picker custom js file -->
+    <script src="~/assets/src/custom-js/datepicker-ctm.js"></script>
+   @*  <script>
+        $(document).ready(function () {
+            // Initialize the datepicker
+            $('#effectiveFromDt').datepicker({
+                format: 'yyyy-mm-dd', // Set format
+                startDate: new Date(), // Disable past dates
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function (e) {
+                $(this).val(e.format('yyyy-mm-dd')); // Ensure correct format
+                $("#effectiveFromDt-error").text("").hide(); // Hide error message on valid selection
+            });
+
+            // Prevent manual entry of past dates
+            $("#effectiveFromDt").on("change", function () {
+                let selectedDate = new Date($(this).val());
+                let today = new Date();
+                today.setHours(0, 0, 0, 0); // Remove time portion for accurate comparison
+
+                if (selectedDate < today) {
+                    $(this).val(""); // Clear input if past date is selected manually
+                    $("#effectiveFromDt-error").text("Past dates are not allowed.").show();
+                } else {
+                    $("#effectiveFromDt-error").text("").hide();
+                }
+            });
+
+            // Open datepicker on button click
+            $(".btn-datepicker").on("click", function () {
+                $("#effectiveFromDt").datepicker("show");
+            });
+        });
+
+    </script> *@
+}

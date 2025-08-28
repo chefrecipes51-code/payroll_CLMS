@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.UserRoleBasedMenuDTO>
+<style>
+    /* Override .sub-menu-item */
+  /*   .sub-menu .sub-menu-item {
+        display: block !important;
+        width: 100% !important;
+        padding: 8px 16px !important;
+        text-decoration: none !important;
+        color: var(--gray-stone);
+        white-space: nowrap;
+        border-radius: 4px;
+    } */
+
+    /* Optional: Add hover effect */
+   /*  .sub-menu .sub-menu-item:hover {
+        background-color: var(--lavender-faint);
+        color: var(--primary);
+    } */
+</style>
+
+<ul class="sub-menu">
+    @if (Model != null && Model.Any())
+    {
+        var topLevelMenus = Model
+            .Where(m => m.ParentMenuId == null || m.ParentMenuId == 0)
+            .OrderBy(m => m.DisplayOrder)
+            .ToList();
+
+        foreach (var menu in topLevelMenus)
+        {
+            var childMenus = Model
+                .Where(m => m.ParentMenuId == menu.Menu_Id)
+                .OrderBy(m => m.DisplayOrder)
+                .ToList();
+
+            if (!childMenus.Any())
+            {
+                <li class="sub-menu-list">
+                    <a class="sub-menu-item"
+                       href="#"
+                       onclick="event.preventDefault(); setMenuIdAndRedirect(@menu.Menu_Id, '@menu.ActionUrl')">
+                        @menu.MenuName
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="nested-sub-menu">
+                    <input type="checkbox" id="submenu-@menu.Menu_Id">
+                    <label class="dropdown-item" for="submenu-@menu.Menu_Id">
+                        @menu.MenuName <span class="sprite-icons down-arrow-dark"></span>
+                    </label>
+                    <ul class="nested-sub-menu-list">
+                        @foreach (var subMenu in childMenus)
+                        {
+                            var nestedMenus = Model
+                                .Where(m => m.ParentMenuId == subMenu.Menu_Id)
+                                .OrderBy(m => m.DisplayOrder)
+                                .ToList();
+
+                            if (!nestedMenus.Any())
+                            {
+                                <li class="sub-menu-list">
+                                    <a class="sub-menu-item"
+                                       href="#"
+                                       onclick="event.preventDefault(); setMenuIdAndRedirect(@subMenu.Menu_Id, '@subMenu.ActionUrl')">
+                                        @subMenu.MenuName
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nested-sub-menu">
+                                    <input type="checkbox" id="submenu-@subMenu.Menu_Id">
+                                    <label class="dropdown-item" for="submenu-@subMenu.Menu_Id">
+                                        @subMenu.MenuName <span class="sprite-icons down-arrow-dark"></span>
+                                    </label>
+                                    <ul class="nested-sub-menu-list">
+                                        @foreach (var nestedMenu in nestedMenus)
+                                        {
+                                            <li class="sub-menu-list">
+                                                <a class="sub-menu-item"
+                                                   href="#"
+                                                   onclick="event.preventDefault(); setMenuIdAndRedirect(@nestedMenu.Menu_Id, '@nestedMenu.ActionUrl')">
+                                                    @nestedMenu.MenuName
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+        }
+    }
+    else
+    {
+        <li class="sub-menu-list"><span class="dropdown-item">No Menu Available</span></li>
+    }
+</ul>

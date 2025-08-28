@@ -1,0 +1,110 @@
+.formula-pay-master {
+    padding: 8px 24px;
+    height: calc(100vh - 196px);
+    overflow-y: auto;
+}
+
+.apply-formula-inputs {
+    margin-bottom: 16px;
+}
+
+.field-operators-container {
+    .field-container {
+        .field-list {
+            border: 1px solid var(--blue-soft);
+            // height: calc(100vh - 791px);
+            min-height: calc(100vh - 791px);
+            max-height: 162px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin-bottom: 8px;
+            background-color: var(--white);
+
+            ul {
+                li {
+                    padding: 8px 16px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--lavender-pastel);
+                    }
+                }
+            }
+        }
+    }
+
+    .operators-container {
+        .oprators {
+            margin-bottom: 16px;
+
+            .calculate-button-group {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
+        }
+    }
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 16px;
+
+    .status-display {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        .sm-text {
+            margin-bottom: 0;
+        }
+
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            border-radius: 50px;
+            display: inline-block;
+
+            &.dot-primary {
+                background-color: var(--primary);
+            }
+
+            &.dot-success {
+                background-color: var(--success-spring);
+            }
+
+            &.dot-danger {
+                background-color: var(--danger);
+            }
+
+            &.dot-warning {
+                background-color: var(--yellow-100);
+            }
+        }
+    }
+}
+
+.formula-calculator-card-wrapper {
+    padding: 8px 16px;
+
+    .apply-formula-inputs {
+        margin-bottom: 0;
+    }
+
+    .formula-pay-master {
+        padding: 16px;
+        border: 1px solid var(--lavender-mist);
+        border-radius: 8px;
+
+        .status-indicator {
+            justify-content: left;
+        }
+
+        .btn-formula {
+            background-color: var(--gray-soft);
+        }
+    }
+}

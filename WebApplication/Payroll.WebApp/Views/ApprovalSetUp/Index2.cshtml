@@ -1,0 +1,352 @@
+﻿<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<!-- date picker plugin -->
+<link rel="stylesheet" href="~/assets/src/css/bootstrap-datepicker.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="~/assets/src/css/croppie.css" rel="stylesheet" />
+
+
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+    <!-- Alert content will be dynamically inserted based on the alert type -->
+</div>
+
+<div style="height:30px"></div>
+<div id="approvalContainer">
+
+    <div class="vertical-tab-content">
+
+        <div class="form-body">
+
+            <div class="bordered-title-content-wrapper">
+                <div class="bordered-title">
+                    <p class="title-primary">Approval Matrix Configuration</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <!-- Modules Dropdown -->
+                            <label for="moduleSelect" class="form-label">Modules<sup>*</sup></label>
+                            <div class="module-selection">
+                                <select id="moduleSelect" name="moduleSelect" class="form-control module-select select2_search_ctm" required>
+                                    <option value="">-- Select Module --</option>
+                                </select>
+                                <span id="moduleSelect-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <!-- Services Dropdown -->
+                            <div class="mb-3">
+                                <label for="serviceSelect" class="form-label ">Services<sup>*</sup></label>
+                                <select id="serviceSelect" class="form-control service-select select2_search_ctm">
+                                    <!-- Services will be populated dynamically -->
+                                    <option value="">Select Services</option>
+                                </select>
+                                <span id="serviceSelect-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <div class="mb-3">
+                                <label class="form-label"></label>
+                                <button type="button" id="getApprovalData" class="btn btn_primary add-button">Get Data</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="vertical-tabs-content-fixed-layout form-body">
+                    <div id="approvalRows">
+
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <input type="checkbox" class="is-alternate">
+                                    <label class="me-2">Is Active?</label>
+
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <input type="checkbox" class="is-alternate">
+                                    <label class="me-2">Email Alert</label>
+
+                                </div>
+                            </div>
+                            <div class="row" style="height:75px">
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <label class="form-label">Total Levels</label>
+                                    <input type="text" class="form-control" placeholder="Levels" style="width:80px">
+
+                                </div>
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <label class="form-label">Priority</label>
+                                    <input type="text" class="form-control" placeholder="Priority" style="width:80px">
+
+                                </div>
+                                <div class="col-md-8 d-flex align-items-end">
+                              
+
+                                </div>
+                            </div>
+                            <div class="row" style="height:75px">
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <input type="checkbox" class="is-alternate">
+                                    <label class="me-2">Auto approval after days.</label>
+                                    <input type="text" class="form-control" placeholder="Days" style="width:80px">
+                                </div>
+
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <input type="checkbox" class="is-alternate">
+                                    <label class="me-2">Auto rejection after days.</label>
+                                    <input type="text" class="form-control" placeholder="Days" style="width:80px">
+
+                                </div>
+                            </div>
+                            <div class="row" style="height:17px"></div>
+                            <!-- This row will be cloned dynamically -->
+                            <div style="display:none">
+                                <div class="approval-rowHidden row mb-2">
+
+                                    <div class="col-md-2">
+                                        <label>Level</label>
+                                        <select id="levelSelect" class="form-control level-select">
+                                            <option value="">-- Select Level --</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="userSelect">Approver</label>
+                                        <select id="userSelect" class="form-control user-select">
+                                            <option value="">Select Approver</option>
+                                        </select>
+                                    </div>
+
+                                    @*    <div class="col-md-2">
+                                    <label>Order</label>
+                                    <input type="number" class="form-control sequence-order" min="1" style="width:100px">
+                                    </div>
+                                    <div class="col-md-2 d-flex align-items-end">
+                                    <label class="me-2">Is Alternate?</label>
+                                    <input type="checkbox" class="is-alternate">
+                                    </div> *@
+                                    <div class="col-md-3 d-flex align-items-end">
+                                        <button type="button" class="btn btn_primary add-button add-more me-2">
+                                            <span class="sprite-icons add-light"></span>
+                                        </button>
+
+                                        <button type="button" class="btn btn-danger-light-icon remove">
+                                            <span class="sprite-icons delete-danger"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*   <div style="height:50px" class="d-flex align-items-center">
+                            <div class="form-check me-3">
+                            <input class="form-check-input" type="radio" name="approvalType" id="sequenceApproval" value="sequence" checked>
+                            <label class="form-check-label" for="sequenceApproval">
+                            Sequence Approval
+                            </label>
+                            </div>
+
+                            <div class="form-check">
+                            <input class="form-check-input" type="radio" name="approvalType" id="parallelApproval" value="parallel">
+                            <label class="form-check-label" for="parallelApproval">
+                            Parallel Approval
+                            </label>
+                            </div>
+                            </div> *@
+                            <div class="approval-row row mb-2">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="container">
+                        <div id="approval-matrix">
+                            <!-- Default Level Row -->
+                            <div class="level-section mb-3" data-level="1">
+                                <div class="row align-items-center border p-2 bg-light">
+                                    <div class="col-md-3">
+                                        <label class="form-label">Level</label>
+                                        <select class="form-select level-dropdown">
+                                            <option value="1">Level 1</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Approval Type</label>
+                                        <select class="form-select">
+                                            <option value="sequence">Sequential</option>
+                                            <option value="parallel">Parallel</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <button class="btn btn-primary me-2" onclick="addLevel()">Add Level</button>
+                                        <button class="btn btn-danger" onclick="removeLevel(this)">Remove Level</button>
+                                    </div>
+                                </div>
+
+                                <!-- Approver Section (Subgrid) -->
+                                <div class="approver-section p-3">
+                                    <div class="row mb-2 align-items-center approver-row">
+                                        <div class="col-md-1">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">Sequence</label>
+                                            <input type="text" class="form-control" placeholder="Enter Sequence">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="form-label">Approver Name</label>
+                                            <select class="form-select">
+                                                <option value="John">John Doe</option>
+                                                <option value="Jane">Jane Smith</option>
+                                                <option value="Michael">Michael Johnson</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-5 text-start">
+                                            <button class="btn btn-success me-2" onclick="addApprover(this)">Add Approver</button>
+                                            <button class="btn btn-warning" onclick="removeApprover(this)">Remove Approver</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-footer">
+
+                        <button type="button" id="submitApprovalSetup" class="btn btn_primary add-button">
+                            Submit Approval Setup
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="vertical-tab-content">
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    @*  <script src="~/assets/src/js/jquery.min.js"></script>
+    <script src="~/assets/src/js/popper.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script> *@
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    @*  <script src="~/application/js/common/dropdown.js"></script>
+    <script src="~/application/js/user/user.js"></script> *@
+    <!-- date picker plugins -->
+    <script src="~/assets/src/js/bootstrap-datepicker.min.js"></script>
+    <!-- date picker custom js file -->
+    <script src="~/assets/src/custom-js/datepicker-ctm.js"></script>
+
+
+
+    @*   <script src="assets/src/js/select2.min.js"></script>
+    <script src="assets/src/custom-js/select2.js"></script> *@
+    <script src="assets/src/custom-js/placeholder.js"></script>
+    <script src="assets/src/custom-js/treeview.js"></script>
+
+    <script src="~/application/js/approvalmatrix/approvalMatrix.js"></script>
+
+    <script>
+        let levelCount = 1;
+
+        function addLevel() {
+            levelCount++;
+            let approvalMatrix = document.getElementById("approval-matrix");
+
+            // Create a new level section
+            let newLevel = document.createElement("div");
+            newLevel.classList.add("level-section", "mb-3");
+            newLevel.setAttribute("data-level", levelCount);
+            newLevel.innerHTML = `
+                                            <div class="row align-items-center border p-2 bg-light">
+                                                <div class="col-md-3">
+                                                    <label class="form-label">Level</label>
+                                                    <select class="form-select level-dropdown">
+                                                        <option value="${levelCount}">Level ${levelCount}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class="form-label">Approval Type</label>
+                                                    <select class="form-select">
+                                                        <option value="sequence">Sequential</option>
+                                                        <option value="parallel">Parallel</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 text-end">
+                                                    <button class="btn btn-primary me-2" onclick="addLevel()">Add Level</button>
+                                                    <button class="btn btn-danger" onclick="removeLevel(this)">Remove Level</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="approver-section p-3">
+                                                <div class="row mb-2 align-items-center approver-row">
+                                                        <div class="col-md-1">
+                                                </div>
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Sequence</label>
+                                                        <input type="text" class="form-control" placeholder="Enter Sequence">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label class="form-label">Approver Name</label>
+                                                        <select class="form-select">
+                                                            <option value="John">John Doe</option>
+                                                            <option value="Jane">Jane Smith</option>
+                                                            <option value="Michael">Michael Johnson</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-5 text-start">
+                                                        <button class="btn btn-success me-2" onclick="addApprover(this)">Add Approver</button>
+                                                        <button class="btn btn-warning" onclick="removeApprover(this)">Remove Approver</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `;
+
+            // Append the new level to the approval matrix
+            approvalMatrix.appendChild(newLevel);
+        }
+
+        function removeLevel(button) {
+            let levelSection = button.closest(".level-section");
+            if (document.querySelectorAll(".level-section").length > 1) {
+                levelSection.remove();
+            } else {
+                alert("At least one level is required.");
+            }
+        }
+
+        function addApprover(button) {
+            let approverRow = button.closest(".approver-row");
+            let newApproverRow = approverRow.cloneNode(true);
+            approverRow.closest(".approver-section").appendChild(newApproverRow);
+        }
+
+        function removeApprover(button) {
+            let approverRow = button.closest(".approver-row");
+            if (approverRow.closest(".approver-section").querySelectorAll(".approver-row").length > 1) {
+                approverRow.remove();
+            } else {
+                alert("At least one approver is required.");
+            }
+        }
+    </script>
+
+}

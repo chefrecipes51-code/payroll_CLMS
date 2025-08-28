@@ -1,0 +1,357 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.EntityFilterResponseDTO>
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<link href="~/application/css/custom-datatable/custom-datatable.css" rel="stylesheet" />
+
+<style type="text/css">
+    #TemlateSeviceDrp {
+        width: 100%; /* Full width of the parent container */
+        max-width: 213px; /* Maximum width */
+    }
+
+    .total-entries {
+        margin-top: 10px !important; /* Adjust as needed */
+        margin-bottom: 10px !important; /* Adjust as needed */
+    }
+
+    #btn1, #btn3 {
+        display: none !important;
+    }
+
+    .select2-container {
+        z-index: 999999 !important;
+    }
+
+    .select2-dropdown {
+        z-index: 999999 !important;
+    }
+</style>
+
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+    <!-- Alert content will be dynamically inserted based on the alert type -->
+</div>
+<div class="payroll-tabs-content-container">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-link" href="/EntityMaster/EntityList" id="entityMasterTab">Entity</a>
+            <a class="nav-link" href="/EntityMaster/GradeEntityMapping" id="gradeEntityMappingTab">Grade-Entity Mapping</a>
+        </div>
+    </nav>
+    <div class="row g-0">
+        <div class="col-lg-12 col-md-8 col-sm-8">
+            <div class="app-layout">
+                <div class="title-container">
+                    <div class="current-back">
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn_primary_outline_md" id="deselectAllBtn" disabled>Deselect All</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+                         aria-labelledby="nav-user-list-tab">
+
+                        <div class="table-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive income-tax-table">
+                                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 px-3 pt-3">
+                                            <div class="d-flex align-items-center gap-2" id="customSearch"></div>
+                                            <div id="last_section" class="d-flex align-items-center gap-3">
+                                                <div id="customButtons" class="d-flex align-items-center gap-2 me-3"></div>
+                                                <div id="dt_length" class="custom_table_length">
+                                                    <label>
+                                                        Show rows per page
+                                                        <select id="pageSizeDropdown" class="form-select form-select-sm w-auto ms-2">
+                                                            <option value="10">10</option>
+                                                            <option value="25">25</option>
+                                                            <option value="50">50</option>
+                                                            <option value="100">100</option>
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                                <div id="dt_info"></div>
+                                                <div id="dt_paginate" class="dt_paginate"></div>
+                                                <div id="pagination-container" class="d-flex justify-content-between align-items-center mt-3">
+                                                    <div id="pagination-info" class="text-muted"></div>
+                                                    <div id="pagination-controls" class="btn-group"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <table id="grade-entity-mapping-list" class="filter-table table custom-table">
+                                            <thead>
+                                                <!-- Modal-like dropdown -->
+                                                <div id="dropdownModal" class="custom-dropdown">
+                                                    <div class="dropdown-item">
+                                                        <input type="radio" id="selectPage" name="recordSelect" class="form-check-input">
+                                                        <label for="selectPage">Select Page Records</label>
+                                                    </div>
+                                                    <div class="dropdown-item">
+                                                        <input type="radio" id="selectAll" name="recordSelect" class="form-check-input">
+                                                        <label for="selectAll">Select All Filtered Records</label>
+                                                    </div>
+
+                                                    <div class="dropdown-footer">
+                                                        <button type="button" class="btn btn-transparent-danger" id="resetSelection">
+                                                            Reset
+                                                        </button>
+                                                        <button type="button" class="btn btn_primary" id="applySelection">
+                                                            Apply
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+
+                                                <tr>
+                                                    <th class="sticky_cell checkbox">
+                                                        <input type="checkbox" id="openDropdown"
+                                                               class="form-check-input">
+                                                    </th>
+
+
+                                                    <th hidden>RegimeId</th>
+                                                    <th hidden>EntityId</th>
+                                                    <th hidden>ContractorId</th>
+                                                    <th hidden>ContractorCode</th>
+                                                    <th>Contractor</th>
+                                                    <th>Entity Code</th>
+                                                    <th>Entity Name</th>
+                                                    <th>Location</th>
+                                                    <th>Trade</th>
+                                                    <th>Skill</th>
+                                                    <th>Grade</th>
+                                                    @* <th>Status</th> *@
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn_group py-2 text-end">
+                                <button class="btn btn-transparent-danger">Cancel</button>
+                                <button class="btn btn_primary" id="mapgradeentity" data-bs-toggle="modal"
+                                        data-bs-target="#mapgradeentitymodel" disabled>
+                                    Assign
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*  <input type="hidden" id="sessionCompanyId" value="@ViewBag.SessionCompanyId" />
+        <input type="hidden" id="sessionRoleId" value="@ViewBag.SessionRoleId" />
+        <div class="col-lg-3 col-md-4 col-sm-4" id="mapEntityGradeContainer">
+        @await Html.PartialAsync("_MapEntityGradePartial", Model)
+        </div> *@
+    </div>
+
+</div>
+
+<div class="modal fade right-align standard-filter-modal drawer" id="standardFilterModal" tabindex="-1"
+     data-bs-backdrop="true" tabindex="-1" aria-hidden="true" data-keyword="true">
+    <div class="modal-dialog modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="title-primary-md-600">Filter</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <div class="modal-body" id="mapGradeContainer">
+                ViewData["SessionCompanyId"] = yourSessionCompanyId;
+                ViewData["SessionRoleId"] = yourSessionRoleId;
+                @await Html.PartialAsync("_MapEntityGradePartial", Model)
+            </div>
+            <div class="modal-footer">
+                <div class="btn_group">
+                    <button type="button" class="btn btn-transparent-danger" id="resetEntityFilterBtn">reset</button>
+                    <div class="btn-action-variants">
+                        <button class="btn btn_primary_outline_md" data-bs-dismiss="modal"
+                                aria-label="Close" id="filterClosebtn">
+                            Cancel
+                        </button>
+                        <button type="button" id="applyEntityFilterBtn" class="btn btn_primary loader-dot-pulse">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modals start -->
+<div class="modal fade modal-custom modal-primary-light" id="uploadBulk" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="uploadBulkLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <p class="title-primary">Bulk Upload</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-container">
+                    <!-- file upload with delete button -->
+                    <!-- <div class='file'>
+                        <label class="form-control form-label success mb-0" for='input-file'>
+                            Profile.xlsx
+                        </label>
+                        <input class="form-control" id='input-file' type='file' />
+                        <button class="btn btn-delete-file" data-bs-toggle="modal"
+                            data-bs-target="#removeFile"><span
+                                class="sprite-icons delete-danger"></span></button>
+                    </div> -->
+                    <div class='file'>
+                        <label class="form-control form-label" for='input-file'>
+                            <img class="img-fluid me-2 mb-0" src="~/assets/img/icons/download-small.svg" height="24"
+                                 width="24" alt="upload" />Select
+                            a file
+                        </label>
+                        <input class="form-control" id='input-file' type='file' />
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-link-primary d-flex align-items-center gap-1">
+                    <span class="sprite-icons2 download-primary-sm"></span>Download Sample
+                </button>
+                <div class="btn_group">
+                    <button type="button" class="btn btn-transparent-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn_primary loader-dot-pulse" onclick="window.location.href='assign-income-tax-slab-list.html'">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- assign regime  -->
+<div class="modal fade modal-custom modal-primary-light modal-map-grade" id="mapgradeentitymodel"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mapgradeentitymodelLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <p class="title-primary">Map Grade-Entity</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="mapGradeDropdown" class="form-label">Grade <sup>*</sup></label>
+                    <div class="dropdown">
+                        <a class="btn dropdown-link dropdown-toggle" id="dropdownTextbox" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Select grade
+                        </a>
+                        <ul class="dropdown-menu" id="dropdownMenu">
+                            <!-- Items will be populated dynamically -->
+                        </ul>
+
+                    </div>
+                    <span id="dropdownTextbox-error" class="input_error_msg"></span>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <button type="button" class="btn btn-transparent-danger" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="bulkInsertMapGradeEntityBtn" class="btn btn_primary loader-dot-pulse">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Upload bulk modals start -->
+<!-- <div class="modal fade modal-custom modal-primary-confirmation" id="uploadBulk" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="uploadBulkLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <p class="title-primary">Bulk Upload</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><span
+                        class="sprite-icons close-icon"></span></button>
+            </div>
+            <div class="modal-body">
+                <div class='file'>
+                    <label class="form-control form-label" for='input-file'>
+                        <img class="img-fluid me-2 mb-0" src="~/assets/img/icons/download-small.svg" height="24"
+                            width="24" alt="upload" />Select a file
+                    </label>
+                    <input class="form-control" id='input-file' type='file' />
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-link-primary"><span
+                        class="sprite-icons close-icon"></span>Download Sample</button>
+                <div class="btn_group">
+                    <button type="button" class="btn btn-transparent-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn_primary loader-dot-pulse">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/application/js/entitymaster/mapentitygrade.js"></script>
+    <script src="~/application/js/custom-datatable/custom-datatable.js"></script>
+
+    <!-- <script src="assets/src/custom-js/script.js"></script> -->
+    <script>
+        const checkbox = document.getElementById('openDropdown');
+        const dropdown = document.getElementById('dropdownModal');
+
+        checkbox.addEventListener('change', function () {
+            dropdown.style.display = checkbox.checked ? 'block' : 'none';
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!checkbox.contains(e.target) && !dropdown.contains(e.target)) {
+                checkbox.checked = false;
+                dropdown.style.display = 'none';
+            }
+        });
+
+    </script>
+
+    <script>
+        // button loader on click
+        $('.loader-dot-pulse').on('click', function () {
+            var self = this;
+            $(this).addClass('btn__dots--loading');
+            $(this).append('<span class="btn__dots"><i></i><i></i><i></i></span>');
+            setTimeout(function () {
+                $(self).removeClass('btn__dots--loading');
+                $(self).find('.btn__dots').remove();
+            }, 2000);
+
+        });
+    </script>
+
+    <!-- dropdown active -->
+    <script>
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        // Handle dropdown item click
+        dropdownMenu.addEventListener('click', (event) => {
+            if (event.target.classList.contains('dropdown-item')) {
+                // Remove 'active' class from all items
+                dropdownMenu.querySelectorAll('.dropdown-item').forEach((item) => {
+                    item.classList.remove('active');
+                });
+                // Add 'active' class to the clicked item
+                event.target.classList.add('active');
+            }
+        });
+    </script>
+
+}

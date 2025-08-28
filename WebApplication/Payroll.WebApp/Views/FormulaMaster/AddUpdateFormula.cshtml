@@ -1,0 +1,207 @@
+﻿@model PayrollMasterService.BAL.Models.FormulaMaster
+<style>
+    .field-appended {
+        background-color: #e9ecef !important; /* light grey */
+    }
+
+    .highlighted-component {
+        background-color: #e0e0e0 !important; /* Light gray */
+    }
+
+</style>
+@* <div class="breadcrumb-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <p class="breadcrumb-text"><span class="sprite-icons home-primary"></span></p>
+            </li>
+            <li class="breadcrumb-item primary">
+                <p class="breadcrumb-text">Master</p>
+            </li>
+            <li class="breadcrumb-item active">
+                <p class="breadcrumb-text">Formula</p>
+            </li>
+        </ol>
+    </nav>
+</div> *@
+<div class="app-layout">
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+    <div class="title-container">
+        <div class="current-back">
+            <button class="btn btn-back-icon" onclick="window.location.href='/FormulaMaster/Index'">
+                <span class="sprite-icons back-violet"></span>
+            </button>
+            <p class="title-primary">Formula</p>
+        </div>
+    </div>
+
+    <div class="formula-pay-master">
+        <div class="apply-formula-inputs">            
+            <div class="form-group">
+                <label for="basic" class="form-label">Formula Code<sup>*</sup></label>
+                <input type="hidden" class="form-control" name="formula_Id" id="formula_Id" value="@(Model?.Formula_Id ?? 0)" />
+                 <input type="text"
+                       class="form-control @(Model?.Formula_Id > 0 ? "bg-light text-muted" : "")"
+                       placeholder="Enter Formula Code" 
+                           id="formulaCode" 
+                           name="formulaCode"
+                            value="@(Model?.Formula_Code ?? "")"
+                                @(Model?.Formula_Id > 0 ? "readonly" : "") />
+                <span id="formulaCode-error" class="input_error_msg"></span>
+            </div>
+            <div class="form-group">
+                <label for="basic" class="form-label">Formula Name<sup>*</sup></label>
+                @* <input type="text" class="form-control" placeholder="Enter Formula Name" id="formulaName" name="formulaName" > *@
+                 <input type="text" class="form-control" placeholder="Enter Formula Name" id="formulaName"
+                       name="formulaName" value="@(Model?.FormulaName ?? "")" />
+                <span id="formulaName-error" class="input_error_msg"></span>
+            </div>
+            <div class="form-group">
+                <label for="activeuser" class="form-label">Formula <sup>*</sup></label>   
+                <textarea class="textarea" id="formulaInput" name="formulaInput" rows="3" placeholder="Apply formula">@Model.Formula_Computation</textarea>
+                <div id="suggestionBox" class="suggestion-box" style="display:none; position:absolute; background:white; border:1px solid #ccc; max-height:200px; overflow-y:auto; z-index:9999;">
+                </div>
+                <span id="formulaInput-error" class="input_error_msg"></span>
+            </div>
+            @if (Model != null && Model.Formula_Id != null && Model.Formula_Id > 0)
+            {
+                <div class="form-group" id="toggleContainer">
+                    <label class="form-label" for="formulaActiveToggle">Status</label>
+                    <div class="form-check form-switch d-flex align-items-center">
+                        <input type="checkbox"
+                               id="formulaActiveToggle"
+                               class="form-check-input"
+                               role="switch"
+                        @(Model.IsActive == true ? "checked" : "") />
+                        <label class="form-check-label ml-2" for="formulaActiveToggle" id="formulaStatusLabel">
+                            @(Model.IsActive == true ? "Active" : "Inactive")
+                        </label>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="field-operators-container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="activatePayComponentChk">
+                        <label class="form-check-label" for="activatePayComponent">Include InActive Component</label>
+                    </div>
+                    <div class="field-container">
+                        <label for="field" class="form-label">
+                            List of Available
+                            Fields
+                            <sup>*</sup>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Search available fields"
+                               id="field" name="field">
+                        <div class="field-list">                          
+                            <ul id="componentList" class="list-group">
+                            </ul>
+                            <input type="hidden" id="hiddenFieldWithUnderscores" name="hiddenFieldWithUnderscores" value="@(Model.Formula_Computation ?? "")"/>
+                        </div>
+
+                        <div class="status-indicator">
+                            <div class="status-display">
+                                <span class="status-dot dot-primary"></span>
+                                <p class="sm-text text_primary">General</p>
+                            </div>
+                            <div class="status-display">
+                                <span class="status-dot dot-success"></span>
+                                <p class="sm-text text_success">Earnings</p>
+                            </div>
+                            <div class="status-display">
+                                <span class="status-dot dot-danger"></span>
+                                <p class="sm-text text_danger">Basic</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="operators-container">
+                        <div class="oprators">
+                            <label class="form-label">Operators</label>
+                            <div class="calculate-button-group">
+                                <button class="btn btn-formula formula-btn">+</button>
+                                <button class="btn btn-formula formula-btn">-</button>
+                                <button class="btn btn-formula formula-btn">*</button>
+                                <button class="btn btn-formula formula-btn">/</button>
+                                <button class="btn btn-formula formula-btn">(</button>
+                                <button class="btn btn-formula formula-btn">)</button>
+                            </div>
+                        </div>
+                        <div class="oprators">
+                            <label class="form-label">Conditions</label>
+                            <div class="calculate-button-group">
+                                <button class="btn btn-formula formula-btn">=</button>
+                                <button class="btn btn-formula formula-btn">
+                                    <>
+                                </button>
+                                <button class="btn btn-formula formula-btn">
+                                    <
+                                </button>
+                                <button class="btn btn-formula formula-btn">></button>
+                                <button class="btn btn-formula formula-btn">
+                                    <=
+                                </button>
+                                <button class="btn btn-formula formula-btn">>=</button>
+                            </div>
+                        </div>
+                        <div class="oprators">
+                            <label class="form-label">Other Block</label>
+                            <div class="calculate-button-group">
+                                <button class="btn btn-formula formula-btn">"</button>
+                                <button class="btn btn-formula formula-btn">,</button>
+                                <button class="btn btn-formula formula-btn">and</button>
+                                <button class="btn btn-formula formula-btn">or</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-footer px-3">
+        <button class="btn btn_danger_outline" id="btnClear">Reset</button>
+        <button class="btn btn_primary_outline_md" id="btnFormulaCancle">Cancel</button>
+        <button class="btn btn_primary" id="btnApplyFormula">
+            <span id="btnApplyText">@((Model.Formula_Id > 0) ? "Update" : "Add")</span>
+        </button>
+    </div>
+</div>
+<div class="modal fade modal-custom modal-primary" id="componentEditModal" tabindex="-1"
+     aria-labelledby="componentEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/icons/priamry-done-modal.svg" width="134" height="77" alt="successfully done">
+                <p class="title-primary mb-2">Activate Pay Component</p>
+                <p class="sm-text-gray-neutral">Are you sure you want to Activate?</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" id="yesEditRole" class="btn btn_primary_outline_md" data-bs-dismiss="modal">
+                    Yes
+                </button>
+                <button type="button" id="noAnotherRole" class="btn btn_primary">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @*  Added By Harshida Parmar (25-04-'25) *@
+    @*  Download PDF and Excel From Grid:- Start *@
+    <script src="~/devassets/xlsx.full.min.js"></script>
+    <script src="~/devassets/jspdf.umd.min.js"></script>
+    <script src="~/devassets/jspdf.plugin.autotable.min.js"></script>
+    @*  Download PDF and Excel From Grid:- End *@
+    <script src="~/application/js/common/commonvalidation.js"></script>
+    <script>
+      
+    </script>
+    <script src="~/application/js/formulamaster/calculatepayformula.js"></script>
+}

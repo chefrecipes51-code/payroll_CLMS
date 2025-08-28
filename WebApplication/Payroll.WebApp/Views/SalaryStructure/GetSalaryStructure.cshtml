@@ -1,0 +1,1114 @@
+﻿@using PayrollMasterService.BAL.Models
+@model SalaryStructureDTO
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+
+@{
+    //ViewData["Title"] = Model?.SalaryStructure_Hdr_Id > 0 ? "Edit Salary Structure" : "Add Salary Structure";
+}
+
+@* 
+
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css"> *@
+<style>
+
+
+    .approval-configuration .approval-configuration-right1 {
+        height: calc(100vh - 200px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+
+        .approval-configuration .approval-configuration-right1 .accordion-body {
+            /*     max-height: calc(100vh - 553px);
+                                          overflow-y: auto;
+                                          overflow-x: hidden; */
+        }
+
+
+
+    .disabled-input {
+        background-color: #e9ecef !important;
+        color: #6c757d !important;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    .approval-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* spacing between detail-rows */
+    }
+
+    .draggable-row {
+        /*  display: flex; */
+        align-items: center;
+        width: 100%; /* Ensure full width */
+        height: 48px; /* Set a consistent height */
+        background: #fff; /* Background color for rows */
+        border: 1px solid #ccc; /* Border for rows */
+        box-sizing: border-box; /* Include padding and border in dimensions */
+        margin: 4px 0; /* Add spacing between rows */
+    }
+
+    .drag-handle {
+        cursor: move; /* Show move cursor */
+        margin-right: 8px; /* Add spacing between handle and content */
+        font-size: 20px; /* Adjust font size for handle */
+        color: #666; /* Handle color */
+    }
+
+    .sortable-placeholder {
+        /*   display: flex; */
+        align-items: center;
+        justify-content: center;
+        width: 100%; /* Match the width of the dragged item */
+        height: 48px; /* Match the height of the dragged item */
+        background: #f0f0f0; /* Light background for visibility */
+        border: 2px dashed #bbb; /* Dashed border for placeholder */
+        box-sizing: border-box; /* Include padding and border in dimensions */
+        margin: 4px 0; /* Add spacing between items */
+        font-size: 14px; /* Adjust font size for placeholder text */
+        color: #888; /* Placeholder text color */
+        text-align: center;
+        font-style: italic;
+    }
+</style>
+
+
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+    <!-- Alert content will be dynamically inserted based on the alert type -->
+</div>
+
+@* <div class="breadcrumb-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <p class="breadcrumb-text"><span class="sprite-icons home-primary"></span></p>
+            </li>
+            <li class="breadcrumb-item primary">
+                <p class="breadcrumb-text">Master</p>
+            </li>
+            <li class="breadcrumb-item primary">
+                <p class="breadcrumb-text">Salary Structure</p>
+            </li>
+            <li class="breadcrumb-item active">
+                <p class="breadcrumb-text">Add Salary Structure</p>
+            </li>
+        </ol>
+    </nav>
+</div> *@
+
+<div class="app-layout">
+    <div class="title-container">
+        <div class="current-back">
+            <button class="btn btn-back-icon" onclick="window.location.href='/SalaryStructure/SalaryStructureGrid'">
+                <span class="sprite-icons back-violet"></span>
+            </button>
+            <p class="title-primary">Salary Structure</p>
+        </div>
+        <div class="button-group">
+            <button type="button" class="btn btn-transparent-danger" onclick="location.reload();"> reset All</button>
+            <!-- <button class="btn btn_primary_outline_md">Cancel</button> -->
+        </div>
+    </div>
+
+    <div class="salary-structure-card-wrapper">
+        <div class="salary-structure-card mb-3">
+            <p class="title-primary-sm mb-3">Salary Structure Details</p>
+            <div class="row">
+
+                <div class="col-lg-4">
+
+                    <div class="form-group">
+                        <label for="SalaryStructureName">Salary Structure Name<sup>*</sup></label>
+                        <input type="text" class="form-control" id="SalaryStructureName" name="SalaryStructureName" value="@Model.SalaryStructureName" required />
+                        <span id="SalaryStructureName-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+
+                   <div class="col-lg-4">
+
+                    <div class="form-group">
+                        <label for="salaryBasicDropdown" class="form-label">
+                            Grade
+                            <sup>*</sup>
+                        </label>
+                        <div class="salaryBasicDropdown-selection">
+                            <select id="payGradeDropdown" name="payGradeDropdown"
+                                    data-selected-value="@Model.PayGradeConfig_Id"
+                                    data-placeholder="Select a pay grade" class="form-control select2_search_ctm" required>
+                            </select>
+                            <span id="payGradeDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="salaryRange" class="form-label">Salary Range </label>
+                        <input type="text" class="form-control" placeholder="Enter salary range" value="@Model.MinSalary-@Model.MaxSalary"
+                               id="salaryRange" name="salaryRange" readonly style="background-color: #eee; cursor: not-allowed;">
+
+                        <input type="hidden" id="minsalary" name="minsalary" value="@Model.MinSalary">
+                        <input type="hidden" id="maxsalary" name="maxsalary" value="@Model.MaxSalary">
+
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="form-group">
+                        <label for="salaryFrequencyDropdown" class="form-label">
+                            Salary Frequency
+                            <sup>*</sup>
+                        </label>
+                        <div class="salaryBasicDropdown-selection">
+                            <select id="salaryFrequencyDropdown" name="salaryFrequencyDropdown"
+                                    data-selected-value="@Model.SalaryFrequency"
+                                    data-placeholder="Select a salary frequency" class="form-control select2_search_ctm" required>
+                            </select>
+                            <span id="salaryFrequencyDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+             
+
+                <div class="col-lg-4">
+
+                    <div class="form-group">
+                        <label for="salaryBasicDropdown" class="form-label">
+                            Salary Basic
+                            <sup>*</sup>
+                        </label>
+                        <div class="salaryBasicDropdown-selection">
+                            <select id="salaryBasicDropdown" name="salaryBasicDropdown"
+                                    data-selected-value="@Model.SalaryBasis"
+                                    data-placeholder="Select a salary basic" class="form-control select2_search_ctm" required>
+                            </select>
+
+                            <span id="salaryBasicDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="salary-structure-card">
+            <p id="componentSection" class="title-primary-sm mb-3">Component Salary Details</p>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="payComponentDropdown" class="form-label">
+                            Component Name
+                            <sup>*</sup>
+                        </label>
+                        <div class="payComponentDropdown-selection">
+                            <select id="payComponentDropdown" name="payComponentDropdown" data-placeholder="Select a component name" class="form-control select2_search_ctm" required>
+                            </select>
+                            <span id="payComponentDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+
+
+                    <div class="form-group">
+                        <label for="componentValueTypeDropdown" class="form-label">
+                            Value Type
+                            <sup>*</sup>
+                        </label>
+                        <div class="componentValueTypeDropdown-selection">
+                            <select id="componentValueTypeDropdown" name="componentValueTypeDropdown" data-placeholder="Select a value type" class="form-control select2_search_ctm" required>
+                            </select>
+                            <span id="componentValueTypeDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col-lg-4">
+
+                    @*  <div class="form-group">
+                        <label for="exampleInputEmail1" class="form-label">Taxable <sup>*</sup></label>
+                        <div class="dropdown">
+                            <a class="btn dropdown-link dropdown-toggle" id="dropdownTextbox" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                Yes
+                            </a>
+                            <ul class="dropdown-menu" id="dropdownMenu">
+                                <li><a class="dropdown-item" data-value="1">Yes</a></li>
+                                <li><a class="dropdown-item" data-value="0">No</a></li>
+                            </ul>
+                        </div>
+                    </div> *@
+
+                    <div class="form-group">
+                        <label for="IStaxable" class="form-label">Taxable <sup>*</sup></label>
+                        <select id="taxableDropdown" for="IStaxable" class="form-control select2_search_ctm" data-placeholder="Select Taxable" asp-items="@(new SelectList(new[] {
+                            new { Value = "1", Text = "Yes" },
+                            new { Value = "0", Text = "No" }
+                        }, "Value", "Text"))">
+                            
+                        </select>
+                        <span id="taxableDropdown-error" class="input_error_msg"></span>
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="paySubComponentDropdown" class="form-label">
+                            Sub Component Name                          
+                        </label>
+                        <div class="paySubComponentDropdown-selection">
+                            <select id="paySubComponentDropdown" name="paySubComponentDropdown" data-placeholder="Select a sub component name" class="form-control select2_search_ctm" required>
+                            </select>
+                            <span id="paySubComponentDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="payrollHead" class="form-label">
+                            Component Type
+                            <sup>*</sup>
+                        </label>
+                        <div class="payrollHead-selection">
+                            <select id="payrollHeadDropdown" name="payrollHeadDropdown" data-placeholder="Select pay head type" class="form-control select2_search_ctm" required>
+                            </select>
+                            <span id="payrollHeadDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                </div>
+
+                @*     <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="paySubcomponentname" class="form-label">
+                            Component Name
+                            <sup>*</sup>
+                        </label>
+                        <input type="text" class="form-control" placeholder="Component Name"
+                               id="paycomponentname" name="paycomponentname">
+                        <span id="paycomponentname-error" class="input_error_msg"></span>
+                    </div>
+                </div> *@
+
+                <div class="col-4" id="amountSection">
+                    <div class="form-group">
+                        <label for="amountval" class="form-label">
+                            Amount
+                            <sup>*</sup>
+                        </label>
+                        <input type="text" class="form-control"
+                               placeholder="Enter amount" id="amountval" name="amountval" style="text-align: right;" maxlength="9">
+                        <span id="amountval-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+                <!-- Added NEW DIV FOR MODEL POPUO:- Start-->
+                <div id="formulaSection" style="display: none;" class="col-4">
+                    <div class="row">
+                        <div class="form-group col-8">
+                            <label for="lblformulaSelection" class="form-label">
+                                Formula
+                                <sup>*</sup>
+                            </label>
+                            <div class="formula-selection">
+                                <select id="formulaDropdown" name="formulaDropdown" class="form-control select2_search_ctm" data-placeholder="Select formula">
+                                </select>
+                                <span id="formulaDropdown-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <div class="form-group col-4 align-content-center text-end ">
+
+                            @*   <button class="btn btn_primary_outline btn_md_sqr" id="addFormula">
+                                <span class="sprite-icons2 add-primary-outline-md"></span>
+                            </button>
+
+                            <button class="btn btn_primary_outline btn_md_sqr" id="addFormulaRefresh" title="Refresh Formula List" aria-label="Refresh Formula List">
+                                <span class="sprite-icons2 refresh-outline-md"></span>
+                            </button> *@
+
+                            <!-- Add Formula Button -->
+                            <button class="btn btn_primary_outline btn_md_sqr" id="addFormula" title="Add Formula" aria-label="Add Formula">
+                                <span class="sprite-icons2 add-primary-outline-md"></span>
+                            </button>
+
+                            <!-- Refresh Formula Button -->
+                            <button class="btn btn_primary_outline btn_md_sqr" id="addFormulaRefresh" title="Refresh Formula List" aria-label="Refresh Formula List">
+                                <span class="sprite-icons2 refresh-outline-md">&#x21bb;</span> <!-- Unicode fallback for refresh icon -->
+                            </button>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                @*   <div class="col-lg-1 align-content-center text-end">
+                    <button class="btn btn_primary_outline btn_md_sqr" data-bs-toggle="modal"
+                            data-bs-target="#addFormula">
+                        <span class="sprite-icons2 add-primary-outline-md"></span>
+                    </button>
+                </div> *@
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="remarks" class="form-label">Remarks</label>
+                        @*    <input type="text" class="form-control" placeholder="Enter Remarks" id="remarks"
+                               name="remarks"> *@
+
+                        <textarea class="form-control1" placeholder="Enter Remarks" id="remarks" name="remarks" rows="2"></textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="btn_group mt-3 text-end">
+            <button class="btn btn-transparent-danger" id="cancelEdit">Cancel</button>
+            <button type="button" class="btn btn_primary" id="saveDetails" style="display:none;">Save</button>
+            <button type="button" class="btn btn_primary" id="addMoreDetails">Add More</button>
+        </div>
+
+        <hr />
+
+        <div class="table-card p-0 mt-3">
+            <p class="title-primary-sm mb-3">Component Salary Details List</p>
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="salary-detail-list" class="table custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Component Name</th>
+                                    <th>Sub Component Name</th>
+                                    <th>Component Type</th>
+                                    <th>Value Type</th>
+                                    <th>Amount/Percentage/Formula</th>
+                                    <th>Taxable</th>
+                                    <th>Remarks</th>
+                                    <th class="sticky_cell">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @*Dynamic content will display here*@
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="form-footer">
+            <button type="button" class="btn btn_danger_outline" onclick="window.location.href='/SalaryStructure/SalaryStructureGrid'">Cancel</button>
+
+            <button type="button" class="btn btn_primary" onclick="saveSalaryStructure()">Save</button>
+            <button type="button" class="btn btn_primary" onclick="openSimulator()">Run Simulator</button>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteSalaryStructure"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deleteLocationLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this Salary Structure?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmSalaryStructureDetailDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<form id="salaryStructureForm">
+        <div class="form-group">
+            <label for="SalaryStructureName">Salary Structure Name</label>
+            <input type="text" class="form-control" id="SalaryStructureName" name="SalaryStructureName" value="@Model.SalaryStructureName" required />
+        </div>
+        <div class="form-group">
+            <label for="SalaryFrequency">Salary Frequency</label>
+            <select class="form-control" id="SalaryFrequency" name="SalaryFrequency">
+                <option value="1" >Monthly</option>
+                <option value="2" >Weekly</option>
+                <option value="3" >Bi-Weekly</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="MinSalary">Min Salary</label>
+            <input type="number" class="form-control" id="MinSalary" name="MinSalary" value="@Model.MinSalary" required />
+        </div>
+        <div class="form-group">
+            <label for="MaxSalary">Max Salary</label>
+            <input type="number" class="form-control" id="MaxSalary" name="MaxSalary" value="@Model.MaxSalary" required />
+        </div>
+        <div class="form-group">
+            <label for="SalaryBasis">Salary Basis</label>
+            <select class="form-control" id="SalaryBasis" name="SalaryBasis">
+                <option value="2" >Gross</option>
+                <option value="3" >Net</option>
+                <option value="1" >CTC</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="saveSalaryStructure()">Save</button>
+        <a href="/SalaryStructure/SalaryStructureGrid" class="btn btn-secondary">Cancel</a>
+    </form>*@
+
+
+
+@section Scripts {
+
+    @*  <script src="~/assets/src/js/jquery.min.js"></script>
+        <script src="~/assets/src/js/popper.min.js"></script>
+        <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script> *@
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    @*  <script src="~/application/js/common/dropdown.js"></script>
+        <script src="~/application/js/user/user.js"></script> *@
+    <!-- date picker plugins -->
+    <script src="~/assets/src/js/bootstrap-datepicker.min.js"></script>
+    <!-- date picker custom js file -->
+    <script src="~/assets/src/custom-js/datepicker-ctm.js"></script>
+
+
+    @*   <script src="assets/src/js/select2.min.js"></script>
+        <script src="assets/src/custom-js/select2.js"></script> *@
+    <script src="assets/src/custom-js/placeholder.js"></script>
+    <script src="assets/src/custom-js/treeview.js"></script>
+    <script src="~/application/js/salarystructure/salarystructure.js"></script>
+    <!-- jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+
+
+    <!--//Sub Grid functionlity-->
+    <script>
+
+        let salaryStructureDetailsList = @Html.Raw(Json.Serialize(Model.SalaryStructureDetails ?? new List<SalaryStructureDetailDTO>()));
+
+        function renderSalaryStructureTable() {
+                  let rows = "";
+                  if (salaryStructureDetailsList.length === 0) {
+                      rows = `<tr><td colspan="7" class="text-center">No data available.</td></tr>`;
+                  } else {
+                      salaryStructureDetailsList.forEach((detail, index) => {
+                          debugger;
+                          detail.formula_Computation = detail.formula_Computation ?? "";
+
+                          rows += `
+                              <tr class="draggable-row" data-index="${index}">
+                            <td class="drag-handle">☰&nbsp;&nbsp;${detail.earningDeductionName}</td>
+                                     <td>${detail.subEarningDeductionName ?? ''}</td>
+        @*  <td>${detail.earningDeductionID} - ${detail.earningDeductionName}</td>*@
+                                  <td>${detail.earningDeductionType == 1 ? "Earning" : "Deduction"}</td>
+                                  <td>${getValueType(detail.calculationType)}</td>
+
+                                   <td>${detail.formula_ID > 0 ?  detail.formula_Computation : detail.earningDeductionValue}</td>
+                                  <td>${detail.iStaxable ? "Yes" : "No"}</td>
+                                  <td>${detail.remarks ?? ""}</td>
+                                  <td class="sticky_cell">
+                                      <div class="table-button-group">
+                                        <button class="btn btn-primary-light-icon-md" onclick="editDetail(${index})">
+                                           <span class="sprite-icons edit-secondary-lg"></span>
+                                       </button>
+                                       <button class="btn btn-danger-light-icon" onclick="deleteDetail(${index})">
+                                           <span class="sprite-icons delete-danger"></span>
+                                       </button>
+                                      </div>
+                                  </td>
+                              </tr>
+                          `;
+                      });
+                  }
+
+                  $('#salary-detail-list tbody').html(rows);
+
+                  // Make rows draggable
+                  $('#salary-detail-list tbody').sortable({
+                      handle: '.drag-handle',
+                       placeholder: "sortable-placeholder",
+                      update: function (event, ui) {
+
+                          const newOrder = $(this).sortable('toArray', { attribute: 'data-index' });
+                          console.log(newOrder)
+                          reorderSalaryStructureDetails(newOrder);
+                      }
+                  });
+              }
+
+        function reorderSalaryStructureDetails(newOrder) {
+                 const reorderedList = [];
+                 newOrder.forEach((index, newPosition) => {
+                     const item = salaryStructureDetailsList[index];
+                     item.newOrder = newPosition + 1; // Start numbering from 1
+                     reorderedList.push(item);
+                 });
+                 salaryStructureDetailsList = reorderedList;
+                 renderSalaryStructureTable(); // Re-render the table to reflect the new order
+              }
+
+        function getValueType(type) {
+               switch (type) {
+                   case 2: return "Amount";
+                  // case 1: return "Percentage";
+                   case 3: return "Formula";
+                   default: return "N/A";
+               }
+           }
+
+        function deleteDetail(index) {
+                   if (confirm("Are you sure you want to remove this item?")) {
+                       salaryStructureDetailsList.splice(index, 1);
+                       renderSalaryStructureTable();
+                   }
+           }
+
+      
+
+        function validateComponentSubForm() {
+                       debugger;
+                       let isValid = true;
+
+                       // Validate Pay Component Dropdown
+                       if (!$("#payComponentDropdown").val()) {
+                           $("#payComponentDropdown-error").text("Please select a Pay Component.");
+                           isValid = false;
+                       } else {
+                           $("#payComponentDropdown-error").text("");
+                       }
+
+                       // Validate Component Value Type Dropdown
+                       if (!$("#componentValueTypeDropdown").val()) {
+                           $("#componentValueTypeDropdown-error").text("Please select a Value Type.");
+                           isValid = false;
+                       } else {
+                           $("#componentValueTypeDropdown-error").text("");
+                       }
+
+                       // Validate Component Type Dropdown
+                       if (!$("#payrollHeadDropdown").val()) {
+                           $("#payrollHeadDropdown-error").text("Please select a Component Type.");
+                           isValid = false;
+                       } else {
+                           $("#payrollHeadDropdown-error").text("");
+                       }
+
+                       // Validate Taxable Dropdown
+                       if (!$("#taxableDropdown").val()) {
+                           $("#taxableDropdown-error").text("Please select if the component is taxable.");
+                           isValid = false;
+                       } else {
+                           $("#taxableDropdown-error").text("");
+                       }
+
+                       // Optional field: remarks - clear error anyway
+                       $("#remarks-error").text("");
+
+                       return isValid;
+                   }
+
+             function clearComponentSubForm() {
+               // Clear dropdowns and inputs in the component sub form
+               $("#payComponentDropdown").val("").trigger("change");
+               $("#paySubComponentDropdown").val("").trigger("change");
+               $("#componentValueTypeDropdown").val("").trigger("change");
+               $("#payrollHeadDropdown").val("").trigger("change");
+               $("#taxableDropdown").val("").trigger("change");
+               $("#formulaDropdown").val("").trigger("change");
+               $("#amountval").val("");
+               $("#remarks").val("");
+
+               // Clear error messages
+               $("#payComponentDropdown-error").text("");
+               $("#paySubComponentDropdown-error").text("");
+               $("#componentValueTypeDropdown-error").text("");
+               $("#payrollHeadDropdown-error").text("");
+               $("#taxableDropdown-error").text("");
+               $("#amountval-error").text("");
+               $("#remarks-error").text("");
+
+               // Hide formula section
+             //  $('#formulaSection').hide();
+
+               // Remove edit index if any
+              // $("#saveDetails").removeData("edit-index");
+           }
+
+            $(document).ready(function () {
+
+               $('#addFormula').on('click', function () {
+                   window.open('/FormulaMaster/Index', '_blank');
+               });
+
+               $('#addFormulaRefresh').on('click', function () {
+             loadDropdown('#formulaDropdown', '/DropDown/FetchFormulaTypeDropdown');
+              });
+
+               $('#addMoreDetails').on('click', function () {
+                   debugger;
+                   if (!validateComponentSubForm()) return;
+
+                   // Check for duplicate earningDeductionID
+                   const newEarningDeductionID = parseInt($("#payComponentDropdown").val()) || 0;
+                   const isDuplicate = salaryStructureDetailsList.some(function (detail) {
+                       return detail.earningDeductionID === newEarningDeductionID;
+                   });
+
+                   if (isDuplicate) {
+                       $("#payComponentDropdown-error").text("This component has already been added.");
+                       return;
+                   } else {
+                       $("#payComponentDropdown-error").text("");
+                   }
+
+
+                   var formulaId = parseInt($("#formulaDropdown").val()) || 0;
+                        var formulaComputation = "";
+                        debugger;
+                        if (formulaId > 0) {
+                            $.ajax({
+                                url: `/formulamaster/getformulabyid?formulaId=${formulaId}`, // Replace with actual route
+                                method: 'GET',
+                                async: false, // Make it synchronous to assign before next line
+                                success: function (response) {
+                                    if (response.success && response.data) {
+                                        formulaComputation = response.data.formula_Computation || "";
+                                    }
+                                },
+                                error: function (xhr) {
+                                    console.error("Error fetching formula:", xhr);
+                                }
+                            });
+                        }
+
+                   const newDetail = {
+                       earningDeductionID: newEarningDeductionID,
+                       subEarningDeductionID: parseInt($("#paySubComponentDropdown").val()) || 0,
+                       earningDeductionName: $("#payComponentDropdown option:selected").text() || "",
+                       subEarningDeductionName: ($("#paySubComponentDropdown option:selected").length > 0 && $("#paySubComponentDropdown").val())
+                           ? $("#paySubComponentDropdown option:selected").text()
+                           : "",
+                       calculationType: parseInt($("#componentValueTypeDropdown").val()) || 0,
+                        earningDeductionType: $("#payrollHeadDropdown").val() || "",
+                       //ComponentSequence: parseInt($("#formulaDropdown").val()) || 0,
+                       formula_ID: parseInt($("#formulaDropdown").val()) || 0,
+                         formula_Computation: formulaComputation,
+                       //formula_Computation:'Ctc*40/100',
+                      // earningDeductionValue: parseFloat($("#amountval").val()).toFixed(0) || 0,
+                        earningDeductionValue:isNaN(parseFloat($("#amountval").val())) ? 0 : parseFloat($("#amountval").val()) || 0,
+                       iStaxable: $("#taxableDropdown").val() === "1",
+                       remarks: $("#remarks").val() || ""
+                   };
+
+                   salaryStructureDetailsList.push(newDetail);
+
+                   console.log(salaryStructureDetailsList);
+                   renderSalaryStructureTable();
+                    clearComponentSubForm();
+               });
+
+               $("#saveDetails").on("click", function () {
+                       debugger;
+                       const editIndex = $(this).data("edit-index");
+
+                       if (editIndex === undefined || editIndex === null) {
+                            showAlert('danger',"No row is selected for editing.");
+                           return;
+                       }
+
+
+                   //       // Check for duplicate earningDeductionID
+                   // const newEarningDeductionID = parseInt($("#payComponentDropdown").val()) || 0;
+                   // const isDuplicate = salaryStructureDetailsList.some(function (detail) {
+                   //     return detail.earningDeductionID === newEarningDeductionID;
+                   // });
+
+                   // if (isDuplicate) {
+                   //     $("#payComponentDropdown-error").text("This component has already been added.");
+                   //     return;
+                   // } else {
+                   //     $("#payComponentDropdown-error").text("");
+                   // }
+
+
+                       if (!validateComponentSubForm()) return;
+
+
+                       var formulaId = parseInt($("#formulaDropdown").val()) || 0;
+                        var formulaComputation = "";
+                        debugger;
+                        if (formulaId > 0) {
+                            $.ajax({
+                                url: `/formulamaster/getformulabyid?formulaId=${formulaId}`, // Replace with actual route
+                                method: 'GET',
+                                async: false, // Make it synchronous to assign before next line
+                                success: function (response) {
+                                    if (response.success && response.data) {
+                                        formulaComputation = response.data.formula_Computation || "";
+                                    }
+                                },
+                                error: function (xhr) {
+                                    console.error("Error fetching formula:", xhr);
+                                }
+                            });
+                        }
+
+
+
+                       salaryStructureDetailsList[editIndex] = {
+                           earningDeductionID: parseInt($("#payComponentDropdown").val()) || 0,
+                           subEarningDeductionID: parseInt($("#paySubComponentDropdown").val()) || 0,
+                           earningDeductionName: $("#payComponentDropdown option:selected").text() || "",
+                           earningDeductionType: $("#payrollHeadDropdown").val() || "",
+                           calculationType: parseInt($("#componentValueTypeDropdown").val()) || 0,
+                           formula_ID: parseInt($("#formulaDropdown").val()) || 0,
+                            formula_Computation: formulaComputation,
+                          // formula_Computation:'Ctc*40/100',
+                          // earningDeductionValue: parseFloat($("#amountval").val()).toFixed(0) || 0,
+                             earningDeductionValue:isNaN(parseFloat($("#amountval").val())) ? 0 : parseFloat($("#amountval").val()) || 0,
+                           iStaxable: $("#taxableDropdown").val() === "1",
+                           remarks: $("#remarks").val() || "",
+                           componentSequence:editIndex
+                       };
+                       debugger;
+         // alert($("#payrollHeadDropdown").val());
+                       // Clear form
+                      //  $("#payComponentDropdown").val("").trigger("change");
+                      //  $("#componentValueTypeDropdown").val("").trigger("change");
+                      // // $("#paycomponentname").val("");
+                      //  $("#taxableDropdown").val("").trigger("change");
+                      //  $("#remarks").val("");
+
+                       // Remove edit index
+                       $(this).removeData("edit-index");
+
+                       renderSalaryStructureTable();
+
+                          $('#addMoreDetails').show();
+                          $('#saveDetails').hide();
+                          clearComponentSubForm();
+
+                   });
+
+        });
+    </script>
+
+    <!--//form submission.-->
+    <script>
+
+                function validateSalaryStructureForm() {
+                    debugger;
+                   let isValid = true;
+
+                   // Validate Salary Structure Name
+                   if (!$("#SalaryStructureName").val()) {
+                       $("#SalaryStructureName-error").text("Salary Structure Name is required.");
+                       isValid = false;
+                   } else {
+                       $("#SalaryStructureName-error").text("");
+                   }
+
+                   // Validate Salary Frequency
+                   if (!$("#salaryFrequencyDropdown").val()) {
+                       $("#salaryFrequencyDropdown-error").text("Salary Frequency is required.");
+                       isValid = false;
+                   } else {
+                       $("#salaryFrequencyDropdown-error").text("");
+                   }
+
+                   // // Validate Minimum Salary
+                   // if (!$("#salaryRange").val() || isNaN($("#salaryRange").val())) {
+                   //     $("#salaryRange-error").text("Minimum Salary must be a valid number.");
+                   //     isValid = false;
+                   // } else {
+                   //     $("#salaryRange-error").text("");
+                   // }
+
+                   // Validate Salary Basis
+                   if (!$("#salaryBasicDropdown").val()) {
+                       $("#salaryBasicDropdown-error").text("Salary Basis is required.");
+                       isValid = false;
+                   } else {
+                       $("#salaryBasicDropdown-error").text("");
+                   }
+
+                   // Validate Pay Grade
+                   if (!$("#payGradeDropdown").val()) {
+                       $("#payGradeDropdown-error").text("Pay Grade is required.");
+                       isValid = false;
+                   } else {
+                       $("#payGradeDropdown-error").text("");
+                   }
+
+                   return isValid;
+                }
+
+                function hasDuplicateComponents(salaryStructureDetailsList) {
+            const seen = new Set();
+            for (let item of salaryStructureDetailsList) {
+                if (seen.has(item.earningDeductionID)) {
+                                    showAlert('danger',"Component repeats.");
+                    return true; // Stop checking further
+                }
+                seen.add(item.earningDeductionID);
+            }
+            return false;
+        }
+
+        // Helper to get form data from simulator page
+        function getSimulatorFormData() {
+            return {
+                        SalaryStructure_Hdr_Id: "@Model.SalaryStructure_Hdr_Id",
+                                        Company_Id:0,
+                                        SalaryStructureName: $("#SalaryStructureName").val(),
+                                        SalaryFrequency: $("#salaryFrequencyDropdown").val(),
+                                        MinSalary: $("#minsalary").val(),
+                                        MaxSalary: $("#maxsalary").val(),
+                                        SalaryBasis: $("#salaryBasicDropdown").val(),
+                                        PayGradeConfig_Id: $("#payGradeDropdown").val(),
+                                        PayComponent: $("#payComponentDropdown").val(),
+                                        ComponentValueType: $("#componentValueTypeDropdown").val(),
+                                        Taxable: $("#taxableDropdown").val(),
+                                        PayComponentName: $("#paycomponentname").val(),
+                                        Formula: $("#formulaDropdown").val(),
+                                        Remarks: $("#remarks").val(),
+                                        SalaryStructureDetails: salaryStructureDetailsList
+            };
+        }
+
+
+        function openSimulator() {
+            debugger;
+                     const formData = {
+                                SalaryStructure_Hdr_Id: "@Model.SalaryStructure_Hdr_Id",
+                                Company_Id:0,
+                                SalaryStructureName: $("#SalaryStructureName").val(),
+                                SalaryFrequency: $("#salaryFrequencyDropdown").val(),
+                                MinSalary: $("#minsalary").val(),
+                                MaxSalary: $("#maxsalary").val(),
+                                SalaryBasis: $("#salaryBasicDropdown").val(),
+                                PayGradeConfig_Id: $("#payGradeDropdown").val(),
+                                PayComponent: $("#payComponentDropdown").val(),
+                                ComponentValueType: $("#componentValueTypeDropdown").val(),
+                                Taxable: $("#taxableDropdown").val(),
+                                PayComponentName: $("#paycomponentname").val(),
+                                Formula: $("#formulaDropdown").val(),
+                                Remarks: $("#remarks").val(),
+                                SalaryStructureDetails: salaryStructureDetailsList
+                            };
+
+            $.ajax({
+                url: "/SalaryStructure/SaveSalaryStructureSession",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    if (response.success) {
+                        // Redirect to simulator page
+                        window.location.href = "/SalaryStructure/GetSalaryStructureSimulator";
+                    } else {
+                        alert(response.message || "Failed to open simulator.");
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while opening the simulator.");
+                }
+            });
+        }
+
+
+
+
+                function saveSalaryStructure() {
+                    debugger;
+                    if (!validateSalaryStructureForm()) {
+                        return;
+                    }
+
+                    if (hasDuplicateComponents(salaryStructureDetailsList)) {
+                        return; // Prevent submit or further processing
+                    }
+
+
+                    salaryStructureDetailsList.forEach((item, index) => {
+                        item.componentSequence = index + 1;
+                        });
+
+                    const formData = {
+                        SalaryStructure_Hdr_Id: "@Model.SalaryStructure_Hdr_Id",
+                        Company_Id:0,
+                        SalaryStructureName: $("#SalaryStructureName").val(),
+                        SalaryFrequency: $("#salaryFrequencyDropdown").val(),
+                        MinSalary: $("#minsalary").val(),
+                        MaxSalary: $("#maxsalary").val(),
+                        SalaryBasis: $("#salaryBasicDropdown").val(),
+                        PayGradeConfig_Id: $("#payGradeDropdown").val(),
+                        PayComponent: $("#payComponentDropdown").val(),
+                        ComponentValueType: $("#componentValueTypeDropdown").val(),
+                        Taxable: $("#taxableDropdown").val(),
+                        PayComponentName: $("#paycomponentname").val(),
+                        Formula: $("#formulaDropdown").val(),
+                        Remarks: $("#remarks").val(),
+                        SalaryStructureDetails: salaryStructureDetailsList
+                    };
+                     debugger;
+                    console.log(formData);
+
+                    $.ajax({
+                        url: "/SalaryStructure/AddSalaryStructure",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(formData),
+                        success: function (response) {
+                            if (response.success) {
+                                  showAlert('success', 'Saved successfully!');
+                                  setTimeout(function () {
+                                        window.location.href = "/SalaryStructure/SalaryStructureGrid";
+                                        }, 4500);
+                            } else {
+                                showAlert('danger',response.message);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                             showAlert('danger',"An error occurred while saving the Salary Structure.");
+                        }
+                    });
+                }
+
+
+                          $(document).ready(function () {
+                                        $('#amountval').on('input', function () {
+                                        const val = $(this).val().trim();
+                                        const regex = /^\d+(\.\d{1,2})?$/;
+                                        if (val && regex.test(val)) {
+                                            $('#amountval-error').text('');
+                                        }
+                                    });
+
+                            // Allow only valid decimal input while typing
+                            $('#amountval').on('input', function () {
+                                var val = $(this).val();
+                                // Remove invalid characters and ensure only 1 decimal point and max 2 decimal places
+                                val = val.replace(/[^0-9.]/g, '')
+                                    .replace(/(\..*)\./g, '$1') // prevent multiple dots
+                                    .replace(/^(\d*\.\d{0,2}).*$/, '$1'); // max 2 decimal places
+                                $(this).val(val);
+                            });
+
+
+                             $('#cancelEdit').on('click', function () {
+                                 $('#addMoreDetails').show();
+                                $('#saveDetails').hide();
+                                        clearComponentSubForm();
+                            });
+
+
+                          function clearComponentSubForm() {
+                              alert('clear');
+                         // Clear dropdowns and inputs in the component sub form
+                         $("#payComponentDropdown").val("").trigger("change");
+                         $("#paySubComponentDropdown").val("").trigger("change");
+                         $("#componentValueTypeDropdown").val("").trigger("change");
+                         $("#payrollHeadDropdown").val("").trigger("change");
+                         $("#taxableDropdown").val("").trigger("change");
+                         $("#formulaDropdown").val("").trigger("change");
+                         $("#amountval").val("");
+                         $("#remarks").val("");
+
+                         // Clear error messages
+                         $("#payComponentDropdown-error").text("");
+                         $("#paySubComponentDropdown-error").text("");
+                         $("#componentValueTypeDropdown-error").text("");
+                         $("#payrollHeadDropdown-error").text("");
+                         $("#taxableDropdown-error").text("");
+                         $("#amountval-error").text("");
+                         $("#remarks-error").text("");
+
+                         // Hide formula section
+                         $('#formulaSection').hide();
+
+                         // Remove edit index if any
+                         $("#saveDetails").removeData("edit-index");
+                     }
+
+
+                          });
+    </script>
+
+    <!--//Not used-->
+    <script>
+                    $(document).ready(function () {
+
+
+                        function loadDropdownWithSelectedValue(selector, url, callback) {
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    const $dropdown = $(selector);
+                    $dropdown.empty().append($('<option>', {
+                        value: '',
+                        text: '-- Select --'
+                    }));
+
+                    $.each(data, function (i, item) {
+                        $dropdown.append($('<option>', {
+                            value: item.value,
+                            text: item.text
+                        }));
+                    });
+                    $dropdown.trigger('change');
+                    if (callback) {
+                        callback();
+                    }
+                },
+                error: function () {
+                    console.error('Failed to load dropdown data for:', selector);
+                }
+            });
+        }
+
+        ////////////////////////////////////Implementing Formula Code:-Start//////////////////////////////
+        function setSelectedValueInDropdown(selector, value) {
+            const $dropdown = $(selector);
+
+            // Check if the value exists in the dropdown
+            if ($dropdown.find(`option[value='${value}']`).length > 0) {
+                //console.log(`Setting value '${value}' in the dropdown`);
+                $dropdown.val(value).trigger('change'); // Trigger 'change' to handle select2 events
+            } else {
+                console.warn(`Value '${value}' not found in dropdown: ${selector}`);
+            }
+        }
+
+
+
+                });
+
+
+
+
+    </script>
+
+    }

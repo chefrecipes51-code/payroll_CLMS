@@ -1,0 +1,16 @@
+.report-summary {
+    .card {
+        border: 1px solid var(--gray-pearl);
+        box-shadow: none;
+
+        .card-title {     
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 24px;
+            letter-spacing: 0px;            
+        }
+        .card-text{
+            
+        }
+    }
+}

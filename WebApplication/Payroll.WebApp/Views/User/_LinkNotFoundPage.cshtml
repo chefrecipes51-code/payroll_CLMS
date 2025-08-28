@@ -1,0 +1,117 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset Page</title>
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="~/assets/plugins/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/assets/src/css/fonts.css">
+    <link rel="stylesheet" href="~/assets/src/scss/style.css">
+    <link rel="stylesheet" href="~/application/css/login/login.css">
+    <link rel="stylesheet" href="~/application/css/common/toastr.min.css">
+    <link href="~/application/css/common/linknotfound.css" rel="stylesheet" />
+</head>
+
+<body>
+    <link href='https://fonts.googleapis.com/css?family=Anton|Passion+One|PT+Sans+Caption' rel='stylesheet' type='text/css'>
+
+        <!-- Error Page -->
+        <div class="error">
+            <div class="container-floud">
+                <div class="col-xs-12 ground-color text-center">
+                    <div class="container-error-404">
+                        <div class="clip"><div class="shadow"><span class="digit thirdDigit"></span></div></div>
+                        <div class="clip"><div class="shadow"><span class="digit secondDigit"></span></div></div>
+                        <div class="clip"><div class="shadow"><span class="digit firstDigit"></span></div></div>
+                    </div>
+                    <h2 class="h1">Sorry! Page not found</h2>
+                </div>
+            </div>
+        </div>
+        <!-- Error Page -->
+
+    <!-- JavaScript Libraries -->
+    <script src="~/assets/src/js/jquery.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/plugins/OwlCarousel2-2.3.4/src/js/owl.carousel.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/application/js/common/toastr.min.js"></script>
+    <script src="~/application/js/login/login.js"></script>
+
+    <!-- Tooltip Toggle -->
+    <script>
+        const button = document.querySelector('.btn-password-info');
+        const passwordInfoBox = document.querySelector('.password-info');
+        button?.addEventListener('click', (event) => {
+            event.stopPropagation();
+            button.classList.toggle('checked');
+            passwordInfoBox.style.display = button.classList.contains('checked') ? 'block' : 'none';
+        });
+        document.addEventListener('click', (event) => {
+            if (!button?.contains(event.target) && !passwordInfoBox?.contains(event.target)) {
+                passwordInfoBox.style.display = 'none';
+                button.classList.remove('checked');
+            }
+        });
+
+
+    </script>
+    <script>
+         function randomNum()
+        {
+            "use strict";
+            return Math.floor(Math.random() * 9)+1;
+        }
+            var loop1,loop2,loop3,time=30, i=0, number, selector3 = document.querySelector('.thirdDigit'), selector2 = document.querySelector('.secondDigit'),
+                selector1 = document.querySelector('.firstDigit');
+            loop3 = setInterval(function()
+            {
+              "use strict";
+                if(i > 40)
+                {
+                    clearInterval(loop3);
+                    selector3.textContent = 4;
+                }else
+                {
+                    selector3.textContent = randomNum();
+                    i++;
+                }
+            }, time);
+            loop2 = setInterval(function()
+            {
+              "use strict";
+                if(i > 80)
+                {
+                    clearInterval(loop2);
+                    selector2.textContent = 0;
+                }else
+                {
+                    selector2.textContent = randomNum();
+                    i++;
+                }
+            }, time);
+            loop1 = setInterval(function()
+            {
+              "use strict";
+                if(i > 100)
+                {
+                    clearInterval(loop1);
+                    selector1.textContent = 4;
+                }else
+                {
+                    selector1.textContent = randomNum();
+                    i++;
+                }
+            }, time);
+    </script>
+</body>
+</html>

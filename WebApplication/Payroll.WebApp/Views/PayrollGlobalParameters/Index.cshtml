@@ -1,0 +1,621 @@
+﻿<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<!-- date picker plugin -->
+<link rel="stylesheet" href="~/assets/src/css/bootstrap-datepicker.min.css" />
+<input type="hidden" id="SessionCompanyId" value="@ViewData["CompanyId"]" />
+
+<nav>
+    <div class="alert-custom" style="display:none;">
+    </div>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-payrollglobalparameter-list-tab" data-bs-toggle="tab"
+                data-bs-target="#nav-payrollglobalparameter-list" type="button" role="tab" aria-controls="nav-payrollglobalparameter-list"
+                aria-selected="true">
+            Payroll Global Parameters
+        </button>
+    </div>
+</nav>
+<div id="globalDropdownLoader" style="
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255,255,255,0.7);
+    z-index: 99999;
+    text-align: center;
+    padding-top: 200px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;">
+    Loading configuration... please wait.
+</div>
+
+
+
+<div class="app-layout">   
+    <div class="title-container">
+        <div class="btn-group-left">
+            <div class="dropdown">
+                <a class="btn dropdown-link dropdown-toggle" id="dropdownTextboxOnPageLoad" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    Please Select Company
+                </a>
+                <ul class="dropdown-menu" id="dropdownMenuOnPageLoad">                  
+                    <li><a class="dropdown-item" href="#" data-id="">-- None --</a></li>
+                </ul>
+            </div>
+            <input type="hidden" id="SelectedCompanyIdOnPageLoad" name="SelectedCompanyIdOnPageLoad" />
+        </div>
+        <button class="btn btn_primary btn-add-hide" id="btnCopySettings" name="btnCopySettings">
+            Copy Settings
+        </button>
+    </div>
+
+    <div class="row g-0">
+        <div class="col-lg-3 col-md-3">
+            <div class="vertical-tabs">
+                <div class="vertical-tabs-fixed-layout">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                         aria-orientation="vertical">
+                        <button class="nav-link checked active" id="v-pills-globalSettings-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-globalSettings" type="button" role="tab"
+                                aria-controls="v-pills-globalSettings" aria-selected="true">
+                           Global Settings
+                        </button>
+
+                        <button class="nav-link " id="v-pills-compliancesettings-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-compliancesettings" type="button" role="tab"
+                                aria-controls="v-pills-compliancesettings" aria-selected="false">
+                            Compliance Settings 
+                        </button>
+
+                        <button class="nav-link" id="v-pills-payslipsettings-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-payslipsettings" type="button" role="tab"
+                                aria-controls="v-pills-payslipsettings" aria-selected="false">
+                            Payroll Settings
+                        </button>
+                     
+                        <button class="nav-link" id="v-pills-integrationmapping-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-integrationmapping" type="button" role="tab"
+                                aria-controls="v-pills-integrationmapping" aria-selected="false">
+                            Integration & Mapping Settings
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <div class="vertical-tab-content">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-globalSettings" role="tabpanel"
+                         aria-labelledby="v-pills-globalSettings-tab" tabindex="0">
+                        <form id="firstTab">
+                            <input type="hidden" id="GlobalParamId" name="GlobalParamId" />
+                            <div class="vertical-tabs-content-fixed-layout form-body ">
+                                <div class="row">                                   
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label class="form-label">Salary Frequency</label>
+                                                    <select class="form-control select2_search_ctm" name="SalaryFrequency" id="SalaryFrequency">
+                                                    </select>
+                                                    <span id="SalaryFrequency-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="mname" class="form-label">Monthly Salary Based On<sup>*</sup></label>
+                                                    <select class="form-control select2_search_ctm" id="MonthlySalaryBasedOn" name="MonthlySalaryBasedOn">
+                                                    </select>
+                                                    <span id="MonthlySalaryBasedOn-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="lname" class="form-label">
+                                                       Round-off Salary Components
+                                                        <sup>*</sup>
+                                                    </label>                                                   
+                                                    <select class="form-control select2_search_ctm" id="RoundSalary" name="RoundSalary">
+                                                        <option value="1">1</option>
+                                                        <option value="10">10</option>
+                                                        <option value="100">100</option>
+                                                    </select>
+                                                    <span id="RoundSalary-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+                                          
+                                            <div class="col-lg-12">
+                                                <div class="form-group" id="toggleContainer" style="display: none;">
+                                                    <label class="form-label" for="formulaActiveToggle">Status</label>
+                                                    <div class="form-check form-switch d-flex align-items-center">
+                                                        <input type="checkbox"
+                                                               id="formulaActiveToggle"
+                                                               class="form-check-input"
+                                                               role="switch" />
+                                                        <label class="form-check-label ml-2" for="formulaActiveToggle" id="formulaStatusLabel">
+                                                            Inactive
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="email" class="form-label">
+                                                        Effective Payroll Start Month
+                                                        <sup>*</sup>
+                                                    </label>                                                 
+                                                    <select class="form-control select2_search_ctm" id="EffectivePayrollStartMonth" name="EffectivePayrollStartMonth">
+                                                    </select>
+                                                    <span id="EffectivePayrollStartMonth-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="username" class="form-label">
+                                                        Allow Add-Hoc Components
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <select class="form-control select2_search_ctm" name="AllowAdHocComponents" id="AllowAdHocComponents">
+                                                    
+                                                    </select>
+                                                
+                                                    <span id="AllowAdHocComponents-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="username" class="form-label">
+                                                        Lock Salary Edits Post Payroll
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <select class="form-control select2_search_ctm" name="LockSalary" id="LockSalary">
+                                                      
+                                                    </select>
+                                                    <span id="LockSalary-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-footer">
+                                    <div class="button-group">                                    
+                                        <button type="button" id="resetfirstTab" class="btn btn-transparent-danger">Reset</button>
+                                    </div>
+                                    <button type="button" class="btn btn_primary" id="btnfirstTab">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                          
+                        </form>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-compliancesettings" role="tabpanel"
+                         aria-labelledby="v-pills-compliancesettings-tab" tabindex="0">
+                        <form id="secondTab">
+                            <input type="hidden" id="Prm_Comlliance_ID" name="Prm_Comlliance_ID" />
+                            <div class="vertical-tabs-content-fixed-layout form-body">
+                                <div class="row">
+                                    <!-- Left Column -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-label">PF Applicability <sup>*</sup></label>                                           
+                                            <select id="Pf_Applicable" name="Pf_Applicable" class="form-control select2_search_ctm" required>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">PF Applicable Percentage <sup>*</sup></label>
+                                            <input type="text" class="form-control" id="Pf_Applicable_Percentage" name="Pf_Applicable_Percentage" value="12" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">PF Employer Share Mode <sup>*</sup></label>                                            
+                                            <select id="Pf_Share_Mode_Employer" name="Pf_Share_Mode_Employer" class="form-control select2_search_ctm" required>
+
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">EPF % (Employer Share) <sup>*</sup></label>
+                                           @*  <input type="text" class="form-control" value="3.67%" required> *@
+                                            <input type="text" id="Epf_Employer_Share_Percentage" name="Epf_Employer_Share_Percentage" class="form-control" value="3.67%" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">EPS % (Employer Share) <sup>*</sup></label>
+                                           @*  <input type="text" class="form-control" value="8.33%" required> *@
+                                            <input type="text" id="Eps_Employer_Share_Percentage" name="Eps_Employer_Share_Percentage" value="8.33%" class="form-control" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Voluntary PF (VPF)</label>
+                                            <select id="VPF_Applicable" name="VPF_Applicable" class="form-control select2_search_ctm"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">VPF Mode</label>
+                                            <select id="VPF_Mode" name="VPF_Mode" class="form-control select2_search_ctm"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">ESIC Applicability</label>
+                                            <select id="Esic_Applicable" name="Esic_Applicable" class="form-control select2_search_ctm"></select>
+                                        </div>
+
+                                      @*   <div class="form-group">
+                                            <label class="form-label">PF Based On <sup>*</sup></label>
+                                            <select id="Pf_Based_on" name="Pf_Based_on" class="form-control select2_search_ctm" required>
+                                                <!-- Populate options dynamically -->
+                                            </select>
+                                        </div>
+                                         *@
+                                        <div class="form-group" id="toggleContainerTabSecond" style="display: none;">
+                                            <label class="form-label" for="formulaActiveToggleTabSecond">Status</label>
+                                            <div class="form-check form-switch d-flex align-items-center">
+                                                <input type="checkbox"
+                                                       id="formulaActiveToggleTabSecond"
+                                                       class="form-check-input"
+                                                       role="switch" />
+                                                <label class="form-check-label ml-2" for="formulaActiveToggleTabSecond" id="formulaStatusLabelTabSecond">
+                                                    Inactive
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right Column -->
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-label">TDS Deducted on Actual Date</label>
+                                            <select class="form-control select2_search_ctm" name="TDsDeducted_On_Actual_Date" id="TDsDeducted_On_Actual_Date">
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">ESIC Wage Limit <sup>*</sup></label>                                            
+                                            <input type="text" id="Esic_Salary_Limit" name="Esic_Salary_Limit" class="form-control" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Professional Tax (PT) Applicability <sup>*</sup></label>
+                                            <select id="PT_Applicable" name="PT_Applicable" class="form-control select2_search_ctm"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">PT Registration Mode</label>
+                                            <select id="Pt_Regisdtration_Mode" name="Pt_Regisdtration_Mode" class="form-control select2_search_ctm"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Labour Welfare Fund (LWF) <sup>*</sup></label>
+                                            <select id="Lwf_Mode" name="Lwf_Mode" class="form-control select2_search_ctm"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">LWF Cycle</label>
+                                            <select id="Lwf_Cycle" name="Lwf_Cycle" class="form-control select2_search_ctm"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">LWF Contribution Mode</label>                                            
+                                            <select class="form-control select2_search_ctm" id="Lwf_Contribution" name="Lwf_Contribution">
+                                                <option value="10">10 </option>
+                                                <option value="20 ">20 </option>                                              
+                                            </select>
+                                        </div>
+                                        @* <div class="form-group">
+                                            <label class="form-label">ESIC Based On</label>
+                                            <select class="form-control select2_search_ctm" id="Esic_Based_on" name="Esic_Based_on">                                               
+                                            </select>
+                                        </div> *@
+                                        <div class="form-group">
+                                            <label class="form-label">ESI Applicable Percentage <sup>*</sup></label>
+                                            <input type="text" id="Esi_Applicable_Percentage" name="Esi_Applicable_Percentage" class="form-control" required />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Footer Buttons -->
+                                <div class="form-footer">
+                                    <div class="button-group">
+                                        <button type="button" class="btn btn-transparent-danger" onclick="location.reload();">Reset</button>
+                                    </div>
+                                    <button type="submit" class="btn btn_primary" id="btnsecondTab">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-payslipsettings" role="tabpanel"
+                         aria-labelledby="v-pills-payslipsettings-tab" tabindex="0">
+                        <form id="thirdTab">
+                            <input type="hidden" id="Payroll_Setin_ID" name="Payroll_Setin_ID" />
+                            <div class="vertical-tabs-content-fixed-layout form-body">
+                                <div class="row">
+                                    <!-- Left Column -->
+                                    <div class="col-lg-6">
+                                        <!-- Initial Character -->
+                                        <div class="form-group">
+                                            <label class="form-label">Initial Character</label>
+                                            <input type="text" id="Initial_char" name="Initial_char" class="form-control" maxlength="4" placeholder="e.g. PS">
+                                        </div>
+
+                                        <!-- Enable Pay Slip Generation -->
+                                        <div class="form-group">
+                                            <label class="form-label">Enable Pay<sup>*</sup></label>
+                                            <select id="Enable_Pay" name="Enable_Pay" class="form-control select2_search_ctm" required>
+                                            </select>
+                                        </div>
+
+                                        <!-- Enable Pay Slip Generation -->
+                                        <div class="form-group">
+                                            <label class="form-label">Pay Slip Generation <sup>*</sup></label>
+                                            <select id="Payslip_Generation" name="Payslip_Generation" class="form-control select2_search_ctm" required>
+                                              
+                                            </select>
+                                        </div>
+
+                                        <!-- Payslip Format -->
+                                        <div class="form-group">
+                                            <label class="form-label">Payslip Format <sup>*</sup></label>
+                                            <select id="Payslip_Format" name="Payslip_Format" class="form-control select2_search_ctm" required>                                               
+                                            </select>
+                                        </div>
+
+                                        <!-- Pay Slip ID Format -->
+                                        <div class="form-group">
+                                            <label class="form-label">Pay Slip ID Format <sup>*</sup></label>
+                                            <input type="text" id="PayslipNumber_Format" name="PayslipNumber_Format" class="form-control" value="1001" required>
+                                        </div>
+
+                                        <!-- Pay Slip Numbering Scope -->
+                                        <div class="form-group">
+                                            <label class="form-label">Pay Slip Numbering Scope <sup>*</sup></label>
+                                            <input type="text" id="PaySlip_Number_Scope" name="PaySlip_Number_Scope" class="form-control" required>
+                                           
+                                        </div>
+                                    </div>
+                                    <!-- Right Column -->
+                                    <div class="col-lg-6">
+                                        <!-- Auto Numbering -->
+                                        <div class="form-group">
+                                            <label class="form-label">Auto Numbering <sup>*</sup></label>
+                                            <select id="Auto_Numbering" name="Auto_Numbering" class="form-control select2_search_ctm" required>                                               
+                                            </select>
+                                        </div>
+
+                                        <!-- Reset Numbering -->
+                                        <div class="form-group">
+                                            <label class="form-label">Reset Payslip Numbering <sup>*</sup></label>
+                                            <select id="IsPayslipNo_Reset" name="IsPayslipNo_Reset" class="form-control select2_search_ctm" required>
+                                              
+                                            </select>
+                                        </div>
+
+                                        <!-- Digital Signature -->
+                                        <div class="form-group">
+                                            <label class="form-label">Digital Signature <sup>*</sup></label>
+                                            <select id="DigitalSignatur_Requirede" name="DigitalSignatur_Requirede" class="form-control select2_search_ctm" required>
+                                             
+                                            </select>
+                                        </div>
+
+                                        <!-- Auto Email Payslips -->
+                                        <div class="form-group">
+                                            <label class="form-label">Auto Email Payslips <sup>*</sup></label>
+                                            <select id="PaySlipAutoEmail" name="PaySlipAutoEmail" class="form-control select2_search_ctm" required>                                        
+                                            </select>
+                                        </div>
+                                        <div class="form-group" id="toggleContainerTabThird" style="display: none;">
+                                            <label class="form-label" for="formulaActiveToggleTabThird">Status</label>
+                                            <div class="form-check form-switch d-flex align-items-center">
+                                                <input type="checkbox"
+                                                       id="formulaActiveToggleTabThird"
+                                                       class="form-check-input"
+                                                       role="switch" />
+                                                <label class="form-check-label ml-2" for="formulaActiveToggleTabThird" id="formulaStatusLabelTabThird">
+                                                    Inactive
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <!-- Footer Buttons -->
+                                <div class="form-footer">
+                                    <div class="button-group">
+                                        <button type="button" class="btn btn-transparent-danger" onclick="location.reload();">Reset</button>
+                                    </div>
+                                    <button type="submit" class="btn btn_primary" id="btnthirdTab">Save</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-integrationmapping" role="tabpanel"
+                         aria-labelledby="v-pills-integrationmapping-tab" tabindex="0">
+                        <form id="fourthTab">
+                            <input type="hidden" id="Clms_Param_ID" name="Clms_Param_ID" />
+                            <div class="vertical-tabs-content-fixed-layout form-body">
+                                <div class="row">
+                                    <!-- Left Column -->
+                                    <div class="col-lg-6">
+                                        <!-- Data Sync Type -->
+                                        <div class="form-group">
+                                            <label class="form-label">Data Sync</label>
+                                            <select id="DataSyncType" name="DataSyncType" class="form-control select2_search_ctm"></select>
+                                        </div>
+
+                                        <!-- Contractor Master Sync Frequency -->
+                                        <div class="form-group">
+                                            <label class="form-label">Contractor Master</label>
+                                            <select id="ContractorMaster" name="ContractorMaster" class="form-control select2_search_ctm"></select>
+                                        </div>
+
+                                        <!-- Labour Master Sync Frequency -->
+                                        <div class="form-group">
+                                            <label class="form-label">LabourMaster</label>
+                                            <select id="LabourMaster" name="LabourMaster" class="form-control select2_search_ctm"></select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Is Contract Labour Payment</label>
+                                            <select name="IsContractLabourPayment" id="IsContractLabourPayment" class="form-control select2_search_ctm">
+                                            </select>
+                                        </div>
+
+                                        <!-- Is Attendance Processed -->
+                                        <div class="form-group">
+                                            <label class="form-label">Is Attendance Processed</label>
+                                            <select name="IsAttendanceProcessed" id="IsAttendanceProcessed" class="form-control select2_search_ctm">
+                                            </select>
+                                        </div>
+                                        <div class="form-group" id="toggleContainerTabFourth" style="display: none;">
+                                            <label class="form-label" for="formulaActiveToggleTabFourth">Status</label>
+                                            <div class="form-check form-switch d-flex align-items-center">
+                                                <input type="checkbox"
+                                                       id="formulaActiveToggleTabFourth"
+                                                       class="form-check-input"
+                                                       role="switch" />
+                                                <label class="form-check-label ml-2" for="formulaActiveToggleTabFourth" id="formulaStatusLabelTabFourth">
+                                                    Inactive
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right Column -->
+                                    <div class="col-lg-6">
+                                        <!-- Work Order Sync Frequency -->
+                                        <div class="form-group">
+                                            <label class="form-label">Work Order Details</label>
+                                            <select id="WorkOrder" name="WorkOrder" class="form-control select2_search_ctm"></select>
+                                        </div>
+
+                                        <!-- Attendance Sync Frequency -->
+                                        <div class="form-group">
+                                            <label class="form-label">Attendance (Processed)</label>
+                                            <select id="Attendance" name="Attendance" class="form-control select2_search_ctm"></select>
+                                        </div>
+
+                                        <!-- Entity Type for Migration -->
+                                        <div class="form-group">
+                                            <label class="form-label">Entity Type For Data Migration <sup>*</sup></label>
+                                            <select id="EntityTypeMigration" name="EntityTypeMigration" class="form-control select2_search_ctm" required></select>
+                                        </div>
+                                        <!-- Integrated Login -->
+                                        <div class="form-group">
+                                            <label class="form-label">Integrated Login</label>
+                                            <select id="IntegratedLogin" name="IntegratedLogin" class="form-control select2_search_ctm">
+                                              
+                                            </select>
+                                        </div>
+
+                                        <!-- Pay Register Format -->
+                                        <div class="form-group">
+                                            <label class="form-label">Pay Register Format</label>
+                                            <select id="PayregisterFormatId" name="PayregisterFormatId" class="form-control select2_search_ctm">
+                                                <!-- Will bind via controller -->
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Attendance Process Type</label>
+                                            <select name="AttendanceProxcessType" id="AttendanceProxcessType" class="form-control select2_search_ctm">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Footer Buttons -->
+                                <div class="form-footer">
+                                    <div class="button-group">
+                                        <button type="button" class="btn btn-transparent-danger" onclick="location.reload();">Reset</button>
+                                    </div>
+                                    <button type="submit" class="btn btn_primary" id="btnfourthTab">Save</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade modal-custom modal-primary" id="copySettingsModal" tabindex="-1"
+     aria-labelledby="copySettingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/icons/priamry-done-modal.svg" width="134" height="77" alt="successfully done">
+                <p class="title-primary mb-2">Want to copy settings from other company?</p>
+              
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" id="yesSettingPermission" class="btn btn_primary_outline_md" data-bs-dismiss="modal">
+                    Yes
+                </button>
+                <button type="button" id="noSettingPermission" class="btn btn_primary">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-custom modal-primary-light modal-assign-regime" id="selectCompanySettingModal"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="selectCompanySettingModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <p class="title-primary">Settings Permission</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group mb-3">
+                    <label class="form-label">Company <sup>*</sup></label>
+                    <div class="dropdown">
+                        <a class="btn dropdown-link dropdown-toggle" id="dropdownCompanyOnModelPopUp" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Select Company
+                        </a>
+                        <ul class="dropdown-menu" id="dropdownMenuCompanyOnModelPopUp"></ul>
+                    </div>
+                    <input type="hidden" id="SelectedCompanyIdOnModelPopUp" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Settings Type <sup>*</sup></label>
+                    <div class="dropdown">
+                        <a class="btn dropdown-link dropdown-toggle" id="dropdownSettingsType" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Select Settings Type
+                        </a>
+                        <ul class="dropdown-menu" id="dropdownMenuSettingsType"></ul>
+                    </div>
+                    <input type="hidden" id="SelectedSettingsTypeId" />
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-end">
+                <button type="button" class="btn btn-transparent-danger" data-bs-dismiss="modal" id="btlModelPopupCancle">Cancel</button>
+                <button type="button" class="btn btn_primary"id="btnCopyFromCompany">Copy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <!-- date picker plugins -->
+    <script src="~/assets/src/js/bootstrap-datepicker.min.js"></script>
+    <!-- date picker custom js file -->
+    <script src="~/assets/src/custom-js/datepicker-ctm.js"></script>
+    <script src="~/application/js/common/commonvalidation.js"></script>
+    <script src="~/application/js/globalparameters/globalparameters.js"></script>
+   
+}

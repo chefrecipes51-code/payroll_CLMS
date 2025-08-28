@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.TaxSlabMasterDTO>
+@{
+    var renderedTaxSlabIds = new HashSet<int>(); // To track rendered AreaIds
+}
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+<table id="tax-slab-list" class="table custom-table">
+    <thead>
+        <tr>
+            <th hidden>YearlyItTableDetail_Id</th>
+            <th hidden>YearlyItTable_Id</th>
+            <th hidden>Company_Id</th>
+            <th>Slab Name</th>
+            <th>Income From</th>
+            <th>Income To</th>
+            <th>Tax Payble %</th>
+            <th>Tax Payble Amount</th>
+            <th class="sticky_cell">Status</th>
+            <th class="sticky_cell">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var pay in Model)
+            {
+                if (!renderedTaxSlabIds.Contains(pay.YearlyItTableDetail_Id)) // Only render if not already added
+                {
+                    renderedTaxSlabIds.Add(pay.YearlyItTableDetail_Id);
+                    <tr id="row-@pay.YearlyItTableDetail_Id">
+                        <!-- Added unique row ID -->
+                        <td hidden>@pay.YearlyItTableDetail_Id</td>
+                        <td hidden>@pay.YearlyItTable_Id</td>
+                        <td hidden>@pay.Company_Id</td>
+                        <td>@pay.SlabName</td>
+                        <td>@pay.Income_From</td>
+                        <td>@pay.Income_To</td>
+                        <td>@pay.TaxPaybleInPercentage</td>
+                        <td>@pay.TaxPaybleInAmount</td>
+                        <td class="sticky_cell">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" role="switch" id="status-@pay.YearlyItTableDetail_Id" @(pay.IsActive ? "checked" : "")>
+                                <label class="form-check-label" for="status-@pay.IsActive">
+                                    @(pay.IsActive ? "Active" : "Inactive")
+                                </label>
+                            </div>
+                        </td>
+                        <td class="sticky_cell">
+                            <div class="table-button-group">
+                                <button class="btn btn-primary-light-icon-md edit-btn btn-edit-hide editTaxSlab" data-id="@pay.YearlyItTableDetail_Id" id="editTaxSlab">
+                                    <span class="sprite-icons edit-primary"></span>
+                                </button>
+                                <button class="btn btn-danger-light-icon btn-delete-hide"
+                                        data-yearlyittabledetail-id="@pay.YearlyItTableDetail_Id"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteTaxSlab">
+                                    <span class="sprite-icons delete-danger"></span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+       @*  else
+        {
+            <tr>
+                <td colspan="10" class="text-center">No data available</td>
+            </tr>
+        } *@
+    </tbody>
+</table>
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteTaxSlab"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deleteTaxSlabLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this tax slab?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmTaxSlabDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

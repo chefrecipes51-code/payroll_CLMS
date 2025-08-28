@@ -1,0 +1,41 @@
+.salary-structure-card-wrapper {
+    padding: 8px 24px;
+    height: calc(100vh - 190px);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &.formula-simulator-wrapper {
+        height: calc(100vh - 206px);
+
+        .financial-year-list-container {
+            height: unset;
+        }
+
+        .table-responsive {
+            .dt-scroll-body {
+                height: unset !important;
+                overflow-y: auto;
+            }
+
+            .form-control{
+                height: 24px;
+                padding: 4px 8px;
+            }
+        }
+    }
+
+    .salary-structure-card {
+        padding: 16px;
+        border: 1px solid var(--lavender-mist);
+        border-radius: 8px;
+    }
+
+    .form-footer {
+        position: absolute;
+        bottom: 0;
+        right: 28px;
+        background-color: var(--white);
+        z-index: 2;
+        width: calc(100vw - 92px);
+    }
+}

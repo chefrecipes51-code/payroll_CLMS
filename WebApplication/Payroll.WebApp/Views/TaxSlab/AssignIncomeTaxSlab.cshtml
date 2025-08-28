@@ -1,0 +1,372 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.EntityFilterResponseDTO>
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<style>
+    #btn1, #btn3 {
+        display: none !important;
+    }
+</style>
+<style>
+    .select2-container {
+        z-index: 999999 !important;
+    }
+
+    .select2-dropdown {
+        z-index: 999999 !important;
+    }
+
+</style>
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+    <!-- Alert content will be dynamically inserted based on the alert type -->
+</div>
+
+<div class="payroll-tabs-content-container">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-link" href="/TaxSlab/TaxSlab" id="incomeTaxTab">Income Tax Slab</a>
+            <a class="nav-link" href="/TaxSlab/AssignIncomeTaxSlab" id="assignTaxTab">Assign Income Tax Regime</a>
+        </div>
+    </nav>
+    <div class="row g-0">
+        <div class="col-lg-12 col-md-8 col-sm-8">
+            <div class="app-layout">
+                <div class="title-container">
+                    <div class="current-back">
+                        @* <p class="title-primary">Assign Income Tax Regime</p> *@
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn_primary_outline_md" id="deselectAllBtn" disabled>Deselect All</button>
+                        @*<button class="btn btn_primary d-flex gap-1" data-bs-toggle="modal"
+                        data-bs-target="#uploadBulk">
+                        <span class="sprite-icons2 upload-white-sm"></span>Bulk Upload
+                        </button> *@
+                    </div>
+                </div>
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+                         aria-labelledby="nav-user-list-tab">
+
+                        <div class="table-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive income-tax-table">
+                                        <table id="assign-tax-regime-list" class="filter-table table custom-table">
+                                            <thead>
+                                                <!-- Modal-like dropdown -->
+                                                <div id="dropdownModal" class="custom-dropdown">
+                                                    <div class="dropdown-item">
+                                                        <input type="radio" id="selectPage" name="recordSelect" class="form-check-input">
+                                                        <label for="selectPage">Select Page Records</label>
+                                                    </div>
+                                                    <div class="dropdown-item">
+                                                        <input type="radio" id="selectAll" name="recordSelect" class="form-check-input">
+                                                        <label for="selectAll">Select All Filtered Records</label>
+                                                    </div>
+
+                                                    <div class="dropdown-footer">
+                                                        <button type="button" class="btn btn-transparent-danger" id="resetSelection">
+                                                            Reset
+                                                        </button>
+                                                        <button type="button" class="btn btn_primary" id="applySelection">
+                                                            Apply
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+
+                                                <tr>
+                                                    <th class="sticky_cell checkbox">
+                                                        <input type="checkbox" id="openDropdown"
+                                                               class="form-check-input">
+                                                    </th>
+
+
+                                                    <th hidden>RegimeId</th>
+                                                    <th hidden>EntityId</th>
+                                                    <th hidden>ContractorId</th>
+                                                    <th hidden>ContractorCode</th>
+                                                    <th>Entity Name</th>
+                                                    <th>Entity Code</th>
+                                                    <th>Regime</th>
+                                                    <th>DOJ</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn_group py-2 text-end">
+                                <button class="btn btn-transparent-danger">Cancel</button>
+                                <button class="btn btn_primary" id="assigntaxregime" data-bs-toggle="modal"
+                                        data-bs-target="#assignRegime" disabled>
+                                    Assign
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      @*   <div class="col-lg-3 col-md-4 col-sm-4" id="entityFilterContainer">
+            @await Html.PartialAsync("_EntityFilterPartial", Model)
+        </div> *@
+    </div>
+
+</div>
+<div class="modal fade right-align standard-filter-modal drawer" id="standardFilterModal" tabindex="-1"
+     data-bs-backdrop="true" tabindex="-1" aria-hidden="true" data-keyword="true">
+    <div class="modal-dialog modal-dialog-slideout" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="title-primary-md-600">Filter</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <div class="modal-body" id="entityFilterContainer">
+                ViewData["SessionCompanyId"] = yourSessionCompanyId;
+                ViewData["SessionFinancialYear"] = yourSessionFinancialYear;
+                @* @await Html.PartialAsync("_EntityFilterPartial", Model) *@
+                <form id="mapEntityGradeForm">
+                    <div class="row">
+                        <input type="hidden" id="hdnSessionFinancialYear" value="@ViewBag.SessionCompanyId" />
+                        <input type="hidden" id="hdnSessionFinancialYearValue" value="@ViewBag.SessionFinancialYear" />
+
+                        <div class="form-group">
+                            <label for="financialYearDropdown" class="form-label">Financial Year<sup>*</sup></label>
+                            <div class="financialYear-selection">
+                                <select id="financialYearDropdown" name="financialYearDropdown" data-placeholder="Select a financial year" class="form-control select2_search_ctm" required>
+                                </select>
+                                <span id="financialYearDropdown-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contractorDropdown" class="form-label">Contractor<sup>*</sup></label>
+                            <div class="contractor-selection">
+                                <!-- Contractor -->
+                                <select id="contractorDropdown" name="contractorDropdown" data-placeholder="Select a contractor" class="form-control select2_search_ctm" required>
+                                </select>
+                                <span id="contractorDropdown-error" class="input_error_msg"></span>
+                            </div>
+                            @* <ul class="dropdown-menu" id="contractorDropdown"></ul> *@
+                        </div>
+                        <div class="form-group">
+                            <label for="entityNameDropdown" class="form-label">Entity Name</label>
+                            <div class="entityName-selection">
+                                <!-- Entity Name -->
+                                <select id="entityNameDropdown" name="entityNameDropdown" data-placeholder="Select an entity name" class="form-control select2_search_ctm" required>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="entityCodeDropdown" class="form-label">Entity Code</label>
+                            <div class="entityCodeDropdown-selection">
+                                <!-- Entity Code -->
+                                <select id="entityCodeDropdown" name="entityCodeDropdown" data-placeholder="Select an entity code" class="form-control select2_search_ctm" required>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="taxregimeDropdown" class="form-label">
+                                Current Year Tax
+                                Regime<sup>*</sup>
+                            </label>
+                            <div class="taxregimeDropdown-selection">
+                                <!-- Entity Code -->
+                                <select id="taxregimeDropdown" name="taxregimeDropdown" data-placeholder="Select a tax regime" class="form-control select2_search_ctm" required>
+                                </select>
+                                <span id="taxregimeDropdown-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn_group">
+                    <button type="button" class="btn btn-transparent-danger" id="resetFilterBtn">reset</button>
+                    <div class="btn-action-variants">
+                        <button class="btn btn_primary_outline_md" data-bs-dismiss="modal"
+                                aria-label="Close">
+                            Cancel
+                        </button>
+                        <button type="button" id="applyFilterBtn" class="btn btn_primary loader-dot-pulse">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modals start -->
+<div class="modal fade modal-custom modal-primary-light" id="uploadBulk" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="uploadBulkLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <p class="title-primary">Bulk Upload</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-container">
+                    <!-- file upload with delete button -->
+                    <!-- <div class='file'>
+                        <label class="form-control form-label success mb-0" for='input-file'>
+                            Profile.xlsx
+                        </label>
+                        <input class="form-control" id='input-file' type='file' />
+                        <button class="btn btn-delete-file" data-bs-toggle="modal"
+                            data-bs-target="#removeFile"><span
+                                class="sprite-icons delete-danger"></span></button>
+                    </div> -->
+                    <div class='file'>
+                        <label class="form-control form-label" for='input-file'>
+                            <img class="img-fluid me-2 mb-0" src="~/assets/img/icons/download-small.svg" height="24"
+                                 width="24" alt="upload" />Select
+                            a file
+                        </label>
+                        <input class="form-control" id='input-file' type='file' />
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-link-primary d-flex align-items-center gap-1">
+                    <span class="sprite-icons2 download-primary-sm"></span>Download Sample
+                </button>
+                <div class="btn_group">
+                    <button type="button" class="btn btn-transparent-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn_primary loader-dot-pulse" onclick="window.location.href='assign-income-tax-slab-list.html'">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- assign regime -->
+<div class="modal fade modal-custom modal-primary-light modal-assign-regime" id="assignRegime"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="assignRegimeLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <p class="title-primary">Assign Income Tax Regime</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="taxregimeDropdown" class="form-label">Regime <sup>*</sup></label>
+                    <div class="dropdown">
+                        <a class="btn dropdown-link dropdown-toggle" id="dropdownTextbox" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Select Regime
+                        </a>
+                        <ul class="dropdown-menu" id="dropdownMenu">
+                            <!-- Items will be populated dynamically -->
+                        </ul>
+                    </div>
+                    <span id="dropdownTextbox-error" class="input_error_msg"></span>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-end">
+                <button type="button" class="btn btn-transparent-danger" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="bulkInsertAssignTaxBtn" class="btn btn_primary loader-dot-pulse">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Upload bulk modals start -->
+<!-- <div class="modal fade modal-custom modal-primary-confirmation" id="uploadBulk" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="uploadBulkLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <p class="title-primary">Bulk Upload</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><span
+                        class="sprite-icons close-icon"></span></button>
+            </div>
+            <div class="modal-body">
+                <div class='file'>
+                    <label class="form-control form-label" for='input-file'>
+                        <img class="img-fluid me-2 mb-0" src="~/assets/img/icons/download-small.svg" height="24"
+                            width="24" alt="upload" />Select a file
+                    </label>
+                    <input class="form-control" id='input-file' type='file' />
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-link-primary"><span
+                        class="sprite-icons close-icon"></span>Download Sample</button>
+                <div class="btn_group">
+                    <button type="button" class="btn btn-transparent-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn_primary loader-dot-pulse">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/application/js/taxslab/assigntaxslab.js"></script>
+    <!-- <script src="assets/src/custom-js/script.js"></script> -->
+    <script>
+        const checkbox = document.getElementById('openDropdown');
+        const dropdown = document.getElementById('dropdownModal');
+
+        checkbox.addEventListener('change', function () {
+            dropdown.style.display = checkbox.checked ? 'block' : 'none';
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!checkbox.contains(e.target) && !dropdown.contains(e.target)) {
+                checkbox.checked = false;
+                dropdown.style.display = 'none';
+            }
+        });
+
+    </script>
+
+    <script>
+        // button loader on click
+        $('.loader-dot-pulse').on('click', function () {
+            var self = this;
+            $(this).addClass('btn__dots--loading');
+            $(this).append('<span class="btn__dots"><i></i><i></i><i></i></span>');
+            setTimeout(function () {
+                $(self).removeClass('btn__dots--loading');
+                $(self).find('.btn__dots').remove();
+            }, 2000);
+
+        });
+    </script>
+
+    <!-- dropdown active -->
+    <script>
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        // Handle dropdown item click
+        dropdownMenu.addEventListener('click', (event) => {
+            if (event.target.classList.contains('dropdown-item')) {
+                // Remove 'active' class from all items
+                dropdownMenu.querySelectorAll('.dropdown-item').forEach((item) => {
+                    item.classList.remove('active');
+                });
+                // Add 'active' class to the clicked item
+                event.target.classList.add('active');
+            }
+        });
+    </script>
+
+}

@@ -1,0 +1,218 @@
+// company-empty.html
+.contact-type-container {
+    padding: 16px;
+    background-color: var(--lavender-pale);
+    border-radius: 8px;
+    margin-bottom: 16px;
+
+}
+
+
+// company-list.html
+.conpany-setup-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .sm-text {
+        color: var(--black-terminal);
+        margin-bottom: 0;
+    }
+
+    .progress {
+        height: 3px;
+        background-color: var(--lavender-dreamy);
+        width: 100px;
+
+        .progress-bar {
+            background-color: var(--primary);
+            height: 3px;
+            border-radius: 12px;
+        }
+    }
+}
+
+// company-setup.html
+.company-setup-checklist-container {
+    padding-left: 24px;
+    padding-right: 24px;
+    height: calc(100vh - 212px);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+
+    .input-group {
+        align-items: center;
+        gap: 12px;
+        padding: 8px;
+        flex-wrap: nowrap;
+
+        .form-label {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            margin-bottom: 0;
+            color: var(--black-terminal);
+        }
+    }
+
+    ~.form-footer {
+        padding: 16px 24px;
+    }
+}
+
+// company-onboarding.html
+.company-onboarding {
+    .gs_tc_body {
+        height: calc(100vh - 290px);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .bordered-title-content-wrapper {
+        margin-top: 12px;
+    }
+
+    .vertical-tab-content {
+        .vertical-tabs-content-fixed-layout {
+            height: unset;
+        }
+    }
+
+    .app-layout {
+        margin-top: 16px;
+
+        .form-body {
+            &.vertical-tabs-content-fixed-layout {
+                padding: 16px;
+            }
+
+            .multi-bordered-title-content-wrapper {
+                margin-bottom: 20px;
+
+                .bordered-title-content-wrapper {
+                    height: 100%;
+
+                    &.empty-card {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+
+                &:last-child {
+                    margin-bottom: 32px;
+                }
+
+            }
+        }
+
+
+        .company-profile-container {
+            display: flex;
+            margin-bottom: 24px;
+            align-items: flex-start;
+            justify-content: space-between;
+
+            .company-logo {
+                border: 1px solid var(--gray-pearl);
+                border-radius: 14px;
+            }
+
+            .company-details-container {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+
+                .company-brand {
+                    .lg-text {
+                        color: var(--black-terminal);
+                    }
+                }
+            }
+        }
+
+        .empty-screen {
+            height: 100%;
+        }
+    }
+}
+.file {
+    input[type='file'] {
+        display: none;
+    }
+
+    label {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+}
+
+// company-details-add.html
+.company-detail-tab-content {
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    
+
+    .gs_tc_body {
+        &.preview {
+            .multi-bordered-title-content-wrapper {
+                margin-bottom: 32px;
+            }
+
+            .bordered-title-content-wrapper {
+                height: 100%;
+                margin-bottom: 32px;
+
+                &:last-child {
+                    margin-bottom: unset;
+                }
+            }
+        }
+    }
+
+    .documents-preview-container {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        .btn-link-primary {
+            font-size: 16px;
+            line-height: 20px;
+        }
+    }
+}
+
+.preview-prfile-upload {
+    padding: 24px;
+    border: 1px solid var(--lavender-mist);
+    border-radius: 8px;
+
+    &.form-body {
+        .bordered-title {
+            left: 16px;
+        }
+    }
+    .app-layout{
+        .multi-bordered-title-content-wrapper{
+            margin-bottom: 32px;
+        }
+    }
+   
+    .upload_emp_profile_pic {
+        width: 64px;
+        height: 64px !important;
+
+        .emp_profile_pic {
+
+            .profile-placeholder,
+            .preview-img {
+                justify-content: flex-start;
+            }
+        }
+    }
+}

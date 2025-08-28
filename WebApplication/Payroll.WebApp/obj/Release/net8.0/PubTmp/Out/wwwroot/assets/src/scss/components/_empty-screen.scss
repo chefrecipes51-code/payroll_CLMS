@@ -1,0 +1,42 @@
+.empty-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 102px);
+
+    &.empty-screen-card {
+        height: calc(100vh - 409px);
+    }
+
+    .empty-screen-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .no-data-container {
+        text-align: center;
+
+        .title-primary{
+            margin-bottom: 16px;
+        }
+        .sm-text-gray-neutral{
+            margin-bottom: 24px;
+        }
+    }
+
+
+    .empty-screen-button {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+
+        .btn {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+        }
+    }
+}

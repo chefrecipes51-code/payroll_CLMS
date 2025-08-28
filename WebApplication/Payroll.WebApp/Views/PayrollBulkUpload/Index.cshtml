@@ -1,0 +1,401 @@
+﻿@* @model List<Payroll.WebApp.Common.ValidationResultModel>*@
+@model Payroll.WebApp.Common.PayrollValidationViewModel
+ @{
+    Layout = null;
+    ViewData["Title"] = "Upload CSV File";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Mantra Payroll Management System</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="~/template/plugins/fontawesome-free/css/all.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="/template/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/template/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <!-- Layout Common css -->
+    <link href="~/application/css/layout.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    @*     <!-- Toastr CSS -->
+    <link href="~/css/toastr.min.css" rel="stylesheet" />
+
+    <!-- Loader CSS -->
+    <link href="~/css/loader.css" rel="stylesheet" /> *@
+
+    <!-- Include Minified CSS -->
+    @* <link rel="stylesheet" href="css/site.min.css" /> *@
+   
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+
+    <style>
+        .pagination {
+            margin-top: 20px;
+        }
+
+        .page-btn {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+            .page-btn.active {
+                background-color: #0056b3; /* Darker blue for active button */
+            }
+
+            .page-btn:hover {
+                background-color: #0056b3; /* Darker blue for hover */
+            }
+
+        .red-background {
+            background-color: red !important;
+            color: white;
+        }
+    </style>
+    @* //// *@
+    <!-- Include jQuery -->
+<!-- Include DataTables -->
+<!-- Created By & Date :- Harshida Parmar (02-12-'24)  -->
+<!--  Task :- Upload Bulk Department: -  Start -->
+<script>
+    $(document).ready(function () {
+        var validRecords = [];
+        //Upload and display CSV Data to Enter into Stage Table :- Start
+        $('#uploadButton').click(function () {
+
+            // Get the selected templateId and file
+            var selectedTemplateId = $('#templateId').val();
+            var fileInput = $('#fileInput')[0];
+            if (!selectedTemplateId) {
+                alert('Please select a service.');
+                return false;
+            }
+            if (!fileInput.files.length) {
+                alert('Please select a file.');
+                return false;
+            }
+
+            var formData = new FormData($('#uploadForm')[0]);
+
+            if (!selectedTemplateId) {
+                alert('Please select a service.');
+                return false;
+            }
+            $.ajax({
+                url: '@Url.Action("Index", "PayrollBulkUpload")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $('#tableHeaders').empty();
+                    $('#tableBody').empty();
+
+                    //Start:- Check for Contractor Document Response Message
+                    if (selectedTemplateId == 4) {
+                        if (response.hasError) {
+                            // Display the error message in a designated area
+                            $('#responseMessage')
+                                .html(response.errorMessages.join('<br>')) // Join multiple error messages, if any
+                                .css('display', 'block'); // Show the error message container
+                            return; // Exit as there is an error
+                        }
+                    }
+                    //End:- Check for Contractor Document Response Message
+
+                    if (response.length > 0) {
+                        var headers = response[0].columnHeaders;
+                        $('#tableHeaders').append('<th>Row</th>');
+                        headers.forEach(function (header) {
+                            $('#tableHeaders').append('<th>' + header + '</th>');
+                        });
+                        $('#tableHeaders').append('<th>Errors</th>');
+
+                        var errorRows = response.filter(row => row.hasError);
+                        var validRows = response.filter(row => !row.hasError);
+                        var sortedRows = errorRows.concat(validRows);
+
+                        $.each(sortedRows, function (index, result) {
+                            var row = '<tr style="' + (result.hasError ? 'background-color: #f8d7da;' : '') + '">';
+                            row += '<td>' + result.rowIndex + '</td>';
+
+                            result.columnValues.forEach(function (value) {
+                                row += '<td>' + value + '</td>';
+                            });
+
+                            row += '<td>' + (result.hasError ? result.errorMessages.join(', ') : '') + '</td>'; // Errors
+                            row += '</tr>';
+
+                            $('#tableBody').append(row);
+                        });
+                        validRecords = validRows;
+
+                        $('#dataTable').DataTable({
+                            "destroy": true,
+                            "pageLength": 10,
+                            "searching": true,
+                            "ordering": false,
+                            "info": true
+                        });
+                        $('#insertButton').prop('disabled', errorRows.length > 0);
+                    } else {
+                        $('#resultsContainer').html('<div class="alert alert-info">No records to display.</div>');
+                    }
+                },
+                error: function (error) {
+                    console.error('Error uploading file:', error);
+                }
+            });
+        });
+        //Upload and display CSV Data to Enter into Stage Table :- End
+
+        //Insert Data into Stage Table :- Start
+        $('#insertButton').on('click', function () {
+            const templateId = $('#templateId').val();
+            validRecords.forEach(function (record, index) {
+                // Process valid records (can add additional logic if needed)
+                //console.log(`Record ${index + 1}:`, record);
+            });
+
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+            var formData = new FormData();
+            formData.append("file", file);
+            formData.append("templateId", templateId);
+            formData.append("tableData", JSON.stringify(validRecords));
+            $.ajax({
+                url: '@Url.Action("SaveDataInStaging", "PayrollBulkUpload")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    alert(response.message || 'Data saved successfully.');
+                    $('#tableHeaders').empty();
+                    $('#tableBody').empty();
+                    $("#insertButton").attr("disabled", "disabled");
+                    $("#uploadButton").attr("disabled", "disabled");
+                    if (response.jsonResponse) {
+                        console.log(response.jsonResponse);
+                        const jsonData = JSON.parse(response.jsonResponse);
+                        if (jsonData.VALIDATE && jsonData.VALIDATE.length > 0) {
+                            const validationData = jsonData.VALIDATE[0];
+                            if (validationData.ValidationResults.length > 0) {
+                                const headers = Object.keys(validationData.ValidationResults[0]);
+
+                                let headerHtml = "<tr>";
+                                headers.forEach(header => {
+                                    headerHtml += `<th>${header}</th>`;
+                                });
+                                headerHtml += "</tr>";
+                                $("#tableHeaders").html(headerHtml);
+
+                                let bodyHtml = "";
+                                validationData.ValidationResults.forEach(row => {
+                                    bodyHtml += "<tr>";
+                                    headers.forEach(header => {
+                                        let cellValue = row[header] !== null ? row[header] : "-"; // Handle null values
+                                        bodyHtml += `<td>${cellValue}</td>`;
+                                    });
+                                    bodyHtml += "</tr>";
+                                });
+                                $("#tableBody").html(bodyHtml);
+                            }
+
+                            if (validationData.CountResults && validationData.CountResults.length > 0) {
+                                const message = validationData.CountResults[0].ApplicationMessage;
+                                $('#validationMessage').text(message);
+                            }
+                        } else {
+                            $('#tableHeaders').html("");
+                            $('#tableBody').html("<tr><td colspan='4'>No records found.</td></tr>");
+                            $('#validationMessage').text("No validation data available.");
+                        }
+                    }
+                },
+                error: function (error) {
+                    alert('Error saving data.');
+                    console.error(error);
+                }
+            });
+        });
+        //Insert Data into Stage Table :- End
+    });
+</script>
+<!--  Task :- Upload Bulk Department: -  End -->
+<script>
+    //Get Template File On Dropdown Change:- Start
+    $(document).ready(function () {
+        $('#templateId').change(function () {
+            var selectedTemplateId = $(this).val();
+
+            if (selectedTemplateId) {
+                $.ajax({
+                    url: '@Url.Action("DownLoadFileNamePath", "PayrollBulkUpload")',
+                    type: 'GET',
+                    data: { templateId: selectedTemplateId },
+                    success: function (response) {
+                        console.log('File details:', response);
+                        $('#fileDownloadLinks').empty();
+                        $("#uploadButton").removeAttr("disabled");
+                        var fileNames = [];
+                        var filePaths = [];
+                        response.forEach(function (file) {
+                            if (file.helpFileName && file.helpFilePath) {
+                                fileNames.push(file.helpFileName);
+                                filePaths.push(file.helpFilePath);
+                            }
+                            if (file.templateName && file.templateFilePath) {
+                                fileNames.push(file.templateName);
+                                filePaths.push(file.templateFilePath);
+                            }
+                        });
+                        if (fileNames.length > 0 && filePaths.length > 0) {
+                            var downloadLink = document.createElement('a');
+                            downloadLink.href = '#';
+                            downloadLink.innerText = `Download All Files`;
+                            downloadLink.style.display = 'block';
+                            downloadLink.style.marginBottom = '10px';
+
+                            downloadLink.onclick = function (event) {
+                                event.preventDefault();
+                                fileNames.forEach(function (fileName, index) {
+                                    var downloadUrl = '@Url.Action("DownloadFile", "PayrollBulkUpload")' +
+                                        `?fileName=${encodeURIComponent(fileName)}&filePath=${encodeURIComponent(filePaths[index])}`;
+
+                                    var tempLink = document.createElement('a');
+                                    tempLink.href = downloadUrl;
+                                    tempLink.download = fileName;
+                                    tempLink.click();
+                                });
+                            };
+                            $('#fileDownloadLinks').append(downloadLink);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX error:', error);
+                    }
+                });
+            }
+        });
+    });
+    //Get Template File On Dropdown Change:- End
+</script>
+@* Clear FileUpload and table based on value gets changed: - Start *@
+<script>
+    $(document).ready(function () {
+        //Clear Table while DP value is Same BUT CSV Changed:- Start
+        document.getElementById('fileInput').addEventListener('change', function () {
+            if ($.fn.DataTable.isDataTable('#dataTable')) {
+                $('#dataTable').DataTable().clear().destroy();
+            }
+            document.getElementById('tableHeaders').innerHTML = '';
+            document.getElementById('tableBody').innerHTML = '';
+            $("#uploadButton").removeAttr("disabled");
+            console.log('Table cleared due to file change.');
+        });
+        //Clear Table while DP value is Same BUT CSV Changed:- End
+
+        //Clear the FileUpload and Table while changing the DropDown:- Start
+        document.getElementById('templateId').addEventListener('change', function () {
+
+            const fileInput = document.getElementById('fileInput');
+            fileInput.value = '';
+
+            const fileDownloadLinks = document.getElementById('fileDownloadLinks');
+            fileDownloadLinks.innerHTML = '';
+
+            if ($.fn.DataTable.isDataTable('#dataTable')) {
+                $('#dataTable').DataTable().clear().destroy();
+            }
+            document.getElementById('tableHeaders').innerHTML = '';
+            document.getElementById('tableBody').innerHTML = '';
+            console.log('File input and table cleared due to template change.');
+        });
+        //Clear the FileUpload and Table while changing the DropDown:- End
+    });
+</script>
+@* Clear FileUpload and table based on value gets changed: - End *@
+
+</head>
+
+<body>
+    <div class="form-header">
+        <h1>Upload CSV File</h1>
+        <p>Please select a CSV file and the appropriate template to upload.</p>
+    </div>
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="templateId" class="form-label">Select Template:</label>
+            @Html.DropDownListFor(model => model.templateId,
+                     new SelectList(Model.ServiceDropdown, "Value", "Text"),
+                     "Select a Service",
+                     new { @class = "form-control", required = "required" })
+            <div id="fileDownloadLinks"></div>
+        </div>
+        <div class="mb-3">
+            <label for="file" class="form-label">Select CSV file:</label>
+            <input type="file" id="fileInput" name="file" class="form-control" required />
+        </div>
+        <button type="button" id="uploadButton">Upload</button>
+        <button type="button" id="insertButton" disabled>InsertRecord</button>
+
+    </form>
+    <div id="responseMessage" style="display: none; padding: 10px; background-color: #f8d7da; color: #721c24; margin-bottom: 20px;"></div>
+
+    <div id="resultsContainer">
+        <table id="dataTable" class="display" style="width:100%">
+            <thead>
+                <tr id="tableHeaders"></tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+    <div id="pagination"></div>
+
+
+</body>
+
+</html>
+
+

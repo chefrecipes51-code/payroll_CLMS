@@ -1,0 +1,66 @@
+﻿/* Search box with icon */
+#customSearch {
+    position: relative; /* Ensure icon positioning works correctly */
+}
+
+    #customSearch input[type="search"] {
+        height: 36px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding-left: 36px !important; /* Leaves space for icon */
+        font-size: 14px;
+        width: 220px;
+        box-sizing: border-box;
+    }
+
+    #customSearch img {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        pointer-events: none; /* So clicking the icon doesn't interfere */
+    }
+
+/* Page size dropdown style */
+.custom_table_length label {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.custom_table_length select {
+    width: auto;
+    padding: 4px 8px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+/* Pagination buttons */
+#pagination-controls .page-btn {
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 4px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    margin: 0 2px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+    #pagination-controls .page-btn:hover {
+        background: #f0f0f0;
+        color: #333;
+    }
+
+#pagination-controls .btn-primary {
+    background-color: #666;
+    color: #fff;
+    border-color: #666;
+}

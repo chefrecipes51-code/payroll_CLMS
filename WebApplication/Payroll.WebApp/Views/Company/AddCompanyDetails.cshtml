@@ -1,0 +1,1496 @@
+﻿@using Payroll.WebApp.Models.DTOs
+@model CompanyMasterDTO
+<link href="~/assets/src/css/croppie.css" rel="stylesheet" />
+<div class="breadcrumb-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <p class="breadcrumb-text"><span class="sprite-icons home-primary"></span></p>
+            </li>
+            <li class="breadcrumb-item primary">
+                <p class="breadcrumb-text">Company Onboarding</p>
+            </li>
+            <li class="breadcrumb-item primary">
+                <p class="breadcrumb-text">Company Details</p>
+            </li>
+            <li class="breadcrumb-item active">
+                <p class="breadcrumb-text">Basic Details</p>
+            </li>
+        </ol>
+    </nav>
+</div>
+
+<div class="app-layout">
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+    <div class="title-container">
+        <div class="current-back">
+            <button class="btn btn-back-icon" onclick="window.location.href='company-empty.html'">
+                <span class="sprite-icons back-violet"></span>
+            </button>
+            <p class="title-primary">Add Company Details</p>
+        </div>
+        <div class="button-group">
+            <button class="btn btn-transparent-danger">reset All</button>
+            <button class="btn btn_primary_outline_md">Cancel</button>
+        </div>
+    </div>
+
+    <div class="row g-0">
+        <div class="col-lg-3 col-md-3">
+            <div class="vertical-tabs">
+                <div class="vertical-tabs-fixed-layout">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                         aria-orientation="vertical">
+                        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-home" type="button" role="tab"
+                                aria-controls="v-pills-home" aria-selected="true">
+                            Basic Detail
+                        </button>
+
+                        <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-profile" type="button" role="tab"
+                                aria-controls="v-pills-profile" aria-selected="false">
+                            Financial Year
+                            Details
+                        </button>
+
+                        <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-messages" type="button" role="tab"
+                                aria-controls="v-pills-messages" aria-selected="false">
+                            Base Currency
+                            Detail
+                        </button>
+
+                        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-settings" type="button" role="tab"
+                                aria-controls="v-pills-settings" aria-selected="false">
+                            Other Details
+                        </button>
+
+                        <button class="nav-link" id="document-tab" data-bs-toggle="pill"
+                                data-bs-target="#document" type="button" role="tab" aria-controls="document"
+                                aria-selected="false">
+                            Documents
+                        </button>
+
+                        <button class="nav-link" id="preview-tab" data-bs-toggle="pill"
+                                data-bs-target="#preview" type="button" role="tab" aria-controls="preview"
+                                aria-selected="false">
+                            Preview
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <div class="vertical-tab-content company-detail-tab-content">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                         aria-labelledby="v-pills-home-tab" tabindex="0">
+                        <div class="vertical-tabs-content-fixed-layout form-body">
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyName" class="form-label">
+                                                    Company Name
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="CompanyName"
+                                                       placeholder="enter company name" id="CompanyName"
+                                                       name="CompanyName">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="Company_Code" class="form-label">
+                                                    Company Code
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="Company_Code"
+                                                       placeholder="enter company code" id="Company_Code"
+                                                       name="Company_Code">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyShortName" class="form-label">
+                                                    Company Short Name
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="CompanyShortName"
+                                                       placeholder="Enter company short name" id="CompanyShortName"
+                                                       name="CompanyShortName">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyPrintName" class="form-label">
+                                                    Company Print Name
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="CompanyPrintName"
+                                                       placeholder="Enter company short name" id="CompanyPrintName"
+                                                       name="CompanyPrintName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="ccname" asp-for="CompanyCorrespondance.WebsiteUrl" class="form-label">
+                                                    Company WebSite URL
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Enter Company WebSite URL" id="WebsiteUrl"
+                                                       name="WebsiteUrl">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyType_ID" class="form-label">
+                                                    Company Type<sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm" asp-for="CompanyType_ID">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" class="form-label">
+                                                    Language <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Logo" class="form-label">
+                                                Company Logo
+                                                <sup>*</sup>
+                                            </label>
+                                            <div class='file'>
+                                                <label class="form-control form-label" asp-for="CompanyCorrespondance.Company_LogoImage_Path" for='input-file'>
+                                                    <img class="img-fluid me-2"
+                                                         src="~/assets/img/icons/download-small.svg" height="24" width="24" alt="upload" />Select
+                                                    a file
+                                                </label>
+                                                <input class="form-control" id='input-file'
+                                                       type='file' />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- address row -->
+                            <div class="row mb-4">
+
+                                <div class="col-lg-6 mb-3">
+                                    <div class="current-back">
+                                        <p class="title-primary">Registered Address</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    <div class="input-group">
+                                        <input id="rememberme" class="form-check-input mt-0 me-2"
+                                               type="checkbox" value=""
+                                               aria-label="Checkbox for following text input">
+                                        <label for="rememberme"
+                                               class="form-label text-black-terminal">
+                                            Communication address
+                                            same as registered address
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" asp-for="CompanyCorrespondance.CorrespondanceType" class="form-label">
+                                                    Correspondance Type
+                                                    <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm" id="CorrespondanceType" name="CorrespondanceType">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.Primary_Email_Id" class="form-label">
+                                                    Email
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="email" class="form-control" asp-for="CompanyCorrespondance.Primary_Email_Id"
+                                                       placeholder="Enter email" id="Primary_Email_Id" name="Primary_Email_Id">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group countries-selection">
+                                                <label for="phone1countries" class="form-label">
+                                                    Select Country<sup>*</sup>
+                                                </label>
+                                                <select class="form-control flag-countries" id="phone1countries">
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-8">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.Primary_Phone_no" class="form-label">
+                                                    Phone Number
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="tel" class="form-control" asp-for="CompanyCorrespondance.Primary_Phone_no"
+                                                       placeholder="Enter phone number" id="Primary_Phone_no"
+                                                       name="Primary_Phone_no">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.Building_No" class="form-label">
+                                                    Building No
+                                                    @* <sup>*</sup> *@
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="CompanyCorrespondance.Building_No"
+                                                       placeholder="Enter address" id="Building_No" name="Building_No">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.Building_Name" class="form-label">
+                                                    Building Name
+                                                    @* <sup>*</sup> *@
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="CompanyCorrespondance.Building_Name"
+                                                       placeholder="Enter address" id="Building_Name" name="Building_Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.Street" class="form-label">
+                                                    Street
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="CompanyCorrespondance.Street"
+                                                       placeholder="Enter address" id="Street" name="BuildiStreetng_Name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="row">
+
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.CompanyAddress" class="form-label">
+                                                    Address
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="CompanyCorrespondance.CompanyAddress"
+                                                       placeholder="Enter address" id="CompanyAddress" name="CompanyAddress">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" asp-for="CompanyCorrespondance.Country_ID" class="form-label">
+                                                    Country <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm" id="Country_ID">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" asp-for="CompanyCorrespondance.State_Id" class="form-label">
+                                                    State <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm" id="State_Id">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" asp-for="CompanyCorrespondance.City_ID" class="form-label">
+                                                    City <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm" id="City_ID">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" asp-for="CompanyCorrespondance.Location_ID" class="form-label">
+                                                    Location <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm" id="Location_ID">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="pincode" asp-for="CompanyCorrespondance.PinCode" class="form-label">
+                                                    PIN Code
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Enter pin code" id="PinCode"
+                                                       name="PinCode">
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="current-back mb-3">
+                                    <p class="title-primary">Communication Address</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="addr" asp-for="CompanyCorrespondance.CorrespondanceType" class="form-label">
+                                                    Correspondance Type
+                                                    <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm" id="CorrespondanceType2" name="CorrespondanceType2">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.Secondary_Email_ID" class="form-label">
+                                                    Email
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="email" class="form-control" asp-for="CompanyCorrespondance.Secondary_Email_ID"
+                                                       placeholder="Enter email" id="Secondary_Email_ID" name="Secondary_Email_ID">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group countries-selection">
+                                                <label for="phone2countries" class="form-label">
+                                                    Select Country<sup>*</sup>
+                                                </label>
+                                                <select class="form-control flag-countries" id="phone2countries">
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-8">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.Secondary_Phone_No" class="form-label">
+                                                    Phone Number
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="tel" class="form-control" asp-for="CompanyCorrespondance.Secondary_Phone_No"
+                                                       placeholder="Enter phone number" id="Primary_Phone_no"
+                                                       name="Secondary_Phone_No">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.Building_No" class="form-label">
+                                                    Building No
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="CompanyCorrespondance.Building_No"
+                                                       placeholder="Enter address" id="Building_No2" name="Building_No2">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.Building_Name" class="form-label">
+                                                    Building Name
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="CompanyCorrespondance.Building_Name"
+                                                       placeholder="Enter address" id="Building_Name2" name="Building_Name2">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.Street" class="form-label">
+                                                    Street
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="CompanyCorrespondance.Street"
+                                                       placeholder="Enter address" id="Street2" name="Street2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="row">
+
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="CompanyCorrespondance.CompanyAddress" class="form-label">
+                                                    Address
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control" asp-for="CompanyCorrespondance.CompanyAddress"
+                                                       placeholder="Enter address" id="CompanyAddress2" name="CompanyAddress2">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" asp-for="CompanyCorrespondance.Country_ID" class="form-label">
+                                                    Country <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm" id="secondarycountries">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" asp-for="CompanyCorrespondance.State_Id" class="form-label">
+                                                    State <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm" id="State_Id2" name="State_Id2">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" asp-for="CompanyCorrespondance.City_ID" class="form-label">
+                                                    City <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm" id="City_ID2" name="City_ID2">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" asp-for="CompanyCorrespondance.Location_ID" class="form-label">
+                                                    Location <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm" id="Location_ID2" name="Location_ID2">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="pincode" asp-for="CompanyCorrespondance.PinCode" class="form-label">
+                                                    PIN Code
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Enter pin code" id="PinCode2"
+                                                       name="PinCode2">
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-footer">
+                            <button class="btn btn_primary_outline_md">
+                                <span class="sprite-icons prev-primary"></span>Previous
+                            </button>
+                            <button class="btn btn_primary" id="saveDetailsButton" type="button">
+                                Next<span class="sprite-icons next-light"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+                         aria-labelledby="v-pills-profile-tab" tabindex="0">
+                        <div class="vertical-tabs-content-fixed-layout form-body">
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="sdate" class="form-label">
+                                                    Start Date
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="date" class="form-control"
+                                                       placeholder="enter date" id="sdate" name="sdate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="edate" class="form-label">
+                                                    End Date
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="date" class="form-control"
+                                                       placeholder="enter date" id="edate" name="edate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-footer">
+                            <button class="btn btn_primary_outline_md">
+                                <span class="sprite-icons prev-primary"></span>Previous
+                            </button>
+                            <button class="btn btn_primary">
+                                Next<span class="sprite-icons next-light"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                         aria-labelledby="v-pills-messages-tab" tabindex="0">
+                        <div class="vertical-tabs-content-fixed-layout form-body">
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="cc" class="form-label">
+                                                    Currency Code
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control" placeholder="INR"
+                                                       id="cc" name="cc">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1" class="form-label">
+                                                    Currency
+                                                    Symbol <sup>*</sup>
+                                                </label>
+                                                <div class="dropdown">
+                                                    <a class="btn dropdown-link dropdown-toggle"
+                                                       id="dropdownTextbox" role="button"
+                                                       data-bs-toggle="dropdown" aria-expanded="false">
+                                                        $
+                                                    </a>
+                                                    <ul class="dropdown-menu" id="dropdownMenu">
+                                                        <li>
+                                                            <a class="dropdown-item" data-value="1">₹</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" data-value="2">$</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" data-value="3">₹</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" data-value="4">$</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item" data-value="5">₹</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="cn" class="form-label">
+                                                    Currency Name
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="Indian rupee" id="cn" name="cn">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1" class="form-label">
+                                                    Decimal
+                                                    Point <sup>*</sup>
+                                                </label>
+                                                <div class="dropdown">
+                                                    <a class="btn dropdown-link dropdown-toggle"
+                                                       id="dropdownTextbox" role="button"
+                                                       data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Select decimal point
+                                                    </a>
+                                                    <ul class="dropdown-menu" id="dropdownMenu">
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               data-value="1">Option</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               data-value="2">Option</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               data-value="3">Option</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               data-value="4">Option</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                               data-value="5">Option</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="edate" class="form-label">
+                                                    Description
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                       placeholder="enter date" id="edate" name="edate">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-footer">
+                            <button class="btn btn_primary_outline_md">
+                                <span class="sprite-icons prev-primary"></span>Previous
+                            </button>
+                            <button class="btn btn_primary">
+                                Next<span class="sprite-icons next-light"></span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                         aria-labelledby="v-pills-settings-tab" tabindex="0">
+
+                        <div class="vertical-tabs-content-fixed-layout form-body">
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" class="form-label">
+                                                    Date Format <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm">
+                                                        <option value="option" data-capital="option">
+                                                            DD-MM-YYYY
+                                                        </option>
+                                                        <option value="option" data-capital="option">
+                                                            MM-DD-YY
+                                                        </option>
+                                                        <option value="option" data-capital="option">
+                                                            YYYY-MM-DD
+                                                        </option>
+                                                        <option value="option" data-capital="option">
+                                                            M-D-YY
+                                                        </option>
+                                                        <option value="option" data-capital="option">
+                                                            DD/MM/YYYY
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="cu" class="form-label">
+                                                    Company URL
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="url" class="form-control"
+                                                       placeholder="Enter company url" id="cu" name="cu">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" class="form-label">
+                                                    Date Format <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm">
+                                                        <option value="option" data-capital="option">
+                                                            Fixed
+                                                            Time Zone
+                                                        </option>
+                                                        <option value="option" data-capital="option">
+                                                            User-Specific Time Zone
+                                                        </option>
+                                                        <option value="option" data-capital="option">
+                                                            Local
+                                                            Time Zone
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="countrie" class="form-label">
+                                                    Cut Off Date <sup>*</sup>
+                                                </label>
+                                                <div class="select2_search_container_ctm">
+                                                    <select class="form-control select2_search_ctm">
+                                                        <option value="option" data-capital="option">
+                                                            GMT-12:00
+                                                        </option>
+                                                        <option value="option" data-capital="option">
+                                                            GMT+1:00
+                                                        </option>
+                                                        <option value="option" data-capital="option">
+                                                            GMT+5:30
+                                                        </option>
+                                                        <option value="option" data-capital="option">
+                                                            GMT+11:00
+                                                        </option>
+                                                        <option value="option" data-capital="option">
+                                                            GMT-8:00
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <button class="btn btn_primary_outline_md">
+                                <span class="sprite-icons prev-primary"></span>Previous
+                            </button>
+                            <button class="btn btn_primary">
+                                Next<span class="sprite-icons next-light"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab"
+                         tabindex="0">
+                        <div class="vertical-tabs-content-fixed-layout form-body">
+                            <div class="row mb-4">
+                                <div class="col-lg-6">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="pinno" class="form-label">
+                                                    PIN No
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control mb-1"
+                                                       placeholder="Enter PIN number" id="pinno" name="pinno">
+
+                                                <!-- <input class="form-control" type="file" id="formFile">-->
+                                                <!-- <div class="image-upload">
+                                                    <label for="file-input">
+                                                        <img src="~/assets/img/icons/download-small.svg" />
+                                                    </label>
+
+                                                    <input class="form-control" id="file-input" type="file" title="" />
+
+                                                </div> -->
+                                                <div class='file'>
+                                                    <label class="form-control form-label" for='input-file'>
+                                                        <img class="img-fluid me-2"
+                                                             src="~/assets/img/icons/download-small.svg" height="24" width="24" alt="upload" />Select
+                                                        a file
+                                                    </label>
+                                                    <input class="form-control" id='input-file'
+                                                           type='file' />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="tin" class="form-label">
+                                                    TIN No
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control mb-1"
+                                                       placeholder="Enter TIN number" id="tin" name="tin">
+
+                                                <div class='file'>
+                                                    <label class="form-control form-label" for='input-file'>
+                                                        <img class="img-fluid me-2"
+                                                             src="~/assets/img/icons/download-small.svg" height="24" width="24" alt="upload" />Select
+                                                        a file
+                                                    </label>
+                                                    <input class="form-control" id='input-file'
+                                                           type='file' />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="gstn" class="form-label">
+                                                    GSTN
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control mb-1"
+                                                       placeholder="Enter GSTN" id="gstn" name="gstn">
+
+                                                <div class='file'>
+                                                    <label class="form-control form-label" for='input-file'>
+                                                        <img class="img-fluid me-2"
+                                                             src="~/assets/img/icons/download-small.svg" height="24" width="24" alt="upload" />Select
+                                                        a file
+                                                    </label>
+                                                    <input class="form-control" id='input-file'
+                                                           type='file' />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="aadhar" class="form-label">
+                                                    Aadhar No
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control mb-1"
+                                                       placeholder="Enter Aadhar number" id="aadhar" name="aadhar">
+
+                                                <div class='file'>
+                                                    <label class="form-control form-label" for='input-file'>
+                                                        <img class="img-fluid me-2"
+                                                             src="~/assets/img/icons/download-small.svg" height="24" width="24" alt="upload" />Select
+                                                        a file
+                                                    </label>
+                                                    <input class="form-control" id='input-file'
+                                                           type='file' />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="pan" class="form-label">
+                                                    PAN No
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control mb-1"
+                                                       placeholder="Enter PAN number" id="pan" name="pan">
+
+                                                <div class='file'>
+                                                    <label class="form-control form-label" for='input-file'>
+                                                        <img class="img-fluid me-2"
+                                                             src="~/assets/img/icons/download-small.svg" height="24" width="24" alt="upload" />Select
+                                                        a file
+                                                    </label>
+                                                    <input class="form-control" id='input-file'
+                                                           type='file' />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="vat" class="form-label">
+                                                    VAT No
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control mb-1"
+                                                       placeholder="Enter VAT number" id="vat" name="vat">
+
+                                                <div class='file'>
+                                                    <label class="form-control form-label" for='input-file'>
+                                                        <img class="img-fluid me-2"
+                                                             src="~/assets/img/icons/download-small.svg" height="24" width="24" alt="upload" />Select
+                                                        a file
+                                                    </label>
+                                                    <input class="form-control" id='input-file'
+                                                           type='file' />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="license" class="form-label">
+                                                    License No
+                                                    <sup>*</sup>
+                                                </label>
+                                                <input type="text" class="form-control mb-1"
+                                                       placeholder="Enter license number" id="license" name="license">
+
+                                                <div class='file'>
+                                                    <label class="form-control form-label" for='input-file'>
+                                                        <img class="img-fluid me-2"
+                                                             src="~/assets/img/icons/download-small.svg" height="24" width="24" alt="upload" />Select
+                                                        a file
+                                                    </label>
+                                                    <input class="form-control" id='input-file'
+                                                           type='file' />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-footer">
+                            <button class="btn btn_primary_outline_md">
+                                <span class="sprite-icons prev-primary"></span>Previous
+                            </button>
+                            <button class="btn btn_primary">
+                                Next<span class="sprite-icons next-light"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="preview" role="tabpanel" aria-labelledby="preview-tab"
+                         tabindex="0">
+
+                        <div class="vertical-tabs-content-fixed-layout form-body">
+                            <div class="gs_tc_body preview">
+                                <div class="bordered-title-content-wrapper">
+                                    <div class="bordered-title">
+                                        <p class="title-primary">Basic Details</p>
+                                    </div>
+                                    <div class="row custom_form_page">
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Company Name </p>
+                                                    <p class="lg-text label-input-text">
+                                                        Mantra Softech
+                                                    </p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">
+                                                        Company Custom Name
+                                                    </p>
+                                                    <p class="lg-text label-input-text">MSIPL</p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Company Code</p>
+                                                    <p class="lg-text label-input-text">8552</p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Company Type</p>
+                                                    <p class="lg-text label-input-text">
+                                                        Biomatric Manufactoring
+                                                    </p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">
+                                                        Company Short Name
+                                                    </p>
+                                                    <p class="lg-text label-input-text">MSIPL</p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">
+                                                        Statutory Compliance
+                                                        For
+                                                    </p>
+                                                    <p class="lg-text label-input-text">-</p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">
+                                                        Company Print Name
+                                                    </p>
+                                                    <p class="lg-text label-input-text">-</p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Language</p>
+                                                    <p class="lg-text label-input-text">-</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="multi-bordered-title-content-wrapper">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="bordered-title-content-wrapper">
+                                                <div class="bordered-title">
+                                                    <p class="title-primary">Registered Address</p>
+                                                </div>
+                                                <div class="row custom_form_page">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">
+                                                                    Contact Type
+                                                                </p>
+                                                                <p class="lg-text label-input-text">
+                                                                    Primary
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Name</p>
+                                                                <p class="lg-text label-input-text">
+                                                                    Vishal
+                                                                    Prajapati :-&#41;
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">
+                                                                    Mobile Number
+                                                                </p>
+                                                                <p class="lg-text label-input-text">
+                                                                    7474747474
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Email</p>
+                                                                <p class="lg-text label-input-text">
+                                                                    artist@gmail.com
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Address</p>
+                                                                <p class="lg-text label-input-text">
+                                                                    Office
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Country</p>
+                                                                <p class="lg-text label-input-text">-</p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">
+                                                                    Country code
+                                                                </p>
+                                                                <p class="lg-text label-input-text">
+                                                                    220698
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">City</p>
+                                                                <p class="lg-text label-input-text">
+                                                                    Snow
+                                                                    city
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="bordered-title-content-wrapper empty-card">
+                                                <div class="bordered-title">
+                                                    <p class="title-primary">Communication Address</p>
+                                                </div>
+
+                                                <div class="row custom_form_page">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">
+                                                                    Contact Type
+                                                                </p>
+                                                                <p class="lg-text label-input-text">
+                                                                    Primary
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Name</p>
+                                                                <p class="lg-text label-input-text">
+                                                                    Vishal
+                                                                    Prajapati :-&#41;
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">
+                                                                    Mobile Number
+                                                                </p>
+                                                                <p class="lg-text label-input-text">
+                                                                    7474747474
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Email</p>
+                                                                <p class="lg-text label-input-text">
+                                                                    artist@gmail.com
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Address</p>
+                                                                <p class="lg-text label-input-text">
+                                                                    Office
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Country</p>
+                                                                <p class="lg-text label-input-text">-</p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">
+                                                                    Country code
+                                                                </p>
+                                                                <p class="lg-text label-input-text">
+                                                                    220698
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">City</p>
+                                                                <p class="lg-text label-input-text">
+                                                                    Snow
+                                                                    city
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- if require empty screen on this page -->
+                                                <!-- <div class="row custom_form_page">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="empty-screen empty-screen-card">
+                                                                <img src="~/assets/img/icons/empty-screen.png"
+                                                                    height="77" width="134"
+                                                                    alt="no data found">
+                                                                <p class="title-primary mb-3">No details added yet</p>
+                                                                <div class="empty-screen-button">
+                                                                    <button class="btn btn_primary" type="button" onclick="window.location.href='company-details-add.html'"><span
+                                                                            class="sprite-icons add-light"></span> Add Details</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="multi-bordered-title-content-wrapper">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="bordered-title-content-wrapper">
+                                                <div class="bordered-title">
+                                                    <p class="title-primary">Financial Year Details</p>
+                                                </div>
+                                                <div class="row custom_form_page">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Start Date</p>
+                                                                <p class="lg-text label-input-text">22-Jun-2024</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">End Date</p>
+                                                                <p class="lg-text label-input-text">21-Jun-2025</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="bordered-title-content-wrapper empty-card">
+                                                <div class="bordered-title">
+                                                    <p class="title-primary">Base Currency Details</p>
+                                                </div>
+                                                <div class="row custom_form_page">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Currency Code</p>
+                                                                <p class="lg-text label-input-text">INR</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Decimal Point</p>
+                                                                <p class="lg-text label-input-text">-</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Currency Symbol</p>
+                                                                <p class="lg-text label-input-text">₹</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Description</p>
+                                                                <p class="lg-text label-input-text">Here is the description</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Currency Name</p>
+                                                                <p class="lg-text label-input-text">Indian rupee</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bordered-title-content-wrapper">
+                                    <div class="bordered-title">
+                                        <p class="title-primary">Other Details</p>
+                                    </div>
+                                    <div class="row custom_form_page">
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Date Formate</p>
+                                                    <p class="lg-text label-input-text">DD-MM-YYY</p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Time Zone</p>
+                                                    <p class="lg-text label-input-text">UTC+05:30</p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Company URL</p>
+                                                    <p class="lg-text label-input-text">https://www.mantratec.com/</p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Cut Off Date</p>
+                                                    <p class="lg-text label-input-text">Local Time Zone</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bordered-title-content-wrapper">
+                                    <div class="bordered-title">
+                                        <p class="title-primary">Documents</p>
+                                    </div>
+                                    <div class="row custom_form_page">
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">PIN No.</p>
+                                                    <div class="documents-preview-container">
+                                                        <p class="lg-text label-input-text">5874645</p>
+                                                        <span class="gray-circle-sm"></span>
+                                                        <img class="img-fluid" src="~/assets/img/icons/document-preview.svg" height="32" width="32" alt="document">
+                                                        <a class="btn btn-link-primary" href="#">file_name.png</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">PAN No.</p>
+                                                    <div class="documents-preview-container">
+                                                        <p class="lg-text label-input-text">5874645</p>
+                                                        <span class="gray-circle-sm"></span>
+                                                        <img class="img-fluid" src="~/assets/img/icons/document-preview.svg" height="32" width="32" alt="document">
+                                                        <a class="btn btn-link-primary" href="#">file_name.png</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">TIN No.</p>
+                                                    <div class="documents-preview-container">
+                                                        <p class="lg-text label-input-text">5874645</p>
+                                                        <span class="gray-circle-sm"></span>
+                                                        <img class="img-fluid" src="~/assets/img/icons/document-preview.svg" height="32" width="32" alt="document">
+                                                        <a class="btn btn-link-primary" href="#">file_name.png</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">VAT No</p>
+                                                    <div class="documents-preview-container">
+                                                        <p class="lg-text label-input-text">5874645</p>
+                                                        <span class="gray-circle-sm"></span>
+                                                        <img class="img-fluid" src="~/assets/img/icons/document-preview.svg" height="32" width="32" alt="document">
+                                                        <a class="btn btn-link-primary" href="#">file_name.png</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">GSTN</p>
+                                                    <div class="documents-preview-container">
+                                                        <p class="lg-text label-input-text">5874645</p>
+                                                        <span class="gray-circle-sm"></span>
+                                                        <img class="img-fluid" src="~/assets/img/icons/document-preview.svg" height="32" width="32" alt="document">
+                                                        <a class="btn btn-link-primary" href="#">file_name.png</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">License No</p>
+                                                    <div class="documents-preview-container">
+                                                        <p class="lg-text label-input-text">5874645</p>
+                                                        <span class="gray-circle-sm"></span>
+                                                        <img class="img-fluid" src="~/assets/img/icons/document-preview.svg" height="32" width="32" alt="document">
+                                                        <a class="btn btn-link-primary" href="#">file_name.png</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Aadhar No</p>
+                                                    <div class="documents-preview-container">
+                                                        <p class="lg-text label-input-text">5874645</p>
+                                                        <span class="gray-circle-sm"></span>
+                                                        <img class="img-fluid" src="~/assets/img/icons/document-preview.svg" height="32" width="32" alt="document">
+                                                        <a class="btn btn-link-primary" href="#">file_name.png</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-footer">
+                            <button class="btn btn_primary_outline_md">
+                                <span class="sprite-icons prev-primary"></span>Previous
+                            </button>
+                            <button class="btn btn_primary" type="button">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="headerProfile" aria-labelledby="headerProfileLabel">
+    <div class="offcanvas-header offcanvas-header-close-only">
+        <!-- <h5 id="headerProfileLabel">Offcanvas right</h5> -->
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <span class="sprite-icons close-icon"></span>
+        </button>
+    </div>
+    <div class="offcanvas-body pt-0">
+        <div class="profile-summary">
+            <img class="profile-photo" src="~/assets/img/profile.svg" height="120" width="120" alt="profile photo">
+            <p class="profile-name">vigna bagdai</p>
+            <p class="profile-email">vigna.bagdai@mantratec.com</p>
+        </div>
+
+        <div class="select-role-list">
+            <label for="exampleInputEmail1" class="form-label">Select Role:</label>
+            <div class="dropdown">
+                <a class="btn dropdown-link dropdown-toggle" id="dropdownTextbox" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    Admin
+                </a>
+                <ul class="dropdown-menu" id="dropdownMenu">
+                    <li><a class="dropdown-item" data-value="1">Action</a></li>
+                    <li><a class="dropdown-item" data-value="2">Another action</a></li>
+                    <li><a class="dropdown-item" data-value="3">Something else here</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="own-profile-security">
+            <button class="btn btn-primary-light"><span class="sprite-icons user-icon"></span>profile</button>
+            <button class="btn btn-primary-light">
+                <span class="sprite-icons password-lock"></span>change
+                password
+            </button>
+        </div>
+
+        <hr />
+
+        <div class="theme-selection">
+            <div class="light-dark-mode">
+                <div class="icon-title">
+                    <span class="sprite-icons non-handle-bag"></span>
+                    <p class="form-check-label">Select Theme</p>
+                </div>
+                <div class="theme-box">
+                    <div class="light-theme-box">
+                        <img src="~/assets/img/dark-theme.svg" height="44" width="74" alt="dark theme">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                   id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1" id="toggleLight">
+                                Light Theme
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="dark-theme-box">
+                        <img src="~/assets/img/light-theme.svg" height="44" width="74" alt="light theme">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                   id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Dark Theme
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="offcanvas-footer">
+        <div class="logout-container">
+            <button class="btn btn-danger-light" onclick="window.location.href='login.html'">
+                <span class="sprite-icons logout-icon"></span>Logout
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/application/js/common/dropdown.js"></script>
+

@@ -1,0 +1,228 @@
+@using PayrollMasterService.BAL.Models
+@model IEnumerable<SalaryStructureGrid>
+
+    <link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/src/scss/style.css">
+
+
+    @{
+        ViewData["Title"] = "Salary Structure Grid";
+        //Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+
+    @if (TempData["Error"] != null)
+    {
+       @*  <div class="alert alert-danger">@TempData["Error"]</div> *@
+    }
+
+
+    <nav>
+        <div class="alert-custom" style="display:none;">
+        </div>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-company-list-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-company-list" type="button" role="tab" aria-controls="nav-company-list"
+                    aria-selected="true">
+                Salary Structure List
+            </button>
+
+        </div>
+    </nav>
+
+    @* <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4></h4>
+            <button class="btn btn_primary add-button btn-add-hide"  >
+                <span class="sprite-icons add-light"></span> Add SalaryStructure
+            </button>
+        </div> *@
+
+    <div class="title-container">
+        <div class="current-back">
+
+            <p class="title-primary"></p>
+        </div>
+        <div class="button-group">
+            <button class="btn btn_primary add-button" id="btnAddSalaryStructure">
+                <span class="sprite-icons add-light"></span> Add Salary Structure
+            </button>
+        </div>
+    </div>
+
+    <div class="table-responsive table-roles-permission-list table-tab-content">
+        <table id="SalaryStructure-list" class="table custom-table">
+            <thead class="table-light">
+                <tr>
+                 <th hidden>Id</th>              
+                <th>CompanyName</th>
+                <th>SalaryStructureName</th>       
+                <th>PayGradeName</th>
+                <th>SalaryFrequency</th>
+                <th>IsActive</th>
+@* <th>CreatedBy</th>
+<th>UpdatedBy</th> *@
+
+
+                    <th class="sticky_cell">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="row-@item.SalaryStructure_Hdr_Id"
+                        data-salarystructure_hdr_id="@item.SalaryStructure_Hdr_Id">
+
+                    <td hidden>@item.SalaryStructure_Hdr_Id</td>                   
+                    <td>@item.CompanyName</td>
+                    <td>@item.SalaryStructureName</td>
+                    <td>@item.PayGradeName</td>
+                    <td>@item.SalaryFrequency</td>                  
+                    <td>@item.IsActive</td>
+
+                        <td class="sticky_cell">
+                            <div class="table-button-group">
+                                <button class="btn btn-primary-light-icon-md SalaryStructure-row" data-salarystructure_hdr_id="@item.SalaryStructure_Hdr_Id">
+                                    <span class="sprite-icons edit-primary"></span>
+                                </button>
+                                <button class="btn btn-danger-light-icon"
+                                        data-salarystructure_hdr_id="@item.SalaryStructure_Hdr_Id"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteSalaryStructure">
+                                    <span class="sprite-icons delete-danger"></span>
+                                </button>
+                            </div>
+                        </td>
+                        @*   <td>@(Convert.ToBoolean(item.IsActive) ? "Yes" : "No")</td> *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade modal-custom modal-primary-confirmation" id="deleteSalaryStructure"
+         data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="deleteLocationLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                    <p class="md-text-500">Are you sure you want to delete this Salary Structureuration?</p>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmSalaryStructureDelete">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @section Scripts {
+
+        @*  Download PDF and Excel From Grid:- Start *@
+        <script src="~/devassets/xlsx.full.min.js"></script>
+        <script src="~/devassets/jspdf.umd.min.js"></script>
+        <script src="~/devassets/jspdf.plugin.autotable.min.js"></script>
+
+
+        <script src="~/assets/src/js/select2.min.js"></script>
+        <script src="~/assets/src/custom-js/select2.js"></script>
+        <script src="~/assets/src/custom-js/script.js"></script>
+
+
+        <script>
+            $(document).ready(function () {
+                $(".SalaryStructure-row").on("click", function () {
+                    const salarystructure_hdr_id = $(this).data("salarystructure_hdr_id");
+                    debugger;
+                    $.ajax({
+                        url: `/SalaryStructure/EncryptId`,
+                        type: 'GET',
+                        data: { id: salarystructure_hdr_id },
+                        success: function (encryptedId) {
+                            // Directly redirect with encrypted ID
+                            window.location.href = `/SalaryStructure/GetSalaryStructure?salarystructure_hdr_id=${encodeURIComponent(encryptedId)}`;
+                        },
+                        error: function () {
+                            alert("Failed to encrypt Id.");
+                        }
+                    });
+                });
+            });
+
+
+            $(document).on('click', '#btnAddSalaryStructure', function (e) {
+                e.preventDefault(); // prevent default behavior if any
+
+                const url = `/SalaryStructure/GetSalaryStructure`;
+
+                window.location.href = url; // Redirect the page to that URL
+            });
+
+
+            var selectedButton = null;
+            var isRequestInProgress = false;
+
+            $(document).on('click', '.btn-danger-light-icon[data-bs-target="#deleteSalaryStructure"]', function () {
+                selectedButton = $(this);
+            });
+
+            $(document).on('click', '#confirmSalaryStructureDelete', function () {
+                debugger;
+                if (isRequestInProgress) return; // Prevent multiple clicks
+                isRequestInProgress = true;
+
+                if (!selectedButton) {
+                    isRequestInProgress = false;
+                    return;
+                }
+
+                var salarystructure_hdr_id = selectedButton.data('salarystructure_hdr_id');
+
+                if (!salarystructure_hdr_id) {
+                    showAlert("danger", "Invalid id.");
+                    isRequestInProgress = false;
+                    return;
+                }
+
+            var rowId = `row-${salarystructure_hdr_id}`; // Construct the row ID
+
+                var rowData = { salarystructure_hdr_id: salarystructure_hdr_id };
+
+                $.ajax({
+                    url: '/SalaryStructure/DeleteSalaryStructure',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(rowData),
+                    success: function (response) {
+                        if (response && response.success) {
+                            $(`#${rowId}`).fadeOut(500, function () {
+                                $(this).remove();
+                            });
+                            showAlert("success", response.message);
+                            // LoadLocationPartial();
+                        } else {
+                            showAlert("danger", response.message || "Failed to delete Salary Structure. Please try again.");
+                        }
+                        $('#deleteSalaryStructure').modal('hide');
+
+                    },
+                    error: function () {
+                        showAlert("danger", "An error occurred. Please try again.");
+                        $('#deleteSalaryStructure').modal('hide');
+                    },
+                    complete: function () {
+                        isRequestInProgress = false;
+                        // **Ensure modal cleanup to prevent UI glitches**
+                        setTimeout(() => {
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
+                        }, 300);
+                    }
+                });
+            });
+        </script>
+    }
+

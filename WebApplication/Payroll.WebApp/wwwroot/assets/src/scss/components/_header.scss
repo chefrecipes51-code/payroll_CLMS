@@ -1,0 +1,35 @@
+.chip {
+    background-color: var(--lavender-mist);
+    padding: 4px 8px;
+    border-radius: 16px;
+
+    .header-chip-text {            
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 0.5px;
+        text-align: center;            
+    }
+}
+.header-wrapper {
+    margin-left: 64px;
+
+
+    .navbar {
+        border-bottom: 1px solid var(--gray-pearl);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px 24px;
+    }
+
+}
+
+.search-box {
+    position: relative;
+
+    .form-control {
+        padding-left: 44px;
+        height: 32px;
+    }
+}

@@ -1,0 +1,132 @@
+﻿<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+
+<div class="breadcrumb-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <p class="breadcrumb-text"><span class="sprite-icons home-primary"></span></p>
+            </li>
+            <li class="breadcrumb-item primary">
+                <p class="breadcrumb-text">Account</p>
+            </li>
+            <li class="breadcrumb-item active">
+                <p class="breadcrumb-text">Account Integration Master</p>
+            </li>
+        </ol>
+    </nav>
+</div>
+<div class="app-layout">
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+    <div class="title-container">
+        <div class="current-back">
+            <button class="btn btn-back-icon" onclick="window.location.href='/GeneralAccount/Index'">
+                <span class="sprite-icons back-violet"></span>
+            </button>
+            <p class="title-primary">Accounts Integration Master</p>
+        </div>
+        <div class="button-group">
+            <button class="btn btn-transparent-danger">reset All</button>
+            <button class="btn btn_primary_outline_md">Cancel</button>
+        </div>
+    </div>
+
+    <!-- <div class="row g-0">
+        <div class="col-lg-12 col-md-12"> -->
+    <div class="vertical-tab-content">
+        <div class="vertical-tabs-content-fixed-layout form-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="GL_Code" class="form-label">GL Code<sup>*</sup></label>
+                        <input type="text" class="form-control" placeholder="Enter GL code" id="GL_Code"
+                               name="GL_Code">
+                        <span id="GL_Code-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="hname" class="form-label">
+                            Accounting Head Name 
+                            <sup>*</sup>
+                        </label>
+                        <input type="hidden" class="form-control" name="Accounting_Head_Id" id="Accounting_Head_Id" value="" />
+
+                        <input type="text" class="form-control" placeholder="Enter Accounting Head Name" id="Accounting_Head_Name"
+                               name="Accounting_Head_Name">
+                        <span id="Accounting_Head_Name-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+
+                
+
+                <div class="col-lg-6">
+                    <label class="form-label">Account type <sup>*</sup></label>
+                        <div class="form-group">
+                        <select id="Account_Type" name="Account_Type" class="form-control select2_search_ctm" required>
+                            </select>
+                        <span id="Account_Type-error" class="input_error_msg"></span>
+                        </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <label class="form-label">Transaction Typpe <sup>*</sup></label>
+                    <div class="form-group">
+                        <select id="Transaction_Type" name="Transaction_Type" class="form-control select2_search_ctm" required>
+                        </select>
+                        <span id="Transaction_Type-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-label">Parent GL Group<sup>*</sup></label>
+                    <div class="form-group">
+                        <select id="Parent_Gl_Group_Id" name="Parent_Gl_Group_Id" class="form-control select2_search_ctm" required>
+                        </select>
+                        <span id="Parent_Gl_Group_Id-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <label class="form-label">Sub GL Group<sup>*</sup></label>
+                    <div class="form-group">
+                        <select id="Sub_Gl_Group_Id" name="Sub_Gl_Group_Id" class="form-control select2_search_ctm" required>
+                        </select>
+                        <span id="Sub_Gl_Group_Id-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group" id="toggleContainer" style="display: none;">
+                        <label class="form-label" for="generalAccountActiveToggle">Status</label>
+                        <div class="form-check form-switch d-flex align-items-center">
+                            <input type="checkbox"
+                                   id="generalAccountActiveToggle"
+                                   class="form-check-input"
+                                   role="switch"/>
+                            <label class="form-check-label ml-2" for="generalAccountActiveToggle" id="generalAccountStatusLabel">
+                              
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+        <div class="form-footer">
+            <!-- <button class="btn btn_primary_outline_md"><span
+                            class="sprite-icons prev-primary"></span>Previous</button> -->
+            <button class="btn btn_primary" id="btnGeneralAccount"></button>
+        </div>
+    </div>
+    <!-- </div>
+    </div> -->
+</div>
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/application/js/common/commonvalidation.js"></script>
+    <script src="~/application/js/generalaccount/gaccount.js"></script>
+}

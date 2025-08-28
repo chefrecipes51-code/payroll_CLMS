@@ -1,0 +1,47 @@
+﻿@using PayrollMasterService.BAL.Models
+@model IEnumerable<WageGradeMaster>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Wage</title>
+    <!-- CSS -->
+    <!-- Bootstrap CSS -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/datatable/datatables.min.css" rel="stylesheet" />
+    <!-- DataTables CSS -->
+    <link href="~/datatable/datatables.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Page Main content -->
+    <div class="col-md-12 col-sm-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Wage Type</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="" id="filterToggle"><i class="fa fa-filter ml-2"></i></a>
+                    </li>
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" id="tblWageGrade">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+ 
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/datatable/datatables.min.js"></script>
+    <script src="~/datatable/datatables.js"></script>
+    <script src="~/application/js/wage.js"></script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+﻿<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+<div class="payroll-tabs-content-container company-onboarding">
+  
+    <div class="app-layout">
+        <div class="title-container">
+            <div class="current-back">
+                <p class="title-primary">Organization Structure</p>
+            </div>
+        </div>
+
+        <div class="row g-0">
+            <div class="col-lg-3 col-md-3">
+                <div class="vertical-tabs">
+                    <div class="vertical-tabs-fixed-layout">
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                             aria-orientation="vertical">
+                            <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-home" type="button" role="tab"
+                                    aria-controls="v-pills-home" aria-selected="true">
+                                Location
+                            </button>
+
+                            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-profile" type="button" role="tab"
+                                    aria-controls="v-pills-profile" aria-selected="false">
+                                Area
+                            </button>
+
+                            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-messages" type="button" role="tab"
+                                    aria-controls="v-pills-messages" aria-selected="false">
+                                Department
+                            </button>
+
+                            <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-settings" type="button" role="tab"
+                                    aria-controls="v-pills-settings" aria-selected="false">
+                                Department Mapping
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9">
+                <div class="vertical-tab-content company-detail-tab-content">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <!-- Tab Content -->
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                             aria-labelledby="v-pills-home-tab" tabindex="0">
+                            <div id="locationListContainer">
+                                <!-- Location list will be dynamically loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Tab Content -->
+                        <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+                             aria-labelledby="v-pills-profile-tab" tabindex="0">
+                            <div id="areaListContainer">
+                                <!-- Area list will be dynamically loaded here -->
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                             aria-labelledby="v-pills-messages-tab" tabindex="0">
+                            <div id="departmentContainer">
+                                <!-- Department List will be dynamically loaded here -->
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                             aria-labelledby="v-pills-settings-tab" tabindex="0">
+                            <div id="mapdepartmentContainer">
+                                <!-- Department List will be dynamically loaded here -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  @*   <div class="app-layout">
+        <div class="row g-0">
+            <div class="col-lg-3 col-md-3">
+                <div class="vertical-tabs">
+                    <div class="vertical-tabs-fixed-layout">
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                             aria-orientation="vertical">
+                            <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-home" type="button" role="tab"
+                                    aria-controls="v-pills-home" aria-selected="true">
+                                Location
+                            </button>
+
+                            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-profile" type="button" role="tab"
+                                    aria-controls="v-pills-profile" aria-selected="false">
+                                Area
+                            </button>
+
+                            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-messages" type="button" role="tab"
+                                    aria-controls="v-pills-messages" aria-selected="false">
+                                Department
+                            </button>
+
+                            <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-settings" type="button" role="tab"
+                                    aria-controls="v-pills-settings" aria-selected="false">
+                                Department Mapping
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-9">
+                <div class="vertical-tab-content">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <!-- Tab Content -->
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                             aria-labelledby="v-pills-home-tab" tabindex="0">
+                            <div id="locationListContainer">
+                                <!-- Location list will be dynamically loaded here -->
+                            </div>
+                        </div>
+                        
+                        <!-- Tab Content -->
+                        <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+                             aria-labelledby="v-pills-profile-tab" tabindex="0">
+                            <div id="areaListContainer">
+                                <!-- Area list will be dynamically loaded here -->
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                             aria-labelledby="v-pills-messages-tab" tabindex="0">
+                            <div id="departmentContainer">
+                                <!-- Department List will be dynamically loaded here -->
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                             aria-labelledby="v-pills-settings-tab" tabindex="0">
+                            <div id="mapdepartmentContainer">
+                                <!-- Department List will be dynamically loaded here -->
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> *@
+</div>
+
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script>
+        $(document).ready(function () {
+            function loadLocationList() {
+                $.ajax({
+                    url: '/PayrollMaster/LoadLocationPartial',
+                    type: 'GET',
+                    success: function (response) {
+                        // 🧹 Clean up offcanvas and backdrops
+                        const openOffcanvas = document.querySelector('.offcanvas.show');
+                        if (openOffcanvas) {
+                            const bsOffcanvas = bootstrap.Offcanvas.getInstance(openOffcanvas);
+                            if (bsOffcanvas) bsOffcanvas.hide();
+                        }
+                        $('.offcanvas-backdrop').remove();
+                        $('body').removeClass('offcanvas-backdrop');
+                        $('#locationListContainer').html(response);
+
+                        let tableId = "tblLocation";
+                        if ($.fn.DataTable && $.fn.dataTable.isDataTable(`#${tableId}`)) {
+                            $(`#${tableId}`).DataTable().destroy();
+                        }
+                        makeDataTable(tableId);
+
+                        // **Load location-related JS manually**
+                        $.getScript("/assets/src/custom-js/select2.js");
+                       
+                        // Load location-related JS manually only once
+                        if (!window.locationScriptLoaded) {
+                            $.getScript("/application/js/payrollmaster/locationmaster.js", function () {
+                                window.locationScriptLoaded = true;
+                            });
+                        }
+
+                    },
+                    error: function () {
+                        alert("Failed to load the location list.");
+                    }
+                });
+            }
+
+            function loadAreaList() {
+                $.ajax({
+                    url: '/PayrollMaster/FetchAreaList',
+                    type: 'GET',
+                    success: function (response) {
+                        $('#areaListContainer').html(response);
+
+                        let tableId = "area-master-list";
+                        if ($.fn.DataTable && $.fn.dataTable.isDataTable(`#${tableId}`)) {
+                            $(`#${tableId}`).DataTable().destroy();
+                        }
+                        makeDataTable(tableId);
+
+                        // **Load area-related JS manually**
+                        $.getScript("/application/js/payrollmaster/areamaster.js");
+                    },
+                    error: function () {
+                        alert("Failed to load the area list.");
+                    }
+                });
+            }
+
+            function loadDepartmentList() {
+                $.ajax({
+                    url: '/PayrollMaster/FetchDepartmentList',
+                    type: 'GET',
+                    success: function (response) {
+                        $('#departmentContainer').html(response);
+
+                        let tableId = "department-master-list";
+                        if ($.fn.DataTable && $.fn.dataTable.isDataTable(`#${tableId}`)) {
+                            $(`#${tableId}`).DataTable().destroy();
+                        }
+                        makeDataTable(tableId);
+
+                        // **Load department-related JS manually**
+                        // ✅ Load department JS only once
+                        if (!window.departmentScriptLoaded) {
+                            $.getScript("/application/js/payrollmaster/departmentmaster.js", function () {
+                                window.departmentScriptLoaded = true;
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert("Failed to load the department list.");
+                    }
+                });
+            }
+
+            function loadMapDepartmentLocationList() {
+                $.ajax({
+                    url: '/PayrollMaster/FetchMapDepartmentLocationList',
+                    type: 'GET',
+                    success: function (response) {
+                        $('#mapdepartmentContainer').html(response);
+
+                        let tableId = "mapdepartment-master-list";
+                        if ($.fn.DataTable && $.fn.dataTable.isDataTable(`#${tableId}`)) {
+                            $(`#${tableId}`).DataTable().destroy();
+                        }
+                        makeDataTable(tableId);
+
+                        // **Load map department location-related JS manually**
+                        // ✅ Load map department JS only once
+                        if (!window.mapDepartmentScriptLoaded) {
+                            $.getScript("/application/js/payrollmaster/mapdepartmentlocation.js", function () {
+                                window.mapDepartmentScriptLoaded = true;
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert("Failed to load the map department list.");
+                    }
+                });
+            }
+
+            // Load the location list if the location tab is active on page load
+            if ($('#v-pills-home-tab').hasClass('active')) {
+                loadLocationList();
+            }
+
+            $('#v-pills-home-tab').on('click', function () {
+                loadLocationList();
+            });
+
+            $('#v-pills-profile-tab').on('click', function () {
+                loadAreaList();
+            });
+
+            $('#v-pills-messages-tab').on('click', function () {
+                loadDepartmentList();
+            });
+
+            $('#v-pills-settings-tab').on('click', function () {
+                loadMapDepartmentLocationList();
+            });
+            
+        });
+
+    </script>
+
+}

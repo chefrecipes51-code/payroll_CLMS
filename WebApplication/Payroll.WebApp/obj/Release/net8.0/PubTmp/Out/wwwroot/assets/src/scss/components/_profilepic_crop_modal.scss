@@ -1,0 +1,74 @@
+.emp_pro_pic_modal{
+    .crop-img-preview{
+        // background-color: rgba(0, 0, 0, 0.5);
+        .croppie-container{
+          .cr-viewport{
+            box-shadow: none;
+            height: 330px !important;
+            width: 330px !important;
+            border-radius: 24px;
+            border: 1px solid var(--gray-pearl);
+            box-shadow: 0 0 2000px 2000px rgba(255, 255, 255, 1);
+            z-index: 0;
+          }
+        }
+        .cr-slider::-webkit-slider-runnable-track {
+          height: 2px;
+          background: var(--primary);
+        }
+        .cr-slider::-moz-range-track {
+          background: var(--primary);
+        }
+        .cr-slider::-ms-track{
+          background: var(--primary);
+        }
+        .cr-slider::-webkit-slider-thumb {
+            background: var(--primary);
+        }
+        .cr-slider::-moz-range-thumb {
+          background: var(--primary);
+        }
+        .cr-slider::-ms-thumb{
+          background: var(--primary);
+        }
+      }
+      .modal-footer{
+        justify-content: center;
+        .form-action{
+          .form-btn-cancel{
+            width: 40%;
+            .btn_primary_outline_md{
+              width: 100%;
+            }
+          }
+          .form-btn-submit{
+            width: 50%;
+            .btn_primary{
+              width: 100%;
+            }
+          }
+        }
+      }
+}
+/* Styling for Croppie Image Container */
+#crop-image-container {
+  margin-bottom: 20px;
+  /* Space below the image cropper */
+  padding: 10px;
+  /* Optional padding to make the image area bigger */
+  // border: 1px solid #ddd;
+  /* Optional border to visually separate the image container */
+}
+
+/* Styling for Croppie Zoom Slider */
+#cr-slider {
+  margin-top: 20px;
+  /* Adds space above the slider */
+  margin-bottom: 20px;
+  /* Adds space below the slider */
+  padding-left: 10px;
+  /* Padding to the left of the slider */
+  padding-right: 10px;
+  /* Padding to the right of the slider */
+}
+

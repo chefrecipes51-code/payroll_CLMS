@@ -1,0 +1,103 @@
+// .password-info {
+//     position: absolute;
+//     left: 0px;
+//     background-color: var(--primary-color);
+//     border: 1px solid var(--gray-light-300);
+//     border-radius: .25rem;
+//     padding: .5rem;
+//     min-width: 200px;
+//     display: none;
+//     margin-top: .5rem;
+// }
+
+// .btn-password-info {
+//     &:hover {
+//         .password-info {
+//             display: block;
+//             z-index: 2;
+//         }
+//     }
+// }
+
+// .bubble-msg-box.top::after {
+//     top: -15px;
+//     right: 50px;
+//     bottom: auto;
+//     left: auto;
+//     border-bottom: 15px solid var(--white-200);
+//     border-left: 15px solid rgba(0, 0, 0, 0);
+//     border-right: 15px solid rgba(0, 0, 0, 0);
+//     border-top: 0;
+// }
+// .password-info.top::after {
+//     left: 5px;
+//     right: unset;
+//     top: -8px;
+//     border-bottom-color: var(--primary-color);
+//     border-width: 10px;
+// }
+
+.password-info-tooltip-container {
+    position: relative;
+
+    .btn-password-info {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        &.checked {
+            .info-i-icon{
+                background-position: -732px -6px;
+            }
+            // &+.password-info {
+            //     display: block;
+            // }
+        }
+    }
+
+    .password-info {
+        background-color: var(--lavender-blush);
+        padding: 8px;
+        border-radius: 4px;
+        position: absolute;
+        top: 37px; /* This places the box directly below the button */
+        left: 38px; /* Aligns the box with the left edge of the button */
+        width: max-content; /* Makes the box adjust its width based on the content inside */
+        z-index: 1;
+        display: none; /* Initially hidden */
+
+        &.arrow-border-top {
+            &::after {
+                content: '';
+                content: '';
+                position: absolute;
+                top: -15px; /* Position the arrow above the tooltip */
+                left: 50%;
+                transform: translateX(-50%); /* Center the arrow horizontally */
+                border-bottom: 15px solid var(--lavender-blush);
+                border-left: 15px solid rgba(0, 0, 0, 0);
+                border-right: 15px solid rgba(0, 0, 0, 0);
+                border-top: 0;
+            }
+        }
+
+        &::after {
+            content: '';
+            // left: 5px;
+            right: unset;
+            top: -8px;
+            border-bottom-color: var(--primary-color);
+            border-width: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+
+            li {
+                list-style: disc;
+            }
+        }
+    }
+}

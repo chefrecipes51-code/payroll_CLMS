@@ -1,0 +1,1095 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Mgt Empty Screen</title>
+    <link href="~/assets/plugins/bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/src/css/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/src/scss/style.css" rel="stylesheet" />
+    <link href="~/assets/src/css/fonts.css" rel="stylesheet" />
+</head>
+
+<body>
+    <section class="page_wrapper_main">
+        <div class="sidebar_wrapper">
+            <ul class="navbar-nav nav in">
+                <!-- <a class="navbar-brand sidebar-profile" href="#"> <img src="assets/img/icons/sidebar-profile.svg"
+                        width="40" height="40" alt="sidebar-logo" /> </a> -->
+                <!-- <li class="nav-item"> -->
+                <a class="navbar-brand sidebar-profile" title="This is a tooltip!">
+                    <img src="~/assets/img/sidebar-log-icon.svg" width="32" height="32" alt="sidebar-logo" />
+                </a>
+                <!-- </li> -->
+                <li class="nav-item quick-add">
+                    <a class="nav-link" data-toggle="tooltip" title="This is a tooltip!">
+                        <span class="menu-sprite quick-add"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="sub-menu-title">Customize Theme</li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Vigna</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item active">
+                    <a href="#" class="nav-link" tooltip="dashboard"><span class="menu-sprite user-menu"></span></a>
+                    <ul class="sub-menu">
+                        <li class="sub-menu-title">Customize Theme</li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Vigna</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><span class="menu-sprite open-mail"></span></a>
+
+                    <ul class="sub-menu">
+                        <li class="sub-menu-title">Dashboard</li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Vigna</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-toggle="tooltip" title="This is a tooltip!">
+                        <span class="menu-sprite writing-pad"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-bottom">
+                <ul>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link"><span class="menu-sprite menu-notification"></span></a>
+                        <!-- <ul class="sub-menu">
+                            <li class="sub-menu-title">Dashboard</li>
+                        </ul> -->
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link"><span class="menu-sprite writing-pad"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="alert-custom">
+            <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+            <div class="alert alert-danger" role="alert">
+                <div class="alert-content">
+                    <div class="d-flex align-items-center gap-2">
+                        <!-- below icon use for alert primary(primary color) -->
+                        <!-- <span class="sprite-icons primary-bell"></span> -->
+                        <!-- below icon use for alert warning(yellow color) -->
+                        <!-- <span class="sprite-icons warning-triangle"></span> -->
+                        <!-- below icon use for alert success(green color) -->
+                        <!-- <span class="sprite-icons success-checked"></span> -->
+                        <!-- below icon use for alert danger(red color) -->
+                        <span class="sprite-icons error-info"></span>
+                        <p class="lg-text">A simple danger alert—check it out!</p>
+                    </div>
+                    <button class="btn btn_close_alert"><span class="sprite-icons close-icon"></span></button>
+                </div>
+            </div>
+        </div>
+        <div class="header-wrapper">
+            <nav class="navbar navbar-expand-md navbar-dark">
+                <a class="header-brand-logo" href="#">
+                    <img src="~/assets/img/brand-logo.svg" height="28" width="104"
+                         alt="brand-logo">
+                </a>
+                <div class="search-box">
+                    <button class="btn btn-search-absolute"><span class="sprite-icons search-secondary"></span></button>
+                    <input type="text" class="form-control" placeholder="search...">
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn_primary_light_icon">
+                        <span class="sprite-icons notification-dark"></span>
+                    </button>
+                    <a class="navbar-brand sidebar-profile" type="button" data-bs-toggle="offcanvas"
+                       data-bs-target="#headerProfile" aria-controls="headerProfile">
+                        <img src="assets/img/icons/sidebar-profile.svg" width="32" height="32" alt="sidebar-logo">
+                    </a>
+                </div>
+            </nav>
+
+        </div>
+
+        <div class="main-page">
+            <div class="breadcrumb-container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <p class="breadcrumb-text"><span class="sprite-icons home-primary"></span></p>
+                        </li>
+                        <li class="breadcrumb-item primary">
+                            <p class="breadcrumb-text">User List</p>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <p class="breadcrumb-text">Create New User</p>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+
+            <div class="app-layout">
+                <div class="title-container">
+                    <div class="current-back">
+                        <button class="btn btn-back-icon" onclick="window.location.href='user-mgt-empty.html'">
+                            <span class="sprite-icons back-violet"></span>
+                        </button>
+                        <p class="title-primary">Create New User</p>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn btn-transparent-danger">reset All</button>
+                        <button class="btn btn_primary_outline_md">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="row g-0">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="vertical-tabs">
+                            <div class="vertical-tabs-fixed-layout">
+                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                     aria-orientation="vertical">
+                                    <button class="nav-link checked" id="v-pills-home-tab" data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-home" type="button" role="tab"
+                                            aria-controls="v-pills-home" aria-selected="true">
+                                        User Information
+                                    </button>
+
+                                    <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-profile" type="button" role="tab"
+                                            aria-controls="v-pills-profile" aria-selected="false">
+                                        Company Details
+                                    </button>
+
+                                    <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-messages" type="button" role="tab"
+                                            aria-controls="v-pills-messages" aria-selected="false">
+                                        Permission
+                                    </button>
+
+                                    <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+                                            data-bs-target="#v-pills-settings" type="button" role="tab"
+                                            aria-controls="v-pills-settings" aria-selected="false">
+                                        Preview
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-9">
+                        <div class="vertical-tab-content">
+                            <div class="tab-content" id="v-pills-tabContent">
+                                <div class="tab-pane fade" id="v-pills-home" role="tabpanel"
+                                     aria-labelledby="v-pills-home-tab" tabindex="0">
+
+                                    <div class="vertical-tabs-content-fixed-layout form-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1" class="form-label">
+                                                                Entity
+                                                                Category
+                                                            </label>
+                                                            <div class="dropdown">
+                                                                <a class="btn dropdown-link dropdown-toggle"
+                                                                   id="dropdownTextbox" role="button"
+                                                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Entity Category-1
+                                                                </a>
+                                                                <ul class="dropdown-menu" id="dropdownMenu">
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-value="1">
+                                                                            Entity
+                                                                            Category-1
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-value="2">
+                                                                            Entity
+                                                                            Category-2
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-value="3">
+                                                                            Entity
+                                                                            Category-3
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-value="3">
+                                                                            Entity
+                                                                            Category-4
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-value="3">
+                                                                            Entity
+                                                                            Category-5
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-value="3">
+                                                                            Entity
+                                                                            Category-6
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1" class="form-label">
+                                                                Select
+                                                                Entity
+                                                            </label>
+                                                            <div class="dropdown">
+                                                                <a class="btn dropdown-link dropdown-toggle"
+                                                                   id="dropdownTextbox" role="button"
+                                                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Entity-1
+                                                                </a>
+                                                                <ul class="dropdown-menu" id="dropdownMenu">
+                                                                    <li>
+                                                                        <a class="dropdown-item"
+                                                                           data-value="1">Entity-1</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item"
+                                                                           data-value="2">Entity-2</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item"
+                                                                           data-value="3">Entity-3</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item"
+                                                                           data-value="3">Entity-4</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item"
+                                                                           data-value="3">Entity-5</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item"
+                                                                           data-value="3">Entity-6</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label for="exampleInputEmail1"
+                                                                   class="form-label">Salutation <sup>*</sup></label>
+                                                            <div class="dropdown">
+                                                                <a class="btn dropdown-link dropdown-toggle"
+                                                                   id="dropdownTextbox" role="button"
+                                                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    Ms.
+                                                                </a>
+                                                                <ul class="dropdown-menu" id="dropdownMenu">
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-value="1">Mr</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-value="2">Ms.</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-value="3">Mrs</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-value="4">Dr</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" data-value="5">Prof</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="fname" class="form-label">
+                                                                First Name
+                                                                <sup>*</sup>
+                                                            </label>
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="Enter first name" id="fname" name="fname">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="mname" class="form-label">Middle Name</label>
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="Enter middle name" id="mname" name="mname">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="lname" class="form-label">
+                                                                Last Name
+                                                                <sup>*</sup>
+                                                            </label>
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="Enter last name" id="lname" name="lname">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group countries-selection">
+                                                            <label for="countries" class="form-label">
+                                                                Countries
+                                                            </label>
+                                                            <select class="form-control" id="countries">
+                                                                <option value="AF" data-capital="Kabul">
+                                                                    +91
+                                                                </option>
+                                                                <option value="AX" data-capital="Mariehamn">+44</option>
+                                                                <option value="AL" data-capital="Tirana">
+                                                                    +33
+                                                                </option>
+                                                                <option value="DZ" data-capital="Algiers">+89</option>
+                                                                <option value="AS" data-capital="Pago Pago">+55</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-8">
+                                                        <div class="form-group">
+                                                            <label for="phone" class="form-label">
+                                                                Phone Number
+                                                                <sup>*</sup>
+                                                            </label>
+                                                            <input type="tel" class="form-control"
+                                                                   placeholder="Enter phone number" id="phone"
+                                                                   name="phone">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="email" class="form-label">
+                                                                Email
+                                                                <sup>*</sup>
+                                                            </label>
+                                                            <input type="email" class="form-control"
+                                                                   placeholder="Enter email address" id="email"
+                                                                   name="email">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="username" class="form-label">
+                                                                Username
+                                                                <sup>*</sup>
+                                                            </label>
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="Enter username" id="username"
+                                                                   name="username">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-footer">
+                                        <button class="btn btn_primary_outline_md">
+                                            <span class="sprite-icons prev-primary"></span>Previous
+                                        </button>
+                                        <button class="btn btn_primary">
+                                            Next<span class="sprite-icons next-light"></span>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+                                     aria-labelledby="v-pills-profile-tab" tabindex="0">
+
+                                    <div class="vertical-tabs-content-fixed-layout form-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group companies-multi-select">
+                                                            <label for="exampleInputEmail1" class="form-label">
+                                                                Companies
+                                                                <sup>*</sup>
+                                                            </label>
+                                                            <select class="form-control js-select2" multiple="multiple">
+                                                                <option value="O1" data-badge="">Mantra</option>
+                                                                <option value="O2" data-badge="">Mivanta</option>
+                                                                <option value="O3" data-badge="">Mantra Servico</option>
+                                                                <option value="O4" data-badge="">Minop</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="countriesname" class="form-label">
+                                                                Countries<sup>*</sup>
+                                                            </label>
+                                                            <div class="countriesname-selection">
+                                                                <select class="form-control" id="countriesname">
+                                                                    <option value="AF" data-capital="Kabul">
+                                                                        India
+                                                                    </option>
+                                                                    <option value="AX" data-capital="Mariehamn">
+                                                                        USA
+                                                                    </option>
+                                                                    <option value="AL" data-capital="Tirana">
+                                                                        Japan
+                                                                    </option>
+                                                                    <option value="DZ" data-capital="Algiers">
+                                                                        China
+                                                                    </option>
+                                                                    <option value="AS" data-capital="Pago Pago">
+                                                                        Singapore
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="state" class="form-label">
+                                                                State<sup>*</sup>
+                                                            </label>
+                                                            <div class="state-selection">
+                                                                <select class="form-control" id="state">
+                                                                    <option value="DL" data-capital="delhi">
+                                                                        Delhi
+                                                                    </option>
+                                                                    <option value="GJ" data-capital="gujarat">
+                                                                        Gujarat
+                                                                    </option>
+                                                                    <option value="KA" data-capital="karnataka">
+                                                                        Karnataka
+                                                                    </option>
+                                                                    <option value="TN" data-capital="tamilnadu">
+                                                                        Tamil
+                                                                        nadu
+                                                                    </option>
+                                                                    <option value="MH" data-capital="maharashtra">
+                                                                        Maharashtra
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="row">
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="branch" class="form-label">
+                                                                Branch<sup>*</sup>
+                                                            </label>
+                                                            <div class="branch-selection">
+                                                                <select class="form-control" id="branch"
+                                                                        multiple="multiple">
+                                                                    <option value="AF" data-capital="Kabul">
+                                                                        Ahmedabad -
+                                                                        Head Office
+                                                                    </option>
+                                                                    <option value="AX" data-capital="Mariehamn">
+                                                                        Ahmedabad - Park View
+                                                                    </option>
+                                                                    <option value="AL" data-capital="Tirana">
+                                                                        Vadodara
+                                                                    </option>
+                                                                    <option value="DZ" data-capital="Algiers">
+                                                                        Rajkot
+                                                                    </option>
+                                                                    <option value="AS" data-capital="Pago Pago">
+                                                                        Gandhinagar
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="departmentDropdown" class="form-label">
+                                                                Department<sup>*</sup>
+                                                            </label>
+                                                            <div class="department-selection">
+                                                                <select class="form-control" id="departmentDropdown"
+                                                                        multiple="multiple">
+                                                                    @*  <option></option>
+                                                                    <option value="sd" data-capital="ass">
+                                                                    Admin
+                                                                    </option>
+                                                                    <option value="hj" data-capital="szs">
+                                                                    Sub Admin
+                                                                    </option>
+                                                                    <option value="as" data-capital="wdew">
+                                                                    Manager
+                                                                    </option>
+                                                                    <option value="ff" data-capital="ghgh">
+                                                                    Employee
+                                                                    </option>
+                                                                    <option value="mj" data-capital="sda">
+                                                                    Contractor
+                                                                    </option> *@
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="form-group">
+                                                            <label for="role" class="form-label">
+                                                                Role<sup>*</sup>
+                                                            </label>
+                                                            <div class="role-selection">
+                                                                <select class="form-control" id="role"
+                                                                        multiple="multiple">
+                                                                    <option value="AF" data-capital="Kabul">
+                                                                        Sales
+                                                                    </option>
+                                                                    <option value="AX" data-capital="Mariehamn">
+                                                                        UI/UX
+                                                                        Desigining
+                                                                    </option>
+                                                                    <option value="AL" data-capital="Tirana">
+                                                                        Development
+                                                                    </option>
+                                                                    <option value="DZ" data-capital="Algiers">
+                                                                        Testing
+                                                                    </option>
+                                                                    <option value="AS" data-capital="Pago Pago">
+                                                                        Marketing
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-footer">
+                                        <button class="btn btn_primary_outline_md">
+                                            <span class="sprite-icons prev-primary"></span>Previous
+                                        </button>
+                                        <button class="btn btn_primary">
+                                            Next<span class="sprite-icons next-light"></span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                                     aria-labelledby="v-pills-messages-tab" tabindex="0">
+
+                                    <div class="vertical-tabs-content-fixed-layout form-body">
+                                        <p class="lg-text-500 treeview-title">
+                                            View permissions assigned to this role.
+                                        </p>
+                                        <div class="treeview">
+                                            <ul>
+                                                <li>
+                                                    <span class="toggle"></span>
+                                                    <input type="checkbox" id="parent-1">
+                                                    <label class="lg-text-500" for="parent-1">Parent 1</label>
+                                                    <ul>
+                                                        <li>
+                                                            <input type="checkbox" id="child-1-1">
+                                                            <label class="lg-text-500" for="child-1-1">Child 1-1</label>
+                                                        </li>
+                                                        <li>
+                                                            <span class="toggle"></span>
+                                                            <input type="checkbox" id="child-1-2">
+                                                            <label class="lg-text-500" for="child-1-2">Child 1-2</label>
+                                                            <ul>
+                                                                <li>
+                                                                    <input type="checkbox" id="grandchild-1-2-1">
+                                                                    <label class="lg-text-500"
+                                                                           for="grandchild-1-2-1">Grandchild 1-2-1</label>
+                                                                </li>
+                                                                <li>
+                                                                    <input type="checkbox" id="grandchild-1-2-2">
+                                                                    <label class="lg-text-500"
+                                                                           for="grandchild-1-2-2">Grandchild 1-2-2</label>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li>
+                                                    <span class="toggle"></span>
+                                                    <input type="checkbox" id="parent-2">
+                                                    <label class="lg-text-500" for="parent-2">Parent 2</label>
+
+                                                    <ul>
+                                                        <li>
+                                                            <input type="checkbox" id="child-1-1">
+                                                            <label class="lg-text-500" for="child-1-1">
+                                                                Root
+                                                                Folder
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <span class="toggle open"></span>
+                                                            <input type="checkbox" id="child-1-2">
+                                                            <label class="lg-text-500" for="child-1-2">Child 1-2</label>
+                                                            <ul>
+                                                                <li>
+                                                                    <input type="checkbox" id="grandchild-1-2-1">
+                                                                    <label class="lg-text-500"
+                                                                           for="grandchild-1-2-1">Grandchild 1-2-1</label>
+                                                                </li>
+                                                                <li>
+                                                                    <input type="checkbox" id="grandchild-1-2-2">
+                                                                    <label class="lg-text-500"
+                                                                           for="grandchild-1-2-2">Grandchild 1-2-2</label>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-footer">
+                                        <button class="btn btn_primary_outline_md">
+                                            <span class="sprite-icons prev-primary"></span>Previous
+                                        </button>
+                                        <button class="btn btn_primary">
+                                            Next<span class="sprite-icons next-light"></span>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                                     aria-labelledby="v-pills-settings-tab" tabindex="0">
+
+                                    <div class="vertical-tabs-content-fixed-layout form-body">
+                                        <div class="gs_tc_body">
+                                            <div class="bordered-title-content-wrapper">
+                                                <div class="bordered-title">
+                                                    <p class="title-primary">User Information</p>
+                                                </div>
+                                                <div class="row custom_form_page">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Entity Category</p>
+                                                                <p class="lg-text label-input-text">
+                                                                    Entity Category-1.
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Phone Number</p>
+                                                                <p class="lg-text label-input-text">+91 587456932</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Category</p>
+                                                                <p class="lg-text label-input-text">Entity-1</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Email</p>
+                                                                <p class="lg-text label-input-text">
+                                                                    vigna.bagdai@mantratec.com
+                                                                </p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Salutation</p>
+                                                                <p class="lg-text label-input-text">Ms.</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">User Name</p>
+                                                                <p class="lg-text label-input-text">vigna.bagdai</p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">First Name</p>
+                                                                <p class="lg-text label-input-text">Vigna</p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Middle Name</p>
+                                                                <p class="lg-text label-input-text">papa ka name</p>
+                                                            </div>
+                                                            <div class="col-lg-12 col-md-12 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Last Name</p>
+                                                                <p class="lg-text label-input-text">Bagdai</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="bordered-title-content-wrapper">
+                                                <div class="bordered-title">
+                                                    <p class="title-primary">Company Details</p>
+                                                </div>
+                                                <div class="row custom_form_page">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Company</p>
+                                                                <p class="lg-text label-input-text">Mantra, Mivanta</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Branch</p>
+                                                                <p class="lg-text label-input-text">Rajkot</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Country</p>
+                                                                <p class="lg-text label-input-text">India</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Department</p>
+                                                                <p class="lg-text label-input-text">HTML designer</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">State</p>
+                                                                <p class="lg-text label-input-text">Gujarat</p>
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                                <p class="md-text label-title">Role</p>
+                                                                <p class="lg-text label-input-text">
+                                                                    Employee, Manager
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bordered-title-content-wrapper">
+                                                <div class="bordered-title">
+                                                    <p class="title-primary">Permissions</p>
+                                                </div>
+                                                <div class="row custom_form_page">
+                                                    <div class="col-lg-12">
+                                                        <div class="row">
+                                                            <div class="treeview">
+                                                                <ul>
+                                                                    <li>
+                                                                        <span class="toggle"></span>
+                                                                        <input type="checkbox" id="parent-1">
+                                                                        <label class="lg-text-500" for="parent-1">
+                                                                            Parent
+                                                                            1
+                                                                        </label>
+                                                                        <ul>
+                                                                            <li>
+                                                                                <input type="checkbox" id="child-1-1">
+                                                                                <label class="lg-text-500"
+                                                                                       for="child-1-1">Child 1-1</label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <span class="toggle"></span>
+                                                                                <input type="checkbox" id="child-1-2">
+                                                                                <label class="lg-text-500"
+                                                                                       for="child-1-2">Child 1-2</label>
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        <input type="checkbox"
+                                                                                               id="grandchild-1-2-1">
+                                                                                        <label class="lg-text-500"
+                                                                                               for="grandchild-1-2-1">
+                                                                                            Grandchild
+                                                                                            1-2-1
+                                                                                        </label>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <input type="checkbox"
+                                                                                               id="grandchild-1-2-2">
+                                                                                        <label class="lg-text-500"
+                                                                                               for="grandchild-1-2-2">
+                                                                                            Grandchild
+                                                                                            1-2-2
+                                                                                        </label>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li>
+                                                                        <span class="toggle"></span>
+                                                                        <input type="checkbox" id="parent-2">
+                                                                        <label class="lg-text-500" for="parent-2">
+                                                                            Parent
+                                                                            2
+                                                                        </label>
+
+                                                                        <ul>
+                                                                            <li>
+                                                                                <input type="checkbox" id="child-1-1">
+                                                                                <label class="lg-text-500"
+                                                                                       for="child-1-1">
+                                                                                    Root
+                                                                                    Folder
+                                                                                </label>
+                                                                            </li>
+                                                                            <li>
+                                                                                <span class="toggle open"></span>
+                                                                                <input type="checkbox" id="child-1-2">
+                                                                                <label class="lg-text-500"
+                                                                                       for="child-1-2">Child 1-2</label>
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        <input type="checkbox"
+                                                                                               id="grandchild-1-2-1">
+                                                                                        <label class="lg-text-500"
+                                                                                               for="grandchild-1-2-1">
+                                                                                            Grandchild
+                                                                                            1-2-1
+                                                                                        </label>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <input type="checkbox"
+                                                                                               id="grandchild-1-2-2">
+                                                                                        <label class="lg-text-500"
+                                                                                               for="grandchild-1-2-2">
+                                                                                            Grandchild
+                                                                                            1-2-2
+                                                                                        </label>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-footer">
+                                        <button class="btn btn_primary_outline_md">
+                                            <span class="sprite-icons prev-primary"></span>Previous
+                                        </button>
+                                        <button class="btn btn_primary" type="button" data-bs-toggle="modal" data-bs-target="#userAddedModal">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Modal primary -->
+    <div class="modal fade modal-custom modal-primary" id="userAddedModal" tabindex="-1" aria-labelledby="userAddedModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <img src="assets/img/icons/priamry-done-modal.svg" width="134" height="77" alt="successfully done">
+                    <p class="title-primary mb-2">Successfully User Added</p>
+                    <p class="sm-text-gray-neutral">You can now view the user list or add another user.</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn_primary_outline_md" data-bs-dismiss="modal">Go to user list</button>
+                    <button type="button" class="btn btn_primary">Add new user</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="headerProfile" aria-labelledby="headerProfileLabel">
+        <div class="offcanvas-header offcanvas-header-close-only">
+            <!-- <h5 id="headerProfileLabel">Offcanvas right</h5> -->
+            <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+                <span class="sprite-icons close-icon"></span>
+            </button>
+        </div>
+        <div class="offcanvas-body pt-0">
+            <div class="profile-summary">
+                <img class="profile-photo" src="assets/img/profile.svg" height="120" width="120" alt="profile photo">
+                <p class="profile-name">vigna bagdai</p>
+                <p class="profile-email">vigna.bagdai@mantratec.com</p>
+            </div>
+
+            <div class="select-role-list">
+                <label for="exampleInputEmail1" class="form-label">Select Role:</label>
+                <div class="dropdown">
+                    <a class="btn dropdown-link dropdown-toggle" id="dropdownTextbox" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Admin
+                    </a>
+                    <ul class="dropdown-menu" id="dropdownMenu">
+                        <li><a class="dropdown-item" data-value="1">Action</a></li>
+                        <li><a class="dropdown-item" data-value="2">Another action</a></li>
+                        <li><a class="dropdown-item" data-value="3">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="own-profile-security">
+                <button class="btn btn-primary-light"><span class="sprite-icons user-icon"></span>profile</button>
+                <button class="btn btn-primary-light">
+                    <span class="sprite-icons password-lock"></span>change
+                    password
+                </button>
+            </div>
+
+            <hr />
+
+            <div class="theme-selection">
+                <div class="light-dark-mode">
+                    <div class="icon-title">
+                        <span class="sprite-icons non-handle-bag"></span>
+                        <p class="form-check-label">Select Theme</p>
+                    </div>
+                    <div class="theme-box">
+                        <div class="light-theme-box">
+                            <img src="assets/img/dark-theme.svg" height="44" width="74" alt="dark theme">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                       id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1" id="toggleLight">
+                                    Light Theme
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="dark-theme-box">
+                            <img src="assets/img/light-theme.svg" height="44" width="74" alt="light theme">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                       id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Dark Theme
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="offcanvas-footer">
+            <div class="logout-container">
+                <button class="btn btn-danger-light" onclick="window.location.href='login.html'">
+                    <span class="sprite-icons logout-icon"></span>Logout
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/assets/src/js/jquery.min.js"></script>
+    <script src="~/assets/src/js/popper.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> -->
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+
+    <!-- dropdown active -->
+    <script>
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        // Handle dropdown item click
+        dropdownMenu.addEventListener('click', (event) => {
+            if (event.target.classList.contains('dropdown-item')) {
+                // Remove 'active' class from all items
+                dropdownMenu.querySelectorAll('.dropdown-item').forEach((item) => {
+                    item.classList.remove('active');
+                });
+                // Add 'active' class to the clicked item
+                event.target.classList.add('active');
+            }
+        });
+    </script>
+
+    <!-- light/dark theme -->
+    <script>
+
+    </script>
+    @*  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+    <script>
+        // Function to load departments
+        function loadDepartments() {
+            $.ajax({
+                url: 'https://localhost:7074/api/getalldepartmentmaster', // API endpoint
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.isSuccess && response.result.length > 0) {
+                        const departments = response.result;
+                        const dropdown = $('#departmentDropdown');
+                        dropdown.empty(); // Clear existing options
+                        dropdown.append(`<option value="">-- Select Department --</option>`); // Default option
+
+                        departments.forEach(function (department) {
+                            dropdown.append(
+                                `<option value="${department.department_Id}">${department.departmentName}</option>`
+                            );
+                        });
+                    } else {
+                        console.warn('No departments found.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching department data:', error);
+                }
+            });
+        }
+
+        // Call the function on page load
+        $(document).ready(function () {
+            loadDepartments();
+        });
+    </script>
+
+</body>
+
+</html>

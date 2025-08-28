@@ -1,0 +1,78 @@
+﻿@model Payroll.WebApp.Models.DTOs.EntityFilterResponseDTO
+@* <link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css"> *@
+<form id="mapEntityGradeForm">
+    <div class="row">
+        <input type="hidden" id="sessionCompanyId" value="@ViewData["SessionCompanyId"]" />
+        <input type="hidden" id="sessionRoleId" value="@ViewData["SessionRoleId"]" />
+
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label for="mapCompanyDropdown" class="form-label">Company<sup>*</sup></label>
+                <div class="mapCompanyDropdown-selection">
+                    <select id="mapCompanyDropdown" name="mapCompanyDropdown" data-placeholder="Select company" class="form-control select2_search_ctm" required>
+                    </select>
+                    <span id="mapCompanyDropdown-error" class="input_error_msg"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label for="mapContractorDropdown" class="form-label">Contractor<sup>*</sup></label>
+                <div class="mapContractorDropdown-selection">
+                    <!-- Contractor -->
+                    <select id="mapContractorDropdown" name="mapContractorDropdown" data-placeholder="Select contractor" class="form-control select2_search_ctm" required>
+                    </select>
+                    <span id="mapContractorDropdown-error" class="input_error_msg"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label for="mapLocationDropdown" class="form-label">Location</label>
+                <div class="mapLocationDropdown-selection">
+                    <!-- Contractor -->
+                    <select id="mapLocationDropdown" name="mapLocationDropdown" data-placeholder="Select location" class="form-control select2_search_ctm" required>
+                    </select>
+                    <span id="mapLocationDropdown-error" class="input_error_msg"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label for="mapTradeDropdown" class="form-label">Trade</label>
+                <div class="mapTradeDropdown-selection">
+                    <!-- trade -->
+                    <select id="mapTradeDropdown" name="mapTradeDropdown" data-placeholder="Select trade" class="form-control select2_search_ctm" required>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label for="mapSkillDropdown" class="form-label">Skill</label>
+                <div class="mapSkillDropdown-selection">
+                    <!-- Entity Code -->
+                    <select id="mapSkillDropdown" name="mapSkillDropdown" data-placeholder="Select skill" class="form-control select2_search_ctm" required>
+                    </select>
+                    <span id="mapSkillDropdown-error" class="input_error_msg"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label for="mapGradeDropdown" class="form-label">Grade</label>
+                    <div class="mapGradeDropdown-selection">
+                        <!-- Entity Code -->
+                        <select id="mapGradeDropdown" name="mapGradeDropdown" data-placeholder="Select grade" class="form-control select2_search_ctm" required>
+                        </select>
+                        <span id="mapGradeDropdown-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+

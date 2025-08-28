@@ -1,0 +1,97 @@
+﻿@{
+    Layout = null;
+}
+<script src="https://code.jquery.com/jquery-2.2.4.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+
+<button id="start-btn">Start</button>
+<button id="stop-btn" disabled>End</button>
+
+<div>
+    <span id="bell-icon" class="bell-icon">
+        🔔 <span id="unread-count">@ViewBag.NotificationCount</span>
+        <div>
+            <p>Total: <span id="total">@ViewBag.Total</span></p>
+            <p>Completed: <span id="completed">@ViewBag.Completed</span></p>
+            <p>Remaining: <span id="remaining">@ViewBag.Remaining</span></p>
+            <p>Status: <span id="status">@ViewBag.Status</span></p>
+        </div>
+    </span>
+    <div id="notification-list" style="display:none;">
+        <a href="/notifications/viewmore">view more messages</a>
+    </div>
+</div>
+
+<script>
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/notificationhub")
+        .build();
+
+    var pollingInterval;
+    var isPolling = false;
+
+    $(function () {
+        connection.start()
+            .then(function () {
+                console.log('✅ SignalR connected');
+            })
+            .catch(function (err) {
+                console.error("❌ SignalR connection error:", err.toString());
+            });
+
+        $('#start-btn').on('click', function () {
+            if (!isPolling) {
+                isPolling = true;
+                pollingInterval = setInterval(fetchNotificationStatus, 3000); // every 3 sec
+                console.log("▶️ Polling started...");
+                $('#stop-btn').prop('disabled', true);
+            }
+        });
+
+        $('#stop-btn').on('click', function () {
+            stopPolling();
+            console.log("⏹️ Polling stopped manually.");
+        });
+    });
+
+    connection.on("ReceiveNotificationCount1", function (data) {
+        if (data) {
+            updatePayrollStatus(data);
+        } else {
+            console.warn("⚠️ No data received from SignalR.");
+        }
+    });
+
+    function fetchNotificationStatus() {
+        $.get('/ViewNotification/TriggerSignalRUpdate', function (data) {
+            if (data && data.status === 1) {
+                stopPolling();
+                console.log("✅ Status complete. Polling stopped.");
+                $('#stop-btn').prop('disabled', false);
+
+                // Optional enhancement:
+                $('#stop-btn')
+                    .text('Polling Complete')
+                    .css('background-color', 'green');
+            }
+        });
+    }
+
+    function stopPolling() {
+        clearInterval(pollingInterval);
+        isPolling = false;
+        $('#stop-btn').prop('disabled', true);
+    }
+
+    function updatePayrollStatus(data) {
+        console.log("🔄 Updating DOM with:", data);
+
+        if (data.total !== undefined) $('#total').text(data.total);
+        if (data.completed !== undefined) $('#completed').text(data.completed);
+        if (data.remaining !== undefined) $('#remaining').text(data.remaining);
+        if (data.status !== undefined) $('#status').text(data.status);
+
+        var count = (data.remaining || 0);
+        $('#unread-count').text(count);
+    }
+</script>

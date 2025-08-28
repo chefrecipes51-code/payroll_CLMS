@@ -1,0 +1,11 @@
+.customized-list {
+    padding: 0;
+
+    .form-label {
+        max-width: 250px;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

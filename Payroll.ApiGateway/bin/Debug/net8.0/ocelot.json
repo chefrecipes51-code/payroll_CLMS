@@ -1,0 +1,822 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Auth/token",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5214
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/auth",
+      "UpstreamHttpMethod": [ "Post" ]
+
+    },
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      //"RouteClaimsRequirement": {
+      //  "TypeOfRole": [ "admin", "Customer" ]
+      //},
+      "DownstreamPathTemplate": "/api/UserApiService/getusers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5007
+        }
+      ],
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5007
+        }
+      ],
+      "UpstreamPathTemplate": "/users/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5007
+        }
+      ],
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    // Earning Deduction
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      //"RouteClaimsRequirement": {
+      //  "TypeOfRole": [ "admin", "Customer" ]
+      //},
+      "DownstreamPathTemplate": "/api/getallearningdeductiomaster",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/earningdeduction",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/earningdeduction/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/earningdeduction",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    //Wage Grade
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      //"RouteClaimsRequirement": {
+      //  "TypeOfRole": [ "admin", "Customer" ]
+      //},
+      "DownstreamPathTemplate": "/api/getallwagegrademaster",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/WageGrade",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/WageGrade/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/postwagegrademaster",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/WageGrade",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    //Wage Rate Master
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      //"RouteClaimsRequirement": {
+      //  "TypeOfRole": [ "admin", "Customer" ]
+      //},
+      "DownstreamPathTemplate": "/api/getallwageratemaster",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/WageRate",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/WageRate/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/WageRate",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    //Area Master
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/getallareamaster",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/area",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/area/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/area",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    //Company Master
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/getallcompanymaster",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/company",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/company/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/company",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    //Company Currency master
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/getallcompanycurrencymaster",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/companycurrency",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/companycurrency/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/companycurrency",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    //Department Master
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/getalldepartmentmaster",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/department",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/department/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/department",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    //Mapping Department Location
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/getallmapdepartmentlocation",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/mapdepartmentlocation",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/mapdepartmentlocation/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/mapdepartmentlocation",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    //Mapping User Company
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/getallusercompanymaster",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/mapusercompany",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/mapusercompany/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/mapusercompany",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    //Mapping User Role
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/getalluserrolemaster",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/mapuserrole",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/mapuserrole/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/mapuserrole",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    //Audit Trail API
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/getAuditTrails",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5248
+        }
+      ],
+      "UpstreamPathTemplate": "/audittrail",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5248
+        }
+      ],
+      "UpstreamPathTemplate": "/audittrail/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+
+    //Pending Approval Request API
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5248
+        }
+      ],
+      "UpstreamPathTemplate": "/pendingapprovalrequest",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+
+    //User Activate Deactivate Status API
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/updateServiceApprovalRejection",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5248
+        }
+      ],
+      "UpstreamPathTemplate": "/serviceapprovalrejection",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5248
+        }
+      ],
+      "UpstreamPathTemplate": "/serviceapprovalrejection/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+
+    //User Role Master
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/getallrolemaster",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/rolemaster",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/rolemaster/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/rolemaster",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+
+    //Yearly IT Table Master
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/getallyearlyittable",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/yearlyittable",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/yearlyittable/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/yearlyittable",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    //Yearly IT Table Detail
+    {
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+        // "AllowedScopes": []
+      },
+      "DownstreamPathTemplate": "/api/getalldetailyearlyittable",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/yearlydetailittable",
+      "UpstreamHttpMethod": [ "Get" ]
+
+    },
+    {
+      "DownstreamPathTemplate": "/api/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/yearlydetailittable/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5265
+        }
+      ],
+      "UpstreamPathTemplate": "/yearlydetailittable",
+      "UpstreamHttpMethod": [ "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    }
+
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "X-Correlation-Id",
+    "BaseUrl": "https://localhost:7276"
+  }
+}

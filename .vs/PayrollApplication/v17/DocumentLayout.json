@@ -1,0 +1,265 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|e:\\abhishek\\developers_work\\abhishek\\payroll_backup_23_07_2025\\payrollapplication\\webapplication\\payroll.webapp\\helpers\\restapidatamigrationservicehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|solutionrelative:webapplication\\payroll.webapp\\helpers\\restapidatamigrationservicehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|e:\\abhishek\\developers_work\\abhishek\\payroll_backup_23_07_2025\\payrollapplication\\webapplication\\payroll.webapp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|solutionrelative:webapplication\\payroll.webapp\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|e:\\abhishek\\developers_work\\abhishek\\payroll_backup_23_07_2025\\payrollapplication\\webapplication\\payroll.webapp\\views\\finaldataapproval\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|solutionrelative:webapplication\\payroll.webapp\\views\\finaldataapproval\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|e:\\abhishek\\developers_work\\abhishek\\payroll_backup_23_07_2025\\payrollapplication\\webapplication\\payroll.webapp\\controllers\\finaldataapprovalcomponent\\finaldataapprovalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|solutionrelative:webapplication\\payroll.webapp\\controllers\\finaldataapprovalcomponent\\finaldataapprovalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F80E6A27-A327-400C-A35C-867A2EFAD618}|Microservices\\DataMigrationService\\DataMigrationService.DAL\\DataMigrationService.DAL.csproj|e:\\abhishek\\developers_work\\abhishek\\payroll_backup_23_07_2025\\payrollapplication\\microservices\\datamigrationservice\\datamigrationservice.dal\\service\\serviceimportmasterservicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F80E6A27-A327-400C-A35C-867A2EFAD618}|Microservices\\DataMigrationService\\DataMigrationService.DAL\\DataMigrationService.DAL.csproj|solutionrelative:microservices\\datamigrationservice\\datamigrationservice.dal\\service\\serviceimportmasterservicerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6D9D3C37-C19A-4779-BCA8-C93B70F39275}|Microservices\\DataMigrationService\\DataMigrationService.API\\DataMigrationService.API.csproj|e:\\abhishek\\developers_work\\abhishek\\payroll_backup_23_07_2025\\payrollapplication\\microservices\\datamigrationservice\\datamigrationservice.api\\controllers\\serviceimportmasterapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6D9D3C37-C19A-4779-BCA8-C93B70F39275}|Microservices\\DataMigrationService\\DataMigrationService.API\\DataMigrationService.API.csproj|solutionrelative:microservices\\datamigrationservice\\datamigrationservice.api\\controllers\\serviceimportmasterapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|e:\\abhishek\\developers_work\\abhishek\\payroll_backup_23_07_2025\\payrollapplication\\webapplication\\payroll.webapp\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|solutionrelative:webapplication\\payroll.webapp\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|e:\\abhishek\\developers_work\\abhishek\\payroll_backup_23_07_2025\\payrollapplication\\webapplication\\payroll.webapp\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD0D890F-50C1-4A5D-8A07-B4072C6FFA4E}|WebApplication\\Payroll.WebApp\\Payroll.WebApp.csproj|solutionrelative:webapplication\\payroll.webapp\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FEA7E077-A9A8-4404-93B9-74EE23C787C0}|PayrollTransactionService.API\\PayrollTransactionService.API.csproj|e:\\abhishek\\developers_work\\abhishek\\payroll_backup_23_07_2025\\payrollapplication\\payrolltransactionservice.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{FEA7E077-A9A8-4404-93B9-74EE23C787C0}|PayrollTransactionService.API\\PayrollTransactionService.API.csproj|solutionrelative:payrolltransactionservice.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 358,
+          "SelectedChildIndex": 25,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:134:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:137:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:138:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:139:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:140:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:141:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:142:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:143:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:144:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:145:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:147:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:148:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:149:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:150:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:151:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:152:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:153:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:154:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:155:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:146:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RestApiDataMigrationServiceHelper.cs",
+              "DocumentMoniker": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Helpers\\RestApiDataMigrationServiceHelper.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Payroll.WebApp\\Helpers\\RestApiDataMigrationServiceHelper.cs",
+              "ToolTip": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Helpers\\RestApiDataMigrationServiceHelper.cs",
+              "RelativeToolTip": "WebApplication\\Payroll.WebApp\\Helpers\\RestApiDataMigrationServiceHelper.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAowCwAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T08:54:26.602Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "WebApplication\\Payroll.WebApp\\Properties\\launchSettings.json",
+              "ToolTip": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Properties\\launchSettings.json",
+              "RelativeToolTip": "WebApplication\\Payroll.WebApp\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-23T07:48:06.798Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Payroll.WebApp\\Controllers\\HomeController.cs",
+              "ToolTip": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "WebApplication\\Payroll.WebApp\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAApwBUAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T07:45:18.835Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FinalDataApprovalController.cs",
+              "DocumentMoniker": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Controllers\\FinalDataApprovalComponent\\FinalDataApprovalController.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Payroll.WebApp\\Controllers\\FinalDataApprovalComponent\\FinalDataApprovalController.cs",
+              "ToolTip": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Controllers\\FinalDataApprovalComponent\\FinalDataApprovalController.cs",
+              "RelativeToolTip": "WebApplication\\Payroll.WebApp\\Controllers\\FinalDataApprovalComponent\\FinalDataApprovalController.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAhwC4AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T07:45:18.844Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ServiceImportMasterServiceRepository.cs",
+              "DocumentMoniker": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\Microservices\\DataMigrationService\\DataMigrationService.DAL\\Service\\ServiceImportMasterServiceRepository.cs",
+              "RelativeDocumentMoniker": "Microservices\\DataMigrationService\\DataMigrationService.DAL\\Service\\ServiceImportMasterServiceRepository.cs",
+              "ToolTip": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\Microservices\\DataMigrationService\\DataMigrationService.DAL\\Service\\ServiceImportMasterServiceRepository.cs",
+              "RelativeToolTip": "Microservices\\DataMigrationService\\DataMigrationService.DAL\\Service\\ServiceImportMasterServiceRepository.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAApwFsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T07:45:18.853Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ServiceImportMasterApiController.cs",
+              "DocumentMoniker": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\Microservices\\DataMigrationService\\DataMigrationService.API\\Controllers\\ServiceImportMasterApiController.cs",
+              "RelativeDocumentMoniker": "Microservices\\DataMigrationService\\DataMigrationService.API\\Controllers\\ServiceImportMasterApiController.cs",
+              "ToolTip": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\Microservices\\DataMigrationService\\DataMigrationService.API\\Controllers\\ServiceImportMasterApiController.cs",
+              "RelativeToolTip": "Microservices\\DataMigrationService\\DataMigrationService.API\\Controllers\\ServiceImportMasterApiController.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAAApwFYAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T07:45:18.862Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Views\\FinalDataApproval\\Index.cshtml",
+              "RelativeDocumentMoniker": "WebApplication\\Payroll.WebApp\\Views\\FinalDataApproval\\Index.cshtml",
+              "ToolTip": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Views\\FinalDataApproval\\Index.cshtml",
+              "RelativeToolTip": "WebApplication\\Payroll.WebApp\\Views\\FinalDataApproval\\Index.cshtml",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAIwDcAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-23T07:45:18.876Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "WebApplication\\Payroll.WebApp\\Controllers\\AccountController.cs",
+              "ToolTip": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\WebApplication\\Payroll.WebApp\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "WebApplication\\Payroll.WebApp\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAABQBAAAAAAAAAAAhwCMBAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-23T07:45:18.825Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\PayrollTransactionService.API\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "PayrollTransactionService.API\\Properties\\launchSettings.json",
+              "ToolTip": "E:\\Abhishek\\Developers_Work\\Abhishek\\Payroll_Backup_23_07_2025\\PayrollApplication\\PayrollTransactionService.API\\Properties\\launchSettings.json",
+              "RelativeToolTip": "PayrollTransactionService.API\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-23T07:46:09.742Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.MapDepartmentLocationDTO>
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+@{
+    var renderedAreaIds = new HashSet<int>();
+}
+<style>
+    #btn1, #btn2, #btn3 {
+        display: none !important;
+    }
+</style>
+<style>
+    .disabled-input {
+        background-color: #e9ecef !important;
+        color: #6c757d !important;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+</style>
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+<div class="button-group">
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+</div>
+
+<div class="title-container">
+    <div class="current-back">
+        <p class="title-primary"></p>
+    </div>
+    <div class="button-group">
+        <button class="btn btn_primary add-button btn-add-hide" data-bs-toggle="offcanvas" id="addmapdepartmentButton" data-bs-target="#addmapdepartment"
+                aria-controls="addmapdepartment">
+            <span class="sprite-icons add-light"></span> Map Department 
+        </button>
+    </div>
+</div>
+<div class="table-responsive table-user-list">
+    <table id="mapdepartment-master-list" class="table custom-table">
+        <thead>
+            <tr>
+                <th hidden>Area Id</th>
+                <th hidden>Location</th>
+                <th>Location</th>
+                <th>Area</th>
+                <th>Department</th>
+                <th class="sticky_cell">Status</th>
+                <th class="sticky_cell">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                foreach (var mapdepartment in Model)
+                {
+                    if (!renderedAreaIds.Contains(mapdepartment.Department_Location_Id)) // Only render if not already added
+                    {
+                        renderedAreaIds.Add(mapdepartment.Department_Location_Id);
+                        <tr id="row-@mapdepartment.Department_Location_Id">
+                            <td hidden>@mapdepartment.Department_Location_Id</td>
+                            <td hidden>@mapdepartment.Company_Id</td>
+                            <td>@mapdepartment.LocationName</td>
+                            <td>@mapdepartment.AreaName</td>
+                            <td>@mapdepartment.DepartmentName</td>
+                            <td class="sticky_cell">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" disabled type="checkbox" role="switch" id="status-@mapdepartment.Department_Location_Id" @(mapdepartment.IsActive ? "checked" : "")>
+                                    <label class="form-check-label" for="status-@mapdepartment.Department_Location_Id">
+                                        @(mapdepartment.IsActive ? "Active" : "Inactive")
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="sticky_cell">
+                                <div class="table-button-group">
+                                    @*  <button class="btn btn-primary-light-icon-md edit-btn" data-bs-toggle="offcanvas" data-bs-target="#EditArea" data-id="@area.Area_Id" id="editArea-@area.Area_Id" onclick="showEditAreaForm(@area.Area_Id)" aria-controls="EditArea"> *@
+                                    <button class="btn btn-primary-light-icon-md edit-btn btn-edit-hide" id="mapdepartmentedit" data-bs-toggle="offcanvas" data-bs-target="#addmapdepartment" data-id="@mapdepartment.Department_Location_Id" aria-controls="addmapdepartment">
+                                        <span class="sprite-icons edit-primary"></span>
+                                    </button>
+
+                                    <button class="btn btn-danger-light-icon btn-delete-hide"
+                                            data-department-location-id="@mapdepartment.Department_Location_Id"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteMapDepartment">
+                                        <span class="sprite-icons delete-danger"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center">No data available</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- add map department -->
+<div class="offcanvas offcanvas-end offcanvas-primary" tabindex="-1" id="addmapdepartment" aria-labelledby="addMapDepartmentLabel">
+    <div class="offcanvas-header">
+        <p class="title-primary-md-600" id="mapformTitle"></p>
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <span class="sprite-icons close-icon"></span>
+        </button>
+
+    </div>
+    <div class="offcanvas-body">
+        <div class="offcanvas-fixed-form">
+            <form id="addMapDepartmentForm">
+                <input type="hidden" id="departmentLocationId" name="departmentLocationId">
+                <div class="form-group">
+                    <label for="MapCompanyDropdown" class="form-label">Company<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="MapCompanyDropdown" name="MapCompanyDropdown" data-placeholder="Select a company" required>
+                        <option value="">Select Company</option>
+                    </select>
+                    <span id="mapcompanyDropdown-error" class="input_error_msg"></span>
+                </div>
+                <div class="form-group">
+                    <label for="MapCountryDropdown" class="form-label">Country<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="MapCountryDropdown" name="MapCountryDropdown" data-placeholder="Select a country" required>
+                        <option value="">Select Country</option>
+                    </select>
+                    <span id="mapcountryDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="MapStateDropdown" class="form-label">State<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="MapStateDropdown" name="MapStateDropdown" data-placeholder="Select a state" required>
+                        <option value="">Select State</option>
+                    </select>
+                    <span id="mapstateDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="MapCityDropdown" class="form-label">City<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="MapCityDropdown" name="MapCityDropdown" data-placeholder="Select a city" required>
+                        <option value="">Select City</option>
+                    </select>
+                    <span id="mapcityDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="MapLocationDropdown" class="form-label">Location<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="MapLocationDropdown" name="MapLocationDropdown" data-placeholder="Select a location" required>
+                        <option value="">Select Location</option>
+                    </select>
+                    <span id="maplocationDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="MapAreaDropdown" class="form-label">Area<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="MapAreaDropdown" name="MapAreaDropdown" data-placeholder="Select a area" required>
+                        <option value="">Select Area</option>
+                    </select>
+                    <span id="mapareaDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="MapDepartmentDropdown" class="form-label">Department<sup>*</sup></label>
+                    <select class="form-control select2_search_ctm" id="MapDepartmentDropdown" name="MapDepartmentDropdown" data-placeholder="Select a department" required>
+                        <option value="">Select Department</option>
+                    </select>
+                    <span id="mapdepartmentDropdown-error" class="input_error_msg"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="MapFloorDropdown" class="form-label">Floor</label>
+                    <select class="form-control select2_search_ctm" id="MapFloorDropdown" name="MapFloorDropdown" data-placeholder="Select a floor">
+                        <option value="">Select Floor</option>
+                    </select>
+                    <span id="mapfloorDropdown-error" class="input_error_msg"></span>
+                </div>
+                <!-- Department Code -->
+                @*   <div class="form-group mb-3">
+                <label for="mapdepartmentCode" class="form-label">Department Code<sup>*</sup></label>
+                <input type="text" class="form-control" id="mapdepartmentCode" name="mapdepartmentCode" placeholder="Enter department code" maxlength="50" required>
+                <span id="mapdepartmentCode-error" class="input_error_msg text-danger"></span>
+                </div> *@
+                <div id="toggleMapContainer" class="form-group mb-3" style="display: none;">
+                    <label class="form-label" for="mapdepartmentActiveToggle">Status</label>
+                    <div class="form-check form-switch d-flex align-items-center">
+                        <input type="checkbox" id="mapdepartmentActiveToggle" class="form-check-input" role="switch">
+                        <label class="form-check-label ml-2" for="mapdepartmentActiveToggle" id="activeMapStatusLabel">Inactive</label>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="offcanvas-footer">
+        <div class="btn_group">
+            <button class="btn btn-transparent-danger" id="resetButton">reset All</button>
+            <div class="btn-action-variants">
+                <button class="btn btn_primary_outline_md" data-bs-dismiss="offcanvas"
+                        aria-label="Close">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn_primary loader-dot-pulse" id="saveDetailsButton">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Confirmation Modal -->
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteMapDepartment"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deleteMapDepartmentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this department mapping?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmMapDepartmentDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/src/custom-js/select2.js"></script>
+<script>
+    $(document).ready(function () {
+        var userPermissionsData = $("#userPermissionsData").val();
+        if (userPermissionsData && userPermissionsData.trim() !== "" && userPermissionsData !== "null") {  // Check if element has a value
+            try {
+                var userPermissions = JSON.parse($("#userPermissionsData").val()); // Convert to object
+
+                if (!userPermissions.grantAdd) $(".btn-add-hide").hide();
+                if (!userPermissions.grantEdit) $(".btn-edit-hide").hide();
+                if (!userPermissions.grantDelete) $(".btn-delete-hide").hide();
+
+            }
+            catch (error) {
+                console.error("Error parsing userPermissionsData:", error);
+            }
+        }
+    });
+</script>
+@* <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script> *@
+@* <script src="~/application/js/payrollmaster/mapdepartmentlocation.js"></script> *@

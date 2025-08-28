@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;  
+}
+
+@model Payroll.WebApp.Models.DTOs.UserRoleMappingDTO
+
+@{
+    ViewData["Title"] = "User Role Mapping";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+<div class="container mt-4">
+    <h2>User Role Mapping</h2>
+    <form id="userRoleMappingForm">
+        <div class="form-group">
+            <label for="roleMenuHeaderId">Role Menu Header</label>
+            <select id="roleMenuHeaderId" name="Role_Menu_Header_Id" class="form-control">
+                <option value="">-- Select Role Menu Header --</option>
+                <option value="1">Menu Header 1</option>
+                <option value="2">Menu Header 2</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="companyId">Company</label>
+            <select id="companyId" name="Company_Id" class="form-control">
+                <option value="">-- Select Company --</option>
+                <option value="1">Company 1</option>
+                <option value="3">Company 3</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="userId">User</label>
+            <select id="userId" name="User_Id" class="form-control">
+                <option value="">-- Select User --</option>
+                <option value="10">Static User 10</option>
+                <option value="11">Static User 11</option>
+                <option value="12">Static User 13</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="roleIds">Roles</label>
+            <select id="roleIds" name="Role_Ids" class="form-control" multiple>
+                <option value="1">Role 1</option>
+                <option value="2">Role 2</option>
+              
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="effectiveFrom">Effective From</label>
+            <input type="date" id="effectiveFrom" name="Effective_From" class="form-control" />
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="saveUserRoleMapping()">Save</button>
+    </form>
+</div>
+
+<script>
+    function saveUserRoleMapping() {
+        const userRoleMappingDto = {
+            role_Menu_Header_Id: $('#roleMenuHeaderId').val(),
+            company_Id: $('#companyId').val(),
+            user_Id: $('#userId').val(),
+            role_Ids: $('#roleIds').val(), // Get selected roles as an array
+            effective_From: $('#effectiveFrom').val()
+        };
+
+        if (!userRoleMappingDto.role_Menu_Header_Id ||
+            !userRoleMappingDto.company_Id ||
+            !userRoleMappingDto.user_Id ||
+            !userRoleMappingDto.role_Ids.length ||
+            !userRoleMappingDto.effective_From) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
+        $.ajax({
+            url: '/UserRoleMapping/AddRecord',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(userRoleMappingDto),
+            success: function (response) {
+                if (response.isSuccess) {
+                    alert(response.message);
+                    $('#userRoleMappingForm')[0].reset();
+                    $('#roleIds').val(null).trigger('change'); // Reset Select2 dropdown
+                } else {
+                    alert('Error: ' + response.message);
+                }
+            },
+            error: function () {
+                alert('An error occurred while saving the data.');
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('#roleIds').select2({
+            placeholder: "Select Roles"
+        });
+    });
+</script>

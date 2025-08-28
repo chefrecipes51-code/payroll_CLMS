@@ -1,0 +1,37 @@
+﻿@model Payroll.WebApp.Models.DTOs.DepartmentDTO
+<style>
+    .disabled-input {
+        background-color: #e9ecef !important;
+        color: #6c757d !important;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+</style>
+<form id="departmentForm">
+    <!-- Hidden Field for Department ID -->
+    <input type="hidden" asp-for="Department_Id" id="departmentId">
+
+    <!-- Department Name -->
+    <div class="form-group mb-3">
+        <label for="departmentName" class="form-label">Department Name<sup>*</sup></label>
+        <input type="text" class="form-control" asp-for="DepartmentName" id="departmentName" name="DepartmentName" placeholder="Enter department name" maxlength="100" required>
+        <span id="departmentName-error" class="input_error_msg text-danger"></span>
+    </div>
+
+    <!-- Department Code -->
+    <div class="form-group mb-3">
+        <label for="departmentCode" class="form-label">Department Code<sup>*</sup></label>
+        <input type="text" class="form-control" asp-for="DepartmentCode" id="departmentCode" name="DepartmentCode" placeholder="Enter department code" maxlength="50">
+        <span id="departmentCode-error" class="input_error_msg text-danger"></span>
+    </div>
+
+    <!-- Active Toggle (Only shown in edit mode) -->
+    <div id="depttoggleContainer" class="form-group mb-3" style="display: none;">
+        <label class="form-label" for="departmentActiveToggle">Status</label>
+        <div class="form-check form-switch d-flex align-items-center">
+            <input type="checkbox" id="departmentActiveToggle" asp-for="IsActive" class="form-check-input" role="switch">
+            <label class="form-check-label ml-2" for="departmentActiveToggle" id="deptactiveStatusLabel">Inactive</label>
+        </div>
+    </div>
+</form>
+@* <script src="~/application/js/payrollmaster/departmentmaster.js"></script> *@

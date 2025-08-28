@@ -1,0 +1,145 @@
+﻿@model Payroll.WebApp.Common.PayrollValidationViewModel
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+@{
+    ViewData["Title"] = "Data Acceptance";
+}
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+<style type="text/css">
+    #TemlateSeviceDrp {
+        width: 100%; /* Full width of the parent container */
+        max-width: 213px; /* Maximum width */
+    }
+
+    .total-entries {
+        margin-top: 10px !important; /* Adjust as needed */
+        margin-bottom: 10px !important; /* Adjust as needed */
+    }
+
+
+</style>
+
+
+@* <div class="payroll-tabs-content-container"> *@
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active">Data Acceptance</button>
+        </div>
+    </nav>
+    <div class="mb-3">
+      
+    </div>
+
+    <div class="quick-filter-container">
+        <div class="btn-group-left">
+            @* <button class="btn btn_primary"> Approver Contractors: <span>03</span> </button> *@
+            <!-- <button class="btn btn-success-light">Active Users: <span>04</span> </button>
+            <button class="btn btn-danger-light">Suspended Users: <span>00</span> </button> -->
+        </div>
+        <div class="icon-title">
+            <button class="btn btn_primary_outline" id="PendingReturn" style="display:none">Pending Return</button>
+            <button class="btn btn_primary_outline" id="remove-selected">Clear</button>
+            <button class="btn btn-danger-blush icon-title" id="btnReturnSelected">
+                <span class="sprite-icons close-round-danger-bg"></span> Return
+            </button>
+            <button class="btn btn-success-light icon-title" id="btnVerifySelected">
+                <span class="sprite-icons check-round-success-bg"></span> Accept 
+            </button>
+        </div>
+    </div>
+    <div class="title-container">
+        <div class="form-group" id="TemlateSeviceDrp">
+            <!-- Service Dropdown (using model for Country options) -->
+            <label for="ServiceDropdown" class="form-label">Migration Category</label>
+            <div class="countries-selection">
+                @Html.DropDownListFor(model => model.templateId,
+                         new SelectList(Model.ServiceDropdown, "Value", "Text"),
+                         "Select a country",
+                         new { @class = "form-control select2_search_ctm", id = "TemlateSeviceId", required = "required", data_placeholder = "Select service" })
+                <span id="ServiceDropdown-error" class="input_error_msg"></span>
+            </div>
+        </div>
+
+    </div>
+  
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+             aria-labelledby="nav-user-list-tab">
+
+            <div class="table-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive table-roles-permission-list">
+                            <table id="user-list" class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Vigna's Second Tab Content
+        </div> -->
+        <!-- <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Vigna's Third Tab Content
+        </div> -->
+    </div>
+@* </div> *@
+
+
+
+
+
+<!-- modals start -->
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteContractor" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteContractorLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="title-primary">Are you sure want to delete Contractor?</p>
+            </div>
+            <div class="modal-footer">
+                <div class="form-action d-flex align-items-center justify-content-center w-100">
+                    <button type="button" class="btn btn_danger_outline me-2 w-25">Yes</button>
+                    <button type="button" class="btn btn_primary w-25" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-custom modal-primary-confirmation" id="blockContractor" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="blockContractorLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/suspend-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="title-primary">Are you sure want to block Contractor?</p>
+            </div>
+            <div class="modal-footer">
+                <div class="form-action d-flex align-items-center justify-content-center w-100">
+                    <button type="button" class="btn btn_danger_outline me-2 w-25">Yes</button>
+                    <button type="button" class="btn btn_primary w-25" data-bs-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/application/js/migrationclmsdata/finalmigrationapproval.js"></script>
+  
+}

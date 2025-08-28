@@ -1,0 +1,33 @@
+// .app-layout {
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    // height: calc(100vh - 84px);
+    padding: 8px 24px;
+
+    .current-back {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .btn_primary_outline {
+            .btn_xl {
+                border-radius: 12px;
+            }
+        }
+    }
+
+    .button-group {
+        gap: 16px;
+        display: flex;
+    }
+}
+
+.form-group {
+    margin-bottom: 28px;
+
+    &.has-error {
+        margin-bottom: 8px;
+    }
+}

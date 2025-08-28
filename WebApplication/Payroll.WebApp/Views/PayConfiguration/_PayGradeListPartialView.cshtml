@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.PayGradeMasterDTO>
+@{
+    var renderedPayGradeIds = new HashSet<int>(); // To track rendered AreaIds
+}
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+<table id="pay-grade-list" class="table custom-table">
+    <thead>
+        <tr>
+            <th hidden>PayGrade_Id</th>
+            <th hidden>Cmp_Id</th>
+            <th class="sticky_cell">Code</th>
+            <th>Name</th>
+            <th>Min Salary</th>
+            <th>Max Salary</th>
+            <th>Description</th>
+            <th class="sticky_cell">Status</th>
+            <th class="sticky_cell">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var pay in Model)
+            {
+                if (!renderedPayGradeIds.Contains(pay.PayGrade_Id)) // Only render if not already added
+                {
+                    renderedPayGradeIds.Add(pay.PayGrade_Id);
+                    <tr id="row-@pay.PayGrade_Id">
+                        <!-- Added unique row ID -->
+                        <td hidden>@pay.PayGrade_Id</td>
+                        <td hidden>@pay.Cmp_Id</td>
+                        <td class="sticky_cell">@pay.PayGradeCode</td>
+                        <td>@pay.PayGradeName</td>
+                        <td>@pay.MinSalary</td>
+                        <td>@pay.MaxSalary</td>
+                        <td>@pay.PayGradeDesc</td>
+                        <td class="sticky_cell">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" role="switch" id="status-@pay.PayGrade_Id" @(pay.IsActive ? "checked" : "")>
+                                <label class="form-check-label" for="status-@pay.IsActive">
+                                    @(pay.IsActive ? "Active" : "Inactive")
+                                </label>
+                            </div>
+                        </td>
+                        <td class="sticky_cell">
+                            <div class="table-button-group">
+                                <button class="btn btn-primary-light-icon-md edit-btn editpayGrade btn-edit-hide" data-id="@pay.PayGrade_Id" id="editpayGrade">
+                                    <span class="sprite-icons edit-primary"></span>
+                                </button>
+
+                                <button class="btn btn-danger-light-icon btn-delete-hide"
+                                        data-paygrade-id="@pay.PayGrade_Id"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deletePayGrade">
+                                    <span class="sprite-icons delete-danger"></span>
+                                </button>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+        @* else
+        {
+            <tr>
+                <td colspan="9" class="text-center">No data available</td>
+            </tr>
+        } *@
+    </tbody>
+</table>
+<div class="modal fade modal-custom modal-primary-confirmation" id="deletePayGrade"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deletePayGradeLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this pay grade?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmPayGradeDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

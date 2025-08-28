@@ -1,0 +1,269 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.PayGradeConfigDTO>
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<!-- date picker plugin -->
+<link rel="stylesheet" href="~/assets/src/css/bootstrap-datepicker.min.css" />
+@{
+    var renderedPayGradeIds = new HashSet<int>(); // To track rendered AreaIds
+}
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+<style type="text/css">
+    #TemlateSeviceDrp {
+        width: 100%; /* Full width of the parent container */
+        max-width: 213px; /* Maximum width */
+    }
+
+    .total-entries {
+        margin-top: 10px !important; /* Adjust as needed */
+        margin-bottom: 10px !important; /* Adjust as needed */
+    }
+
+    #btn1, #btn2, #btn3, #btn4 {
+        display: none !important;
+    }
+</style>
+
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+    <!-- Alert content will be dynamically inserted based on the alert type -->
+</div>
+<div class="payroll-tabs-content-container">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active"
+                    onclick="window.location.href='PayGrade'">
+                Pay Grade Mapping
+            </button>
+        </div>
+    </nav>
+
+    <div class="quick-filter-container">
+        <div class="btn-group-left">
+            <div class="chip primary">Total Pay Grade Mapping: <span id="payGradeCount">@ViewBag.PayGradeConfigCount</span></div>
+        </div>
+        <div class="icon-title">
+            <button class="btn btn_primary add-button btn-add-hide" data-bs-toggle="modal"
+                    data-bs-target="#paygradeconfigadd" id="btnAddPayGradeConfig">
+                <span class="sprite-icons add-light"></span>
+            </button>
+        </div>
+    </div>
+    @*     <div class="title-container">
+    <div class="form-group" id="TemlateSeviceDrp">
+
+    <label for="allCompanyDropdown"
+    class="form-label">
+    Company<sup>*</sup>
+    </label>
+    <div class="Company-selection">
+    <select id="allCompanyDropdown" name="allCompanyDropdown" data-placeholder="Select a company" class="form-control select2_search_ctm" required>
+    </select>
+    <span id="allCompanyDropdown-error" class="input_error_msg"></span>
+    </div>
+
+    </div>
+    </div> *@
+
+    <input type="hidden" id="sessionCompanyId" value="@ViewBag.SessionCompanyId" />
+    <input type="hidden" id="sessionRoleId" value="@ViewBag.SessionRoleId" />
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+             aria-labelledby="nav-user-list-tab">
+            <div class="title-container">
+                <div class="form-group" id="TemlateSeviceDrp">
+                    <label for="allCompanyDropdown" class="form-label">
+                        Company<sup>*</sup>
+                    </label>
+                    <div class="allCompanyDropdown-selection">
+                        <select id="allCompanyDropdown"
+                                name="allCompanyDropdown"
+                                data-placeholder="Select a company"
+                                class="form-control select2_search_ctm"
+                                required>
+                        </select>
+                        <span id="allCompanyDropdown-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="table-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive table-roles-permission-list table-tab-content" id="payGradeConfigContainer">
+
+                            @Html.Partial("_PayGradeConfigListPartialView", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- start add pay grade modal -->
+<div class="modal fade modal-bg-puple-light" id="paygradeconfigadd" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="paygradeconfigaddLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <p class="title-primary" id="formTitle">Add Pay Grade Mapping</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <form id="payGradeMappingForm">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="DistinctCompanyDropdown"
+                                       class="form-label">
+                                    Company<sup>*</sup>
+                                </label>
+                                <div class="Company-selection">
+                                    <select id="DistinctCompanyDropdown" name="DistinctCompanyDropdown" data-placeholder="Select a company" class="form-control select2_search_ctm" required>
+                                    </select>
+                                    <span id="DistinctCompanyDropdown-error" class="input_error_msg"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="DistictLocationDropdown"
+                                       class="form-label">
+                                    Location<sup>*</sup>
+                                </label>
+                                <div class="DistictLocationDropdown-selection">
+                                    <select id="DistictLocationDropdown" name="DistictLocationDropdown" data-placeholder="Select a location" class="form-control select2_search_ctm" required>
+                                    </select>
+                                    <span id="DistictLocationDropdown-error" class="input_error_msg"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="DistinctTradeType"
+                                       class="form-label">
+                                    Trade<sup>*</sup>
+                                </label>
+                                <div class="DistinctTradeType-selection">
+                                    <select id="DistinctTradeType" name="DistinctTradeType" data-placeholder="Select a trade type" class="form-control select2_search_ctm" required>
+                                    </select>
+                                    <span id="DistinctTradeType-error" class="input_error_msg"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="skillType"
+                                       class="form-label">
+                                    Skill Category<sup>*</sup>
+                                </label>
+                                <div class="skillType-selection">
+                                    <select id="skillTypeDropdown" name="skillTypeDropdown" data-placeholder="Select a skill type" class="form-control select2_search_ctm" required>
+                                    </select>
+                                    <span id="skillTypeDropdown-error" class="input_error_msg"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="payGradeType"
+                                       class="form-label">
+                                    Pay Grade<sup>*</sup>
+                                </label>
+                                <div class="payGradeType-selection">
+                                    <select id="payGradeType" name="payGradeType" data-placeholder="Select a pay grade type" class="form-control select2_search_ctm" required>
+                                    </select>
+                                    <span id="payGradeType-error" class="input_error_msg"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="paygradeconfigname" class="form-label">
+                                    Configuration Name
+                                </label>
+                                <input type="text" class="form-control" placeholder="Enter pay grade configuration name" id="paygradeconfigname"
+                                       name="paygradeconfigname" maxlength="50">
+                                <span id="paygradeconfigname-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="effectiveFromDate" class="form-label">
+                                    Effective From
+                                    <sup>*</sup>
+                                </label>
+                                <div class="date-picker-container">
+                                    <input type="text" class="form-control datepicker"
+                                           placeholder="Enter effective from date" id="effectiveFromDate"
+                                           name="effectiveFromDate" required>
+                                    <button class="btn btn-datepicker">
+                                        <span class="sprite-icons2 date-picker"></span>
+                                    </button>
+                                </div>
+                                <span id="effectiveFromDate-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="effectiveToDate" class="form-label">
+                                    Effective To
+                                    <sup>*</sup>
+                                </label>
+                                <div class="date-picker-container">
+                                    <input type="text" class="form-control datepicker"
+                                           placeholder="Enter effective To date" id="effectiveToDate"
+                                           name="effectiveToDate" required>
+                                    <button class="btn btn-datepicker">
+                                        <span class="sprite-icons2 date-picker"></span>
+                                    </button>
+                                </div>
+                                <span id="effectiveToDate-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <!-- Active Toggle (initially hidden) -->
+                        <div id="togglePayGradeConfigContainer" class="form-group mb-3" style="display: none;">
+                            <label class="form-label" for="payGradeConfigActiveToggle">Status</label>
+                            <div class="form-check form-switch d-flex align-items-center">
+                                <input type="checkbox" id="payGradeConfigActiveToggle" class="form-check-input" role="switch">
+                                <label class="form-check-label ml-2" for="payGradeConfigActiveToggle" id="activeStatusLabel">Inactive</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <!-- <div class="d-flex align-items-center justify-content-between"> -->
+                    <button type="button" class="btn btn-transparent-danger" id="btnResetPayGradeConfig">Reset</button>
+                    <div class="btn_group">
+                        <button type="button" class="btn btn_primary_outline_md" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn_primary loader-dot-pulse" id="btnSavePayGradeConfig">Yes</button>
+                    </div>
+
+                    <!-- </div> -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end add pay grade modal -->
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/application/js/payconfiguration/paygradeconfig.js"></script>
+    <script src="~/application/js/common/form-validation.js" asp-append-version="true"></script>
+    <!-- date picker plugins -->
+    <script src="~/assets/src/js/bootstrap-datepicker.min.js"></script>
+    <!-- date picker custom js file -->
+    <script src="~/assets/src/custom-js/datepicker-ctm.js"></script>
+
+}

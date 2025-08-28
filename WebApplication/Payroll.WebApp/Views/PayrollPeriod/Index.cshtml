@@ -1,0 +1,250 @@
+﻿<link rel="stylesheet" href="~/assets/src/css/bootstrap-datepicker.min.css" />
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+<div class="alert-custom" style="display:none;">
+  
+</div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" onclick="window.location.href='/PayrollMonth/Index'">
+                Payroll
+                Period
+            </button>
+        </div>
+    </nav>
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+             aria-labelledby="nav-user-list-tab">
+        <input type ="hidden" id="comFinYearSDate" />
+        <input type="hidden" id="comFinYearEDate" />
+
+            <div class="table-card">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Select Company <sup>*</sup></label>
+                                <div class="dropdown">
+                                    <a class="btn dropdown-link dropdown-toggle w-100" id="dropdownCompany"
+                                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Select Company
+                                    </a>
+                                    <ul class="dropdown-menu w-100" id="dropdownMenuCompany">
+                                        <!-- Company list will be appended here dynamically -->
+                                    </ul>
+                                    <input type="hidden" id="SelectedCompanyId" name="SelectedCompanyId" />
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mb-3">
+                                <label class="form-label" for="dropdownFinancialYear">Financial Year <sup>*</sup></label>
+                                <div class="dropdown">
+                                    <a class="btn dropdown-link dropdown-toggle w-100" id="dropdownFinancialYear"
+                                       role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-disabled="true">
+                                        Select Financial Year
+                                    </a>
+                                    <ul class="dropdown-menu w-100" id="dropdownMenuFinancialYear">
+                                        <!-- Financial Year list (usually one item) will be appended here dynamically -->
+                                    </ul>
+                                    <input type="hidden" id="SelectedFinancialYear" name="SelectedFinancialYear" />
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="financial-year-list-container">
+                                <!-- <div class="title-wrapper" style="display: flex; justify-content: space-between; background-color: #F5F5F5;"> -->
+                                <div class="financial-year-wrapper">
+                                    <ul class="financial-year-title">
+                                        <li class="md-text-500 text-center">Month</li>
+                                        <li class="md-text-500">From Date</li>
+                                        <li class="md-text-500">To Date</li>
+                                    <li class="md-text-500 text-center calculated-days-header">Calculated Days</li>
+                                    </ul>
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">1</li>
+                                        <li data-label="from date">
+                                          @*   <div class="date-picker-container"> *@
+                                                <input type="text" class="form-control "
+                                               placeholder="From Date" id="fdate1" name="fdate1" disabled>
+                                               @*  <button class="btn btn-datepicker">
+                                                    <span class="sprite-icons2 date-picker"></span>
+                                                </button> *@
+                                         @*    </div> *@
+                                        </li>
+                                        <li data-label="to date">
+                                            <div class="date-picker-container">
+                                                <input type="text" class="form-control"
+                                                   placeholder="To Date" id="tdate1" name="tdate1" readonly>
+                                              @*   <button class="btn btn-datepicker">
+                                                    <span class="sprite-icons2"></span>
+                                                </button> *@
+                                            </div>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount1"></li>
+                                    </ul>
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">2</li>
+                                        <li data-label="from date">
+                                            <input type="text" class="form-control"
+                                               placeholder="From Date" id="fdate2" name="fdate2" readonly>
+                                        </li>
+                                        <li data-label="to date">
+                                            <input type="text" class="form-control"
+                                               placeholder="To Date" id="tdate2" name="tdate2" readonly>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount2"></li>
+                                    </ul>
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">3</li>
+                                        <li data-label="from date">
+                                            <input type="text" class="form-control"
+                                               placeholder="From Date" id="fdate3" name="fdate3" readonly>
+                                        </li>
+                                        <li data-label="to date">
+                                            <input type="text" class="form-control"
+                                               placeholder="To Date" id="tdate3" name="tdate3" readonly>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount3"></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">4</li>
+                                        <li data-label="from date">
+                                            <input type="text" class="form-control"
+                                               placeholder="From Date" id="fdate4" name="fdate4" readonly>
+                                        </li>
+                                        <li data-label="to date">
+                                            <input type="text" class="form-control"
+                                               placeholder="To Date" id="tdate4" name="tdate4" readonly>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount4"></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">5</li>
+                                        <li data-label="from date">
+                                            <input type="text" class="form-control"
+                                               placeholder="From Date" id="fdate5" name="fdate5" readonly>
+                                        </li>
+                                        <li data-label="to date">
+                                            <input type="text" class="form-control"
+                                               placeholder="To Date" id="tdate5" name="tdate5" readonly>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount5"></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">6</li>
+                                        <li data-label="from date">
+                                            <input type="text" class="form-control"
+                                               placeholder="From Date" id="fdate6" name="fdate6" readonly>
+                                        </li>
+                                        <li data-label="to date">
+                                            <input type="text" class="form-control"
+                                               placeholder="To Date" id="tdate6" name="tdate6" readonly>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount6"></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">7</li>
+                                        <li data-label="from date">
+                                            <input type="text" class="form-control"
+                                               placeholder="From Date" id="fdate7" name="fdate7" readonly>
+                                        </li>
+                                        <li data-label="to date">
+                                            <input type="text" class="form-control"
+                                               placeholder="To Date" id="tdate7" name="tdate7" readonly>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount7"></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">8</li>
+                                        <li data-label="from date">
+                                            <input type="text" class="form-control"
+                                               placeholder="From Date" id="fdate8" name="fdate8" readonly>
+                                        </li>
+                                        <li data-label="to date">
+                                            <input type="text" class="form-control"
+                                               placeholder="To Date" id="tdate8" name="tdate8" readonly>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount8"></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">9</li>
+                                        <li data-label="from date">
+                                            <input type="text" class="form-control"
+                                               placeholder="From Date" id="fdate9" name="fdate9" readonly>
+                                        </li>
+                                        <li data-label="to date">
+                                            <input type="text" class="form-control"
+                                               placeholder="To Date" id="tdate9" name="tdate9" readonly>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount9"></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">10</li>
+                                        <li data-label="from date">
+                                            <input type="text" class="form-control"
+                                               placeholder="From Date" id="fdate10" name="fdate10" readonly>
+                                        </li>
+                                        <li data-label="to date">
+                                            <input type="text" class="form-control"
+                                               placeholder="To Date" id="tdate10" name="tdate10" readonly>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount10"></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">11</li>
+                                        <li data-label="from date">
+                                            <input type="text" class="form-control"
+                                               placeholder="From Date" id="fdate11" name="fdate11" readonly>
+                                        </li>
+                                        <li data-label="to date">
+                                            <input type="text" class="form-control"
+                                               placeholder="To Date" id="tdate11" name="tdate11" readonly>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount11"></li>
+                                    </ul>
+
+                                    <ul>
+                                        <li class="md-text text-center" data-label="month">12</li>
+                                        <li data-label="from date">
+                                            <input type="text" class="form-control"
+                                               placeholder="From Date" id="fdate12" name="fdate12" readonly>
+                                        </li>
+                                        <li data-label="to date">
+                                            <input type="text" class="form-control"
+                                               placeholder="To Date" id="tdate12" name="tdate12" readonly>
+                                        </li>
+                                    <li class="text-center calculated-days-value" data-label="Calculated days" id="daysCount12"></li>
+                                    </ul>
+                                </div>
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                        <div class="btn_group text-end py-2">
+                            <button class="btn btn-transparent-danger">reset</button>
+                        <button class="btn btn_primary loader-dot-pulse btn-add-hide" id="btnGeneratePayroll">Save</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@section Scripts {
+    <script src="~/assets/src/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/assets/src/custom-js/datepicker-ctm.js"></script>    
+    <script src="~/application/js/payrollmonth/generatePayMonth.js"></script>
+}

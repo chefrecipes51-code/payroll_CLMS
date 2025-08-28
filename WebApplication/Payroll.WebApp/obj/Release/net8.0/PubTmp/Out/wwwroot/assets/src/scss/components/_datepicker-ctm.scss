@@ -1,0 +1,69 @@
+.date-picker-container {
+    position: relative;
+
+    .form-control-sm {
+        & ~ .btn-datepicker {
+            top: 0;
+        }
+    }
+
+    .btn-datepicker {
+        position: absolute;
+        top: 7px;
+        right: 0;
+    }
+}
+
+.datepicker {
+    &.datepicker-dropdown {
+        // min-width: 280px;
+
+        .datepicker-days {
+            padding: 8px 12px;
+
+            table {
+                tr {
+                    td {
+                        &.active {
+                            background-image: unset;
+
+                            &.active {
+                                background-color: var(--primary);
+                            }
+                        }
+                    }
+                }
+            }
+
+            .table-condensed {
+                th {
+                    font-size: 14px;
+                    line-height: 24px;
+                    letter-spacing: 0.25px;
+                    text-align: center;
+                    color: var(--black-terminal);
+
+                    &.prev,
+                    &.next {
+                        opacity: 0.6;
+                    }
+                }
+
+                //  tr td.active.active
+
+                td {
+                    margin: 0 12px;
+                    padding: 4px;
+
+                    &.day {
+                        &.active {
+                            background-color: var(--primary);
+                            border-radius: 4px;
+                            color: var(--white);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,54 @@
+﻿/*======================
+        404 Page Styles
+    =======================*/
+.page_404 {
+    padding: 0;
+    background: #fff;
+    font-family: sans-serif;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.four_zero_four_bg {
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .four_zero_four_bg h1 {
+        font-size: 80px;
+        color: black;
+    }
+
+.contant_box_404 h3 {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.contant_box_404 p {
+    margin: 10px 0 20px;
+    font-size: 16px;
+}
+
+.link_404 {
+    color: #fff !important;
+    padding: 10px 20px;
+    background: #39ac31;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+    .link_404:hover {
+        background: #2e8a25;
+    }

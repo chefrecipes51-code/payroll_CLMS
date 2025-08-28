@@ -1,0 +1,15 @@
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\Payroll.Common.exe
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\Payroll.Common.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\Payroll.Common.deps.json
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\Payroll.Common.runtimeconfig.json
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\Payroll.Common.pdb
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\Dapper.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\Newtonsoft.Json.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\RabbitMQ.Client.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\System.Data.SqlClient.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\System.Security.Permissions.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\runtimes\win-arm64\native\sni.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\runtimes\win-x64\native\sni.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\runtimes\win-x86\native\sni.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\CommonLibrary\Payroll.Common\obj\Release\net8.0\PubTmp\Out\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

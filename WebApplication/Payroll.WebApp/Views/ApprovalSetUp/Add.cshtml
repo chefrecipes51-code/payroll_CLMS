@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approval Setup</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div id="approvalContainer">
+        <!-- This row will be cloned dynamically -->
+        <div class="approval-row row mb-2">
+            <div class="col-md-3">
+                <label>User List</label>
+                <select class="form-control user-select">
+                    <option value="">Select User</option>
+                    <option value="101">User 1</option>
+                    <option value="102">User 2</option>
+                    <option value="103">User 3</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>Level</label>
+                <select class="form-control level-select">
+                    <option value="1">Level 1</option>
+                    <option value="2">Level 2</option>
+                    <option value="3">Level 3</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>Sequence Order</label>
+                <input type="number" class="form-control sequence-order" min="1">
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <label class="me-2">Is Alternate</label>
+                <input type="checkbox" class="is-alternate">
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button type="button" class="btn btn-success add-more me-2">Add More</button>
+                <button type="button" class="btn btn-danger remove">Remove</button>
+            </div>
+        </div>
+    </div>
+
+    <button type="button" id="submitApprovalSetup" class="btn btn-primary">Submit Approval Setup</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            // Initialize Select2 for searchable dropdown
+            $(".user-select").select2({ placeholder: "Select User", allowClear: true });
+
+            // Add More Button Functionality
+            $(document).on("click", ".add-more", function () {
+                let newRow = $(".approval-row:first").clone(); // Clone the first row
+
+                // Clear values in cloned row
+                newRow.find("select, input").val("");
+                newRow.find(".is-alternate").prop("checked", false);
+
+                // Append the cloned row to the container
+                $("#approvalContainer").append(newRow);
+
+                // Reinitialize Select2 for new dropdown
+                newRow.find(".user-select").select2({ placeholder: "Select User", allowClear: true });
+            });
+
+            // Remove Button Functionality
+            $(document).on("click", ".remove", function () {
+                if ($(".approval-row").length > 1) {
+                    $(this).closest(".approval-row").remove();
+                } else {
+                    alert("At least one row must remain.");
+                }
+            });
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            debugger;
+            $("#submitApprovalSetup").click(function () {
+                let approvalSetUpDetails = [];
+
+                $(".approval-row").each(function () {
+                    let userId = $(this).find(".user-select").val();
+                    let levelNumber = $(this).find(".level-select").val();
+                    let sequenceOrder = $(this).find(".sequence-order").val();
+                    let isAlternate = $(this).find(".is-alternate").is(":checked");
+
+                    if (userId && levelNumber && sequenceOrder) {
+                        approvalSetUpDetails.push({
+                            ServiceID: 1, // Assuming static ServiceID; replace dynamically if needed
+                            LevelNumber: parseInt(levelNumber),
+                            UserID: parseInt(userId),
+                            SequenceOrder: parseInt(sequenceOrder),
+                            IsAlternate: isAlternate
+                        });
+                    }
+                });
+
+                if (approvalSetUpDetails.length === 0) {
+                    alert("Please add at least one user.");
+                    return;
+                }
+
+                let requestData = {
+                    ModuleId: 5, // Replace with actual ModuleId
+                    CreatedBy: 1, // Replace with logged-in user ID
+                    UpdatedBy: 1,
+                    MessageType: 2,
+                    MessageMode: 1,
+                    approvalSetUpDetails: approvalSetUpDetails
+                };
+
+                $.ajax({
+                    url: "/ApprovalSetUp/add",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(requestData),
+                    success: function (response) {
+                        alert("Approval setup added successfully!");
+                        console.log(response);
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error: " + xhr.responseText);
+                    }
+                });
+            });
+        });
+
+    </script>
+
+</body>
+</html>

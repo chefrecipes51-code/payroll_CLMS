@@ -1,0 +1,105 @@
+.quick-filter-container,
+.quick-view-container {
+    padding: 8px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .chip {
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .btn-danger-light {
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px 16px;
+        line-height: 20px;
+        letter-spacing: 0.15px;
+
+        &:active,
+        &.active{
+            background-color: var(--danger);
+            color: var(--white);
+        }
+    }
+
+    .icon-title {
+
+        // .btn-danger-light{
+        .btn-danger-blush {
+
+            &:hover,
+            &:checked,
+            &:focus,
+            &:active,
+            &:active:focus {
+                background-color: var(--danger);
+                color: var(--white);
+
+                .close-round-danger-bg {
+                    background-position: -1046px -62px;
+                }
+            }
+        }
+
+        .btn-success-light {
+
+            &:hover,
+            &:checked,
+            &:focus,
+            &:active,
+            &:active:focus {
+                background-color: var(--success-spring);
+                color: var(--white);
+
+                // &:hover {
+                .check-round-success-bg {
+                    background-position: -1132px -62px;
+                }
+
+                // }
+            }
+        }
+
+        // }
+    }
+
+    .btn-group-left {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+
+        .btn_primary {
+            background-color: var(--lavender-mist);
+            border-color: var(--lavender-mist) !important;
+            color: var(--primary);
+            padding: 8px;
+
+            &:is(:focus, :active) {
+                background-color: var(--primary);
+                border-color: var(--primary);
+                color: var(--white);
+            }
+        }
+
+        &.updated-big {
+            .btn {
+                min-width: fit-content;
+            }
+        }
+
+        .btn {
+            min-width: 180px;
+            text-align: center;
+            justify-content: center;
+        }
+    }
+
+    .btn_primary {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+}

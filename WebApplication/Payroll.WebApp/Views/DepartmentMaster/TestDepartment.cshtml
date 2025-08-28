@@ -1,0 +1,526 @@
+﻿@{
+    Layout = null;
+}
+@model IEnumerable<Payroll.WebApp.Models.DTOs.DepartmentMasterDTO>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <link rel="stylesheet" href="~/assets/plugins/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+    <link href="~/assets/src/css/datatables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/src/css/fonts.css">
+    <link rel="stylesheet" href="~/assets/src/scss/style.css">
+</head>
+
+<body>
+    <section class="page_wrapper_main">
+        <div class="sidebar_wrapper">
+            <ul class="navbar-nav nav in">
+                <!-- <a class="navbar-brand sidebar-profile" href="#"> <img src="~/assets/img/icons/sidebar-profile.svg"
+                        width="40" height="40" alt="sidebar-logo" /> </a> -->
+                <!-- <li class="nav-item"> -->
+                <a class="navbar-brand sidebar-profile" title="This is a tooltip!">
+                    <img src="~/assets/img/sidebar-log-icon.svg" width="32" height="32" alt="sidebar-logo" />
+                </a>
+                <!-- </li> -->
+                <li class="nav-item quick-add">
+                    <a class="nav-link" data-toggle="tooltip" title="This is a tooltip!">
+                        <span class="menu-sprite quick-add"></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="sub-menu-title">Customize Theme</li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Vigna</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item active">
+                    <a href="#" class="nav-link" tooltip="dashboard"><span class="menu-sprite user-menu"></span></a>
+                    <ul class="sub-menu">
+                        <li class="sub-menu-title">Customize Theme</li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Menu List</a></li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Vigna</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link"><span class="menu-sprite open-mail"></span></a>
+
+                    <ul class="sub-menu">
+                        <li class="sub-menu-title">Dashboard</li>
+                        <li class="sub-menu-list"><a class="sub-menu-item">Vigna</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-toggle="tooltip" title="This is a tooltip!">
+                        <span class="menu-sprite writing-pad"></span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="nav-bottom">
+                <ul>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link"><span class="menu-sprite menu-notification"></span></a>
+                        <!-- <ul class="sub-menu">
+                            <li class="sub-menu-title">Dashboard</li>
+                        </ul> -->
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link"><span class="menu-sprite writing-pad"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="header-wrapper">
+            <nav class="navbar navbar-expand-md navbar-dark">
+                <a class="header-brand-logo" href="#">
+                    <img src="~/assets/img/brand-logo.svg" height="28" width="104"
+                         alt="brand-logo">
+                </a>
+                <div class="search-box">
+                    <button class="btn btn-search-absolute"><span class="sprite-icons search-secondary"></span></button>
+                    <input type="text" class="form-control" placeholder="search...">
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn_primary_light_icon">
+                        <span class="sprite-icons notification-dark"></span>
+                    </button>
+                    <a class="navbar-brand sidebar-profile" type="button" data-bs-toggle="offcanvas"
+                       data-bs-target="#headerProfile" aria-controls="headerProfile">
+                        <img src="~/assets/img/icons/sidebar-profile.svg" width="32" height="32" alt="sidebar-logo">
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <div class="main-page">
+            <div class="payroll-tabs-content-container">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" onclick="window.location.href='user-list.html'">User List</button>
+                        <button class="nav-link" onclick="window.location.href='roles-permission.html'">
+                            Role &
+                            Permission
+                        </button>
+                        <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+                            type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
+                    </div>
+                </nav>
+
+                <div class="quick-filter-container">
+                    <div class="btn-group-left">
+                        <button class="btn btn_primary">Total Users: <span>03</span> </button>
+                        <button class="btn btn-success-light">Active Users: <span>04</span> </button>
+                        <button class="btn btn-danger-light">Suspended Users: <span>00</span> </button>
+                    </div>
+                    <button class="btn btn_primary"><span class="sprite-icons add-light"></span> Add User</button>
+                </div>
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+                         aria-labelledby="nav-user-list-tab">
+
+                        <div class="table-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive table-user-list">
+                                        <table id="user-list" class="table custom-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th class="sticky_cell">Department Code</th>
+                                                    <th>External Unique ID</th>
+                                                    <th>Department Name</th>
+                                                    <th>External Data</th>
+                                                    <th>Is Imported</th>
+                                                    <th>Export Log ID</th>
+                                                    <th class="sticky_cell">Actions</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model != null && Model.Any())
+                                                {
+                                                    int rowIndex = 1;
+                                                    foreach (var department in Model)
+                                                    {
+                                                        <tr>
+                                                            <td>@rowIndex</td>
+                                                            <td class="sticky_cell">@department.DepartmentCode</td>
+                                                            <td>@department.ExternalUnique_Id</td>
+                                                            <td>@department.DepartmentName</td>
+                                                            <td>
+                                                                @if (department.ExternalData)
+                                                                {
+                                                                    <span class="badge bg-success">Yes</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="badge bg-secondary">No</span>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                @if (department.Isimporterd)
+                                                                {
+                                                                    <span class="badge bg-success">Yes</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span class="badge bg-secondary">No</span>
+                                                                }
+                                                            </td>
+                                                            <td>@department.ExportLogId</td>
+                                                            <td class="sticky_cell">
+                                                                <div class="table-button-group">
+                                                                    <button class="btn btn-primary-light-icon-md"
+                                                                            onclick="window.location.href='user-profile.html'">
+                                                                        <span class="sprite-icons eye-primary-dark"></span>
+                                                                    </button>
+                                                                    <button class="btn btn-danger-light-icon"
+                                                                            data-bs-toggle="modal" data-bs-target="#deleteUser">
+                                                                        <span class="sprite-icons delete-danger"></span>
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-danger-light-icon"
+                                                                            data-bs-toggle="modal" data-bs-target="#suspendUser">
+                                                                        <span class="sprite-icons user-suspend"></span>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                            @* <td>
+                                                    <div class="btn-group" role="group">
+                                                    <button class="btn btn-primary btn-sm" onclick="editDepartment(@department.Department_Id)">
+                                                    <i class="bi bi-pencil"></i> Edit
+                                                    </button>
+                                                    <button class="btn btn-danger btn-sm" onclick="deleteDepartment(@department.Department_Id)">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                    </button>
+                                                    </div>
+                                                    </td> *@
+                                                        </tr>
+                                                        rowIndex++;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td colspan="8" class="text-center">No departments found.</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Vigna's Second Tab Content
+                    </div> -->
+                    <!-- <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Vigna's Third Tab Content
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas1" aria-labelledby="offcanvas1Label">
+        <div class="offcanvas-header">
+            <h5 id="offcanvas1Label">Offcanvas 1</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            Content for the first offcanvas goes here.
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas2" aria-labelledby="offcanvas2Label">
+        <div class="offcanvas-header">
+            <h5 id="offcanvas2Label">Offcanvas 2</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            Content for the second offcanvas goes here.
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas3" aria-labelledby="offcanvas3Label">
+        <div class="offcanvas-header">
+            <h5 id="offcanvas3Label">Offcanvas 3</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            Content for the third offcanvas goes here.
+        </div>
+    </div>
+    <!-- </div> -->
+
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="headerProfile" aria-labelledby="headerProfileLabel">
+        <div class="offcanvas-header offcanvas-header-close-only">
+            <!-- <h5 id="headerProfileLabel">Offcanvas right</h5> -->
+            <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+                <span class="sprite-icons close-icon"></span>
+            </button>
+        </div>
+        <div class="offcanvas-body pt-0">
+            <div class="profile-summary">
+                <img class="profile-photo" src="~/assets/img/profile.svg" height="120" width="120" alt="profile photo">
+                <p class="profile-name">vigna bagdai</p>
+                <p class="profile-email">vigna.bagdai@mantratec.com</p>
+            </div>
+
+            <div class="select-role-list">
+                <label for="exampleInputEmail1" class="form-label">Select Role:</label>
+                <div class="dropdown">
+                    <a class="btn dropdown-link dropdown-toggle" id="dropdownTextbox" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Admin
+                    </a>
+                    <ul class="dropdown-menu" id="dropdownMenu">
+                        <li><a class="dropdown-item" data-value="1">Action</a></li>
+                        <li><a class="dropdown-item" data-value="2">Another action</a></li>
+                        <li><a class="dropdown-item" data-value="3">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="own-profile-security">
+                <button class="btn btn-primary-light"><span class="sprite-icons user-icon"></span>profile</button>
+                <button class="btn btn-primary-light">
+                    <span class="sprite-icons password-lock"></span>change
+                    password
+                </button>
+            </div>
+
+            <hr />
+
+            <div class="theme-selection">
+                <div class="light-dark-mode">
+                    <div class="icon-title">
+                        <span class="sprite-icons non-handle-bag"></span>
+                        <p class="form-check-label">Select Theme</p>
+                    </div>
+                    <div class="theme-box">
+                        <div class="light-theme-box">
+                            <img src="~/assets/img/dark-theme.svg" height="44" width="74" alt="dark theme">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                       id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1" id="toggleLight">
+                                    Light Theme
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="dark-theme-box">
+                            <img src="~/assets/img/light-theme.svg" height="44" width="74" alt="light theme">
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                       id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Dark Theme
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="offcanvas-footer">
+            <div class="logout-container">
+                <button class="btn btn-danger-light" onclick="window.location.href='login.html'">
+                    <span class="sprite-icons logout-icon"></span>Logout
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- modals start -->
+
+    <div class="modal fade modal-custom modal-primary-confirmation" id="suspendUser" data-bs-backdrop="static"
+         data-bs-keyboard="false" tabindex="-1" aria-labelledby="suspendUserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="md-text-500">Want to suspend this user?</p>
+                    <p class="sm-text-gray-neutral mb-3">
+                        This action will suspend the user's account. They will not be
+                        able
+                        to log in or access any system resources.
+                    </p>
+                    <label for="suspendUser" class="form-label">Remarks <sup>*</sup></label>
+                    <textarea class="textarea" id="suspendUser" rows="3" maxlength="120"
+                              placeholder="Enter Text here"></textarea>
+                    <div class="counter sm-text-gray-neutral text-end">0 / 120</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                    <!-- <button type="button" class="btn btn_primary">Understood</button> -->
+                    <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-custom modal-primary-confirmation" id="deleteUser" data-bs-backdrop="static"
+         data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteUserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="md-text-500">Want to delete this user?</p>
+                    <p class="sm-text-gray-neutral mb-3">
+                        This action will suspend the user's account. They will not be
+                        able
+                        to log in or access any system resources.
+                    </p>
+                    <label for="deleteRemarks" class="form-label">Remarks <sup>*</sup></label>
+                    <textarea class="textarea" id="deleteRemarks" rows="3" maxlength="120"
+                              placeholder="Enter Text here"></textarea>
+                    <div class="counter sm-text-gray-neutral text-end">0 / 120</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                    <!-- <button type="button" class="btn btn_primary">Understood</button> -->
+                    <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-custom modal-primary-confirmation" id="nonsuspendUser" data-bs-backdrop="static"
+         data-bs-keyboard="false" tabindex="-1" aria-labelledby="nonsuspendUserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p class="md-text-500">Want to suspend this user?</p>
+                    <p class="sm-text-gray-neutral">
+                        This action will suspend the user's account. They will not be able
+                        to log in or access any system resources.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn_primary loader-dot-pulse">Yes</button>
+                    <!-- <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/assets/src/js/jquery.min.js"></script>
+    <script src="~/assets/src/js/popper.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
+    <script src="~/assets/src/js/datatables.js"></script>
+    <script src="~/assets/src/custom-js/datatable.js"></script>
+    <script src="~/assets/src/custom-js/placeholder.js"></script>
+
+    <!-- <script src="~/assets/src/custom-js/script.js"></script> -->
+    <!-- textarea character counter -->
+    <script>
+        // Select all textareas
+        const textareas = document.querySelectorAll('.textarea');
+
+        // Loop through each textarea
+        textareas.forEach((textarea) => {
+            const counter = textarea.nextElementSibling; // Select the associated counter element
+
+            textarea.addEventListener('input', () => {
+                const charCount = textarea.value.length;
+                const maxLength = textarea.getAttribute('maxlength');
+                counter.textContent = `${charCount} / ${maxLength}`;
+            });
+        });
+    </script>
+
+    <script>
+        // button loader on click
+        $('.loader-dot-pulse').on('click', function () {
+            var self = this;
+            $(this).addClass('btn__dots--loading');
+            $(this).append('<span class="btn__dots"><i></i><i></i><i></i></span>');
+            setTimeout(function () {
+                $(self).removeClass('btn__dots--loading');
+                $(self).find('.btn__dots').remove();
+            }, 2000);
+
+        });
+    </script>
+
+    <!-- dropdown active -->
+    <script>
+        const dropdownMenu = document.getElementById('dropdownMenu');
+
+        // Handle dropdown item click
+        dropdownMenu.addEventListener('click', (event) => {
+            if (event.target.classList.contains('dropdown-item')) {
+                // Remove 'active' class from all items
+                dropdownMenu.querySelectorAll('.dropdown-item').forEach((item) => {
+                    item.classList.remove('active');
+                });
+                // Add 'active' class to the clicked item
+                event.target.classList.add('active');
+            }
+        });
+    </script>
+
+    <script>
+        // <!-- $(document).ready(function () { -->
+        //     <!-- $('#dataTable').DataTable(); -->
+        // <!-- }); -->
+    </script>
+
+    @*  Added By Harshida Parmar (18-12-'24) *@
+    @*  Download PDF and Excel From Grid:- Start *@
+    <script src="~/devassets/xlsx.full.min.js"></script>
+    <script src="~/devassets/jspdf.umd.min.js"></script>
+    <script src="~/devassets/jspdf.plugin.autotable.min.js"></script>
+    <script src="~/devassets/export.js"></script>
+    @*  Download PDF and Excel From Grid:- End *@
+
+
+    <script>
+        sessionStorage.setItem("fileName", "userdata-list");
+
+        document.getElementById('exportExcel').addEventListener('click', function () {
+            exportTableToExcel('user-list', 'fileName');
+        });
+
+        document.getElementById('exportPDF').addEventListener('click', function () {
+            exportTableToPDF('user-list', 'fileName');
+        });
+    </script>
+</body>
+
+</html>

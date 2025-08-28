@@ -1,0 +1,108 @@
+[
+  {
+    "ContainingType": "DataMigrationService.API.Controllers.ServiceImportMasterApiController",
+    "Method": "GetReturnedData",
+    "RelativePath": "api/GetReturnedData",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "serviceId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DataMigrationService.API.Controllers.ServiceImportMasterApiController",
+    "Method": "GetServiceImportMasterById",
+    "RelativePath": "api/getserviceimportmasterbyid",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ServiceType",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Service_Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DataMigrationService.API.Controllers.ServiceImportMasterApiController",
+    "Method": "GetServiceMasterById",
+    "RelativePath": "api/getservicemasterbyModuleId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ModuleId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DataMigrationService.API.Controllers.ServiceImportMasterApiController",
+    "Method": "GetData",
+    "RelativePath": "api/GetSesrviceWiseList",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "serviceName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DataMigrationService.API.Controllers.ServiceImportMasterApiController",
+    "Method": "postapprovaldatastagingtoFinal",
+    "RelativePath": "api/postapprovaldatastagingtoFinal",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "DataMigrationService.BAL.Models.ServiceMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "DataMigrationService.API.Controllers.ServiceImportMasterApiController",
+    "Method": "putapprovaldatareturnstatus",
+    "RelativePath": "api/putapprovaldatareturnstatus",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "DataMigrationService.BAL.Models.ServiceMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

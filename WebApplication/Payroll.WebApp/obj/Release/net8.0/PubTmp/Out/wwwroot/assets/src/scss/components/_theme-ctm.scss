@@ -1,0 +1,166 @@
+
+// :root {
+//     // --bg-color: #ffffff;
+//     --text-color: #333333;
+//     --primary: #6020A7;
+//     --secondary-color: #8bc34a;
+//     --button-bg-color: #4CAF50;
+//     --button-hover-color: #45a049;
+//     --border-color: #ccc;
+// }
+
+// .content {
+//     padding: 20px;
+//     text-align: center;
+// }
+
+// .customization-preferences{
+//     margin-bottom: 16px;
+//     .sm-text{
+//         color: var(--black-terminal);
+//         margin-bottom: 8px;
+//     }
+
+//     .palette-checkboxes {
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         gap: 12px;
+    
+//         label {
+//             // margin-bottom: 10px;
+//             display: flex;
+//             align-items: center;
+//         }
+//     }
+// }
+
+
+// .color-checkbox {
+//     display: none;
+//     /* Hide default checkbox */
+// }
+
+// .checkbox-color {
+//     width: 20px;
+//     height: 20px;
+//     margin-right: 8px;
+//     border-radius: 3px;
+//     border: 2px solid #ccc;
+//     transition: background-color 0.3s ease;
+//     background-color: #ddd;
+//     /* Default background for all checkboxes */
+// }
+
+// /* Specific colors for each checkbox */
+// .color-checkbox[data-color="#0984e3"]:checked+.checkbox-color {
+//     background-color: #6020A7;
+// }
+
+// .color-checkbox[data-color="#f1c40f"]:checked+.checkbox-color {
+//     background-color: #1077DA;
+// }
+
+// .color-checkbox[data-color="#6c5ce7"]:checked+.checkbox-color {
+//     background-color: #A4262C;
+// }
+
+// .color-checkbox[data-color="#27ae60"]:checked+.checkbox-color {
+//     background-color: #CB8722;
+// }
+
+// .color-checkbox[data-color="#e74c3c"]:checked+.checkbox-color {
+//     background-color: #1D7D1B;
+// }
+
+// .color-checkbox[data-color="#f39c12"]:checked+.checkbox-color {
+//     background-color: #FF8500;
+// }
+
+// .color-checkbox[data-color="#9b59b6"]:checked+.checkbox-color {
+//     background-color: #EC0303;
+// }
+
+// /* Additional styles for checkbox background when unchecked */
+// .color-checkbox[data-color="#0984e3"]:not(:checked)+.checkbox-color {
+//     background-color: #6020A7;
+// }
+
+// .color-checkbox[data-color="#f1c40f"]:not(:checked)+.checkbox-color {
+//     background-color: #1077DA;
+// }
+
+// .color-checkbox[data-color="#6c5ce7"]:not(:checked)+.checkbox-color {
+//     background-color: #A4262C;
+// }
+
+// .color-checkbox[data-color="#27ae60"]:not(:checked)+.checkbox-color {
+//     background-color: #CB8722;
+// }
+
+// .color-checkbox[data-color="#e74c3c"]:not(:checked)+.checkbox-color {
+//     background-color: #1D7D1B;
+// }
+
+// .color-checkbox[data-color="#f39c12"]:not(:checked)+.checkbox-color {
+//     background-color: #FF8500;
+// }
+
+// .color-checkbox[data-color="#9b59b6"]:not(:checked)+.checkbox-color {
+//     background-color: #EC0303;
+// }
+
+// /* Theme Styles for different colors */
+// body {
+//     &.theme-1 {
+//         // --bg-color: #0984e3;
+//         --primary: #6020A7;
+//         --secondary-color: #3498db;
+//         --button-bg-color: #3498db;
+//         --button-hover-color: #2980b9;
+//     }
+
+//     &.theme-2 {
+//         // --bg-color: #f1c40f;
+//         --primary: #1077DA;
+//         --secondary-color: #f39c12;
+//         --button-bg-color: #f39c12;
+//         --button-hover-color: #e67e22;
+//     }
+//     &.theme-3 {
+//         // --bg-color: #6c5ce7;
+//         --primary: #A4262C;
+//         --secondary-color: #8e44ad;
+//         --button-bg-color: #8e44ad;
+//         --button-hover-color: #9b59b6;
+//     }
+//     &.theme-4 {
+//         // --bg-color: #27ae60;
+//         --primary: #CB8722;
+//         --secondary-color: #16a085;
+//         --button-bg-color: #16a085;
+//         --button-hover-color: #1abc9c;
+//     }
+//     &.theme-5 {
+//         // --bg-color: #e74c3c;
+//         --primary: #1D7D1B;
+//         --secondary-color: #c0392b;
+//         --button-bg-color: #c0392b;
+//         --button-hover-color: #e74c3c;
+//     }
+//     &.theme-6 {
+//         // --bg-color: #f39c12;
+//         --primary: #FF8500;
+//         --secondary-color: #e67e22;
+//         --button-bg-color: #e67e22;
+//         --button-hover-color: #d35400;
+//     }
+    
+//     &.theme-7 {
+//         // --bg-color: #9b59b6;
+//         --primary: #EC0303;
+//         --secondary-color: #8e44ad;
+//         --button-bg-color: #8e44ad;
+//         --button-hover-color: #9b59b6;
+//     }
+// }

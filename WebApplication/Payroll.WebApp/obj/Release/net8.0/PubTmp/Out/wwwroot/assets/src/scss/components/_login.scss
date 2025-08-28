@@ -1,0 +1,193 @@
+
+.page_wrapper_main {
+    // background-color: var(--white-ghost);
+    background-color: var(--white);
+
+    .login_wrapper {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        // @media (max-height:600px) {
+        //     height: unset;
+        // }
+
+        .btn_primary_md{
+            margin-top: 8px;
+        }
+
+        @media (max-width: 768px) {
+            height: unset;
+        }
+
+        .login_slider_wrapper {
+            background-color: var(--primary);
+            border-radius: 24px;
+            min-height: calc(100vh - 300px);
+            max-height: 500px;
+            // max-width: 610px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 24px;
+
+            @media (max-height:600px) {
+                min-height: calc(100vh - 100px);
+            }
+
+            @media (max-width: 768px) {
+                min-height: calc(100vh - 120px);
+                margin-bottom: 24px;
+            }
+        }
+
+        .login_form_wrapper {
+
+            .password-info-tooltip-container {
+                display: flex;
+                align-items: center;
+                gap: 8px;                
+
+                .btn-password-info {
+                    &:hover {
+                        .info-i-icon {
+                            background-position: -605px -6px;
+                        }
+                    }
+                    &:active {
+                        .info-i-icon {
+                            background-position: -566px -6px;
+                        }
+                    }
+                }
+            }
+
+            .success-image {
+                margin-bottom: 24px;
+            }
+
+            .form-section {
+                margin-top: 24px;
+
+                @media (max-width: 992px) {
+                    margin-top: 16px;
+                }                
+            }
+
+            .auth-options {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 24px;
+
+                @media (max-width: 992px) {
+                    margin-bottom: 16px;
+                }
+            }
+
+            .captcha-state {
+                margin-bottom: 24px;
+
+                .captcha-container {
+                    display: flex;
+                    align-items: center;
+
+                    @media (max-width: 992px) {
+                        flex-direction: column;
+                        margin-bottom: 16px;
+                    }
+
+                    .btn-captha-refresh {
+                        &:focus {
+                            outline: 0;
+                        }
+                    }
+
+                    .captcha-controls {
+                        display: flex;
+                        align-items: center;
+
+                        @media (max-width: 992px) {
+                            margin-bottom: 12px;
+                        }
+                    }
+                }
+            }
+
+            .tac-container {
+                // display: flex;
+                // justify-content: space-between;
+                // align-items: center;
+                margin-top: 32px;
+                margin-bottom: 16px;
+
+                @media (max-width: 992px) {
+                    margin-top: 16px;
+                }
+
+                // @media (max-width: 1199px) {
+                //     align-items: baseline;
+                // }
+                text-align: center;
+
+                @media (max-width: 576px) {
+                    flex-direction: column;
+                    text-align: center;
+                    margin-top: 24px;
+                    gap: 4px;
+                }
+            }
+
+            .login-logo {
+                margin-bottom: 32px;
+
+                @media (max-width: 992px) {
+                    margin-bottom: 16px;
+                }
+            }
+
+            // .radio-ctm {
+            //     display: flex;
+            //     gap: 5rem;
+            //     align-items: center;
+            //     margin-bottom: 24px;
+            // }
+
+            .form-group {
+                margin-bottom: 24px;
+
+                @media (max-width: 992px) {
+                    margin-bottom: 12px;
+                }
+            }
+
+            // .input-group {
+            //     .form-check-input {
+            //         border: 2px solid var(--gray-neutral);
+            //         margin-right: 4px;
+            //         align-items: center;
+            //         border-radius: 2px;
+            //     }
+            // }
+        }
+
+    }
+}
+
+.password-area {
+    position: relative;
+
+    .btn-password-show-hide {
+        position: absolute;
+        right: 2px;
+        top: 7px;
+        background-color: var(--white);
+        padding: 8px;
+        border: 0;
+
+        &:active {
+            border: 0;
+        }
+    }
+}

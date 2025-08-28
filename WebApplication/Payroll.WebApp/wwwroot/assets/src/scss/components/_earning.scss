@@ -1,0 +1,10 @@
+.close-formula{
+    position: relative;
+
+    .btn_close_alert {
+        position: absolute;
+        right: 2px;
+        top: 9px;
+        background-color: var(--white);
+    }
+}

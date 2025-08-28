@@ -1,0 +1,243 @@
+﻿@model IEnumerable<PayrollTransactionService.BAL.ReportModel.ProfessionalTaxSlabViewModel>
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<!-- date picker plugin -->
+<link rel="stylesheet" href="~/assets/src/css/bootstrap-datepicker.min.css" />
+<style>
+    #btn1, #btn2, #btn3, #btn4 {
+        display: none !important;
+    }
+</style>
+<nav>
+    <div class="alert-custom" style="display:none;">
+    </div>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-pTaxSlab-list-tab" data-bs-toggle="tab"
+                data-bs-target="#nav-pTaxSlab-list" type="button" role="tab" aria-controls="nav-pTaxSlab-list"
+                aria-selected="true">
+            Professional Tax Slab
+        </button>
+    </div>
+</nav>
+@* Enable below region if in FUTURE we are planing the display ACTIVE/DI-ACTIVE/TOTAL COUNT in button :- Start *@
+<div class="quick-filter-container">
+    <div class="btn-group-left">
+        <button class="btn btn_primary" id="showMyCount">Total Slab:: <span>@ViewBag.PayTaxSlabCount</span> </button>
+       @*  <button class="btn btn-success-light">Active Formula:: <span>04</span> </button>
+        <button class="btn btn-danger-light">Inactive Formula:: <span>00</span> </button> *@
+    </div>   
+    <button class="btn btn_primary btn-add-hide" data-bs-toggle="modal" data-bs-target="#addProfessionalTaxSlab">
+        <span class="sprite-icons add-light"></span>
+    </button>
+
+</div>
+@* Enable below region if in FUTURE we are planing the display ACTIVE/DI-ACTIVE/TOTAL COUNT in button :- END *@
+
+<!-- PTax Slab List Table (Paginated) -->
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-formula-list" role="tabpanel"
+         aria-labelledby="nav-formula-list-tab">
+        <div class="table-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive table-formula-list">
+                        <table id="ptaxslab-list" class="table custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Frequency</th>
+                                    <th>Min Income</th>
+                                    <th>Max Income</th>                                   
+                                    <th>PTax Amt</th>
+                                    <th>Year-End Adjustment</th>
+                                    <th>Effective From</th>
+                                    <th>Effective To</th>      
+                                    <th class="sticky_cell">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ptaxTableBody">
+                                @await Html.PartialAsync("_PTaxSlabTableRows", Model)
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- start add PTax Slab modal -->
+<div class="modal fade modal-bg-puple-light" id="addProfessionalTaxSlab" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="addProfessionalTaxSlabLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <p class="title-primary" id="professionalTaxSlabTitle"></p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <form id="professionalTaxSlabForm">
+                <input type="hidden" id="ptaxSlabId" name="ptaxSlabId" >
+
+                <div class="modal-body">
+                    <div class="row">                        
+                        <!-- State -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="state" class="form-label">State<sup>*</sup></label>
+                                <select id="state" name="state" class="form-control select2_search_ctm" required>                                    
+                                </select>
+                                <span id="state-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <!-- Salary Range From -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="salaryFrom" class="form-label">Salary Range From<sup>*</sup></label>
+                                <input type="number" id="salaryFrom" name="salaryFrom" class="form-control" placeholder="Enter salary" required style="text-align: right;" />
+                                <span id="salaryFrom-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <!-- Salary Range To -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="salaryTo" class="form-label">Salary Range To<sup>*</sup></label>
+                                <input type="number" id="salaryTo" name="salaryTo" class="form-control" placeholder="Enter salary" required style="text-align: right;" />
+                                <span id="salaryTo-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <!-- Frequency -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="frequency" class="form-label">Frequency<sup>*</sup></label>
+                                <select id="frequency" name="frequency" class="form-control select2_search_ctm" required>
+                                </select>
+                                <span id="frequency-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <!-- SpecialDeductionMonth -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="specialDeductionMonth" class="form-label">Special Deduction Month</label>
+                                <input type="number" class="form-control" id="specialDeductionMonth" name="specialDeductionMonth" placeholder="Enter Special Deduction Month">
+                                <span id="number-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <!-- PT Amount -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="ptAmount" class="form-label">PT Amount</label>
+                                <input type="number" id="ptAmount" name="ptAmount" class="form-control" placeholder="Enter Tax Payable %" style="text-align: right;" required />
+                                <span id="ptAmount-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <!-- specialPTaxAmt -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="specialPTaxAmt" class="form-label">Special PTAX Amount</label>
+                                <input type="number" class="form-control" id="specialPTaxAmt" name="specialPTaxAmt"  style="text-align: right;" />
+                                <span id="specialPTaxAmt-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <!-- Gender -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="gender" class="form-label">Gender</label>
+                                <select id="gender" name="gender" class="form-control select2_search_ctm" >
+                                </select>
+                                <span id="gender-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <!-- srCitizenAge -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="srCitizenAge" class="form-label">Senior Citizen Age</label>
+                                <input type="number" class="form-control" id="srCitizenAge" name="srCitizenAge" />
+                                <span id="srCitizenAge-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                        <!-- Age -->
+                       @*  <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="age" class="form-label">Age</label>
+                                <input type="number" id="age" name="age" class="form-control" placeholder="Enter Age"  />
+                                <span id="age-error" class="input_error_msg"></span>
+                            </div>
+                        </div> *@
+                        <!-- Effective Date -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="effectiveDate" class="form-label">Effective Date<sup>*</sup></label>
+                                <div class="date-picker-container">
+                                    <input type="text" id="effectiveDate" name="effectiveDate" class="form-control datepicker" placeholder="Select effective date" required/>
+                                    <button class="btn btn-datepicker"><span class="sprite-icons2 date-picker"></span></button>
+                                </div>
+                                <span id="effectiveDate-error" class="input_error_msg" style="color: red;"></span>
+                            </div>
+                        </div>
+                        <!-- Effective To -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="effectiveTo" class="form-label">Effective To<sup>*</sup></label>
+                                <div class="date-picker-container">
+                                    <input type="text" id="effectiveTo" name="Effective_To" class="form-control datepicker" placeholder="Select effective to date" required/>
+                                    <button class="btn btn-datepicker"><span class="sprite-icons2 date-picker"></span></button>
+                                </div>
+                                <span id="effectiveTo-error" class="input_error_msg" style="color: red;"></span>
+                            </div>
+                        </div>
+                        <!-- Is_YearEnd_Adjustment(only for Edit, hidden in Insert) -->
+                        <div class="col-lg-6" id="isYearEndAdjustmentWrapper" style="display: none;">
+                            <div class="form-group">
+                                <label class="form-label" for="isYearEndAdjustment">Year-End Adjustment</label>
+                                <div class="form-check form-switch d-flex align-items-center">
+                                    <input type="checkbox"
+                                           id="isYearEndAdjustment"
+                                           name="Is_YearEnd_Adjustment"
+                                           class="form-check-input"
+                                           role="switch" />
+                                    <label class="form-check-label ms-2" for="isYearEndAdjustment">Enable</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Status Toggle (only for Edit, hidden in Insert) -->
+                        <div class="col-lg-6" id="statusToggleWrapper" style="display: none;">
+                            <div class="form-group">
+                                <label class="form-label" for="pTaxSlabActiveToggle">Status</label>
+                                <div class="form-check form-switch d-flex align-items-center">
+                                    <input type="checkbox"
+                                           id="pTaxSlabActiveToggle"
+                                           name="IsActive"
+                                           class="form-check-input"
+                                           role="switch"
+                                           checked /> <!-- default true -->
+                                    <label class="form-check-label ms-2" id="pTaxSlabStatusLabel" for="pTaxSlabActiveToggle">Active</label>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="reset" class="btn btn-transparent-danger" id="btnResetPTaxSlab">Reset</button>
+                    <div class="btn_group">
+                        <button type="button" class="btn btn_primary_outline_md" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn_primary loader-dot-pulse" id="btnSavePTaxSlab"></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end add PTax Slab modal -->
+@section Scripts {
+    <script src="~/application/js/common/commonvalidation.js"></script>
+    <script src="~/application/js/pTaxSlab/pTaxSlabList.js"></script>
+    <!-- date picker plugins -->
+    <script src="~/assets/src/js/bootstrap-datepicker.min.js"></script>
+    <!-- date picker custom js file -->
+    <script src="~/assets/src/custom-js/datepicker-ctm.js"></script>
+    <script>
+        var originalPTaxSlabData = null;
+    </script>
+}

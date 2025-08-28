@@ -1,0 +1,149 @@
+﻿@model PayrollMasterService.BAL.Models.CompanyProfile
+<input type="hidden" class="form-control" name="CompanyIdForCompanyMaster" id="CompanyIdForCompanyMaster" value="@Model.Company_Id" />
+@* <div class="alert-custom" style="display:none;">
+</div> *@
+<style>
+    .disabled-input {
+        background-color: #e9ecef !important;
+        color: #6c757d !important;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+</style>
+<div class="d-flex justify-content-end">
+    <div class="button-group">
+       @*  <button class="btn btn-transparent-danger" id="resetAllCompanyMaster">Reset All</button> *@
+        @*  <button class="btn btn_primary_outline_md">Cancel</button> *@
+    </div>
+</div>
+
+<div class="vertical-tabs-content-fixed-layout form-body" id="companyDemographicContainer">
+    <div class="row mb-4" >
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label asp-for="CompanyName" class="form-label">
+                            Company Name
+                            <sup>*</sup>
+                        </label>
+                        <input type="text" class="form-control disabled-input" disabled asp-for="CompanyName"
+                               placeholder="enter company name" id="CompanyName"
+                               name="CompanyName" >
+                        <span id="CompanyName-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label asp-for="Company_Code" class="form-label">
+                            Company Code
+                            <sup>*</sup>
+                        </label>
+                        <input type="text" class="form-control disabled-input" disabled asp-for="Company_Code"
+                               placeholder="enter company code" id="Company_Code"
+                               name="Company_Code">
+                        <span id="CompanyCode-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label asp-for="CompanyShortName" class="form-label">
+                            Company Short Name
+                            <sup>*</sup>
+                        </label>
+                        <input type="text" class="form-control disabled-input" disabled asp-for="CompanyShortName"
+                               placeholder="Enter company short name" id="CompanyShortName"
+                               name="CompanyShortName">
+                       <span id="CompanyShortName-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label asp-for="CompanyPrintName" class="form-label">
+                            Company Print Name
+                           @*  <sup>*</sup> *@
+                        </label>
+                        <input type="text" class="form-control disabled-input" disabled asp-for="CompanyPrintName"
+                               placeholder="Enter company short name" id="CompanyPrintName"
+                               name="CompanyPrintName">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="row">
+               
+                <div class="col-lg-12 mb-3">
+                    <div class="form-group">
+                        <label class="form-label" for="Has_Subsidary">Has Subsidiary</label>
+                        <div class="form-check form-switch d-flex align-items-center">
+                            <input type="checkbox" id="Has_Subsidary" name="Has_Subsidary" class="form-check-input disabled-input" disabled role="switch" asp-for="Has_Subsidary">
+                            <label class="form-check-label ms-2" for="Has_Subsidary"></label>
+                        </div>
+                    </div>
+                </div>
+
+                @* <div class="col-lg-12 mb-3">
+                    <div class="form-group">
+                        <label class="form-label" for="IsParent">Is Parent</label>
+                        <div class="form-check form-switch d-flex align-items-center">
+                            <input type="checkbox" id="IsParent" name="IsParent" class="form-check-input disabled-input" disabled role="switch" asp-for="IsParent">
+                            <label class="form-check-label ms-2" for="IsParent"></label>
+                        </div>
+                    </div>
+                </div>       *@        
+                <div class="col-lg-12 mb-3">
+                    <div class="form-group">
+                        <label class="form-label" for="IsParent">Is Parent</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="IsParent"
+                                   disabled @(Model.IsParent ? "checked" : "")>
+                            <label class="form-check-label" for="IsParent">
+                                @(Model.IsParent ? "Yes" : "No")
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+              @*   <div class="col-lg-12" id="parentCompanyContainer" style="display: none;"> *@
+                    <div class="col-lg-12" id="parentCompanyContainer">
+                    <div class="form-group">
+                        <label for="ParentCompany_Id" asp-for="ParentCompany_Id" class="form-label">
+                            Parent Company @*  <sup>*</sup> *@
+                        </label>
+                        <div class="select2_search_container_ctm">
+                            <select class="form-control select2_search_ctm disabled-input" disabled id="ParentCompany_Id" data-selected-value="@Model.ParentCompany_Id">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label for="CompanyType_ID" asp-for="CompanyType_ID" class="form-label">
+                            Company Type @* <sup>*</sup> *@
+                        </label>
+                        <div class="select2_search_container_ctm">
+                            <select class="form-control select2_search_ctm disabled-input" disabled id="CompanyType_ID" data-selected-value="@Model.CompanyType_ID">
+                            </select>
+                        </div>
+                    </div>
+                </div>              
+            </div>
+        </div>
+        <input type="hidden" name="FromCompanyMasterSDate" id="FromCompanyMasterSDate" value="@Model.StartDate" />
+        <input type="hidden" name="FromCompanyMasterEDate" id="FromCompanyMasterEDate" value="@Model.EndDate" />
+        <div class="form-footer">            
+           @*  <button class="btn btn_primary btn-add-hide" id="saveCompanyDemographicDetailsButton" type="button">
+                Save
+            </button> *@
+            <input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+        </div>
+    </div> 
+</div>
+<script src="~/assets/src/js/jquery.min.js"></script>
+@* <script src="~/application/js/companymaster/demographicdata.js"></script> *@
+@section Scripts {
+@*     <script src="~/application/js/companymaster/demographicdata.js"></script> *@
+}
+@* <script src="~/application/js/companymaster/demographicdata.js"></script> *@

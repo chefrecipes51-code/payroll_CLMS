@@ -1,0 +1,244 @@
+﻿@using Payroll.WebApp.Models.DTOs
+@model SubsidiaryMasterDTO
+
+
+<link rel="stylesheet" href="~/assets/plugins/bootstrap-5.3.3-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/assets/src/css/fonts.css">
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<style>
+	.disabled-input {
+		background-color: #e9ecef !important;
+		color: #6c757d !important;
+		cursor: not-allowed;
+		opacity: 0.7;
+	}
+</style>
+@{
+	ViewBag.Title = "SubSidiaryMaster";
+}
+
+<div class="app-layout">
+	<div class="alert-custom" style="display:none;">
+		<!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+		<!-- Alert content will be dynamically inserted based on the alert type -->
+	</div>
+
+
+
+	<div class="title-container">
+		<div class="current-back">
+			@* <a href="/Company/CompanyList" class="btn btn-back-icon">
+				<span class="sprite-icons back-violet"></span>
+			</a> *@
+			<a href="javascript:void(0);" id="btnBackToCompany" class="btn btn-back-icon">
+				<span class="sprite-icons back-violet"></span>
+			</a>
+
+			<p class="title-primary" id="pageName" name="pageName"></p>
+		</div>
+		<div class="button-group">
+			<button class="btn btn-transparent-danger" type="button" id="subsidiaryMasterclear">reset All</button>
+			@* <button class="btn btn_primary_outline_md" type="button" id="subsidiaryOnboarding">Cancel</button> *@
+		</div>
+	</div>
+
+	<div class="row g-0">
+		<div class="col-lg-3 col-md-3">
+			<div class="vertical-tabs">
+				<div class="vertical-tabs-fixed-layout">
+					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+						 aria-orientation="vertical">
+						<button class="nav-link active" id="v-pills-subsidiary-tab" data-bs-toggle="pill"
+								data-bs-target="#v-pills-subsidiary" type="button" role="tab"
+								aria-controls="v-pills-subsidiary" aria-selected="true">
+							Subsidiary Company
+						</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-lg-9 col-md-9">
+			<div class="vertical-tab-content">
+				<div class="tab-content" id="v-pills-tabContent">
+
+					<div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel"
+						 aria-labelledby="v-pills-subsidiary-tab" tabindex="0">
+						<form id="addTab">
+							<input type="hidden" class="form-control" name="GlobalSubsidiaryId" id="GlobalSubsidiaryId" />
+							<div class="vertical-tabs-content-fixed-layout form-body">
+								<div class="row">
+
+									<div class="col-lg-6">
+
+										<div class="row">
+											
+											<div class="col-lg-12">
+												<div class="form-group">
+													<label for="SubsidiaryType" class="form-label">Subsidiary Type<sup>*</sup></label>
+													<div class="companies-selection">
+														 <select id="SubsidiaryType" class="form-control select2_search_ctm" required>		
+														</select> 
+														<span id="SubsidiaryType-error" class="input_error_msg"></span>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-lg-12">
+												<div class="form-group">
+													<label for="SubsidiaryName" class="form-label">Subsidiary Name<sup>*</sup></label>
+													<div class="SubsidiaryName-selection">
+														<input id="SubsidiaryName" placeholder="Enter Subsidiary Name" dataplaceholder="Please Enter SubsidiaryName" name="SubsidiaryName" class="form-control disabled-input" disabled required />
+														<span id="SubsidiaryName-error" class="input_error_msg"></span>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="col-lg-12">
+												<div class="form-group">
+													<label for="SubsidiaryCode" class="form-label">Subsidiary Code<sup>*</sup></label>
+													<div class="SubsidiaryCode-selection">
+														<input id="SubsidiaryCode" placeholder="Enter Subsidiary Code" dataplaceholder="Please Enter SubsidiaryCode" name="SubsidiaryCode" class="form-control" required maxlength="30" />
+														<span id="SubsidiaryCode-error" class="input_error_msg"></span>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-lg-12">
+												<div class="form-group">
+													<label for="SubsidiaryCompany" class="form-label">Companies<sup>*</sup></label>
+													<div class="SubsidiaryCompany-selection">
+														<select id="SubsidiaryCompany" class="form-control select2_search_ctm" required>	
+														</select>
+														<span id="SubsidiaryCompany-error" class="input_error_msg"></span>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="col-lg-12">
+												<div class="form-group">
+													<label for="SubsidiaryCountry" class="form-label">Countries<sup>*</sup></label>
+													<div class="countries-selection">
+														<select id="SubsidiaryCountry" class="form-control select2_search_ctm" required>
+														</select>
+														<span id="SubsidiaryCountry-error" class="input_error_msg"></span>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-lg-12">
+												<div class="form-group">
+													<label for="SubsidiaryState" class="form-label">State<sup>*</sup></label>
+													<div class="state-selection">
+														<select id="SubsidiaryState" class="form-control select2_search_ctm" required>
+														</select>
+														<span id="SubsidiaryState-error" class="input_error_msg"></span>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+									<div class="col-lg-6">
+										<div class="row">
+
+											<div class="col-lg-12">
+
+												<div class="form-group">
+
+													<label for="SubsidiaryCity" class="form-label">City<sup>*</sup></label>
+													<div class="Branch-selection">
+														<select id="SubsidiaryCity" class="form-control select2_search_ctm" dataplaceholder="Select City" required>
+														</select>
+														<span id="SubsidiaryCity-error" class="input_error_msg"></span>
+													</div>
+												</div>
+
+											</div>
+
+											<div class="col-lg-12">
+
+												<div class="form-group">
+													<label for="SubsidiaryLocation" class="form-label">Location<sup>*</sup></label>
+													<div class="department-selection">
+														<select id="SubsidiaryLocation" class="form-control select2_search_ctm" required>
+														</select>
+														<span id="SubsidiaryLocation-error" class="input_error_msg"></span>
+													</div>
+												</div>
+
+											</div>
+
+											<div class="col-lg-12">
+												<div class="form-group">
+													<label for="SubsidiaryArea" class="form-label">Area<sup>*</sup></label>
+													<div class="area-selection">
+														<select id="SubsidiaryArea" class="form-control select2_search_ctm" required>
+														</select>
+														<span id="SubsidiaryArea-error" class="input_error_msg"></span>
+													</div>
+												</div>
+											</div>
+
+											@* style="display: none;" *@
+											<div id="toggleContainer" class="form-group mb-3" style="visibility:hidden;">
+												<label class="form-label" for="SubsidiaryActiveToggle">Status</label>
+												<div class="form-check form-switch d-flex align-items-center">
+													<input type="checkbox" id="SubsidiaryActiveToggle" asp-for="IsActive" class="form-check-input disabled-input" disabled role="switch">
+													<label class="form-check-label ml-2" for="SubsidiaryActiveToggle" id="activeStatusLabel">Inactive</label>
+												</div>
+											</div>
+
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-footer">
+								<button class="btn btn_primary" type="button" id="btnSaveSubsidiary" data-bs-toggle="btnSave">
+									Save<span class="sprite-icons"></span>
+								</button>
+								<button class="btn btn_primary_outline_md" type="button" id="btncancel">
+									Cancel<span class="sprite-icons"></span>
+								</button>
+							</div>
+						</form>
+					</div>				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="~/assets/src/js/jquery.min.js"></script>
+<script src="~/assets/src/js/popper.min.js"></script>
+
+@section Scripts {
+		
+	<script src="~/assets/src/js/select2.min.js"></script>
+	<script src="~/assets/src/custom-js/script.js"></script>
+	<script src="~/assets/src/custom-js/select2.js"></script>
+	<script src="~/application/js/common/dropdown.js"></script>
+	<script src="~/assets/src/custom-js/placeholder.js"></script>
+	<script src="~/application/js/SubsidiaryMaster/SubsidiaryMaster.js"></script>
+	<script>
+		$('#btnBackToCompany').on('click', function () {
+			const rawParams = window.location.search; 
+			const companyIdMatch = rawParams.match(/[?&]companyId=([^&]+)/);
+			if (companyIdMatch && companyIdMatch[1]) {
+				const companyIdRawEncoded = companyIdMatch[1];
+				const backUrl = `/Company/Index?companyId=${companyIdRawEncoded}`;
+				window.location.href = backUrl;
+			} else {
+				console.warn("Encrypted companyId not found in URL.");
+			}
+		});
+	</script>
+}

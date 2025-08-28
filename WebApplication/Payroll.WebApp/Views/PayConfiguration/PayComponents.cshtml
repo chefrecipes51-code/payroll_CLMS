@@ -1,0 +1,387 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.PayComponentDTO>
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+@{
+    var renderedPayIds = new HashSet<int>(); // To track rendered AreaIds
+}
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+<style>
+    #btn1, #btn2, #btn3, #btn4 {
+        display: none !important;
+    }
+    .highlighted-component {
+        background-color: #e0e0e0 !important;
+    }
+</style>
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+    <!-- Alert content will be dynamically inserted based on the alert type -->
+</div>
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+<div class="payroll-tabs-content-container">
+    @*    <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active"
+    onclick="window.location.href='PayComponents'">
+    Pay Components
+    </button>
+    </div>
+    </nav> *@
+
+    <div class="quick-filter-container">
+        <div class="btn-group-left">
+            <div id="totalPayComponent" class="chip primary">Total Pay Components: <span id="payComponentCount">@ViewBag.PayComponentCount</span></div>
+        </div>
+        <div class="icon-title">
+            <button class="btn btn_primary_outline_md" style="display:none"
+                    aria-label="Close" id="cancelComponentFormbtn">
+                Cancel
+            </button>
+            <button class="btn btn_primary add-button btn-add-hide" onclick="TogglePayComponentForm()">
+                <span class="sprite-icons add-light"></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="pay-component-card-wrapper">
+        
+        <div class="pay-component-card" id="pay-component-card" style="display: none;">
+            <div id="payComponentTitile" class="title-container" style="display: none;">
+                <div class="current-back">
+                    <a class="btn btn-back-icon"
+                       href="/PayConfiguration/PayComponents">
+                        <span class="sprite-icons back-violet"></span>
+                    </a>
+                    <p id="payComponentFormTitle" class="title-primary">Add Pay Components</p>
+                </div>
+            </div>
+            <form id="payComponentForm">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="payrollHead" class="form-label">
+                                Pay Head
+                                <sup>*</sup>
+                            </label>
+                            <div class="payrollHead-selection">
+                                <select id="payrollHeadDropdown" name="payrollHeadDropdown" data-placeholder="Select pay head type" class="form-control select2_search_ctm" required>
+                                </select>
+                                <span id="payrollHeadDropdown-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="calculationType"
+                                   class="form-label">
+                                Calculate Type<sup>*</sup>
+                            </label>
+                            <div class="calculationType-selection">
+                                <select id="calculationTypeDropdown" name="calculationTypeDropdown" data-placeholder="Select calculation type" class="form-control select2_search_ctm" required>
+                                </select>
+                                <span id="calculationTypeDropdown-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="payComponent"
+                                   class="form-label">
+                                Pay Component Name<sup>*</sup>
+                            </label>
+                            <input type="text" class="form-control"
+                                   placeholder="Enter component name" id="payComponent"
+                                   name="payComponent" maxlength="100">
+                            <span id="payComponentDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="minval" class="form-label">
+                                Minimum Amount
+                            </label>
+                            <input type="text" class="form-control"
+                                   placeholder="Enter minimum amount" id="minval"
+                                   name="minval" maxlength="9" style="text-align: right;">
+                            <span id="minval-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="maxval" class="form-label">
+                                Maximum Amount
+                            </label>
+                            <input type="text" class="form-control"
+                                   placeholder="Enter maximum amount" id="maxval"
+                                   name="maxval" maxlength="9" style="text-align: right;">
+                            <span id="maxval-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="isChlid"
+                                   class="form-label">
+                                Is Child<sup>*</sup>
+                            </label>
+                            <div class="isChlid-selection">
+                                <select id="isChlidDropdown" name="isChlidDropdown" data-placeholder="Select Is-Child" class="form-control select2_search_ctm" required>
+                                </select>
+                                <span id="isChlidDropdown-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="isParentDropdown"
+                                   class="form-label">
+                                Is Parent
+                            </label>
+                            <div class="Parent-selection">
+                                <select id="isParentDropdown" name="isParentDropdown" data-placeholder="Select Is-Parent" class="form-control select2_search_ctm">
+                                </select>
+                                <span id="isParentDropdown-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*  <div class="col-lg-5 col-6"> *@
+                    <div id="amountSection" class="col-6">
+                        <div class="form-group">
+                            <label for="amountval" class="form-label">
+                                Amount
+                                <sup>*</sup>
+                            </label>
+                            <input type="text" class="form-control"
+                                   placeholder="Enter amount" id="amountval" name="amountval" style="text-align: right;" maxlength="9">
+                            <span id="amountval-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                    <!-- Added NEW DIV FOR MODEL POPUO:- Start-->
+                    <div id="formulaSection" style="display: none;" class="col-lg-5 col-6">
+                        <div class="form-group">
+                            <label for="lblformulaSelection" class="form-label">
+                                Formula
+                                <sup>*</sup>
+                            </label>
+                            <div class="formula-selection">
+                                <select id="formulaDropdown" name="formulaDropdown" data-placeholder="Select formula" class="form-control select2_search_ctm">
+                                </select>
+                                <span id="formulaDropdown-error" class="input_error_msg"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="formulaSectionbutton" style="display: none;" class="col-lg-1 align-content-center text-end">
+                        <button class="btn btn_primary_outline btn_md_sqr" data-bs-toggle="modal"
+                                data-bs-target="#addFormula">
+                            <span class="sprite-icons2 add-primary-outline-md"></span>
+                        </button>
+                    </div>
+
+
+                    <!-- Added NEW DIV FOR MODEL POPUO:- End-->
+                    <!-- Active Toggle (initially hidden) -->
+                    <div id="togglePayComponentContainer" class="form-group mb-3 col-6" style="display: none;">
+                        <label class="form-label" for="payComponentActiveToggle">Status</label>
+                        <div class="form-check form-switch d-flex align-items-center">
+                            <input type="checkbox" id="payComponentActiveToggle" class="form-check-input" role="switch">
+                            <label class="form-check-label ml-2" for="payComponentActiveToggle" id="activeStatusLabel">Inactive</label>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <div class="btn_group mt-3 text-end">
+                <button id="resetPayComponentFormBtn" class="btn btn_danger_outline">Reset</button>
+                <button id="paySaveButton" type="button" class="btn btn_primary">Add</button>
+            </div>
+        </div>
+
+        <div class="table-card p-0 mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive table-user-list">
+                            <div class="table-responsive table-user-list" id="payComponentContainer">
+                                @Html.Partial("_PayComponentListPartialView", Model)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<div class="modal fade formula-modal" id="addFormula" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="addFormulaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header justify-content-between">
+                <p class="title-primary">Add Formula</p>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="sprite-icons close-icon"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- New fields for Formula Name and Formula Code -->
+                <div class="mb-3">
+                    <label for="formulaCode" class="form-label">Formula Code<sup>*</sup></label>
+                    <input type="text" class="form-control" id="formulaCode" name="formulaCode" placeholder="Enter Formula Code" />
+                    <span id="formulaCode-error" class="input_error_msg"></span>
+                </div>
+                <div class="mb-3">
+                    <label for="formulaName" class="form-label">Formula Name<sup>*</sup></label>
+                    <input type="text" class="form-control" id="formulaName" name="formulaName" placeholder="Enter Formula Name" />
+                    <span id="formulaName-error" class="input_error_msg"></span>
+                </div>
+
+
+                <div class="apply-formula-inputs">
+                    <label for="activeuser" class="form-label">Formula <sup>*</sup></label>
+                    <textarea class="textarea" rows="2" maxlength="120" id="formulaInput" name="formulaInput"
+                              placeholder="Apply formula"></textarea>
+                    <span id="formulaInput-error" class="input_error_msg"></span>
+
+                </div>
+
+                <div class="field-operators-container">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="field-container">
+                                <label for="field" class="form-label">
+                                    List of Available Fields
+                                    <sup>*</sup>
+                                </label>
+                                <input type="text" class="form-control" placeholder="Search available fields"
+                                       id="field" name="field">
+                                <div class="field-list">
+                                    <ul id="componentList" class="list-group">
+                                    </ul>
+                                    <input type="hidden" id="hiddenFieldWithUnderscores" name="hiddenFieldWithUnderscores" />
+                                </div>
+
+                                <div class="status-indicator">
+                                    <div class="status-display">
+                                        <span class="status-dot dot-primary"></span>
+                                        <p class="sm-text text_primary">General</p>
+                                    </div>
+                                    <div class="status-display">
+                                        <span class="status-dot dot-success"></span>
+                                        <p class="sm-text text_success">Earnings</p>
+                                    </div>
+                                    <div class="status-display">
+                                        <span class="status-dot dot-danger"></span>
+                                        <p class="sm-text text_danger">Basic</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="operators-container">
+                                <div class="oprators">
+                                    <label class="form-label">Operators</label>
+                                    <div class="calculate-button-group">
+                                        <button class="btn btn-formula formula-btn">+</button>
+                                        <button class="btn btn-formula formula-btn">-</button>
+                                        <button class="btn btn-formula formula-btn">*</button>
+                                        <button class="btn btn-formula formula-btn">/</button>
+                                        <button class="btn btn-formula formula-btn">(</button>
+                                        <button class="btn btn-formula formula-btn">)</button>
+                                    </div>
+                                </div>
+                                <div class="oprators">
+                                    <label class="form-label">Conditions</label>
+                                    <div class="calculate-button-group">
+                                        <button class="btn btn-formula formula-btn">=</button>
+                                        <button class="btn btn-formula formula-btn">
+                                            <>
+                                        </button>
+                                        <button class="btn btn-formula formula-btn">
+                                            <
+                                        </button>
+                                        <button class="btn btn-formula formula-btn">></button>
+                                        <button class="btn btn-formula formula-btn">
+                                            <=
+                                        </button>
+                                        <button class="btn btn-formula formula-btn">>=</button>
+                                    </div>
+                                </div>
+                                <div class="oprators">
+                                    <label class="form-label">Other Block</label>
+                                    <div class="calculate-button-group">
+                                        <button class="btn btn-formula formula-btn">"</button>
+                                        <button class="btn btn-formula formula-btn">,</button>
+                                        <button class="btn btn-formula formula-btn">and</button>
+                                        <button class="btn btn-formula formula-btn">or</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_danger_outline" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn_primary loader-dot-pulse" id="btnApplyFormula">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- delete modal start -->
+<div class="modal fade modal-custom modal-primary-confirmation" id="deletepaycomponent" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="deletepaycomponentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Are you sure you want to delete this pay component?</p>
+                <p class="sm-text-gray-neutral mb-3">This action will permanently delete the contractor and their associated data.</p>
+                <label for="activeuser" class="form-label">Remarks <sup>*</sup></label>
+                <textarea class="textarea" id="activeuser" rows="3" maxlength="120"
+                          placeholder="enter text here"></textarea>
+                <div class="counter sm-text-gray-neutral text-end">0 / 120</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- delete modal end  -->
+<!-- Formula modal VALIDATION:- start -->
+<div class="modal fade modal-custom modal-primary" id="formulapaycomponent" tabindex="-1"
+     aria-labelledby="formulapaycomponentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/icons/priamry-done-modal.svg" width="134" height="77" alt="successfully done">
+                <p class="title-primary mb-2">These component is not assign with formula.</p>
+                <p class="sm-text-gray-neutral">Would you still like to process?</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" id="btnFormulaYes" class="btn btn_primary_outline_md" data-bs-dismiss="modal">
+                    Yes
+                </button>
+                <button type="button" id="btnFormulaNo" class="btn btn_primary">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Formula modal VALIDATION:- End  -->
+<!-- formula modal -->
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/application/js/payconfiguration/paycomponents.js"></script>
+    <script src="~/application/js/common/form-validation.js" asp-append-version="true"></script>
+    <script src="~/application/js/common/commonvalidation.js"></script>
+    <script src="~/application/js/formulamaster/addformula.js"></script>
+}

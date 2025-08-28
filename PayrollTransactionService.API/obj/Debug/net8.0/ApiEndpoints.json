@@ -1,0 +1,2211 @@
+[
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayComponentMasterApiController",
+    "Method": "ActivateAllPayComponentMaster",
+    "RelativePath": "api/activateallpaycomponent",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companyId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsActivate",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.AuditTrailApiController",
+    "Method": "DeleteAuditTrail",
+    "RelativePath": "api/AuditTrailApi/deleteaudittrail/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.AuditTrailApiController",
+    "Method": "GetAllAuditTrails",
+    "RelativePath": "api/AuditTrailApi/getallaudittrails",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.AuditTrailApiController",
+    "Method": "GetAuditTrailById",
+    "RelativePath": "api/AuditTrailApi/getaudittrailbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.AuditTrailApiController",
+    "Method": "GetAuditTrailsByDateRange",
+    "RelativePath": "api/AuditTrailApi/getAuditTrails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "requestModel",
+        "Type": "PayrollTransactionService.BAL.ReportModel.AuditTrail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.AuditTrailApiController",
+    "Method": "PostAuditTrail",
+    "RelativePath": "api/AuditTrailApi/postaudittrail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "auditTrail",
+        "Type": "PayrollTransactionService.BAL.ReportModel.AuditTrail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.AuditTrailApiController",
+    "Method": "UpdateAuditTrail",
+    "RelativePath": "api/AuditTrailApi/updateaudittrail/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "auditTrail",
+        "Type": "PayrollTransactionService.BAL.ReportModel.AuditTrail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ParameterSettingApiController",
+    "Method": "CopyPayrollParameter",
+    "RelativePath": "api/copy-payroll-parameter",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.CopySettingsRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayComponentMasterApiController",
+    "Method": "DeletePayComponentMaster",
+    "RelativePath": "api/deletepaycomponentmaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "payComponentMaster",
+        "Type": "PayrollTransactionService.BAL.Models.PayComponentMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "DeletePayGradeConfigMaster",
+    "RelativePath": "api/deletepaygradeconfigmaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "payGradeConfigDetail",
+        "Type": "PayrollTransactionService.BAL.Models.PayGradeConfigMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "DeletePayGradeMaster",
+    "RelativePath": "api/deletepaygrademaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "payGradeDetail",
+        "Type": "PayrollTransactionService.BAL.Models.PayGradeMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PTaxSlabApiController",
+    "Method": "Deleteptaxslab",
+    "RelativePath": "api/deleteptaxslab/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "ptaxslab",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PtaxSlabRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.TaxSlabMasterApiController",
+    "Method": "DeletetaxSlabMaster",
+    "RelativePath": "api/deletetaxslabMaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "taxSlabMaster",
+        "Type": "PayrollTransactionService.BAL.Models.TaxSlabMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ParameterSettingApiController",
+    "Method": "GetAllEntityTypes",
+    "RelativePath": "api/get-all-entity-type",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ParameterSettingApiController",
+    "Method": "GetGlobalPayrollParameters",
+    "RelativePath": "api/get-global-payroll-parameters",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companyId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorValidationApiController",
+    "Method": "GetPreviousMonthYearPeriod",
+    "RelativePath": "api/get-previous-period",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companyId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayComponentMasterApiController",
+    "Method": "GetAllActivePayComponentMaster",
+    "RelativePath": "api/getallactivepaycomponentmaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companyId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "isActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "GetAllActivePayGradeMaster",
+    "RelativePath": "api/getallactivepaygrademaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.AttendancePayMonthApiController",
+    "Method": "GetAllAttendancePayMonth",
+    "RelativePath": "api/GetAllAttendancePayMonth",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Contractor_Code",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "WorkOrder_Code",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "fGroupDate",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.AttendancePayMonthApiController",
+    "Method": "GetAllAttendancePayMonthWithSDate",
+    "RelativePath": "api/getallattendancepaymonthwithsdate",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "createdBy",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Contractor_Code",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "WorkOrder_Code",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "fGroupDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollProcessApiController",
+    "Method": "GetAllCompanyLocationPayrollValidation",
+    "RelativePath": "api/getallcompanylocationpayrollvalidation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "month_Yr",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "company_ID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "isActive",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollProcessApiController",
+    "Method": "GetAllCompanyPayrollValidation",
+    "RelativePath": "api/getallcompanypayrollvalidation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "month_Yr",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorDetailsController",
+    "Method": "GetAllContractorMaster",
+    "RelativePath": "api/getallcontractor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "contractor_ID",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "company_ID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "correspondance_ID",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.EntityMasterApiController",
+    "Method": "GetAllContractorMaster",
+    "RelativePath": "api/getallcontractormaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "contractor_ID",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "company_ID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "correspondance_ID",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollProcessApiController",
+    "Method": "GetAllContractorPayrollValidation",
+    "RelativePath": "api/getallcontractorpayrollvalidation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "company_ID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "month_Yr",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "isActive",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.EntityMasterApiController",
+    "Method": "GetAllEntityDataValidation",
+    "RelativePath": "api/getallentitydatavalidation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "moduleId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.MapEntityTaxRegimeController",
+    "Method": "GetAllEntityFilterRequest",
+    "RelativePath": "api/getallentityfilterrequest",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.Models.EntityFilterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.EntityMasterApiController",
+    "Method": "GetAllEntityMaster",
+    "RelativePath": "api/getallentitymaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "entityId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.MapEntityTaxRegimeController",
+    "Method": "GetAllFinacialYear",
+    "RelativePath": "api/getallfinancialyear",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companyId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayComponentMasterApiController",
+    "Method": "GetAllPayComponentMaster",
+    "RelativePath": "api/getallpaycomponentmaster/{companyId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companyId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "selectType",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "GetAllPayGradeConfigMaster",
+    "RelativePath": "api/getallpaygradeconfigmaster/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "GetAllPayGradeMaster",
+    "RelativePath": "api/getallpaygrademaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayMonthApiController",
+    "Method": "GetAllPayMonth",
+    "RelativePath": "api/getallpaymonth",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "fGroupDate",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayMonthApiController",
+    "Method": "GetAllPayMonthWithSDate",
+    "RelativePath": "api/getallpaymonthwithsdate",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "createdBy",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "fGroupDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollProcessApiController",
+    "Method": "GetAllPayrollProcessusingSignalR",
+    "RelativePath": "api/getallpayrollprocessusingsignalR",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cmp_Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "month_Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "year_Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollProcessApiController",
+    "Method": "GetAllPreviousMonthYearPeriod_ByCmpId",
+    "RelativePath": "api/getallpreviousmonthyearperiodbycmpId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "company_ID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PTaxSlabApiController",
+    "Method": "GetAllPTaxSlab",
+    "RelativePath": "api/getallptakslab",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "company_Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PTaxSlabApiController",
+    "Method": "GetPTaxSlabById",
+    "RelativePath": "api/getallptakslabbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "GetAllSkillCategory",
+    "RelativePath": "api/getallskillcategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "correspondance_ID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "skillcategory_Id",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "isActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.TaxSlabMasterApiController",
+    "Method": "GetAllTaxRegimeMaster",
+    "RelativePath": "api/getalltaxregimemaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.TaxSlabMasterApiController",
+    "Method": "GetAllTaxSlabMaster",
+    "RelativePath": "api/getalltaxslabmaster/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "GetAllTradeMaster",
+    "RelativePath": "api/getalltrademaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companyLocationID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "trade_mst_Id",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "isActive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollProcessApiController",
+    "Method": "GetAllWorkOrderPayrollValidation",
+    "RelativePath": "api/getallworkorderpayrollvalidation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "month_Yr",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "company_ID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "isActive",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorDetailsController",
+    "Method": "GetContractorMasterById",
+    "RelativePath": "api/getContractorMasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorDetailsController",
+    "Method": "GetContractorProfileByCompanyIdAsync",
+    "RelativePath": "api/GetContractorProfileByCompanyIdAsync",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "contractorId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorValidationApiController",
+    "Method": "GetContractorValidation",
+    "RelativePath": "api/getcontractorvalidation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "requestModel",
+        "Type": "PayrollTransactionService.BAL.ReportModel.ContractorValidationRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.EntityMasterApiController",
+    "Method": "GetContractorWorkOrder",
+    "RelativePath": "api/getContractorWithWorkOrder",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "company_ID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "GetDistinctLocationById",
+    "RelativePath": "api/getdistinctlocationbyid",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "company_ID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorValidationApiController",
+    "Method": "GetEntityAttendanceData",
+    "RelativePath": "api/getentityattendance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "requestModel",
+        "Type": "PayrollTransactionService.BAL.ReportModel.ComplianceValidationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorValidationApiController",
+    "Method": "GetEntityComplianceValidation",
+    "RelativePath": "api/getentitycompliance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "requestModel",
+        "Type": "PayrollTransactionService.BAL.ReportModel.ComplianceValidationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorValidationApiController",
+    "Method": "GetEntityPayValidation",
+    "RelativePath": "api/getentitypayvalidation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "requestModel",
+        "Type": "PayrollTransactionService.BAL.ReportModel.EntityPayValidationRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorValidationApiController",
+    "Method": "GetEntityValidation",
+    "RelativePath": "api/getentityvalidation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "requestModel",
+        "Type": "PayrollTransactionService.BAL.ReportModel.EntityValidationRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayComponentMasterApiController",
+    "Method": "GetPayComponentChildMaster",
+    "RelativePath": "api/getpaycomponentchildmaster/{companyId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "companyId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "selectType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "EarningDeduction_Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayComponentMasterApiController",
+    "Method": "GetPayComponentMasterById",
+    "RelativePath": "api/getpaycomponentmasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "companyId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "GetPayGradeconfigMasterById",
+    "RelativePath": "api/getpaygradeconfigmasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "GetPayGradeMasterById",
+    "RelativePath": "api/getpaygrademasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollProcessApiController",
+    "Method": "GetPhaseWiseComponentPayrollProcess",
+    "RelativePath": "api/getphasewisecomponentpayrollprocess",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "model",
+        "Type": "PayrollTransactionService.BAL.Models.PhaseWiseComponentPayrollProcess",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PTaxSlabApiController",
+    "Method": "GetSelectTaxParam",
+    "RelativePath": "api/getselecttaxparam",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "sid",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.TaxSlabMasterApiController",
+    "Method": "GetTaxSlabMasterById",
+    "RelativePath": "api/gettaxslabmasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "companyId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.EntityMasterApiController",
+    "Method": "GetAllWorkOrderMaster",
+    "RelativePath": "api/getWorkOrderDataByContractor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ContractorCode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.NotificationController",
+    "Method": "GetActiveNotifications",
+    "RelativePath": "api/Notification",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PayrollTransactionService.BAL.Models.PayrollProcessusingSignalR, PayrollTransactionService.BAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.NotificationController",
+    "Method": "GetActiveNotifications",
+    "RelativePath": "api/Notification/GetActiveNotifications",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PayrollTransactionService.BAL.Models.PayrollProcessusingSignalR, PayrollTransactionService.BAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PendingApprovalRequestApiController",
+    "Method": "GetUnapprovedRequests",
+    "RelativePath": "api/PendingApprovalRequestApi/getUnapprovedRequests",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filterModel",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PendingApprovalRejectionFilter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.AttendancePayMonthApiController",
+    "Method": "PostAttendancePayMonth",
+    "RelativePath": "api/postattendancepaymaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "AttendancepayMonthDetails",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PeriodRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.MapEntityTaxRegimeController",
+    "Method": "PostMapEntityTaxRegime",
+    "RelativePath": "api/postmapentitytaxregime",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "mapEntityTaxRegime",
+        "Type": "PayrollTransactionService.BAL.Models.MapEntityTaxRegime",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayComponentMasterApiController",
+    "Method": "PostPayComponentMaster",
+    "RelativePath": "api/postpaycomponentmaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "payComponentMaster",
+        "Type": "PayrollTransactionService.BAL.Models.PayComponentMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "PostPayGradeConfigMaster",
+    "RelativePath": "api/postpaygradeconfigmaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "payGradeConfigDetail",
+        "Type": "PayrollTransactionService.BAL.Models.PayGradeConfigMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "PostPayGradeMaster",
+    "RelativePath": "api/postpaygrademaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "payGradeDetail",
+        "Type": "PayrollTransactionService.BAL.Models.PayGradeMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayMonthApiController",
+    "Method": "PostPayMonth",
+    "RelativePath": "api/postpaymaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "payMonthDetails",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PeriodRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ParameterSettingApiController",
+    "Method": "PostPayrollCompliance",
+    "RelativePath": "api/postpayrollcompliance",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PayrollComplianceRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ParameterSettingApiController",
+    "Method": "PostPayrollGlobal",
+    "RelativePath": "api/postpayrollglobal",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PayrollGlobalParamRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ParameterSettingApiController",
+    "Method": "PostPayrollSetting",
+    "RelativePath": "api/postpayrollsetting",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PayrollSettingRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollTransactionStagingApiController",
+    "Method": "PostPayrollTransactionStaging",
+    "RelativePath": "api/postpayrolltransactionstaging",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "model",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PayrollTranStgDataRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollProcessApiController",
+    "Method": "PostPayrollTransDataForProcess",
+    "RelativePath": "api/postpayrolltransdataforprocess",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "payrollTransDataForProcess",
+        "Type": "PayrollTransactionService.BAL.Models.PayrollTransDataForProcess",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollProcessApiController",
+    "Method": "PostProcessPayrollEmployees",
+    "RelativePath": "api/postprocesspayrollemployees",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "startPayrollProcess",
+        "Type": "PayrollTransactionService.BAL.Models.PayrollProcessRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PTaxSlabApiController",
+    "Method": "PostPTaxSlab",
+    "RelativePath": "api/postptaxslab",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "pTaxSlab",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PtaxSlabRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollProcessApiController",
+    "Method": "PostStartPayrollProcess",
+    "RelativePath": "api/poststartpayrollprocess",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "startPayrollProcess",
+        "Type": "PayrollTransactionService.BAL.Models.StartPayrollProcess",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.TaxSlabMasterApiController",
+    "Method": "PostTaxSlabMaster",
+    "RelativePath": "api/posttaxslabmaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "taxSlabMaster",
+        "Type": "PayrollTransactionService.BAL.Models.TaxSlabMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ParameterSettingApiController",
+    "Method": "PostThirdPartyParameter",
+    "RelativePath": "api/postthirdpartyparameter",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.ThirdPartyParameterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayrollTransactionStagingApiController",
+    "Method": "SavePayrollStagingData",
+    "RelativePath": "api/save-payroll-staging",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.SavePayrollStagingRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.EntityMasterApiController",
+    "Method": "PutEntityCompliance",
+    "RelativePath": "api/updateentitycompliance/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "entityCompliance",
+        "Type": "PayrollTransactionService.BAL.Models.EntityCompliance",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ParameterSettingApiController",
+    "Method": "PutGlobalParam",
+    "RelativePath": "api/updateglobalparam/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PayrollGlobalParamRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.EntityMasterApiController",
+    "Method": "UpdateMapGradeEntity",
+    "RelativePath": "api/updatemapgradeentity",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "mapEntityGradeMaster",
+        "Type": "PayrollTransactionService.BAL.Models.MapEntityGradeMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayComponentMasterApiController",
+    "Method": "UpdatePayComponentStatusFromFormula",
+    "RelativePath": "api/updatepaycomponentfromformula/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "payComponentMaster",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PayComponentActivationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayComponentMasterApiController",
+    "Method": "PutPayComponentMaster",
+    "RelativePath": "api/updatepaycomponentmaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "payComponentMaster",
+        "Type": "PayrollTransactionService.BAL.Models.PayComponentMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "PutWageGradeConfigMaster",
+    "RelativePath": "api/updatepaygradeconfigmaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "payGradeConfigDetail",
+        "Type": "PayrollTransactionService.BAL.Models.PayGradeConfigMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PayGradeMasterApiController",
+    "Method": "PutWageGradeMaster",
+    "RelativePath": "api/updatepaygrademaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "payGradeDetail",
+        "Type": "PayrollTransactionService.BAL.Models.PayGradeMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ParameterSettingApiController",
+    "Method": "PutPayrollCompliance",
+    "RelativePath": "api/updatepayrollcompliance/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PayrollComplianceRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ParameterSettingApiController",
+    "Method": "PutPayrollSetting",
+    "RelativePath": "api/updatepayrollsetting/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PayrollSettingRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.PTaxSlabApiController",
+    "Method": "PutPTaxSlab",
+    "RelativePath": "api/updateptaxslab/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "pTaxSlab",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PtaxSlabRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.TaxSlabMasterApiController",
+    "Method": "PutTaxSlabMaster",
+    "RelativePath": "api/updatetaxslabmaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "taxSlabMaster",
+        "Type": "PayrollTransactionService.BAL.Models.TaxSlabMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ParameterSettingApiController",
+    "Method": "PutThirdPartyParameter",
+    "RelativePath": "api/updatethirdpartyparameter/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.ThirdPartyParameterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.UserActivateDeactivateStatusController",
+    "Method": "PutServiceApprovalRejection",
+    "RelativePath": "api/UserActivateDeactivateStatus/updateServiceApprovalRejection/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "PayrollTransactionService.BAL.Models.ServiceApprovalRejection",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorValidationApiController",
+    "Method": "UpdateValidateContractors",
+    "RelativePath": "api/validate-contractors",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.ValidateContractorRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorValidationApiController",
+    "Method": "UpdateValidateEntities",
+    "RelativePath": "api/validate-entities",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "requestModel",
+        "Type": "PayrollTransactionService.BAL.ReportModel.EntityUpdateRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorValidationApiController",
+    "Method": "UpdateEntityAttendance",
+    "RelativePath": "api/validate-entity-attendance",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "requestModel",
+        "Type": "PayrollTransactionService.BAL.ReportModel.EntityAttendanceUpdateRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorValidationApiController",
+    "Method": "UpdateEntityCompliance",
+    "RelativePath": "api/validate-entity-compliance",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "requestModel",
+        "Type": "PayrollTransactionService.BAL.ReportModel.EntityComplianceUpdateRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollTransactionService.API.Controllers.ContractorValidationApiController",
+    "Method": "UpdateValidatePayCalculation",
+    "RelativePath": "api/validate-pay-structure",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "request",
+        "Type": "PayrollTransactionService.BAL.ReportModel.PayCalculationUpdateRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

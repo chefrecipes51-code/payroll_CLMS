@@ -1,0 +1,421 @@
+﻿@* @model Payroll.Common.ViewModels.SessionViewModel *@
+@using Microsoft.AspNetCore.Http
+
+@model Payroll.WebApp.Extensions.HeaderOffcanvasViewModel
+@{
+    ////////////////////////////// REGION For MANAGE LOCATION With or Without Default:- Start///////////////////////////////////
+    // Get the SelectedLocationId from the session
+    var selectedLocationId = Context.Session.GetInt32("SelectedLocationId");
+
+    // Get the location to display in the dropdown
+    var selectedLocation = Model.SessionUserData?.LocationDetails
+        ?.FirstOrDefault(l => selectedLocationId != null && l.UserMapLocation_Id == selectedLocationId) // Check if SelectedLocationId exists
+        ?? Model.SessionUserData?.LocationDetails.FirstOrDefault(l => l.Default_Location); // Otherwise, fallback to Default_Location
+    ////////////////////////////// REGION For MANAGE LOCATION With or Without Default:- End///////////////////////////////////
+
+    ////////////////////////////// REGION For MANAGE ROLE With or Without Default:- Start///////////////////////////////////
+    // Get the SelectedRoleId from the session
+    var selectedRoleId = Context.Session.GetInt32("SelectedRoleId");
+
+    // Get the role to display in the dropdown
+    var selectedRole = Model.SessionUserData?.RoleDetails
+        ?.FirstOrDefault(l => selectedRoleId != null && l.Role_Id == selectedRoleId) // Check if SelectedRoleId exists
+        ?? Model.SessionUserData?.RoleDetails.FirstOrDefault(l => l.IsDefault_Role); // Otherwise, fallback to Default_Role
+    ////////////////////////////// REGION For MANAGE ROLE With or Without Default:- End///////////////////////////////////
+
+}
+<div class="offcanvas offcanvas-end" tabindex="-1" id="headerProfile" aria-labelledby="headerProfileLabel">
+    <div class="offcanvas-header offcanvas-header-close-only">
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <span class="sprite-icons close-icon"></span>
+        </button>
+    </div>
+    <div class="offcanvas-body pt-0">
+        <div class="profile-summary">
+            @if (!string.IsNullOrEmpty(Model.SessionData?.Username))
+            {
+                    <img class="profile-photo" src="@Url.Action("GenerateProfileImage", "Account", new { username = Model.SessionData?.Username, width = 120, height = 120 })" height="100" width="100" alt="profile photo">
+            }
+            else
+            {
+                    <img class="profile-photo" src="~/assets/img/profile.svg" height="120" width="120" alt="profile photo">
+            }
+            <p class="profile-name">@Model.SessionData?.Username</p>
+        </div>
+
+        <div class="profile-action-container">
+            <div class="profile-action">
+                <div class="icon-title">
+                    <label for="exampleInputEmail1" class="form-label">Select Role:</label>
+                    <div class="input-group justify-content-end">
+                        <input id="chkMakeDefaultRole" class="form-check-input m-0" type="checkbox" value=""
+                               aria-label="Checkbox for following text input">
+                        <label for="checklist1" class="form-check-label m-0">Mark as default</label>
+                    </div>
+                </div>               
+              @*   <div class="dropdown">
+                    <a class="btn dropdown-link dropdown-toggle" id="dropdownRole" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        @Model.SessionUserData?.RoleDetails?.FirstOrDefault(r => r.IsDefault_Role)?.RoleName
+                    </a>
+                    <ul class="dropdown-menu" id="dropdownMenuRole">
+                        @foreach (var role in Model.SessionUserData?.RoleDetails ?? new List<Payroll.Common.ViewModels.UserRoleDetails>())
+                        {
+                                <li><a class="dropdown-item" href="#" data-value="@role.Role_User_Id">@role.RoleName</a></li>
+                        }
+                    </ul>
+                </div> *@
+
+                <div class="dropdown">
+                    <a class="btn dropdown-link dropdown-toggle" id="dropdownRole" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        @selectedRole?.RoleName                       
+                    </a>
+                    <ul class="dropdown-menu" id="dropdownMenuRole">
+                        @foreach (var role in Model.SessionUserData?.RoleDetails ?? new List<Payroll.Common.ViewModels.UserRoleDetails>())
+                        {
+                            <li><a class="dropdown-item" href="#" data-value="@role.Role_User_Id">@role.RoleName</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="profile-action">
+                <div class="icon-title">
+                    <label for="exampleLocation" class="form-label">Select Location:</label>
+                    <div class="input-group justify-content-end">
+                        <input id="chkMakeDefaultLocation" class="form-check-input m-0" type="checkbox" value=""
+                               aria-label="Checkbox for following text input">
+                        <label for="checklist1" class="form-check-label m-0">Mark as default</label>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    @*   <a class="btn dropdown-link dropdown-toggle" id="dropdownLocation" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    @Model.SessionUserData?.LocationDetails.FirstOrDefault(r => r.Default_Location)?.CompanyFullLocation
+                    </a>
+                    <ul class="dropdown-menu" id="dropdownMenuLocation">
+                    @foreach (var role in Model.SessionUserData?.LocationDetails ?? new List<Payroll.Common.ViewModels.UserLocationDetails>())
+                    {
+                    <li><a class="dropdown-item" href="#" data-value="@role.UserMapLocation_Id">@role.CompanyFullLocation</a></li>
+                    }
+                    </ul>
+                    *@
+                    <a class="btn dropdown-link dropdown-toggle" id="dropdownLocation" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        @selectedLocation?.CompanyFullLocation
+                    </a>
+
+                    <ul class="dropdown-menu" id="dropdownMenuLocation">
+                        @foreach (var location in Model.SessionUserData?.LocationDetails ?? new List<Payroll.Common.ViewModels.UserLocationDetails>())
+                        {
+                                <li>
+                                    <a class="dropdown-item" href="#" data-value="@location.UserMapLocation_Id">
+                                    @location.CompanyFullLocation
+                                    </a>
+                                </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <div class="own-profile-security">
+                 <button id="btnProfile" class="btn btn-primary-light"><span class="sprite-icons user-icon"></span>Profile</button>
+              @*   <button class="btn btn-primary-light" onclick="redirectChangePassword()">
+                    <span class="sprite-icons password-lock"></span>Change Password
+                </button> *@
+            </div>
+            <hr />
+          @*   <div class="theme-selection">
+                <div class="light-dark-mode">
+                    <div class="icon-title">
+                        <span class="sprite-icons non-handle-bag"></span>
+                        <p class="form-check-label">Select Theme</p>
+                    </div>
+                    <div class="theme-box">
+                        <div class="light-theme-box">
+                            <img src="~/assets/img/dark-theme.svg" height="44" width="74" alt="dark theme">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="toggleLight">
+                                <label class="form-check-label" for="toggleLight">
+                                    Light Theme
+                                </label>
+                            </div>
+                        </div>
+                        <div class="dark-theme-box">
+                            <img src="~/assets/img/light-theme.svg" height="44" width="74" alt="light theme">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="toggleDark">
+                                <label class="form-check-label" for="toggleDark">
+                                    Dark Theme
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> *@
+        </div>
+    </div>
+
+    <div class="offcanvas-footer">
+        <div class="logout-container">
+
+            @*  Commented By Harshida: - 26-12-'24 : - Start *@
+            @* Comment the HTML ONCLICK hence Interested to call my handleLogout method *@
+            @*  <button class="btn btn-danger-light" onclick="window.location.href='/logout'"> *@
+            @*  Commented By Harshida: - 26-12-'24 : - End *@
+            <button class="btn btn-danger-light" onclick="handleLogout()">
+                <span class="sprite-icons logout-icon"></span>Logout
+            </button>
+        </div>
+    </div>
+</div>
+
+@* Script Added By Harshida 26-12-'24 :- Start *@
+<!-- Custom Reusable Modal -->
+<div class="modal fade modal-custom modal-primary" id="customAlertModal" tabindex="-1"
+     aria-labelledby="customAlertModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/icons/priamry-done-modal.svg" width="134" height="77" alt="successfully done">
+                <p class="title-primary mb-2" id="customAlertMessage">Default message</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" id="customAlertYes" class="btn btn_primary_outline_md" data-bs-dismiss="modal">
+                    OK
+                </button>
+                <button type="button" id="customAlertNo" class="btn btn_primary d-none">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+      document.getElementById("btnProfile")?.addEventListener("click", function () {
+        var profileUrl = '@Model.SessionUserData?.ProfilePath';
+        if (profileUrl) {
+            window.location.href = profileUrl;
+        }
+    });
+    function showCustomAlert(message, onOk = null) {
+        $('#customAlertMessage').text(message);
+
+        // Optional: hook a callback
+        $('#customAlertYes').off('click').on('click', function () {
+            if (typeof onOk === 'function') onOk();
+        });
+
+        $('#customAlertModal').modal('show');
+    }
+
+    document.getElementById('dropdownMenuLocation').addEventListener('click', function (e) {
+        if (e.target.classList.contains('dropdown-item')) {
+            e.preventDefault();
+            const locationIdWithoutDefaultUpdate = e.target.getAttribute('data-value');
+            const locationName = e.target.textContent;
+            document.getElementById('dropdownLocation').textContent = locationName;
+            window.selectedLocationId = locationIdWithoutDefaultUpdate;
+            //console.log("The Value will be" + locationId + locationName);
+            localStorage.setItem("selectedLocationId", locationIdWithoutDefaultUpdate);
+            $.ajax({
+                url: "@Url.Action("GetRLWithoutDefaultUpdate", "User")",
+                datatype: "json",
+                data: { locationId: locationIdWithoutDefaultUpdate },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload(); // Reload the page on success
+                    }
+                    else {
+                        //console.error("Error: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    //console.error('Error:', error);
+                    //alert('An error occurred while updating the location.');
+                }
+            });
+        }
+    });
+
+    document.getElementById('dropdownMenuRole').addEventListener('click', function (e) {
+        if (e.target.classList.contains('dropdown-item')) {
+            e.preventDefault();
+            const roleIdWithoutDefaultUpdate = e.target.getAttribute('data-value');
+            const roleName = e.target.textContent;
+            document.getElementById('dropdownRole').textContent = roleName;
+            window.selectedRoleId = roleIdWithoutDefaultUpdate;
+            //console.log("The Value will be" + locationId + locationName);
+            localStorage.setItem("selectedRoleId", roleIdWithoutDefaultUpdate);
+            $.ajax({
+                url: "@Url.Action("GetRoleWithoutDefaultUpdate", "User")",
+                datatype: "json",
+                data: { roleId: roleIdWithoutDefaultUpdate },
+                success: function (response) {
+                    if (response.success) {
+                        location.reload(); // Reload the page on success
+                    }
+                    else {
+                        //console.error("Error: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    //console.error('Error:', error);
+                    //alert('An error occurred while updating the location.');
+                }
+            });
+        }
+    });
+
+    document.querySelectorAll('#dropdownMenuRole .dropdown-item').forEach(function (item) {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            const roleId = this.getAttribute('data-value');
+            const roleName = this.textContent;
+            document.getElementById('dropdownRole').textContent = roleName;
+            window.selectedRoleId = roleId;
+            ////
+            const dropdownRole = document.getElementById('dropdownRole');
+            dropdownRole.textContent = roleName;
+            dropdownRole.setAttribute("data-selected-id", roleId);
+            console.log("roleId" + roleId);
+            ////
+        });
+    });
+
+    document.querySelectorAll('#dropdownMenuLocation .dropdown-item').forEach(function (item) {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            const locationId = this.getAttribute('data-value');
+            const locationName = this.textContent;
+            document.getElementById('dropdownLocation').textContent = locationName;
+            window.selectedLocationId = locationId;
+            ////
+            const dropdownLocation = document.getElementById('dropdownLocation');
+            dropdownLocation.textContent = locationName;
+            dropdownLocation.setAttribute("data-selected-id", locationId);
+            ////
+
+            //console.log("Selected Location ID:", locationId);
+        });
+    });
+    // document.getElementById('chkMakeDefaultRole').addEventListener('change', function () {
+    //     if (this.checked) {
+    //         const roleId = window.selectedRoleId;
+    //         if (roleId) {
+    //             callMakeDefaulRole(roleId,"Role");
+    //         }
+    //     }
+    // });
+    document.getElementById('chkMakeDefaultRole').addEventListener('change', function () {
+        if (this.checked) {
+            //const roleId = window.selectedRoleId;
+            const roleId = localStorage.getItem("selectedRoleId");
+            console.log("roleId"+roleId+"chkMakeDefaultRole");
+            if (roleId) {
+                //callMakeDefaultLocation(locationId,"Location");
+                var sessionRoleData = @Html.Raw(Json.Serialize(Model.SessionUserData));
+                console.log( sessionRoleData);
+                if (sessionRoleData && sessionRoleData.roleDetails) {
+                    const sessionRoleId = sessionRoleData.roleDetails.find(ld => ld.isDefault_Role === true)?.role_User_Id;
+                    if (sessionRoleId && roleId === sessionRoleId.toString()) {
+                        // alert("Selected Role is already the default.");
+                        // location.reload();
+                        showCustomAlert("Selected Role is already the default.", function () {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        callMakeDefaulRole(roleId, "Role"); // Correct function call
+                    }
+                }
+            }
+            else {
+                // alert("Selected Role is already the default.");
+                // location.reload();
+                showCustomAlert("Selected Role is already the default.", function () {
+                    location.reload();
+                });
+            }
+        }
+    });
+    document.getElementById('chkMakeDefaultLocation').addEventListener('change', function () {
+        if (this.checked) {
+            const locationId = localStorage.getItem("selectedLocationId");
+            if (locationId) {
+                //callMakeDefaultLocation(locationId,"Location");
+                var sessionData = @Html.Raw(Json.Serialize(Model.SessionUserData));
+                if (sessionData && sessionData.locationDetails) 
+                {
+                    const sessionLocationId = sessionData.locationDetails.find(ld => ld.default_Location === true)?.userMapLocation_Id;
+                    if (sessionLocationId && locationId === sessionLocationId.toString()) {
+                        // alert("Selected location is already the default.");
+                        // location.reload();
+                        showCustomAlert("Selected location is already the default.", function () {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        callMakeDefaultLocation(locationId, "Location"); // Correct function call
+                    }
+                }
+            }
+            else {
+                // alert("Selected location is already the default.");
+                // location.reload();
+                showCustomAlert("Selected location is already the default.", function () {
+                    location.reload();
+                });
+            }
+        }
+    });
+    function callMakeDefaulRole(roleId,defaultType) {
+        $.ajax({
+            url: "@Url.Action("UpdateDefaultLocationRole", "User")",
+            datatype: "json",
+            data: { locationId: null, roleId: roleId, defaultType: defaultType },
+            success: function (response) {
+                if (response.success) {
+                    localStorage.removeItem("selectedRoleId");
+                    // alert(response.message);
+                    // location.reload();
+                    showCustomAlert(response.message, function () {
+                        location.reload();
+                    });
+                } else {
+                    //alert('Failed to update location.');
+                }
+            },
+            error: function (xhr, status, error) {
+                //console.error('Error:', error);
+            }
+        });
+    }
+    function redirectChangePassword() {
+        window.location.href = "/User/ChangePassword"; // Update the URL as needed
+    }
+    function callMakeDefaultLocation(locationId, defaultType) {
+        $.ajax({
+            url: "@Url.Action("UpdateDefaultLocationRole", "User")",
+            datatype: "json",
+            data: { locationId: locationId, roleId: null, defaultType: defaultType },
+            success: function (response) {
+                if (response.success) {
+                    localStorage.removeItem("selectedLocationId");
+                    // alert(response.message);
+                    // location.reload();
+                    showCustomAlert(response.message, function () {
+                        location.reload();
+                    });
+                }
+                else {
+                    //alert('Failed to update location.');
+                }
+            },
+            error: function (xhr, status, error) {
+                //console.error('Error:', error);
+                //alert('An error occurred while updating the location.');
+            }
+        });
+    }
+</script>
+@* Script Added By Harshida 26-12-'24 :- End *@

@@ -1,0 +1,183 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.UserInfoDTO>
+
+@{
+    ViewBag.Title = "User List";
+}
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+<style>
+    #btn1, #btn2,#btn4, #btn3 {
+        display: none !important;
+    }
+</style>
+@* <nav>
+    <div class="alert-custom" style="display:none;">      
+    </div>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-user-list-tab" data-bs-toggle="tab"
+                data-bs-target="#nav-user-list" type="button" role="tab" aria-controls="nav-user-list"
+                aria-selected="true">
+            User List
+        </button>
+       
+    </div>
+</nav> *@
+@section Scripts {
+    @*  Added By Harshida Parmar (31-12-'24) *@
+    @*  Download PDF and Excel From Grid:- Start *@
+    <script src="~/devassets/xlsx.full.min.js"></script>
+    <script src="~/devassets/jspdf.umd.min.js"></script>
+    <script src="~/devassets/jspdf.plugin.autotable.min.js"></script>
+    @*  Download PDF and Excel From Grid:- End *@
+    <!-- #region name:- Delete User Data:- Start -->
+   <script src="~/application/js/user/user.js"></script>
+    <!-- #endregion:- Delete User Data:- End  -->
+}
+
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+    <!-- Alert content will be dynamically inserted based on the alert type -->
+</div>
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+<div class="quick-filter-container">
+    <div class="btn-group-left">
+        <p class="btn btn_primary">Total Users: <span>@ViewBag.TotalUsers</span></p>
+        <p class="btn btn-success-light">Active Users: <span>@ViewBag.ActiveUsers</span></p>
+        @* <button class="btn btn-danger-light">Suspended Users: <span>@ViewBag.SuspendedUsers</span></button> *@
+    </div>
+@*     <a href="/User/AddRecord" class="btn btn_primary add-button btn-add-hide">
+        <span class="sprite-icons add-light"></span> Add User
+    </a> *@
+</div>
+
+<!-- User List Table (Paginated) -->
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+         aria-labelledby="nav-user-list-tab">
+        <div class="table-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive table-user-list">
+                        <table id="user-list" class="table custom-table">
+                            <thead>
+                                <tr>
+                                    <th hidden>#</th>
+                                    <th class="sticky_cell">Full Name</th>
+                                    <th class="sticky_cell">User Id</th>
+                                    <th>Contact No</th>
+                                    <th>Company Name</th>
+                                    <th>Is Active</th>
+                                    <th class="sticky_cell">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    int rowIndex = 1;
+                                    foreach (var user in Model)
+                                    {
+                                        <tr id="row-@user.UserId">
+                                            <td hidden>@rowIndex</td>
+                                            <td class="sticky_cell">
+                                                @(string.Join(" ", new[] { user.Salutation, user.FirstName, user.MiddleName, user.LastName }
+                                                    .Where(s => !string.IsNullOrWhiteSpace(s))))
+                                            </td>
+                                            <td class="sticky_cell">@user.Email</td>
+                                            <td>@user.ContactNo</td>
+                                            <td>@user.CompanyName</td>
+                                            <td class="sticky_cell">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input user-status-toggle"
+                                                           type="checkbox"
+                                                           role="switch"
+                                                           id="status-@user.UserId"
+                                                           data-userid="@user.UserId"
+                                                           data-companyid="@user.CompanyId"
+                                                           data-countryid="@user.CountryId"
+                                                           data-isactive="@user.IsActive"
+                                                           data-deactivationtype="@user.Deactivation_Type"
+                                                           data-deactivationreason="@user.Deactivation_Reason"
+                                                    @(user.IsActive ? "checked" : "")>
+                                                    <label class="form-check-label" for="status-@user.UserId">
+                                                        @(user.IsActive ? "Active" : "Inactive")
+                                                    </label>
+                                                </div>
+                                            </td>
+                                           
+                                            <td class="sticky_cell">
+                                                <div class="table-button-group" >
+                                                    <button id="getDataButton" type="button" data-userid="@user.UserId"
+                                                            data-bs-target="#viewUser" class="btn btn-primary-light-icon-md redirectFromUserProfile">
+                                                        <span class="sprite-icons eye-primary-dark"></span>
+                                                    </button>
+
+                                                    <button class="btn btn-danger-light-icon btn-delete-hide"
+                                                            data-userid="@user.UserId"
+                                                            data-email="@user.Email"
+                                                            data-contactno="@user.ContactNo"
+                                                            data-companyname="@user.CompanyName"
+                                                            data-isactive="@user.IsActive"
+                                                            data-isdeleted="@user.IsDeleted"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#deleteUser">
+                                                        <span class="sprite-icons delete-danger"></span>
+                                                    </button>
+
+                                                   @*  <button type="button" class="btn btn-danger-light-icon"
+                                                            data-bs-toggle="modal" data-bs-target="#suspendUser">
+                                                        <span class="sprite-icons user-suspend"></span>
+                                                    </button> *@
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        rowIndex++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="8" class="text-center">No users found.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteUser" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this user?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmUserDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="viewUser" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="viewUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Want to view this user?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+      
+                <button type="button" class="btn btn_danger loader-dot-pulse" id="confirmUserView">Yes</button>
+
+            </div>
+        </div>
+    </div>
+</div>

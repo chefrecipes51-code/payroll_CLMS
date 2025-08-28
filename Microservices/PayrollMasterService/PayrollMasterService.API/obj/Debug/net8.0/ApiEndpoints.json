@@ -1,0 +1,2788 @@
+[
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.SalaryStructureApiController",
+    "Method": "AddEditSalaryStructure",
+    "RelativePath": "api/addeditsalarystructure",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "objSalaryStructure",
+        "Type": "PayrollMasterService.BAL.Models.SalaryStructureDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.SalaryStructureApiController",
+    "Method": "CalculateSalaryStructure",
+    "RelativePath": "api/calculatesalarystructure",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "objSalaryStructure",
+        "Type": "PayrollMasterService.BAL.Models.SalarySimulatorDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.SalaryStructureApiController",
+    "Method": "CalculateSalaryStructure1",
+    "RelativePath": "api/calculatesalarystructure1",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "objSalaryStructure",
+        "Type": "PayrollMasterService.BAL.Models.SalarySimulatorDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyLocationApiController",
+    "Method": "GetCompanyLocationMap",
+    "RelativePath": "api/companylocationmap",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "companyId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "userId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ApprovalSetUpApiController",
+    "Method": "DeleteApprovalMatrix",
+    "RelativePath": "api/deleteapprovalmatrix/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "approvalconfig",
+        "Type": "PayrollMasterService.BAL.Models.ApprovalConfigGrid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.AreaMasterApiController",
+    "Method": "DeleteAreaMaster",
+    "RelativePath": "api/deleteareamaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "areaMaster",
+        "Type": "PayrollMasterService.BAL.Models.AreaMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyCurrencyMasterApiController",
+    "Method": "DeleteCompanyCurrencyMaster",
+    "RelativePath": "api/deletecompanycurrencymaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "companyCurrencyMaster",
+        "Type": "PayrollMasterService.BAL.Models.CompanyCurrencyMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "DeleteCompanyMaster",
+    "RelativePath": "api/deletecompanymaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "companyMaster",
+        "Type": "PayrollMasterService.BAL.Models.CompanyMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.DepartmentMasterApiController",
+    "Method": "DeleteDepartmentMaster",
+    "RelativePath": "api/deletedepartmentmaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "departmentMaster",
+        "Type": "PayrollMasterService.BAL.Models.DepartmentMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.DetailYearlyItTableMasterApiController",
+    "Method": "DeleteDetailYearlyItTable",
+    "RelativePath": "api/deletedetailyearlyittable/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "detailYearlyItTableMaster",
+        "Type": "PayrollMasterService.BAL.Models.DetailYearlyItTableMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EarningDeductionMasterApiController",
+    "Method": "DeleteEarningDeductioMaster",
+    "RelativePath": "api/deleteearningdeductiomaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "earningDeductionMaster",
+        "Type": "PayrollMasterService.BAL.Models.EarningDeductionMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EntityTaxStatutoryApiController",
+    "Method": "DeleteEntityTaxStatutory",
+    "RelativePath": "api/deleteentitytaxstatutory/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "entityTaxStatutory",
+        "Type": "PayrollMasterService.BAL.Models.EntityTaxStatutory",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EventMasterApiController",
+    "Method": "DeleteEventMaster",
+    "RelativePath": "api/deleteeventmaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "eventMaster",
+        "Type": "PayrollMasterService.BAL.Models.EventMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.FormulaMasterApiController",
+    "Method": "DeleteFormulaMaster",
+    "RelativePath": "api/deleteformulamaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "FormulaDetail",
+        "Type": "PayrollMasterService.BAL.Models.FormulaMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GeneralAccountingHeadApiController",
+    "Method": "DeleteAccountingHead",
+    "RelativePath": "api/deletegeneralaccountinghead/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "PayrollMasterService.BAL.Requests.AccountingHeadRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GLGroupApiController",
+    "Method": "DeleteGLGroup",
+    "RelativePath": "api/deleteglgroup/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "PayrollMasterService.BAL.Requests.GlGroupRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.LocationMasterApiController",
+    "Method": "DeleteLocationMaster",
+    "RelativePath": "api/deletelocationmaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "locationMaster",
+        "Type": "PayrollMasterService.BAL.Models.LocationMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentLocationApiController",
+    "Method": "DeleteMapDepartmentLocation",
+    "RelativePath": "api/deletemapDepartmentLocation/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "mapDepartmentLocation",
+        "Type": "PayrollMasterService.BAL.Models.MapDepartmentLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentRoleApiController",
+    "Method": "DeleteMapDepartmentRole",
+    "RelativePath": "api/deletemapdepartmentrole/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "mapDepartmentRole",
+        "Type": "PayrollMasterService.BAL.Models.MapDepartmentRole",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapUserLocationApiController",
+    "Method": "DeleteMapUserLocation",
+    "RelativePath": "api/deletemapuserlocation/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "mapUserLocation",
+        "Type": "PayrollMasterService.BAL.Models.MapUserLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.RoleMasterApiController",
+    "Method": "DeleteRoleMaster",
+    "RelativePath": "api/deleterolemaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "roleMaster",
+        "Type": "PayrollMasterService.BAL.Models.RoleMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.RoleMenuMappingApiController",
+    "Method": "DeleteRoleMenuMappingDetail",
+    "RelativePath": "api/deleterolemenumappingDetail/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.RoleMenuMappingApiController",
+    "Method": "deleterolemenumappingMaster",
+    "RelativePath": "api/deleterolemenumappingMaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.SalaryStructureApiController",
+    "Method": "DeleteSalaryStructure",
+    "RelativePath": "api/deletesalarystructure/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "objSalaryStructure",
+        "Type": "PayrollMasterService.BAL.Models.SalaryStructureDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "DeleteSubsidiaryMaster",
+    "RelativePath": "api/deletesubsidiarymaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "subsidiaryMaster",
+        "Type": "PayrollMasterService.BAL.Models.SubsidiaryMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageConfigDetailApiController",
+    "Method": "DeleteWageConfigDetail",
+    "RelativePath": "api/deletewageconfigdetail/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "wageConfigDetail",
+        "Type": "PayrollMasterService.BAL.Models.WageConfigDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageGradeMasterApiController",
+    "Method": "DeleteWageGradeMaster",
+    "RelativePath": "api/deletewagegrademaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "wageGradeDetail",
+        "Type": "PayrollMasterService.BAL.Models.WageGradeMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageRateMasterApiController",
+    "Method": "DeleteWageRateMaster",
+    "RelativePath": "api/deletewageratemaster/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "wageRateDetail",
+        "Type": "PayrollMasterService.BAL.Models.WageRateMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.YearlyItTableMasterApiController",
+    "Method": "DeleteYearlyItTable",
+    "RelativePath": "api/deleteyearlyittable/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "yearlyITTableMaster",
+        "Type": "PayrollMasterService.BAL.Models.YearlyItTableMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EventAuthMappingApiController",
+    "Method": "GetEventAuthSetUp",
+    "RelativePath": "api/EventAuthMappingApi/geteventauthsetup",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EventAuthMappingApiController",
+    "Method": "GetEventAuthSetUpFilters",
+    "RelativePath": "api/EventAuthMappingApi/geteventauthsetupfilters",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "eventAuthFilter",
+        "Type": "PayrollMasterService.BAL.Models.EventAuthFilter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EventAuthMappingApiController",
+    "Method": "PostEventAuthMapping",
+    "RelativePath": "api/EventAuthMappingApi/postevventauthMapping",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "eventAuthSetUp",
+        "Type": "PayrollMasterService.BAL.Models.EventAuthSetUp",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ApprovalSetUpApiController",
+    "Method": "GetApprovals",
+    "RelativePath": "api/get-approvals",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "approverId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "correspondanceId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "requestDate",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.AreaMasterApiController",
+    "Method": "GetAllAreaMaster",
+    "RelativePath": "api/getallareamaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GeographicalLocationApiController",
+    "Method": "GetAllCityMaster",
+    "RelativePath": "api/getallcitymaster/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GeographicalLocationApiController",
+    "Method": "GetAllCityWiseLocationMaster",
+    "RelativePath": "api/getallcitywiselocationmaster/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetAllCompany",
+    "RelativePath": "api/getallcompany",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyCurrencyMasterApiController",
+    "Method": "GetAllCompanyCurrencyMaster",
+    "RelativePath": "api/getallcompanycurrencymaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetAllCompanyMaster",
+    "RelativePath": "api/getallcompanymaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetAllCompanyMasterAPI",
+    "RelativePath": "api/getallcompanymasterapi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetAllCompanyType",
+    "RelativePath": "api/getallcompanytype",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetAllCurrency",
+    "RelativePath": "api/getallcurrency",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "currencyId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "countryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "isActive",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.DepartmentMasterApiController",
+    "Method": "GetAllDepartmentMaster",
+    "RelativePath": "api/getalldepartmentmaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.DetailYearlyItTableMasterApiController",
+    "Method": "GetAllDetailYearlyItTable",
+    "RelativePath": "api/getalldetailyearlyittable",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EarningDeductionMasterApiController",
+    "Method": "GetAllEarningDeductioMaster",
+    "RelativePath": "api/getallearningdeductiomaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "companyId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EntityTaxStatutoryApiController",
+    "Method": "GetAllEntityTaxStatutory",
+    "RelativePath": "api/getallentitytaxstatutory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EventMasterApiController",
+    "Method": "GetAllEventMaster",
+    "RelativePath": "api/getalleventmaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentLocationApiController",
+    "Method": "GetAllFloorMaster",
+    "RelativePath": "api/getallfloormaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.FormulaMasterApiController",
+    "Method": "GetAllFormulaMaster",
+    "RelativePath": "api/getallformulamaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GeneralAccountingHeadApiController",
+    "Method": "GetAllAccountingHeads",
+    "RelativePath": "api/getallgeneralaccountinghead",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GLGroupApiController",
+    "Method": "GetAllGLGroups",
+    "RelativePath": "api/getallglgroups",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.LocationMasterApiController",
+    "Method": "GetAllLocationMaster",
+    "RelativePath": "api/getalllocationmaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentLocationApiController",
+    "Method": "GetAllMapDepartmentLocation",
+    "RelativePath": "api/getallmapdepartmentlocation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentRoleApiController",
+    "Method": "GetAllMapDepartmentRole",
+    "RelativePath": "api/getallmapdepartmentrole",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapUserLocationApiController",
+    "Method": "GetAllMapUserLocation",
+    "RelativePath": "api/getallmapuserlocation",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.RoleMasterApiController",
+    "Method": "GetAllRoleMaster",
+    "RelativePath": "api/getallrolemaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.SalaryStructureApiController",
+    "Method": "GetAllSalaryStructure",
+    "RelativePath": "api/getallsalarystructure/{Id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GeographicalLocationApiController",
+    "Method": "GetAllStateMaster",
+    "RelativePath": "api/getallstatemaster/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetAllSubsidiaryMaster",
+    "RelativePath": "api/getallsubsidiarymaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageConfigDetailApiController",
+    "Method": "GetAllWageconfigDetail",
+    "RelativePath": "api/getallwageconfigdetail",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageGradeMasterApiController",
+    "Method": "GetAllWageGradeMaster",
+    "RelativePath": "api/getallwagegrademaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageRateMasterApiController",
+    "Method": "GetAllWageRateMaster",
+    "RelativePath": "api/getallwageratemaster",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageRateMasterApiController",
+    "Method": "GetAllWageRateMasterUsingApiKey",
+    "RelativePath": "api/getallwageratemasterusingapikey",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.YearlyItTableMasterApiController",
+    "Method": "GetAllYearlyItTable",
+    "RelativePath": "api/getallyearlyittable",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ApprovalSetUpApiController",
+    "Method": "GetApprovalConfig",
+    "RelativePath": "api/getapprovalconfig",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "configId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ApprovalSetUpApiController",
+    "Method": "GetApprovalConfigGrid",
+    "RelativePath": "api/getapprovalconfiggrid",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "companyId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "locationId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "serviceId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ApprovalSetUpApiController",
+    "Method": "GetApprovalSetUpByServiceId",
+    "RelativePath": "api/getapprovalsetupbyserviceid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.AreaMasterApiController",
+    "Method": "GetAreaLocationMasterById",
+    "RelativePath": "api/getarealocationmasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.AreaMasterApiController",
+    "Method": "GetAreaMasterById",
+    "RelativePath": "api/getareamasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetCompanyCorrespondanceByCompanyid",
+    "RelativePath": "api/getcompanycorrespondancebyCompanyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetCompanyCorrespondanceById",
+    "RelativePath": "api/getcompanycorrespondancebyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyCurrencyMasterApiController",
+    "Method": "GetCompanyCurrencyMasterById",
+    "RelativePath": "api/getcompanycurrencymasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetCompanyDemographicDataById",
+    "RelativePath": "api/getcompanydemographicmasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetCompanyFinYearDetailsById",
+    "RelativePath": "api/getcompanyfinYeardetailsbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetCompanyMasterById",
+    "RelativePath": "api/getcompanymasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ReportsApiController",
+    "Method": "GetComplianceReport",
+    "RelativePath": "api/getcompliancereport",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "complianceReport",
+        "Type": "PayrollMasterService.BAL.Models.ComplianceFilter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ReportsApiController",
+    "Method": "GetContractorPaymentRegister",
+    "RelativePath": "api/getcontractorpaymentregister",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filter",
+        "Type": "PayrollMasterService.BAL.Models.ContractorPaymentRegisterFilter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.DepartmentMasterApiController",
+    "Method": "GetDepartmentMasterById",
+    "RelativePath": "api/getdepartmentmasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.DetailYearlyItTableMasterApiController",
+    "Method": "GetDetailYearlyItTableById",
+    "RelativePath": "api/getdetailyearlyittablebyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EarningDeductionMasterApiController",
+    "Method": "GetEarningDeductioMasterById",
+    "RelativePath": "api/getearningdeductiomasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "companyId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EntityTaxStatutoryApiController",
+    "Method": "GetEntityTaxStatutoryById",
+    "RelativePath": "api/getentitytaxstatutorybyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EventMasterApiController",
+    "Method": "GetEventMasterById",
+    "RelativePath": "api/geteventmasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ReportsApiController",
+    "Method": "GetFineRegisterReport",
+    "RelativePath": "api/getfineregisterreport",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fineRegisterReport",
+        "Type": "PayrollMasterService.BAL.Models.FineRegisterFilter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentLocationApiController",
+    "Method": "GetFloorMasterById",
+    "RelativePath": "api/getfloormasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.FormulaMasterApiController",
+    "Method": "GetFormulaMasterById",
+    "RelativePath": "api/getformulamasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.FormulaMasterApiController",
+    "Method": "GetFormulaSuggestions",
+    "RelativePath": "api/getformulasuggestions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "searchParam",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GeneralAccountingHeadApiController",
+    "Method": "GetAccountingHeadById",
+    "RelativePath": "api/getgeneralaccountingheadbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GeneralAccountingHeadApiController",
+    "Method": "GetGeneralAccountTypes",
+    "RelativePath": "api/getgeneralaccounttypes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "isActive",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GLGroupApiController",
+    "Method": "GetGLGroupById",
+    "RelativePath": "api/getglgroupbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ReportsApiController",
+    "Method": "GetLoanandAdvanceReport",
+    "RelativePath": "api/getloanandadvancereport",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loanandAdvanceFilter",
+        "Type": "PayrollMasterService.BAL.Models.LoanandAdvanceFilter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.LocationMasterApiController",
+    "Method": "GetLocationMasterById",
+    "RelativePath": "api/getlocationmasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ReportsApiController",
+    "Method": "GetLossDamageRegisterReport",
+    "RelativePath": "api/getlossdamageregisterreport",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filter",
+        "Type": "PayrollMasterService.BAL.Models.LossDamageRegisterFilter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentLocationApiController",
+    "Method": "GetMapDepartmentLocationById",
+    "RelativePath": "api/getmapdepartmentlocationbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentRoleApiController",
+    "Method": "GetMapDepartmentRoleById",
+    "RelativePath": "api/getmapdepartmentrolebyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapUserLocationApiController",
+    "Method": "GetMapUserLocationById",
+    "RelativePath": "api/getmapuserlocationbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ReportsApiController",
+    "Method": "GetOvertimeReport",
+    "RelativePath": "api/getovertimereport",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "overtimeFilter",
+        "Type": "PayrollMasterService.BAL.Models.OvertimeFilter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GLGroupApiController",
+    "Method": "GetParentOrSubGroups",
+    "RelativePath": "api/getparentsubglgroups/{parentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "parentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ReportsApiController",
+    "Method": "GetPayRegisterReport",
+    "RelativePath": "api/getpayregisterreport",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "payRegisterFilter",
+        "Type": "payrollmasterservice.BAL.Models.PayRegisterFilter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.RoleMasterApiController",
+    "Method": "GetRoleMasterById",
+    "RelativePath": "api/getrolemasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ReportsApiController",
+    "Method": "GetSalarySlipReport",
+    "RelativePath": "api/getsalaryslipreport",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "salarySlipFilter",
+        "Type": "PayrollMasterService.BAL.Models.SalarySlipFilter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.SalaryStructureApiController",
+    "Method": "GetSalaryStructureById",
+    "RelativePath": "api/getsalarystructurebyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "GetSubsidiaryMasterById",
+    "RelativePath": "api/getsubsidiarymasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ReportsApiController",
+    "Method": "GetTaxDeductionReport",
+    "RelativePath": "api/gettaxdeductionreport",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filter",
+        "Type": "PayrollMasterService.BAL.Models.TaxDeductionReportFilter",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.RoleMenuMappingApiController",
+    "Method": "GetUserRoleMenuByRoleId",
+    "RelativePath": "api/getuserrolemenubyroleId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "Company_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "IsRenderInMenu",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageConfigDetailApiController",
+    "Method": "GetWageConfigDetailById",
+    "RelativePath": "api/getwageconfigdetailbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageGradeMasterApiController",
+    "Method": "GetWageGradeMasterById",
+    "RelativePath": "api/getwagegrademasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageRateMasterApiController",
+    "Method": "GetWageRateMasterById",
+    "RelativePath": "api/getwageratemasterbyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.YearlyItTableMasterApiController",
+    "Method": "GetYearlyItTableById",
+    "RelativePath": "api/getyearlyittablebyid/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MessageController",
+    "Method": "SendMessage",
+    "RelativePath": "api/message",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ApprovalSetUpApiController",
+    "Method": "PostApprovalSetUpMapping",
+    "RelativePath": "api/postapprovalsetup",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "approvalConfigCommon",
+        "Type": "PayrollMasterService.BAL.Models.ApprovalConfigCommon",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.AreaMasterApiController",
+    "Method": "PostAreaMaster",
+    "RelativePath": "api/postareamaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "areaMaster",
+        "Type": "PayrollMasterService.BAL.Models.AreaMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "PostCompanyConfiguration",
+    "RelativePath": "api/postcompanyconfiguration",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "companyconfiguration",
+        "Type": "PayrollMasterService.BAL.Requests.CompanyConfigurationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "PostCompanyCorrespondanceMaster",
+    "RelativePath": "api/postcompanycorrespondancemaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "companycorrespondanceMaster",
+        "Type": "PayrollMasterService.BAL.Models.CompanyCorrespondance",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyCurrencyMasterApiController",
+    "Method": "PostCompanyCurrencyMaster",
+    "RelativePath": "api/postcompanycurrencymaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "companyCurrencyMaster",
+        "Type": "PayrollMasterService.BAL.Models.CompanyCurrencyMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "PostCompanyMaster",
+    "RelativePath": "api/postcompanymaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "companyMaster",
+        "Type": "PayrollMasterService.BAL.Models.CompanyMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.DepartmentMasterApiController",
+    "Method": "PostDepartmentMaster",
+    "RelativePath": "api/postdepartmentmaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "departmentMaster",
+        "Type": "PayrollMasterService.BAL.Models.DepartmentMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.DetailYearlyItTableMasterApiController",
+    "Method": "PostDetailYearlyItTable",
+    "RelativePath": "api/postdetailyearlyittable",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "detailYearlyItTableMaster",
+        "Type": "PayrollMasterService.BAL.Models.DetailYearlyItTableMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EarningDeductionMasterApiController",
+    "Method": "PostEarningDeductioMaster",
+    "RelativePath": "api/postearningdeductiomaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "earningDeductionMaster",
+        "Type": "PayrollMasterService.BAL.Models.EarningDeductionMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EntityTaxStatutoryApiController",
+    "Method": "PostEntityTaxStatutory",
+    "RelativePath": "api/postentitytaxstatutory",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entityTaxStatutory",
+        "Type": "PayrollMasterService.BAL.Models.EntityTaxStatutory",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EventMasterApiController",
+    "Method": "PostEventMaster",
+    "RelativePath": "api/posteventmaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "eventMaster",
+        "Type": "PayrollMasterService.BAL.Models.EventMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.FormulaMasterApiController",
+    "Method": "PostFormulaMaster",
+    "RelativePath": "api/postformulamaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FormulaDetail",
+        "Type": "PayrollMasterService.BAL.Models.FormulaMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GeneralAccountingHeadApiController",
+    "Method": "PostAccountingHead",
+    "RelativePath": "api/postgeneralaccountinghead",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "model",
+        "Type": "PayrollMasterService.BAL.Requests.AccountingHeadRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GLGroupApiController",
+    "Method": "PostGLGroup",
+    "RelativePath": "api/postglgroup",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "model",
+        "Type": "PayrollMasterService.BAL.Requests.GlGroupRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.LocationMasterApiController",
+    "Method": "PostLocationMaster",
+    "RelativePath": "api/postlocationmaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locationMaster",
+        "Type": "PayrollMasterService.BAL.Models.LocationMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentLocationApiController",
+    "Method": "PostMapDepartmentLocation",
+    "RelativePath": "api/postmapdepartmentlocation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mapDepartmentLocation",
+        "Type": "PayrollMasterService.BAL.Models.MapDepartmentLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentRoleApiController",
+    "Method": "PostMapDepartmentRole",
+    "RelativePath": "api/postmapdepartmentrole",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mapDepartmentRole",
+        "Type": "PayrollMasterService.BAL.Models.MapDepartmentRole",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapUserLocationApiController",
+    "Method": "PostMapUserLocation",
+    "RelativePath": "api/postmapuserlocation",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "mapUserLocation",
+        "Type": "PayrollMasterService.BAL.Models.MapUserLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.RoleMasterApiController",
+    "Method": "PostRoleMaster",
+    "RelativePath": "api/postrolemaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleMaster",
+        "Type": "PayrollMasterService.BAL.Models.RoleMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.RoleMenuMappingApiController",
+    "Method": "PostRoleMenuDetail",
+    "RelativePath": "api/postrolemenudetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleMenuMappingRequest",
+        "Type": "PayrollMasterService.BAL.Models.RoleMenuMappingRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.SalaryStructureApiController",
+    "Method": "PostSalaryStructure",
+    "RelativePath": "api/postsalarystructure",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "objSalaryStructure",
+        "Type": "PayrollMasterService.BAL.Models.SalaryStructureDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "PostSubsidiaryMaster",
+    "RelativePath": "api/postsubsidiarymaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "subidiaryMaster",
+        "Type": "PayrollMasterService.BAL.Models.SubsidiaryMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageConfigDetailApiController",
+    "Method": "PostWageConfigDetail",
+    "RelativePath": "api/postwageconfigdetail",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "wageConfigDetail",
+        "Type": "PayrollMasterService.BAL.Models.WageConfigDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageGradeMasterApiController",
+    "Method": "PostWageGradeMaster",
+    "RelativePath": "api/postwagegrademaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "wageGradeDetail",
+        "Type": "PayrollMasterService.BAL.Models.WageGradeMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageRateMasterApiController",
+    "Method": "PostWageRateMaster",
+    "RelativePath": "api/postwageratemaster",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "wageRateDetail",
+        "Type": "PayrollMasterService.BAL.Models.WageRateMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.YearlyItTableMasterApiController",
+    "Method": "PostYearlyItTable",
+    "RelativePath": "api/postyearlyittable",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "yearlyITTableMaster",
+        "Type": "PayrollMasterService.BAL.Models.YearlyItTableMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "PutCompanyCorrespondanceMaster",
+    "RelativePath": "api/putcompanycorrespondancemaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "companycorrespondanceMaster",
+        "Type": "PayrollMasterService.BAL.Models.CompanyCorrespondance",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "PutSubsidiaryMaster",
+    "RelativePath": "api/updataesubsidiarymaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "subsidiaryMaster",
+        "Type": "PayrollMasterService.BAL.Models.SubsidiaryMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.ApprovalSetUpApiController",
+    "Method": "UpdateApproval",
+    "RelativePath": "api/update-approval/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "PayrollMasterService.BAL.Requests.ApprovalDetailRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.AreaMasterApiController",
+    "Method": "PutAreaMaster",
+    "RelativePath": "api/updateareamaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "areaMaster",
+        "Type": "PayrollMasterService.BAL.Models.AreaMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyCurrencyMasterApiController",
+    "Method": "PutCompanyCurrencyMaster",
+    "RelativePath": "api/updatecompanycurrencymaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "companyCurrencyMaster",
+        "Type": "PayrollMasterService.BAL.Models.CompanyCurrencyMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.CompanyMasterApiController",
+    "Method": "PutCompanyMaster",
+    "RelativePath": "api/updatecompanymaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "companyMaster",
+        "Type": "PayrollMasterService.BAL.Models.CompanyMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.DepartmentMasterApiController",
+    "Method": "PutDepartmentMaster",
+    "RelativePath": "api/updatedepartmentmaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "departmentMaster",
+        "Type": "PayrollMasterService.BAL.Models.DepartmentMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.DetailYearlyItTableMasterApiController",
+    "Method": "PutDetailYearlyItTable",
+    "RelativePath": "api/updatedetailyearlyittable/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "detailYearlyItTableMaster",
+        "Type": "PayrollMasterService.BAL.Models.DetailYearlyItTableMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EarningDeductionMasterApiController",
+    "Method": "PutEarningDeductioMaster",
+    "RelativePath": "api/updateearningdeductiomaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "earningDeductionMaster",
+        "Type": "PayrollMasterService.BAL.Models.EarningDeductionMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EntityTaxStatutoryApiController",
+    "Method": "PutEntityTaxStatutory",
+    "RelativePath": "api/updateentitytaxstatutory/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "entityTaxStatutory",
+        "Type": "PayrollMasterService.BAL.Models.EntityTaxStatutory",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.EventMasterApiController",
+    "Method": "PutEventMaster",
+    "RelativePath": "api/updateeventmaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "eventMaster",
+        "Type": "PayrollMasterService.BAL.Models.EventMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.FormulaMasterApiController",
+    "Method": "PutFormulaMaster",
+    "RelativePath": "api/updateformulamaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "FormulaDetail",
+        "Type": "PayrollMasterService.BAL.Models.FormulaMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GeneralAccountingHeadApiController",
+    "Method": "PutAccountingHead",
+    "RelativePath": "api/updategeneralaccountinghead/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "PayrollMasterService.BAL.Requests.AccountingHeadRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.GLGroupApiController",
+    "Method": "PutGLGroup",
+    "RelativePath": "api/updateglgroup/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "model",
+        "Type": "PayrollMasterService.BAL.Requests.GlGroupRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.LocationMasterApiController",
+    "Method": "PutLocationMaster",
+    "RelativePath": "api/updatelocationmaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "locationMaster",
+        "Type": "PayrollMasterService.BAL.Models.LocationMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentLocationApiController",
+    "Method": "PutMapDepartmentLocation",
+    "RelativePath": "api/updatemapDepartmentLocation/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "mapDepartmentLocation",
+        "Type": "PayrollMasterService.BAL.Models.MapDepartmentLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapDepartmentRoleApiController",
+    "Method": "PutMapDepartmentRole",
+    "RelativePath": "api/updatemapdepartmentrole/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "mapDepartmentRole",
+        "Type": "PayrollMasterService.BAL.Models.MapDepartmentRole",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.MapUserLocationApiController",
+    "Method": "PutMapUserLocationMaster",
+    "RelativePath": "api/updatemapuserlocation/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "mapUserLocation",
+        "Type": "PayrollMasterService.BAL.Models.MapUserLocation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.RoleMasterApiController",
+    "Method": "PutRoleMaster",
+    "RelativePath": "api/updaterolemaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "roleMaster",
+        "Type": "PayrollMasterService.BAL.Models.RoleMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.SalaryStructureApiController",
+    "Method": "PutSalaryStructure",
+    "RelativePath": "api/updatesalarystructure/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "X-API-KEY",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "objSalaryStructure",
+        "Type": "PayrollMasterService.BAL.Models.SalaryStructureDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageConfigDetailApiController",
+    "Method": "PutWageConfigDetail",
+    "RelativePath": "api/updatewageconfigdetail",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "wageConfigDetail",
+        "Type": "PayrollMasterService.BAL.Models.WageConfigDetail",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageGradeMasterApiController",
+    "Method": "PutWageGradeMaster",
+    "RelativePath": "api/updatewagegrademaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "wageGradeDetail",
+        "Type": "PayrollMasterService.BAL.Models.WageGradeMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.WageRateMasterApiController",
+    "Method": "PutWageRateMaster",
+    "RelativePath": "api/updatewageratemaster/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "wageRateDetail",
+        "Type": "PayrollMasterService.BAL.Models.WageRateMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PayrollMasterService.API.Controllers.YearlyItTableMasterApiController",
+    "Method": "PutYearlyItTable",
+    "RelativePath": "api/updateyearlyittable/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "yearlyITTableMaster",
+        "Type": "PayrollMasterService.BAL.Models.YearlyItTableMaster",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

@@ -1,0 +1,137 @@
+﻿@model IEnumerable<PayrollMasterService.BAL.Models.FormulaMaster>
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+<style>
+    #btn1, #btn2, #btn3 {
+        display: none !important;
+    }
+</style>
+<nav>
+    <div class="alert-custom" style="display:none;">
+    </div>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-formula-list-tab" data-bs-toggle="tab"
+                data-bs-target="#nav-formula-list" type="button" role="tab" aria-controls="nav-formula-list"
+                aria-selected="true">
+            Formula
+        </button>
+    </div>
+</nav>
+@* Enable below region if in FUTURE we are planing the display ACTIVE/DI-ACTIVE/TOTAL COUNT in button :- Start *@
+<div class="quick-filter-container">
+    <div class="btn-group-left">
+@*   <button class="btn btn_primary">Total Formula:: <span>03</span> </button>
+        <button class="btn btn-success-light">Active Formula:: <span>04</span> </button>
+        <button class="btn btn-danger-light">Inactive Formula:: <span>00</span> </button> *@
+</div>
+    <button class="btn btn_primary btn-add-hide" onclick="window.location.href='/FormulaMaster/AddUpdateFormula'">
+        <span class="sprite-icons add-light"></span>
+    </button>
+</div>
+@* Enable below region if in FUTURE we are planing the display ACTIVE/DI-ACTIVE/TOTAL COUNT in button :- END *@
+
+<!-- Company List Table (Paginated) -->
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-formula-list" role="tabpanel"
+         aria-labelledby="nav-formula-list-tab">
+        <div class="table-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive table-formula-list">
+                        <table id="formula-list" class="table custom-table">
+                            <thead>
+                                <tr>
+                                    @*  <th>Company ID</th> *@
+                                    <th>Formula Name</th>
+                                    <th>Formula Computation</th>
+                                    <th>Formula Code</th>
+                                    <th>Formula Status</th>
+                                    <th class="sticky_cell">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    int rowIndex = 1;
+                                    foreach (var formula in Model)
+                                    {
+                                        <tr id="row-@formula.Formula_Id">
+                                            <td>@formula.FormulaName</td>
+                                            <td>@formula.Formula_Computation</td>
+                                            <td>@formula.Formula_Code</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" disabled type="checkbox" id="status-@formula.Formula_Id" @(formula.IsActive ? "checked" : "")>
+                                                    <label class="form-check-label" for="status-@formula.Formula_Id">
+                                                        @(formula.IsActive ? "Active" : "Inactive")
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td class="sticky_cell">
+                                                <div class="table-button-group">
+                                                    <button type="button" class="redirectFromFormulaList btn btn-primary-light-icon-md btn-edit-hide" id="btnEdit"
+                                                            data-formulaid="@formula.Formula_Id">
+                                                        @* <span class="sprite-icons eye-primary-dark"></span> *@
+                                                        <span class="sprite-icons edit-primary"></span>
+                                                    </button>
+                                                   @*  <button id="formulaMasterDelete" class="btn btn-danger-light-icon btn-delete-hide"
+                                                            data-formulaid="@formula.Formula_Id"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#deleteFormula">
+                                                        <span class="sprite-icons delete-danger"></span>
+                                                    </button> *@
+                                                    <button class="formulaMasterDelete btn btn-danger-light-icon btn-delete-hide"
+                                                            data-formulaid="@formula.Formula_Id"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#deleteFormula">
+                                                        <span class="sprite-icons delete-danger"></span>
+                                                    </button>
+
+                                                     <input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+                                                </div>
+                                               
+                                            </td>
+                                        </tr>
+                                        rowIndex++;
+                                    }
+                                }
+                                else
+                                {
+                                    @*   <tr>
+                                <td colspan="7" class="text-center">No companies found.</td>
+                                </tr> *@
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteFormula" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteFormulaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Want to delete this Formula?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+
+                <button type="button" class="btn btn_danger loader-dot-pulse" id="confirmFormulaDelete">Yes</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @*  Added By Harshida Parmar (31-12-'24) *@
+    @*  Download PDF and Excel From Grid:- Start *@
+    <script src="~/devassets/xlsx.full.min.js"></script>
+    <script src="~/devassets/jspdf.umd.min.js"></script>
+    <script src="~/devassets/jspdf.plugin.autotable.min.js"></script>
+    @*  Download PDF and Excel From Grid:- End *@
+    <script src="~/application/js/formulamaster/formulalist.js"></script>
+}

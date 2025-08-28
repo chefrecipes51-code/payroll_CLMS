@@ -1,0 +1,157 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.DepartmentDTO>
+@{
+    var renderedDepartmentIds = new HashSet<int>(); // To track rendered AreaIds
+}
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<div class="button-group">
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+</div>
+<button class="btn btn_primary add-button" data-bs-toggle="offcanvas" id="addDepartmentButton" data-bs-target="#addDepartment"
+        aria-controls="addDepartment">
+    <span class="sprite-icons add-light"></span> Add Department
+</button>
+<div class="table-card p-0">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive table-roles-permission-list table-tab-content">
+                <table id="department-master-list" class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th hidden>Department Id</th>
+                            <th>Department Name</th>
+                            <th>Department Code</th>
+                            <th class="sticky_cell">Status</th>
+                            <th class="sticky_cell">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            foreach (var department in Model)
+                            {
+                                if (!renderedDepartmentIds.Contains(department.Department_Id)) // Only render if not already added
+                                {
+                                    renderedDepartmentIds.Add(department.Department_Id);
+                                    <tr>
+                                        <td hidden>@department.Department_Id</td>
+                                        <td>@department.DepartmentName</td>
+                                        <td>@department.DepartmentCode</td>
+                                        <td class="sticky_cell">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" disabled type="checkbox" role="switch" id="status-@department.Department_Id" @(department.IsActive ? "checked" : "")>
+                                                <label class="form-check-label" for="status-@department.Department_Id">
+                                                    @(department.IsActive ? "Active" : "Inactive")
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td class="sticky_cell">
+                                            <div class="table-button-group">
+                                                <button class="btn btn-primary-light-icon-md" data-bs-toggle="offcanvas" data-bs-target="#EditDepartment" onclick="openDepartmentEditButton(@department.Department_Id)" aria-controls="EditDepartment">
+                                                    <span class="sprite-icons edit-primary"></span>
+                                                </button>
+                                                <button class="btn btn-danger-light-icon" data-bs-toggle="modal" data-bs-target="#deleteUser">
+                                                    <span class="sprite-icons delete-danger"></span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center">No data available</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offcanvas offcanvas-end offcanvas-primary" tabindex="-1" id="addDepartment" aria-labelledby="addDepartmentLabel">
+    <div class="offcanvas-header">
+        <p class="title-primary-md-600" id="formTitle">Add/Edit Department</p>
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <span class="sprite-icons close-icon"></span>
+        </button>
+    </div>
+
+    <div class="offcanvas-body">
+        <div class="offcanvas-fixed-form">
+            <div id="editdepartmentContainer"></div>
+        </div>
+    </div>
+
+    <div class="offcanvas-footer">
+        <div class="btn_group">
+            <button class="btn btn-transparent-danger" id="resetDepartmentButton" type="button">Reset All</button>
+            <div class="btn-action-variants">
+                <button class="btn btn_primary_outline_md" data-bs-dismiss="offcanvas" aria-label="Close">Cancel</button>
+                <button onclick="saveDepartmentButton()" type="button" class="btn btn_primary loader-dot-pulse">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/application/js/common/dropdown.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/application/js/payrollmaster/departmentmaster.js"></script>
+<script>
+    function saveDepartmentButton() {
+        // Get the form data
+        var departmentMasterDTO = {
+            Department_Id: $("#departmentId").val(),  // Hidden field for Department Id
+            DepartmentName: $("#departmentName").val(),
+            DepartmentCode: $("#departmentCode").val(),
+            IsActive: $("#departmentActiveToggle").prop('checked')  // Check if the toggle is checked
+        };
+
+
+        // Make the AJAX call
+        $.ajax({
+            url: '/PayrollMaster/UpdateDepartment',  // Replace with your actual controller and action
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(departmentMasterDTO),  // Send the departmentMasterDTO object as JSON
+            success: function (response) {
+                if (response.success) {
+                    alert("Department updated successfully.");
+                    // You can reload the department list or close the modal here
+                        $("#addDepartment").offcanvas("hide"); // Close offcanvas
+                        fetchDepartmentList(); // Refresh table
+                } else {
+                    alert("Failed to update department: " + response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("An error occurred: " + error);
+            }
+        });
+    }
+
+        // Function to reload the department list dynamically
+        function fetchDepartmentList() {
+            $.ajax({
+                url: '/PayrollMaster/FetchDepartmentList',
+                type: 'GET',
+                success: function (response) {
+                    $("#department-master-list tbody").html($(response).find("tbody").html());
+                },
+                error: function () {
+                    alert("Failed to refresh department list.");
+                }
+            });
+        }
+
+</script>
+}

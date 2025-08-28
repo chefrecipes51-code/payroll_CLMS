@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.BreadCrumbDTO>
+@{
+    var currentPath = ViewContext.HttpContext.Request.Path.Value?.ToLower();
+    var isHomePage = currentPath == "/" || currentPath == "/home/index";
+
+    var activeCrumbs = Model?
+        .Where(x => x.IsActive && !string.IsNullOrWhiteSpace(x.Action_URL))
+        .OrderBy(x => x.DisplayOrder)
+        .ToList();
+}
+
+@if (!isHomePage && activeCrumbs != null && activeCrumbs.Any())
+{
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/Index" class="breadcrumb-text">
+                    <span class="sprite-icons home-primary"></span>
+                </a>
+            </li>
+
+            @for (int i = 0; i < activeCrumbs.Count; i++)
+            {
+                var crumb = activeCrumbs[i];
+                <li class="breadcrumb-item @(i == activeCrumbs.Count - 1 ? "active" : "")" @(i == activeCrumbs.Count - 1 ? "aria-current=\"page\"" : "")>
+                    <a href="@crumb.Action_URL" class="breadcrumb-text">@crumb.Title</a>
+                </li>
+            }
+        </ol>
+    </nav>
+}

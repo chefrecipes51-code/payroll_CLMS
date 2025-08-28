@@ -1,0 +1,478 @@
+﻿<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-user-list-tab" data-bs-toggle="tab"
+                data-bs-target="#nav-user-list" type="button" role="tab" aria-controls="nav-user-list"
+                aria-selected="true">
+            User List
+        </button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+            Role &
+            Permission
+        </button>
+        <!-- <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+            type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button> -->
+    </div>
+</nav>
+<div class="quick-filter-container">
+    <div class="btn-group-left">
+        <button class="btn btn_primary">Total Users: <span>03</span> </button>
+        <button class="btn btn-success-light">Active Users: <span>04</span> </button>
+        <button class="btn btn-danger-light">Suspended Users: <span>00</span> </button>
+    </div>
+    <button class="btn btn_primary"><span class="sprite-icons add-light"></span> Add User</button>
+</div>
+
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+         aria-labelledby="nav-user-list-tab">
+
+        <div class="table-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive table-user-list">
+                        <table id="user-list" class="table custom-table">
+                            <thead>
+                                <tr>
+                                    <th class="sticky_cell">Full Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Email</th>
+                                    <th>Username</th>
+                                    <th>Company</th>
+                                    <th>Country</th>
+                                    <th>State</th>
+                                    <th>Branch</th>
+                                    <th>Department</th>
+                                    <th>Role</th>
+                                    <th class="sticky_cell">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="sticky_cell">
+                                        <div class="author-ctm">
+                                            <img class="author-img" src="~/assets/img/table-profile.svg"
+                                                 alt="profile">
+                                            <p class="name">Vigna Bagdai</p>
+                                        </div>
+                                    </td>
+                                    <td>7474747474</td>
+                                    <td>vigna.bagdai@mantratec.com</td>
+                                    <td>vigna.bagdai</td>
+                                    <td>Mantra Softech</td>
+                                    <td>India</td>
+                                    <td>Gujarat</td>
+                                    <td>Ahmedabad</td>
+                                    <td>Software SAAS</td>
+                                    <td>HTML Developer</td>
+                                    <td class="sticky_cell">
+                                        <div class="table-button-group">
+                                            <button class="btn btn-primary-light-icon-md"
+                                                    onclick="window.location.href='user-profile.html'">
+                                                <span class="sprite-icons eye-primary-dark"></span>
+                                            </button>
+                                            <button class="btn btn-danger-light-icon"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteUser">
+                                                <span class="sprite-icons delete-danger"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger-light-icon"
+                                                    data-bs-toggle="modal" data-bs-target="#suspendUser">
+                                                <span class="sprite-icons user-suspend"></span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas1" aria-labelledby="offcanvas1Label">
+    <div class="offcanvas-header">
+        <h5 id="offcanvas1Label">Offcanvas 1</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        Content for the first offcanvas goes here.
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas2" aria-labelledby="offcanvas2Label">
+    <div class="offcanvas-header">
+        <h5 id="offcanvas2Label">Offcanvas 2</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        Content for the second offcanvas goes here.
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas3" aria-labelledby="offcanvas3Label">
+    <div class="offcanvas-header">
+        <h5 id="offcanvas3Label">Offcanvas 3</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        Content for the third offcanvas goes here.
+    </div>
+</div>
+<!-- </div> -->
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="headerProfile" aria-labelledby="headerProfileLabel">
+    <div class="offcanvas-header offcanvas-header-close-only">
+        <!-- <h5 id="headerProfileLabel">Offcanvas right</h5> -->
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <span class="sprite-icons close-icon"></span>
+        </button>
+    </div>
+    <div class="offcanvas-body pt-0">
+        <div class="profile-summary">
+            <img class="profile-photo" src="~/assets/img/profile.svg" height="120" width="120" alt="profile photo">
+            <p class="profile-name">vigna bagdai</p>
+            <p class="profile-email">vigna.bagdai@mantratec.com</p>
+        </div>
+
+        <div class="select-role-list">
+            <label for="exampleInputEmail1" class="form-label">Select Role:</label>
+            <div class="dropdown">
+                <a class="btn dropdown-link dropdown-toggle" id="dropdownTextbox" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    Admin
+                </a>
+                <ul class="dropdown-menu" id="dropdownMenu">
+                    <li><a class="dropdown-item" data-value="1">Action</a></li>
+                    <li><a class="dropdown-item" data-value="2">Another action</a></li>
+                    <li><a class="dropdown-item" data-value="3">Something else here</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="own-profile-security">
+            <button class="btn btn-primary-light"><span class="sprite-icons user-icon"></span>profile</button>
+            <button class="btn btn-primary-light">
+                <span class="sprite-icons password-lock"></span>change
+                password
+            </button>
+        </div>
+
+        <hr />
+
+        <div class="theme-selection">
+            <div class="light-dark-mode">
+                <div class="icon-title">
+                    <span class="sprite-icons non-handle-bag"></span>
+                    <p class="form-check-label">Select Theme</p>
+                </div>
+                <div class="theme-box">
+                    <div class="light-theme-box">
+                        <img src="~/assets/img/dark-theme.svg" height="44" width="74" alt="dark theme">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                   id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1" id="toggleLight">
+                                Light Theme
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="dark-theme-box">
+                        <img src="~/assets/img/light-theme.svg" height="44" width="74" alt="light theme">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                   id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Dark Theme
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="offcanvas-footer">
+        <div class="logout-container">
+            <button class="btn btn-danger-light" onclick="window.location.href='login.html'">
+                <span class="sprite-icons logout-icon"></span>Logout
+            </button>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- modals start -->
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="suspendUser" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="suspendUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Want to suspend this user?</p>
+                <p class="sm-text-gray-neutral mb-3">
+                    This action will suspend the user's account. They will not be
+                    able
+                    to log in or access any system resources.
+                </p>
+                <label for="suspendUser" class="form-label">Remarks <sup>*</sup></label>
+                <textarea class="textarea" id="suspendUser" rows="3" maxlength="120"
+                          placeholder="Enter Text here"></textarea>
+                <div class="counter sm-text-gray-neutral text-end">0 / 120</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                <!-- <button type="button" class="btn btn_primary">Understood</button> -->
+                <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteUser" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Want to delete this user?</p>
+                <p class="sm-text-gray-neutral mb-3">
+                    This action will suspend the user's account. They will not be
+                    able
+                    to log in or access any system resources.
+                </p>
+                <label for="deleteRemarks" class="form-label">Remarks <sup>*</sup></label>
+                <textarea class="textarea" id="deleteRemarks" rows="3" maxlength="120"
+                          placeholder="Enter Text here"></textarea>
+                <div class="counter sm-text-gray-neutral text-end">0 / 120</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                <!-- <button type="button" class="btn btn_primary">Understood</button> -->
+                <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-custom modal-primary-confirmation" id="nonsuspendUser" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="nonsuspendUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Want to suspend this user?</p>
+                <p class="sm-text-gray-neutral">
+                    This action will suspend the user's account. They will not be able
+                    to log in or access any system resources.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn_primary loader-dot-pulse">Yes</button>
+                <!-- <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas1" aria-labelledby="offcanvas1Label">
+    <div class="offcanvas-header">
+        <h5 id="offcanvas1Label">Offcanvas 1</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        Content for the first offcanvas goes here.
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas2" aria-labelledby="offcanvas2Label">
+    <div class="offcanvas-header">
+        <h5 id="offcanvas2Label">Offcanvas 2</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        Content for the second offcanvas goes here.
+    </div>
+</div>
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas3" aria-labelledby="offcanvas3Label">
+    <div class="offcanvas-header">
+        <h5 id="offcanvas3Label">Offcanvas 3</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        Content for the third offcanvas goes here.
+    </div>
+</div>
+<!-- </div> -->
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="headerProfile" aria-labelledby="headerProfileLabel">
+    <div class="offcanvas-header offcanvas-header-close-only">
+        <!-- <h5 id="headerProfileLabel">Offcanvas right</h5> -->
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <span class="sprite-icons close-icon"></span>
+        </button>
+    </div>
+    <div class="offcanvas-body pt-0">
+        <div class="profile-summary">
+            <img class="profile-photo" src="~/assets/img/profile.svg" height="120" width="120" alt="profile photo">
+            <p class="profile-name">vigna bagdai</p>
+            <p class="profile-email">vigna.bagdai@mantratec.com</p>
+        </div>
+
+        <div class="select-role-list">
+            <label for="exampleInputEmail1" class="form-label">Select Role:</label>
+            <div class="dropdown">
+                <a class="btn dropdown-link dropdown-toggle" id="dropdownTextbox" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    Admin
+                </a>
+                <ul class="dropdown-menu" id="dropdownMenu">
+                    <li><a class="dropdown-item" data-value="1">Action</a></li>
+                    <li><a class="dropdown-item" data-value="2">Another action</a></li>
+                    <li><a class="dropdown-item" data-value="3">Something else here</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="own-profile-security">
+            <button class="btn btn-primary-light"><span class="sprite-icons user-icon"></span>profile</button>
+            <button class="btn btn-primary-light">
+                <span class="sprite-icons password-lock"></span>change
+                password
+            </button>
+        </div>
+
+        <hr />
+
+        <div class="theme-selection">
+            <div class="light-dark-mode">
+                <div class="icon-title">
+                    <span class="sprite-icons non-handle-bag"></span>
+                    <p class="form-check-label">Select Theme</p>
+                </div>
+                <div class="theme-box">
+                    <div class="light-theme-box">
+                        <img src="~/assets/img/dark-theme.svg" height="44" width="74" alt="dark theme">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                   id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1" id="toggleLight">
+                                Light Theme
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="dark-theme-box">
+                        <img src="~/assets/img/light-theme.svg" height="44" width="74" alt="light theme">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                   id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Dark Theme
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="offcanvas-footer">
+        <div class="logout-container">
+            <button class="btn btn-danger-light" onclick="window.location.href='login.html'">
+                <span class="sprite-icons logout-icon"></span>Logout
+            </button>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- modals start -->
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="suspendUser" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="suspendUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Want to suspend this user?</p>
+                <p class="sm-text-gray-neutral mb-3">
+                    This action will suspend the user's account. They will not be
+                    able
+                    to log in or access any system resources.
+                </p>
+                <label for="suspendUser" class="form-label">Remarks <sup>*</sup></label>
+                <textarea class="textarea" id="suspendUser" rows="3" maxlength="120"
+                          placeholder="Enter Text here"></textarea>
+                <div class="counter sm-text-gray-neutral text-end">0 / 120</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                <!-- <button type="button" class="btn btn_primary">Understood</button> -->
+                <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteUser" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Want to delete this user?</p>
+                <p class="sm-text-gray-neutral mb-3">
+                    This action will suspend the user's account. They will not be
+                    able
+                    to log in or access any system resources.
+                </p>
+                <label for="deleteRemarks" class="form-label">Remarks <sup>*</sup></label>
+                <textarea class="textarea" id="deleteRemarks" rows="3" maxlength="120"
+                          placeholder="Enter Text here"></textarea>
+                <div class="counter sm-text-gray-neutral text-end">0 / 120</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                <!-- <button type="button" class="btn btn_primary">Understood</button> -->
+                <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade modal-custom modal-primary-confirmation" id="nonsuspendUser" data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="nonsuspendUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p class="md-text-500">Want to suspend this user?</p>
+                <p class="sm-text-gray-neutral">
+                    This action will suspend the user's account. They will not be able
+                    to log in or access any system resources.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn_primary loader-dot-pulse">Yes</button>
+                <!-- <button type="button" class="btn btn_danger loader-dot-pulse">Yes</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+

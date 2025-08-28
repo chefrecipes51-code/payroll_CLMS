@@ -1,0 +1,51 @@
+﻿@{
+    Layout = null;
+}
+
+@model IEnumerable<Payroll.WebApp.Models.DTOs.UserRoleMapDTO>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Role Mappings</title>
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+</head>
+<body>
+    <table id="userRoleMappingTable" class="display">
+        <thead>
+            <tr>
+                <th>Role User ID</th>               
+                <th>Role Name</th>
+                <th>Company Name</th>
+                <th>User Name</th>              
+                <th>Effective From</th>
+                <th>Is Active</th>               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Role_User_Id</td>                
+                    <td>@item.RoleName</td>
+                    <td>@item.CompanyName</td>
+                    <td>@item.UserName</td>                   
+                    <td>@item.Effective_From</td>
+                    <td>@item.IsActive</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize DataTable
+            $('#userRoleMappingTable').DataTable();
+        });
+    </script>
+</body>
+</html>

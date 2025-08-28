@@ -1,0 +1,78 @@
+﻿<div class="alert-custom" style="display:none;">
+</div>
+<div class="row">
+    <!-- First Column: Location Dropdown -->
+    <div class="col-md-2"></div>
+    <!-- Location Dropdown -->
+    <div class="col-md-3">
+        <label class="form-label">Select Company</label>
+        <a class="btn btn-secondary dropdown-toggle w-100" id="dropdownCompany" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+            Select Company
+        </a>
+        <ul class="dropdown-menu w-100" id="dropdownMenuCompany">
+            <!-- List will be appended dynamically here -->
+        </ul>
+        <input type="hidden" id="SelectedCompanyId" name="SelectedCompanyId" />
+    </div>
+    <input type="hidden" id="txtFinancialSYear" name="txtFinancialSYear" class="form-control" readonly />
+    <input type="hidden" id="txtFinancialEYear" name="txtFinancialEYear" class="form-control" readonly />
+  @*   <div class="col-md-2"></div> *@
+    <!-- Second Column: Year Dropdown -->
+    <div class="col-md-2">
+        <label class="form-label">Financial Start Date</label>
+        <input type="text" id="txtFinancialSDate" name="txtFinancialSDate" class="form-control" readonly />
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Financial End Date</label>
+        <input type="text" id="txtFinancialEDate" name="txtFinancialEDate" class="form-control" readonly />
+    </div>
+    <div class="col-md-1">       
+    </div>
+   
+</div>
+<div class="row" style="padding-bottom: 70px;"></div>
+<div class ="row">
+    <div class="col-md-2"></div>
+
+    <div class="col-md-8">
+        <table class="table table-bordered align-middle text-center">
+            <thead class="table-light">
+                <tr>                   
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>              
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                            <input type="date" class="form-control" name="comFinYearSDate" id="comFinYearSDate" />
+                                <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                            <input type="date" class="form-control" name="comFinYearEDate" id="comFinYearEDate" readonly />
+                                <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                            <button type="button" class="btn btn-primary w-100" id="btnGeneratePayroll">
+                                Generate Payroll
+                            </button>
+                            </div>
+                        </td>
+                </tr>               
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="col-md-2"></div>
+</div>
+@section Scripts {
+    <script src="~/application/js/attendancepayrollmonth/attendancepaymonth.js"></script>
+}

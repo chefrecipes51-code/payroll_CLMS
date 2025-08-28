@@ -1,0 +1,186 @@
+﻿@model Payroll.WebApp.Models.DTOs.ContractorProfileDTO
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+    <!-- Alert content will be dynamically inserted based on the alert type -->
+</div>
+<div class="title-container">
+    <div class="current-back">
+        <a href="/DataVisualisation/ContractorList" class="btn btn-back-icon">
+            <span class="sprite-icons back-violet"></span>
+        </a>
+        <p class="title-primary">Contractor Profile</p>
+    </div>
+</div>
+<input type="hidden" id="Contractor_ID" value=@ViewBag.contractorId />
+<div class="vertical-tab-content">
+    <div class="vertical-tabs-content-fixed-layout form-body" style="border:none">
+        <!-- Contractor Details -->
+        <div class="bordered-title-content-wrapper">
+            <div class="bordered-title">
+                <p class="title-primary">Contractor Details</p>
+            </div>
+            <div class="row custom_form_page">
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Company</p>
+                    <p class="lg-text label-input-text">@Model.CompanyName</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">License No.</p>
+                    <p class="lg-text label-input-text">@Model.License_No</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">EPF No.</p>
+                    <p class="lg-text label-input-text">@Model.EPF_No</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Contractor Name</p>
+                    <p class="lg-text label-input-text">@Model.Contractor_Name</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Max. Labour Count</p>
+                    <p class="lg-text label-input-text">@Model.Max_Labour_Count</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">ESIC</p>
+                    <p class="lg-text label-input-text">@(Model.HasSubcontractor)</p> <!-- Optional -->
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Contact No.</p>
+                    <p class="lg-text label-input-text">@Model.Contact_No</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">LIN No.</p>
+                    <p class="lg-text label-input-text">@Model.LIN_No</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Has Subcontractor</p>
+                    <p class="lg-text label-input-text">@Model.HasSubcontractor</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Email</p>
+                    <p class="lg-text label-input-text">@Model.Email_Id</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">PAN No.</p>
+                    <p class="lg-text label-input-text">@Model.PAN_No</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">SubContractor Name</p>
+                    <p class="lg-text label-input-text">@Model.Address</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Address</p>
+                    <p class="lg-text label-input-text">@Model.Address</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">TAN No.</p>
+                    <p class="lg-text label-input-text">@Model.TAN_No</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Deployment Details -->
+        <div class="bordered-title-content-wrapper">
+            <div class="bordered-title">
+                <p class="title-primary">Deployment Details</p>
+            </div>
+            <div class="row custom_form_page">
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Business Area</p>
+                    <p class="lg-text label-input-text">Manufacturing</p> 
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Company Location</p>
+                    <p class="lg-text label-input-text">Ahmedabad</p> 
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Plant</p>
+                    <p class="lg-text label-input-text">Plant 1, Sanand</p> 
+                </div>
+            </div>
+        </div>
+
+        <!-- Bank Details -->
+        <div class="bordered-title-content-wrapper">
+            <div class="bordered-title">
+                <p class="title-primary">Bank Details</p>
+            </div>
+            <div class="row custom_form_page">
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Bank Name</p>
+                    <p class="lg-text label-input-text">HDFC</p> 
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Branch</p>
+                    <p class="lg-text label-input-text">Naranpura</p> 
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">IFSC Code</p>
+                    <p class="lg-text label-input-text">HDFC000123</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <p class="md-text label-title">Account Number</p>
+                    <p class="lg-text label-input-text">0011001100</p> 
+                </div>
+            </div>
+        </div>
+
+           <!-- Work Order History -->
+                <div class="bordered-title-content-wrapper">
+                    <div class="bordered-title">
+                        <p class="title-primary">Work Order History</p>
+                    </div>
+                    <div class="row custom_form_page">
+                        <div class="col-lg-4 mb-3">
+                            <p class="md-text label-title">Work Order No.</p>
+                            <p class="lg-text label-input-text">WO001</p>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <p class="md-text label-title">Status</p>
+                            <p class="lg-text label-input-text">Active</p>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <p class="md-text label-title">Start Date</p>
+                            <p class="lg-text label-input-text">01/04/2025</p>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <p class="md-text label-title">Company</p>
+                            <p class="lg-text label-input-text">Adani</p>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <p class="md-text label-title">Remarks</p>
+                            <p class="lg-text label-input-text"></p>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <p class="md-text label-title">End Date</p>
+                            <p class="lg-text label-input-text">30/04/2025</p>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <p class="md-text label-title">Location</p>
+                            <p class="lg-text label-input-text">Ahmedabad</p>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <p class="md-text label-title">Completion Date</p>
+                            <p class="lg-text label-input-text">28/04/2025</p>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <p class="md-text label-title">Total Labour</p>
+                            <p class="lg-text label-input-text">120</p>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+                    <script src="~/assets/src/js/select2.min.js"></script>
+                    <script src="~/assets/src/custom-js/script.js"></script>
+                    <script src="~/assets/src/custom-js/select2.js"></script>
+                    <script src="~/application/js/datavisualization/contractordetail.js"></script>
+                    <script src="~/application/js/common/form-validation.js"></script>
+}
+

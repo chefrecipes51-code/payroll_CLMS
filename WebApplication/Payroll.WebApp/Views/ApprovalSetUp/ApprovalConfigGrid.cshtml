@@ -1,0 +1,263 @@
+﻿@using PayrollMasterService.BAL.Models
+@model IEnumerable<ApprovalConfigGrid>
+
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+
+@{
+    ViewData["Title"] = "Approval Setup Grid";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (TempData["Error"] != null)
+{
+    @* <div class="alert alert-danger">@TempData["Error"]</div> *@
+}
+
+
+<nav>
+    <div class="alert-custom" style="display:none;">
+    </div>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-company-list-tab" data-bs-toggle="tab"
+                data-bs-target="#nav-company-list" type="button" role="tab" aria-controls="nav-company-list"
+                aria-selected="true">
+            Configured Approvals
+        </button>
+
+    </div>
+</nav>
+
+@* <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4></h4>
+    <button class="btn btn_primary add-button btn-add-hide"  >
+        <span class="sprite-icons add-light"></span> Add Configure Approval
+    </button>
+</div> *@
+
+
+
+  <div class="quick-filter-container">
+        <div class="btn-group-left">
+            <div class="chip primary">Total Approval Configurations: <span id="payGradeCount">@ViewBag.TotalCount</span></div>
+        </div>
+        <div class="icon-title">
+        <button class="btn btn_primary add-button" id="btnAddApprovalConfig">
+            <span class="sprite-icons add-light"></span> Configure Approval
+        </button>
+        </div>
+    </div>
+
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel"
+         aria-labelledby="nav-user-list-tab">
+        <div class="table-card">
+            <div class="card">
+                <div class="table-responsive table-roles-permission-list table-tab-content">
+    <table id="approval-listGrid" class="table custom-table">
+        <thead class="table-light">
+            <tr >
+                <th hidden>Config Id</th>
+                <th>Process</th>
+                <th>Module</th>
+                <th>Service</th>
+                <th>Total Levels</th>
+
+            @*     <th class="sticky_cell">Status</th> *@
+                <th class="sticky_cell">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="row-@item.ConfigID"
+                    data-configid="@item.ConfigID"
+                    data-companyid="@item.CompanyId"
+                    data-locationid="@item.LocationId"
+                    data-serviceid="@item.ServiceID">
+                    
+                    <td hidden>@item.ConfigID</td>
+                    <td>@item.ApprovalProcessName</td>
+                    <td>@item.Module</td>
+                    <td>@item.Service</td>
+                    <td>@item.TotalLevels</td>
+
+                  @*   <td class="sticky_cell">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" disabled type="checkbox" id="status-@item.ConfigID" @(item.IsActive ? "checked" : "")>
+                            <label class="form-check-label" for="status-@item.ConfigID">
+                                @(item.IsActive ? "Active" : "Inactive")
+                            </label>
+                        </div>
+                    </td> *@
+                    <td class="sticky_cell">
+                        <div class="table-button-group">
+                            <button class="btn btn-primary-light-icon-md config-row" data-configid="@item.ConfigID">
+                                <span class="sprite-icons edit-primary"></span>
+                            </button>
+                            <button class="btn btn-danger-light-icon"
+                                    data-config-id="@item.ConfigID"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteConfig">
+                                <span class="sprite-icons delete-danger"></span>
+                            </button>
+                        </div>
+                    </td>
+                    @*   <td>@(Convert.ToBoolean(item.IsActive) ? "Yes" : "No")</td> *@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Confirmation Modal -->
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteConfig"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deleteLocationLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this approval configuration?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmConfigDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @*  Download PDF and Excel From Grid:- Start *@
+    <script src="~/devassets/xlsx.full.min.js"></script>
+    <script src="~/devassets/jspdf.umd.min.js"></script>
+    <script src="~/devassets/jspdf.plugin.autotable.min.js"></script>
+
+
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+
+@* 
+    <script>
+        $(document).ready(function () {
+            document.querySelectorAll('.redirectFromCompanyList').forEach(button => {
+                button.addEventListener('click', function () {
+                    var companyId = this.getAttribute('data-companyid');
+
+                    fetch('/Company/EncryptCompanyId?companyId=' + encodeURIComponent(companyId))
+                        .then(response => response.text())
+                        .then(encryptedId => {
+                            window.location.href = "/Company/Index?companyId=" + encodeURIComponent(encryptedId);
+                        })
+                        .catch(error => console.error('Encryption error:', error));
+                });
+            });
+        });
+    </script> *@
+
+
+    <script>
+        $(document).ready(function () {
+            $(".config-row").on("click", function () {
+                const configId = $(this).data("configid");
+
+                $.ajax({
+                    url: `/ApprovalSetUp/EncryptId`,
+                    type: 'GET',
+                    data: { id: configId },
+                    success: function (encryptedId) {
+                        // Directly redirect with encrypted ID
+                        window.location.href = `/ApprovalSetUp/GetApprovalConfig?configId=${encodeURIComponent(encryptedId)}`;
+                    },
+                    error: function () {
+                        alert("Failed to encrypt Config ID.");
+                    }
+                });
+            });
+        });
+
+
+        $(document).on('click', '#btnAddApprovalConfig', function (e) {
+            e.preventDefault(); // prevent default behavior if any
+
+            const url = `/ApprovalSetUp/GetApprovalConfig`;
+
+            window.location.href = url; // Redirect the page to that URL
+        });
+
+
+        var selectedButton = null;
+        var isRequestInProgress = false;
+
+        $(document).on('click', '.btn-danger-light-icon[data-bs-target="#deleteConfig"]', function () {
+            selectedButton = $(this);
+        });
+
+        $(document).on('click', '#confirmConfigDelete', function () {
+            debugger;
+            if (isRequestInProgress) return; // Prevent multiple clicks
+            isRequestInProgress = true;
+
+            if (!selectedButton) {
+                isRequestInProgress = false;
+                return;
+            }
+
+            var configId = selectedButton.data('config-id');
+
+            if (!configId) {
+                showAlert("danger", "Invalid config id.");
+                isRequestInProgress = false;
+                return;
+            }
+
+            var rowId = `row-${configId}`; // Construct the row ID
+
+            var rowData = { ConfigId: configId };
+
+            $.ajax({
+                url: '/ApprovalSetUp/DeleteApprovalMatrix',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(rowData),
+                success: function (response) {
+                    if (response && response.success) {
+                        $(`#${rowId}`).fadeOut(500, function () {
+                            $(this).remove();
+                        });
+                        showAlert("success", "Approval configuration deleted successfully.");
+                       // LoadLocationPartial();
+                    } else {
+                        showAlert("danger", response.message || "Failed to delete approval configuration. Please try again.");
+                    }
+                    $('#deleteConfig').modal('hide');
+
+                },
+                error: function () {
+                    showAlert("danger", "An error occurred. Please try again.");
+                    $('#deleteConfig').modal('hide');
+                },
+                complete: function () {
+                    isRequestInProgress = false;
+                    // **Ensure modal cleanup to prevent UI glitches**
+                    setTimeout(() => {
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+                    }, 300);
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.ContractorDetailsDTO>
+<style>
+    #btn1, #btn2, #btn3 {
+        display: none !important;
+    }
+</style>
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/assets/src/scss/style.css" />
+
+@{
+    var renderedContractorIds = new HashSet<int>(); // To track rendered Contractor_IDs
+}
+
+<div class="payroll-tabs-content-container">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" onclick="window.location.href='user-list.html'">
+                Contractors
+            </button>
+        </div>
+    </nav>
+
+    <div class="quick-filter-container">
+        <div class="btn-group-left">
+            <button class="btn btn_primary" id="totalcontractorCount">Total Contractor: <span>00</span> </button>
+            <button class="btn btn-success-light" id="totalActivecontractorCount">Active Contractor: <span>00</span></button>
+            <button class="btn btn-danger-light" id="totalInactivecontractorCount">InActive Contractor: <span>00</span></button>
+        </div>
+    </div>
+
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-user-list" role="tabpanel" aria-labelledby="nav-user-list-tab">
+            <div class="table-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive table-user-list">
+                            <table id="contractor-list" class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Contractor_ID</th>
+                                        <th hidden>Correspondance_ID</th>
+                                        <th hidden>Company</th>
+                                        <th>Contractor Name</th>
+                                        <th>Contractor Code</th>
+                                        <th>Total Labour</th>
+                                        <th class="sticky_cell">Status</th>
+                                        <th class="sticky_cell">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Any())
+                                    {
+                                        foreach (var contractor in Model)
+                                        {
+                                            if (!renderedContractorIds.Contains(contractor.Contractor_ID))
+                                            {
+                                                renderedContractorIds.Add(contractor.Contractor_ID);
+                                                <tr id="row-@contractor.Contractor_ID" data-isactive="@contractor.IsActive.ToString().ToLower()">
+                                                    <td>@contractor.Contractor_ID</td>
+                                                    <td hidden>@contractor.Correspondance_ID</td>
+                                                    <td hidden>@contractor.Company_Id</td>
+                                                    <td>@contractor.Contractor_Name</td>
+                                                    <td>@contractor.Contractor_Code</td>
+                                                    <td>@contractor.totalcl</td>
+                                                    <td class="sticky_cell">
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" disabled type="checkbox" role="switch" id="status-@contractor.Contractor_ID" @(contractor.IsActive ? "checked" : "") />
+                                                            <label class="form-check-label" for="status-@contractor.Contractor_ID">
+                                                                @(contractor.IsActive ? "Active" : "Inactive")
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="sticky_cell">
+                                                        <div class="table-button-group">
+                                                            @* <button class="btn btn-primary-light-icon-md edit-btn btn-edit-hide redirectToContractorProfile" *@
+                                                            
+                                                            <button type="button" class="redirectToContractorProfile btn btn-primary-light-icon-md btn-edit-hide" id="btnEdit"
+                                                                    data-contractorId="@contractor.Contractor_ID"
+                                                                   >
+                                                                <span class="sprite-icons eye-primary-dark"></span>
+                                                            </button>
+                                                           
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="5" class="text-center">No data available</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/application/js/datavisualization/contractordetail.js"></script>
+}

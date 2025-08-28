@@ -1,0 +1,26 @@
+.role-permission-area{
+    padding: 0 24px;
+
+    .role-area{
+        margin-bottom: 24px;
+    }
+    .permission-area{
+        .permission-treeview{
+            border: 1px solid var(--lavender-mist);
+            border-radius: 8px;
+            height: calc(100vh - 340px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 16px;
+
+            li{
+                margin-bottom: 16px;
+                ul{
+                    li{
+                        margin-bottom: unset;
+                    }
+                }
+            }
+        }
+    }
+}

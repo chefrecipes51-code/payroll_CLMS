@@ -1,0 +1,1444 @@
+﻿@using PayrollMasterService.BAL.Models
+@model ApprovalConfigCommon
+
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<!-- date picker plugin -->
+<link rel="stylesheet" href="~/assets/src/css/bootstrap-datepicker.min.css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="~/assets/src/css/croppie.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+
+<style>
+
+
+    .approval-configuration .approval-configuration-right1 {
+        height: calc(100vh - 200px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+
+        .approval-configuration .approval-configuration-right1 .accordion-body {
+            /*     max-height: calc(100vh - 553px);
+                      overflow-y: auto;
+                      overflow-x: hidden; */
+        }
+
+
+
+    .disabled-input {
+        background-color: #e9ecef !important;
+        color: #6c757d !important;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    .approval-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* spacing between detail-rows */
+    }
+
+    .detail-row {
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        width: 48%; /* roughly half, with gap */
+
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    .drag-handle {
+        cursor: move;
+        margin-right: 8px;
+        font-size: 20px;
+    }
+
+    .sortable-placeholder {
+        width: 48%; /* same width as detail-row */
+        height: 80px; /* same height */
+        background: #e0e0e0;
+        border: 2px dashed #bbb;
+        box-sizing: border-box;
+        margin: 4px 0;
+    }
+</style>
+
+@{
+    ViewData["Title"] = "Configure Approval";// "Edit Approval Setup";
+    //  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@*
+<form id="approvalForm" method="post" asp-action="AddApprovalConfig" asp-controller="ApprovalSetUp"> *@
+<form id="approvalForm">
+    <input type="hidden" name="Config.ConfigID" value="@Model.Config.ConfigID" />
+    @*<input type="hidden" name="Config.ServiceID" value="@Model.Config.ModuleID" />
+    <input type="hidden" name="Config.ServiceID" value="@Model.Config.ServiceID" />
+    <input type="hidden" name="Config.CompanyId" value="@Model.Config.CompanyId" />
+    <input type="hidden" name="Config.LocationId" value="@Model.Config.LocationId" /> *@
+
+    @{
+        bool isEditMode = Model.Config != null
+        && Model.Config.ModuleID > 0
+        && Model.Config.ServiceID > 0
+        && Model.Config.CompanyId.HasValue;
+        string disabledAttr = isEditMode ? "disabled" : "";
+    }
+
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+
+    @*    <div class="main-page">
+        <div class="breadcrumb-container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <p class="breadcrumb-text"><span class="sprite-icons home-primary"></span></p>
+                    </li>
+                    <li class="breadcrumb-item primary">
+                        <p class="breadcrumb-text">Master</p>
+                    </li>
+                    <li class="breadcrumb-item primary">
+                        <p class="breadcrumb-text">Configure Approval</p>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <p class="breadcrumb-text">Configure Approval</p>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="app-layout"> *@
+
+
+    <div class="title-container">
+        <div class="current-back">
+            <button type="button" class="btn btn-back-icon"
+                    onclick="window.location.href='/approvalSetUP/ApprovalConfigGrid'">
+                <span class="sprite-icons back-violet"></span>
+            </button>
+            <p class="title-primary">Configure Approval</p>
+        </div>
+        <div class="button-group">
+            <button type="button" class="btn btn-transparent-danger" onclick="location.reload();"> reset All</button>
+            <!-- <button class="btn btn_primary_outline_md">Cancel</button> -->
+        </div>
+
+    </div>
+    <div class="table-card approval-configuration">
+        <div class="row">
+            <div class="col-lg-5 col-md-5">
+
+                <div class="approval-configuration-left">
+
+                    <div class="form-group">
+                        <label for="companies" class="form-label">Company Name <sup>*</sup></label>
+                        <select class="form-control select2_search_ctm  disabled-input" @disabledAttr
+                                id="companies" data-selected-value="@Model.Config.CompanyId">
+                        </select>
+
+                        <span id="companies-error" class="input_error_msg"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="LocationDropdown" class="form-label">Location<sup>*</sup></label>
+                        <select class="form-control select2_search_ctm disabled-input" id="LocationDropdown" name="LocationDropdown"
+                                data-selected-value="@Model.Config.LocationId" @disabledAttr>
+                            <option value="">Select Location</option>
+                        </select>
+                        <span id="LocationDropdown-error" class="input_error_msg"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Approval Process Name<sup>*</sup></label>
+                        <input type="text" class="form-control" id="ApprovalProcessName" name="Config.ApprovalProcessName" value="@Model.Config.ApprovalProcessName" maxlength="50" />
+                        <span id="ApprovalProcessName-error" class="input_error_msg"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- Modules Dropdown -->
+                        <label for="moduleSelect" class="form-label">Module<sup>*</sup></label>
+                        <div class="module-selection">
+                            <select id="moduleSelect" name="moduleSelect" class="form-control module-select select2_search_ctm disabled-input" @disabledAttr
+                                    data-selected-value="@Model.Config.ModuleID">
+                                <option value="">Select Module -------</option>
+                            </select>
+                            <span id="moduleSelect-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="serviceSelect" class="form-label ">Request For<sup>*</sup></label>
+                        <select id="serviceSelect" class="form-control service-select select2_search_ctm disabled-input"
+                                data-selected-value="@Model.Config.ServiceID" @disabledAttr>
+                            <!-- Services will be populated dynamically -->
+                            <option value="">Select Service</option>
+                        </select>
+                        <span id="serviceSelect-error" class="input_error_msg"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="approvallevels" class="form-label">Approval Levels<sup>*</sup></label>
+                        <input type="number" class="form-control" id="TotalLevels" name="Config.TotalLevels" value="@Model.Config.TotalLevels" />
+                        <span id="TotalLevels-error" class="input_error_msg"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="approvallevels" class="form-label">
+                            Effective Date From<sup>*</sup>
+                        </label>
+                        <div class="date-picker-container">
+
+                            <input type="text" class="form-control datepicker"
+                                   placeholder="Enter Effective Date"
+                                   id="effectiveFromDtEdit"
+                                   value="@(Model.Config.EffectiveDate?.ToString("dd/MM/yyyy"))"
+                                   name="effectiveFromDtEdit">
+
+                            <button type="button" class="btn btn-datepicker">
+                                <span class="sprite-icons2 date-picker"></span>
+                            </button>
+                        </div>
+                        <span id="effectiveFromDtEdit-error" class="input_error_msg"></span>
+                    </div>
+
+                    <div class="row align-items-center justify-content-between w-100 form-group mb-1">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <input class="form-check-input" type="radio" name="Config.ApproveType"
+                                   value="1" @(Model.Config.ApproveType == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="autoapprove">Auto Approval</label>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <input class="form-check-input" type="radio" name="Config.ApproveType"
+                                   value="2" @(Model.Config.ApproveType == 2 ? "checked" : "") />
+                            <label class="form-check-label" for="autorejection">Auto Rejection</label>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <input class="form-check-input" type="radio" name="Config.ApproveType"
+                                   value="3" @(Model.Config.ApproveType == 3 ? "checked" : "") />
+                            <label class="form-check-label" for="notrequired">Manual</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group auto-days">
+                        <label for="noofdays" class="form-label">No. of Days<sup>*</sup></label>
+                        <input type="number" class="form-control" name="Config.NoOfDays" id="NoOfDays"
+                               value="@Model.Config.NoOfDays" />
+                        <span id="NoOfDays-error" class="input_error_msg"></span>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="form-check form-switch align-items-center">
+                                <label class="form-check-label mb-0" for="status">Active</label>
+                                <!--<input class="form-check-input" type="checkbox" role="switch" id="status"
+                                       checked="" data-bs-toggle="modal" data-bs-target="#activeuserstatus">-->
+                                <input asp-for="Config.IsActive" class="form-check-input" type="checkbox" id="IsActive" />
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-check form-switch align-items-center">
+                                <label class="form-check-label mb-0" for="status">
+                                    Enable
+                                    Notification
+                                </label>
+                                <!--<input class="form-check-input" type="checkbox" role="switch" id="status"
+                                checked="" data-bs-toggle="modal" data-bs-target="#activeUserStatus">-->
+                                <input asp-for="Config.IsNotificationEnabled" class="form-check-input" type="checkbox" id="IsNotificationEnabled" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-7">
+                <div class="approval-configuration-right1">
+                    <div class="custom-accordions-second">
+                        <div class="accordion" id="accordionPanelsStayOpenExample">
+
+                            <!-- Hidden Div which will use to clone Levels and approver -->
+                            <div id="masterTemplates" class="d-none">
+                                <div class="approval-level border p-3 mb-3">
+                                    <input type="hidden" name="ApprovalLevels.Index" class="level-index" />
+                                    <div class="accordion-item">
+                                        <div class="accordion-header">
+
+                                            <button class="accordion-button collapsed lg-text" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                                    aria-controls="panelsStayOpen-collapseOne">
+                                                Approval Level
+                                            </button>
+
+                                            <div class="content-above-accordion justify-content-end align-items-center">
+                                                <button type="button" class="btn btn_danger in-accordios remove-level">
+                                                    <span class="sprite-icons2 cancel-light-acc"></span>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                                            <div class="accordion-body">
+                                                <div class="d-flex align-items-center gap-4 w-100">
+                                                    <div class="col-md-2" style="display:none">
+                                                        <input type="number" class="form-control level-no" name="ApprovalLevels[__index__].LevelNumber" />
+                                                    </div>
+                                                    <div class="form-group w-50">
+                                                        <label for="exampleInputEmail1" class="form-label">
+                                                            Approval
+                                                            Type<sup>*</sup>
+                                                        </label>
+                                                        <select class="form-control approval-type" name="ApprovalLevels[__index__].ApprovalType">
+                                                            <option value="Sequential">Sequential</option>
+                                                            <option value="Parallel">Parallel</option>
+                                                        </select>
+                                                    </div>
+
+
+                                                </div>
+                                                <hr class="mt-0" />
+
+                                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                                    <p class="md-text-600 text-black-terminal">Approver Names</p>
+                                                    <button type="button" class="btn btn_primary_outline btn_sm d-flex align-items-center gap-1 add-approver">
+                                                        <span class="sprite-icons2 add-primary-outline-sm"></span> Add More Approver
+                                                    </button>
+                                                </div>
+                                                <div class="fix-height">
+                                                    <div class="row d-flex align-items-center">
+                                                        <div class="approval-details mt-3 row">
+                                                            <!--Dynamic Approver rows will be appended here -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-6 detail-row">
+                                    <div class="drag-handle">☰</div>
+                                    <div class="add-more-approver mb-2">
+                                        <input type="hidden" name="ApprovalDetails.Index" class="detail-index" />
+
+                                        <div class="form-check d-flex align-items-center gap-3">
+                                            <input type="checkbox" class="form-check-input is-alternate" name="ApprovalDetails[__dindex__].IsAlternate" value="true" checked/>
+
+                                            <input type="number" class="form-control sequence" name="ApprovalDetails[__dindex__].Sequence" style="display:none" />
+                                            <select class="form-control user-select user-id" name="ApprovalDetails[__dindex__].UserID" id="userSelect-__dindex__">
+                                                <option value="">Select Approver</option>
+                                            </select>
+                                            <button type="button" class="btn btn-danger-light-icon btn_xl text-center remove-approver">
+                                                <span class="sprite-icons2 close-danger-outline"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- END Hidden Div  -->
+
+                            <div id="approvalContainer">
+                                <!-- Dynamic Levels will be injected here -->
+                            </div>
+
+                            <button type="button" id="addLevelBtn" class="btn btn_primary_outline btn_sm d-flex align-items-center gap-1 float-end">
+                                <span class="sprite-icons2 add-primary-outline-sm"></span> Add More Level
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-footer">
+                    <button type="button" class="btn btn_danger_outline" onclick="window.location.href='/approvalSetUP/ApprovalConfigGrid'">Cancel</button>
+                    <button type="button" id="btnSave" class="btn btn_primary">Save Changes</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade modal-custom modal-primary" id="customModal" tabindex="-1"
+         aria-labelledby="copySettingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="title-primary mb-2" id="customModalLabel">Validation Summary</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                @*   <div class="modal-body text-center">
+                    <img src="~/assets/img/icons/priamry-done-modal.svg" width="134" height="77" alt="successfully done">                 
+
+                </div> *@
+                <div class="modal-body" id="customModalBody">
+                    <!-- Message will be injected here -->
+                </div>
+
+
+                <div class="modal-footer text-center">
+                     <button type="button" id="customModalOk" class="btn btn_primary_outline_md" data-bs-dismiss="modal">
+                    Ok
+                </button> 
+                    <button type="button" id="customModalCancel" class="btn btn_primary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+       
+</form>
+
+
+@section Scripts {
+
+    @*  <script src="~/assets/src/js/jquery.min.js"></script>   
+    <script src="~/assets/src/js/popper.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script> *@
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    @*  <script src="~/application/js/common/dropdown.js"></script>
+    <script src="~/application/js/user/user.js"></script> *@
+
+
+
+    @*   <script src="assets/src/js/select2.min.js"></script>
+    <script src="assets/src/custom-js/select2.js"></script> *@
+    <script src="assets/src/custom-js/placeholder.js"></script>
+    <script src="assets/src/custom-js/treeview.js"></script>
+
+
+    <!-- jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <!-- date picker plugins -->
+    <script src="~/assets/src/js/bootstrap-datepicker.min.js"></script>
+    <!-- date picker custom js file -->
+    <script src="~/assets/src/custom-js/datepicker-ctm.js"></script>
+
+    @* Main Startup script*@
+    <script>
+        const approvalMainFromServer = @Html.Raw(Json.Serialize(Model.Config ?? new ApprovalConfig()));
+
+        $(document).ready(function () {
+            initializeDropDownList();
+            // initializeGrid();
+            initializeFormSubmit();
+        });
+    </script>
+
+    @* Auto Days Toggle  Calculation*@
+    <script>
+        function toggleDaysField() {
+            const selected = $('input[name="Config.ApproveType"]:checked').val();
+            if (selected == 3) {
+                $('.auto-days').hide();
+                $('#NoOfDays').val('');
+            } else {
+                $('#NoOfDays').val('');
+                $('.auto-days').show();
+            }
+        }
+
+        $(document).on("change", 'input[name="Config.ApproveType"]', toggleDaysField);
+        // $(document).ready(toggleDaysField);
+
+
+            $('#effectiveFromDtEdit').datepicker({
+                format: 'dd/mm/yyyy',     // Display date format
+                 language: 'en-GB',
+               // startDate: '0d',          // Disable past dates in calendar
+                autoclose: true,          // Close calendar automatically after selection
+                   startDate: (() => {
+            // Calculate the date 1 month ago from today
+            const today = new Date();
+            const oneMonthAgo = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+            // Format as dd/mm/yyyy
+            const dd = String(oneMonthAgo.getDate()).padStart(2, '0');
+            const mm = String(oneMonthAgo.getMonth() + 1).padStart(2, '0');
+            const yyyy = oneMonthAgo.getFullYear();
+            return `${dd}/${mm}/${yyyy}`;
+        })(),
+
+                    }).on('changeDate', function (e) {
+            const selectedDate = new Date(e.date);
+            const oneMonthAgo = new Date();
+            oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+            oneMonthAgo.setHours(0, 0, 0, 0);
+
+            if (selectedDate < oneMonthAgo) {
+                $('#effectiveFromDtEdit').val('');
+                showAlert("warning", "Date should not be earlier than 1 month ago.");
+            }
+        });
+
+             // Prevent manual typing of past dates
+            $('#effectiveFromDtEdit').on('keypress keydown paste', function (e) {
+                e.preventDefault();  // Block manual typing
+            });
+
+    </script>
+
+    @* Dropdown Intialize*@
+    <script>
+        function initializeDropDownList() {
+
+            $('.select2_search_ctm').select2({
+                placeholder: function () {
+                    return $(this).data('placeholder'); // Set dynamic placeholder from data-placeholder attribute
+                },
+                allowClear: true,  // Allows clearing the selection (if needed)
+                multiple: false,   // Ensure it's a single select dropdown
+                dropdownAutoWidth: false,  // Auto adjust dropdown width
+                width: '100%'      // Ensures the dropdown takes up full width of its container
+            });
+
+
+            loadModules('#moduleSelect', function () {
+                $('#moduleSelect').trigger('change');
+            });
+
+            loadCompanies('#companies', function () {
+                // $('#companies').trigger('change');
+            });
+
+            loadCompanyLocations('#LocationDropdown', function () {
+                // $('#LocationDropdown').trigger('change');
+            });
+
+            // Module Change Event
+            $(document).on('change', '#moduleSelect', function () {
+                var moduleId = $(this).val();
+                loadServices(moduleId, '#serviceSelect', function () {
+                    $('#serviceSelect').trigger('change');
+                });
+            });
+
+            // Company Change Event
+            $(document).on('change', '#companies', function () {
+                loadCompanyLocations('#LocationDropdown', function () {
+                    $('#LocationDropdown').trigger('change');
+                });
+            });
+
+            //Location Change Event
+            $(document).on('change', '#LocationDropdown', function () {
+                var configId = @Model.Config?.ConfigID ?? 0;
+                if (!configId > 0) {
+
+                    loadUsersAll("", function () {
+                        $('[id^="userSelect-"]').trigger('change');
+                    });
+                }
+            });
+
+        }
+    </script>
+
+    @* Functions - Bind Dropdown*@
+    <script>
+
+        function loadModules(targetDropdown, callback) {
+            $.ajax({
+                url: '/DropDown/FetchModulesDropdown',
+                method: 'GET',
+                success: function (data) {
+
+                    let dropdown = $(targetDropdown);
+                    let selectedValue = $(targetDropdown).data("selected-value"); // Get value from data attribute
+                    populateDropdown(targetDropdown, data, selectedValue);
+                    //         debugger;
+                    //                loadServices(selectedValue, '#serviceSelect', function () {
+                    //     $('#serviceSelect').trigger('change');
+                    // });
+
+                    if (callback) callback();
+                },
+                error: function () {
+                    showError(targetDropdown + '-error', 'Failed to load modules.');
+                }
+            });
+        }
+
+        // Load states dropdown based on selected country
+        function loadServices(moduleId, targetDropdown, callback) {
+            if (!moduleId) return;
+            $.ajax({
+                url: '/DropDown/FetchServicesDropdown/' + moduleId,
+                method: 'GET',
+                success: function (data) {
+                    let selectedValue = $(targetDropdown).data("selected-value"); // Get value from data attribute
+                    populateDropdown(targetDropdown, data, selectedValue);
+                    if (callback) callback();
+                },
+                error: function () {
+                    showError(targetDropdown + '-error', 'Failed to load states.');
+                }
+            });
+        }
+
+        // Load states dropdown based on selected country
+        function loadCompanies(targetDropdown, callback) {
+            $.ajax({
+                url: '/DropDown/FetchCompaniesDropdown/',
+                method: 'GET',
+                success: function (data) {
+                    //debugger;
+                    let selectedValue = $(targetDropdown).data("selected-value"); // Get value from data attribute
+                    populateDropdown(targetDropdown, data, selectedValue);
+                    if (callback) callback();
+                },
+                error: function () {
+                    // debugger;
+                    showError(targetDropdown + '-error', 'Failed to load Company.');
+                }
+            });
+        }
+
+        function loadCompanyLocations(targetDropdown, callback) {
+            // debugger;
+            // const companyId = $("#companies"); // Use .attr() instead of .data()
+            // let selectedValue = $(companyId).data("selected-value"); // Get value from data attribute
+            //alert("vale-" + companyId + " - " + selectedValue);
+            const userId = 0; // You can change this as per your need
+
+            const companyId = $("#companies").val();
+
+            if (!companyId || companyId == 0) {
+                return;
+            }
+
+            $.ajax({
+
+                url: `/DropDown/GetCompanyLocationData?companyId=${companyId}&userId=null`,
+                type: 'GET',
+                success: function (response) {
+                    //debugger;
+                    // console.log(response);
+
+                    let selectedValue = $(targetDropdown).data("selected-value");
+                    //populateDropdown(targetDropdown, response.result.locations, selectedValue);
+
+                    populateGeoDropdown("#LocationDropdown", response.result.locations, selectedValue);
+                    if (callback) callback();
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching company location:", error);
+                    showError(targetDropdown + '-error', 'Failed to load company locations.');
+                }
+            });
+        }
+
+
+        function loadUsersAll(selectedValue = "", callback) {
+            debugger;
+            const Company_Id = $("#companies").val();
+            const Location_Id = $("#LocationDropdown").val();
+
+            $.ajax({
+                url: `/DropDown/GetLocationwiseUsersDropdown?Company_Id=${Company_Id}&Location_Id=${Location_Id}`,
+                method: 'GET',
+                success: function (data) {
+                    // Loop over all dropdowns with ID starting with userSelect-
+                    $('[id^="userSelect-"]').each(function () {
+                        const dropdownId = '#' + $(this).attr('id');
+                        populateDropdownA(dropdownId, data, selectedValue);
+                    });
+
+                    if (callback) callback();
+                },
+                error: function (xhr, status, error) {
+                    console.error("Failed to fetch users:", error);
+                    console.log(xhr.responseText);
+                    // Show error on each dropdown
+                    $('[id^="userSelect-"]').each(function () {
+                        const dropdownId = '#' + $(this).attr('id');
+                        showError(dropdownId + '-error', 'Failed to load users.');
+                    });
+                }
+            });
+        }
+
+
+        function loadUsers(targetDropdown, selectedValue = "", callback) {
+            debugger;
+
+            var Company_Id = $("#companies").val();
+            var Location_Id = $("#LocationDropdown").val();
+
+            if (!Company_Id || Company_Id == 0) {
+                Company_Id = approvalMainFromServer.companyId;
+                //return;
+            }
+             if (!Location_Id || Location_Id == 0) {
+                Location_Id = approvalMainFromServer.locationId;
+                //return;
+            }
+
+            //url: `/DropDown/GetCompanyLocationData?Company_Id=${Company_Id}&Location_Id=${Location_Id}`,
+            //url: '/DropDown/GetLocationwiseUsersDropdown',
+
+            $.ajax({
+                url: `/DropDown/GetLocationwiseUsersDropdown?Company_Id=${Company_Id}&Location_Id=${Location_Id}`,
+                method: 'GET',
+                success: function (data) {
+                    debugger;
+                    //console.log('user data' + data);
+                    // let dropdown = $(targetDropdown);
+                    //     const selectedValue1 = (dropdown).attr("data-selected-value");
+
+                    //let selectedValue = dropdown.data("selected-value"); // Get value from data attribute
+                    populateUserDropdown(targetDropdown, data, selectedValue);
+
+
+                    if (callback) callback();
+                },
+                // error: function () {
+                //     debugger;
+                //     showError(targetDropdown + '-error', 'Failed to load modules.');
+                // }
+                error: function (xhr, status, error) {
+                    debugger;
+                    console.error("Failed to fetch users:", error);
+                    console.log(xhr.responseText);
+                    showError(targetDropdown + '-error', 'Failed to load users.');
+                }
+            });
+        }
+
+
+         function populateUserDropdown(dropdownId, data, SelectedValue = "") {
+                // console.log(dropdownId);
+                // console.log(data);
+                var dropdown = $(dropdownId);
+                dropdown.empty();
+                // dropdown.append('<option value="" disabled selected>Select an option</option>');
+                // Get label text for setting placeholder
+
+                var labelText = $('label[for="' + dropdownId.replace('#', '') + '"]').text();
+                var placeholderText = 'Select Approver';
+
+                // Set placeholder dynamically based on label
+                dropdown.append('<option value="" selected>' + placeholderText + '</option>');
+
+                if (!data || !Array.isArray(data)) {
+                    return;
+                }
+
+                data.forEach(function (item) {
+                    if (item && item.value !== undefined && item.text) {
+                        dropdown.append('<option value="' + item.value + '">' + item.text + '</option>');
+                    }
+                });
+                // debugger;
+                if (SelectedValue) {
+                    dropdown.val(SelectedValue).trigger("change"); // Select the model value
+                }
+
+                // Re-initialize select2 to apply the updated options
+                dropdown.trigger('change');
+
+        
+
+
+            }
+
+
+        // Populate dropdowns with API data
+        function populateDropdown(dropdownId, data, SelectedValue = "") {
+            // console.log(dropdownId);
+            // console.log(data);
+            var dropdown = $(dropdownId);
+            dropdown.empty();
+            // dropdown.append('<option value="" disabled selected>Select an option</option>');
+            // Get label text for setting placeholder
+
+            var labelText = $('label[for="' + dropdownId.replace('#', '') + '"]').text();
+            var placeholderText = labelText ? 'Select ' + labelText.replace('*', '').trim() : 'Select an option';
+
+            // Set placeholder dynamically based on label
+            dropdown.append('<option value="" selected>' + placeholderText + '</option>');
+
+            if (!data || !Array.isArray(data)) {
+                return;
+            }
+
+            data.forEach(function (item) {
+                if (item && item.value !== undefined && item.text) {
+                    dropdown.append('<option value="' + item.value + '">' + item.text + '</option>');
+                }
+            });
+            // debugger;
+            if (SelectedValue) {
+                dropdown.val(SelectedValue).trigger("change"); // Select the model value
+            }
+
+            // Re-initialize select2 to apply the updated options
+            dropdown.trigger('change');
+        }
+
+
+        // Populate dropdowns with API data
+        function populateDropdownA(dropdownId, data, SelectedValue = "") {
+            debugger;
+            // console.log(dropdownId);
+            // console.log(data);
+            var dropdown = $(dropdownId);
+            dropdown.empty();
+            // dropdown.append('<option value="" disabled selected>Select an option</option>');
+            // Get label text for setting placeholder
+
+            var labelText = $('label[for="' + dropdownId.replace('#', '') + '"]').text();
+            var placeholderText = labelText ? 'Select ' + labelText.replace('*', '').trim() : 'Select an option';
+
+            // Set placeholder dynamically based on label
+            var placeholderText =  'Select Approver';
+
+            if (!data || !Array.isArray(data)) {
+                return;
+            }
+
+            data.forEach(function (item) {
+                if (item && item.value !== undefined && item.text) {
+                    dropdown.append('<option value="' + item.value + '">' + item.text + '</option>');
+                }
+            });
+            // debugger;
+            if (SelectedValue) {
+                dropdown.val(SelectedValue).trigger("change"); // Select the model value
+            }
+
+            // Re-initialize select2 to apply the updated options
+            dropdown.trigger('change');
+        }
+
+        function populateGeoDropdown(dropdownSelector, data, selectedId) {
+            const mapping = {
+                // "#MapCountryDropdown": { id: "country_Id", name: "countryName" },
+                // "#MapStateDropdown": { id: "state_Id", name: "stateName" },
+                // "#MapCityDropdown": { id: "city_ID", name: "city_Name" },
+                "#LocationDropdown": { id: "correspondance_ID", name: "locationName" }
+            };
+
+            const config = mapping[dropdownSelector] || { id: "id", name: "name" };
+            var $dropdown = $(dropdownSelector);
+            $dropdown.empty();
+            $dropdown.append('<option value="">Select Location</option>');
+
+            $.each(data, function (index, item) {
+                if (item[config.id] !== undefined && item[config.name] !== undefined) {
+                    var isSelected = (item[config.id] == selectedId) ? "selected" : "";
+                    $dropdown.append(`<option value="${item[config.id]}" ${isSelected}>${item[config.name]}</option>`);
+                }
+            });
+
+            $dropdown.trigger("change");
+        }
+
+        function validateGetData() {
+            let isValid = true;
+            isValid &= validateField('moduleSelect', 'Please select the Module.');
+            isValid &= validateField('serviceSelect', 'Please select the Service.');
+            return isValid;
+        }
+
+        // Function to validate a field based on field ID and error message
+        function validateField(fieldId, errorMessage) {
+
+            const field = $(`#${fieldId}`);
+            const errorElement = $(`#${fieldId}-error`);
+            let value = field.val();  // Change 'const' to 'let' to allow reassignment
+
+            // If using Select2, check for empty or null value
+            if (field.hasClass("select2-hidden-accessible")) {
+                value = Array.isArray(value) ? value.join("").trim() : (value || "").trim();
+            } else {
+                value = (value || "").trim();
+            }
+
+            if (!value || value.length === 0) {
+                field.addClass('error_input');
+                errorElement.text(errorMessage).show();
+                return false;
+            } else {
+                field.removeClass('error_input');
+                errorElement.text('').hide();
+                return true;
+            }
+        }
+        //--------------------------------------------------
+    </script>
+
+    @* Dynamic Level and approver logic *@
+    <script>
+
+        const approvalLevelsFromServer = @Html.Raw(Json.Serialize(Model.Levels ?? new List<ApprovalLevel>()));
+        const approvalDetailsFromServer = @Html.Raw(Json.Serialize(Model.Details ?? new List<ApprovalDetail>()));
+        let levelCounter = 0;
+        let detailCounter = 0;
+
+        $(document).ready(function () {
+
+            function createLevel(levelData, detailList) {
+                // debugger;
+                const $level = $("#masterTemplates .approval-level").clone();
+                const levelIndex = levelCounter++;
+
+                const uniqueId = `collapse-${levelIndex}`; // Unique ID for accordion
+
+                // Update accordion target
+                $level.find(".accordion-button").attr("data-bs-target", `#${uniqueId}`);
+                $level.find(".accordion-button").attr("aria-controls", uniqueId);
+                $level.find(".accordion-collapse").attr("id", uniqueId);
+                $level.find(".accordion-button").text(`Approval Level - ${levelCounter}`);
+
+                $level.find(".level-index").val(levelIndex);
+                $level.find(".level-no").attr("name", `ApprovalLevels[${levelIndex}].levelNumber`);
+                $level.find(".approval-type").attr("name", `ApprovalLevels[${levelIndex}].approvalType`);
+
+                if (levelData) {
+                    $level.find(".level-no").val(levelData.levelNumber);
+                    $level.find(".approval-type").val(levelData.approvalType);
+                }
+
+                const $detailContainer = $level.find(".approval-details");
+                // debugger;
+                if (detailList && detailList.length) {
+                    detailList.forEach(detail => {
+                        const $detail = createDetail(detail);
+                        $detailContainer.append($detail);
+
+                    });
+                } else {
+                    $detailContainer.append(createDetail());
+                }
+
+                //Drag and drop sorting logic
+                if (!$detailContainer.hasClass("ui-sortable")) {
+                    initSortable($detailContainer);
+                } else {
+                    $detailContainer.sortable('refresh');
+                }
+
+                $("#approvalContainer").append($level);
+
+
+                updateLevelNumbers();
+                updateApproverSequences();
+            }
+
+            function createDetail(detailData) {
+                // debugger;
+                // console.log('detal data ' + detailData);
+                const $detail = $("#masterTemplates .detail-row").clone();
+                const detailIndex = detailCounter++;
+
+                $detail.find(".detail-index").val(detailIndex);
+                $detail.find(".user-id").attr("name", `ApprovalDetails[${detailIndex}].userID`);
+                $detail.find(".sequence").attr("name", `ApprovalDetails[${detailIndex}].sequenceOrder`);
+                $detail.find(".is-alternate").attr("name", `ApprovalDetails[${detailIndex}].isAlternate.toString()`);
+                $detail.find(".user-select").attr("id", `userSelect-${detailIndex}`);
+
+                const dropdownId = `#userSelect-${detailIndex}`;
+
+                // debugger;
+                if (detailData) {
+                    // alert(detailData.userID);
+                    loadUsers(dropdownId, detailData.userID);
+
+                    $detail.find(".user-id").val(detailData.userID);
+                    $detail.find(".sequence").val(detailData.sequenceOrder);
+                    // $detail.find(".is-alternate").val(detailData.isAlternate);
+                    $detail.find(".is-alternate").prop("checked", detailData.isAlternate === true || detailData.isAlternate === "true");
+                }
+                else {
+                    loadUsers(dropdownId, "");
+                }
+
+                updateApproverSequences();
+                return $detail;
+            }
+
+            if (approvalLevelsFromServer.length > 0) {
+                approvalLevelsFromServer.forEach(function (level) {
+                    const details = approvalDetailsFromServer.filter(d => d.levelID === level.levelID);
+                    //console.log(details);
+                    createLevel(level, details);
+                });
+            } else {
+                createLevel();
+            }
+
+            $("#addLevelBtn").on("click", function () {
+                createLevel();
+
+            });
+
+
+            $(document).on("click", ".add-approver", function () {
+                const $approver = createDetail();
+                const $approvalDetails = $(this).closest(".approval-level").find(".approval-details");
+
+                $approvalDetails.append($approver);
+
+                if (!$approvalDetails.hasClass("ui-sortable")) {
+                    initSortable($approvalDetails);
+                } else {
+                    $approvalDetails.sortable('refresh');
+                }
+                updateApproverSequences();
+            });
+
+            function initSortable($approvalDetails) {
+                $approvalDetails.sortable({
+                    items: ".detail-row",
+                    handle: ".drag-handle",
+                    placeholder: "sortable-placeholder",
+                    tolerance: "pointer",
+                    update: function (event, ui) {
+                        updateApproverSequences();
+                    }
+                });
+            }
+
+            $(document).on("click", ".remove-level", function () {
+                const $levels = $(".approval-level").not("#masterTemplates .approval-level");
+
+                if ($levels.length <= 1) {
+                    showAlert('danger', "At least one approval level is required.");
+                    return;
+                }
+
+                $(this).closest(".approval-level").remove();
+                updateLevelNumbers();
+                updateApproverSequences();
+            });
+
+            $(document).on("click", ".remove-approver", function () {
+                const $level = $(this).closest(".approval-level");
+                const $approvers = $level.find(".detail-row:visible");
+
+                // console.log($approvers.length);
+                if ($approvers.length <= 1) {
+                    showAlert('danger', "Each level must have at least one approver.");
+                    return;
+                }
+
+                $(this).closest(".detail-row").remove();
+                updateApproverSequences();
+            });
+
+            function updateApproverSequences() {
+                $("#approvalContainer .approval-level").each(function () {
+                    let level = $(this);
+                    let approverRows = level.find(".detail-row");
+
+                    approverRows.each(function (index) {
+                        $(this).find(".sequence").val(index + 1);
+                    });
+                });
+            }
+
+            function updateLevelNumbers() {
+                $("#approvalContainer .approval-level").each(function (index) {
+                    let levelNoInput = $(this).find(".level-no");
+                    levelNoInput.val(index + 1);
+
+                    $(this).find(".accordion-button").text(`Approval Level - ${index + 1}`);
+                });
+            }
+
+        });
+    </script>
+
+    @* Form Submission and validation logic *@
+    <script>
+
+          // Utility to show custom modal
+         function showCustomModal(message, okCallback, cancelCallback) {
+             debugger;
+             $('#customModalBody').html(message);
+             $('#customModal').modal('show');
+
+             // Remove previous handlers
+             $('#customModalOk').off('click');
+             $('#customModalCancel').off('click');
+
+             $('#customModalOk').on('click', function () {
+                 $('#customModal').modal('hide');
+                 if (okCallback) okCallback();
+             });
+             $('#customModalCancel').on('click', function () {
+                 $('#customModal').modal('hide');
+                 if (cancelCallback) cancelCallback();
+             });
+
+              $('#customModalLabel').text('Validation');
+         }
+
+          function showCustomModalValidation(message, okCallback, cancelCallback) {
+             $('#customModalBody').html(message);
+             $('#customModal').modal('show');
+
+             $('#customModalOk').hide();
+             $('#customModalCancel').hide();
+
+
+              $('#customModalLabel').text('Validation Summary');
+         }
+
+         
+
+
+         // User duplicate check on selection
+        $(document).on('change', '.user-id', function () {
+            const $this = $(this);
+            const selectedUserId = $this.val();
+            if (!selectedUserId) return;
+
+            // Find all user-id selects except the current one
+            let duplicateFound = false;
+            let duplicateLevel = null;
+            $('.user-id').not($this).each(function () {
+                if ($(this).val() === selectedUserId) {
+                    // Find the level number for the duplicate
+                    const $level = $(this).closest('.approval-level');
+                    const levelNo = $level.find('.level-no').val() || $level.find('.accordion-button').text().replace(/\D/g, '');
+                    duplicateFound = true;
+                    duplicateLevel = levelNo;
+                    return false; // break loop
+                }
+            });
+
+            if (duplicateFound && duplicateLevel != null) {
+                if(duplicateLevel>0){
+                // Show confirmation dialog
+                const msg = `This user is already selected in Level ${duplicateLevel}. Are you sure you want to add this user again?`;
+                // if (!confirm(msg)) {
+                //     $this.val('').trigger('change'); // Reset selection
+                // }
+                showCustomModal(msg, null, function () {
+                    $this.val('').trigger('change');
+                });}
+            }
+        });
+
+
+        function initializeFormSubmit() {
+            $('#btnSave').on('click', function (e) {
+                e.preventDefault();
+
+                if (!validateCommonDetails()) {
+                    return; // Stop execution if validation fails
+                }
+                if (!validateLevelDetails()) {
+                    return; // Stop execution if validation fails
+                }
+
+                // Effective Date Validation
+                const dateValue = $("#effectiveFromDtEdit").val();
+                let formattedEditDate = null;
+                if (dateValue) {
+                    const parts = dateValue.split('/'); // Split 'dd/mm/yyyy'
+                    if (parts.length === 3) {
+                        formattedEditDate = `${parts[2]}-${parts[1]}-${parts[0]}`; // Convert to 'yyyy-mm-dd'
+                    }
+                }
+
+                if (formattedEditDate) {
+                }
+                //const formattedEditDate = dateValue ? new Date(dateValue).toISOString().split('T')[0] : null;
+
+                if (!dateValue) {
+                    $("#effectiveFromDtEdit-error").text("Effective Date is required.").show();
+                    return;
+                } else {
+                    $("#effectiveFromDtEdit-error").text("").hide(); // Clear date error only when valid
+                }
+
+
+                // debugger;
+                // console.log($('input[name="Config.ApproveType"]:checked').val())
+                const config = {
+                    ConfigID: $('input[name="Config.ConfigID"]').val(),
+                    ModuleID: $('#moduleSelect').val(),
+                    ServiceID: $('#serviceSelect').val(),
+                    CompanyId: $('#companies').val(),
+                    LocationId: $('#LocationDropdown').val(),
+                    ApprovalProcessName: $('#ApprovalProcessName').val(),
+                    TotalLevels: parseInt($('#TotalLevels').val()) || 0,
+                    Priority: parseInt($('#Priority').val()) || 0,
+                    ApproveType: parseInt($('input[name="Config.ApproveType"]:checked').val()) || 0,
+                    NoOfDays: parseInt($('input[name="Config.NoOfDays"]').val()) || 0,
+                    IsNotificationEnabled: $('#IsNotificationEnabled').is(':checked'),
+                    IsActive: $('#IsActive').is(':checked'),
+                    EffectiveDate: formattedEditDate,
+                };
+
+                const levels = [];
+                const details = [];
+                // console.log(config);
+                $('#approvalContainer .approval-level').each(function (levelIndex) {
+                    const levelId = levelIndex + 1;
+                    const level = {
+                        LevelID: 0, // or keep null/undefined if adding new
+                        ConfigID: config.ConfigID,
+                        LevelNumber: parseInt($(this).find('.level-no').val()) || 0,
+                        ApprovalType: $(this).find('.approval-type').val(),
+                        IsApproveByAll: $(this).find('.approval-type').val() === "Parallel", // Or your logic
+                        ApproveByAnyCount: null // optional field if needed
+                    };
+                    levels.push(level);
+                    $(this).find('.detail-row').each(function () {
+                        const detail = {
+                            ApprovalID: 0,
+                            ConfigID: config.ConfigID,
+                            LevelID: levelId,
+                            UserID: parseInt($(this).find('.user-id').val()) || 0,
+                            SequenceOrder: parseInt($(this).find('.sequence').val()) || 0,
+                            IsAlternate: $(this).find('.is-alternate').is(':checked')
+                        };
+                        details.push(detail);
+                    });
+                });
+
+                const approvalConfig = {
+                    Config: config,
+                    Levels: levels,
+                    Details: details
+                };
+
+
+                $.ajax({
+                    url: '/ApprovalSetUp/AddApprovalConfig',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(approvalConfig),
+                    success: function (res) {
+                        showAlert('success', 'Saved successfully!');
+
+                          setTimeout(function () {
+                    window.location.href = '/approvalSetUP/ApprovalConfigGrid';
+                }, 4500);
+
+                        // Optional: redirect or reset form
+                        // window.location.href = `/approvalSetUP/ApprovalConfigGrid`;
+                    },
+                    error: function (xhr) {
+                        console.error("Save failed:", xhr.responseText);
+                        showAlert('danger', 'Save failed!');
+                    }
+                });
+            });
+
+
+            function validateCommonDetails() {
+                let isValid = true;
+
+                var ApprovalProcessNameValidate = $("#ApprovalProcessName").val().trim(); // Trim spaces from both ends
+
+                $("#ApprovalProcessName-error").text(""); // Clear previous errors
+
+                // Validate Process Name:- Start
+                if (ApprovalProcessNameValidate === "") {
+                    $("#ApprovalProcessName-error").text("Please Provide Process Name.");
+                    isValid = false;
+                }
+
+                if (/[^a-zA-Z0-9 ]/.test(ApprovalProcessNameValidate)) {
+                    $("#ApprovalProcessName-error").text("Process Name cannot contain special characters.");
+                    isValid = false;
+                }
+
+                if (/\s{2,}/.test(ApprovalProcessNameValidate)) {
+                    $("#ApprovalProcessName-error").text("Process Name cannot have consecutive spaces.");
+                    isValid = false;
+                }
+
+                if (ApprovalProcessNameValidate.length > 200) {
+                    $("#ApprovalProcessName-error").text("Process Name cannot exceed 200 characters.");
+                    isValid = false;
+                }
+                // Validate Process Name:- End
+
+                let totalLevelsVal = $('#TotalLevels').val();
+                let totalLevels = parseInt(totalLevelsVal);
+
+                $("#TotalLevels-error").text(""); // Clear previous errors
+
+                // Validate Process Name:- Start
+                if (!totalLevelsVal || isNaN(totalLevels) || totalLevels <= 0) {
+                    $("#TotalLevels-error").text("Please enter a valid number of total levels.");
+                    isValid = false;
+                } else {
+                    $("#TotalLevels-error").text(""); // Clear previous error
+                }
+
+
+
+                //validate no of days
+                const selectedApproveType = parseInt($('input[name="Config.ApproveType"]:checked').val()) || 0;
+                let noOfDaysVal = $('input[name="Config.NoOfDays"]').val()?.trim();
+                let noOfDays = parseInt(noOfDaysVal);
+
+                if (selectedApproveType !== 3) { // Validate only if Not Required is NOT selected
+                    if (!noOfDaysVal || isNaN(noOfDays) || noOfDays <= 0) {
+                        $("#NoOfDays-error").text("Please enter a valid number of days.");
+                        isValid = false;
+                    } else {
+                        $("#NoOfDays-error").text(""); // Clear previous error
+                    }
+                } else {
+                    $("#NoOfDays-error").text(""); // Clear error when Not Required is selected
+                }
+
+
+                var moduleId = $('#moduleSelect').val();
+                if (!moduleId) {
+                    $("#moduleSelect-error").text("Please select a module.");
+                    isValid = false;
+                } else {
+                    $("#moduleSelect-error").text(""); // Clear error if valid
+                }
+
+                var serviceId = $('#serviceSelect').val();
+                if (!serviceId) {
+                    $("#serviceSelect-error").text("Please select a request for.");
+                    isValid = false;
+                } else {
+                    $("#serviceSelect-error").text(""); // Clear error if valid
+                }
+
+                var serviceId = $('#serviceSelect').val();
+                if (!serviceId) {
+                    $("#serviceSelect-error").text("Please select a request for.");
+                    isValid = false;
+                } else {
+                    $("#serviceSelect-error").text(""); // Clear error if valid
+                }
+
+                var companyId = $('#companies').val();
+                if (!companyId) {
+                    $("#companies-error").text("Please select a company.");
+                    isValid = false;
+                } else {
+                    $("#companies-error").text(""); // Clear error if valid
+                }
+
+                var locationId = $('#LocationDropdown').val();
+                if (!locationId) {
+                    $("#LocationDropdown-error").text("Please select a location.");
+                    isValid = false;
+                } else {
+                    $("#LocationDropdown-error").text(""); // Clear error if valid
+                }
+                return isValid;
+            }
+
+
+
+
+            function validateLevelDetails() {
+                // debugger;
+                let isValid = true;
+                let errorMessages = [];
+
+                let totalLevels = parseInt($('#TotalLevels').val());
+                let actualLevels = [];
+                let allApprovers = new Set();
+                let duplicateApprovers = [];
+
+                // Skip template levels and validate only visible ones
+                $('.approval-level').not('#masterTemplates .approval-level').each(function () {
+                    let levelNo = parseInt($(this).find('.level-no').val());
+                    if (isNaN(levelNo)) {
+                        isValid = false;
+                        errorMessages.push("Each level must have a Level Number.");
+                    } else {
+                        actualLevels.push(levelNo);
+                    }
+
+                    // let approvers = $(this).find('.user-id').filter(function () {
+                    //     return $(this).closest('.detail-row').is(':visible');
+                    // });
+
+                    let approvers = $(this).find('.detail-row .user-id');
+
+                    // debugger;
+
+                    if (approvers.length === 0) {
+                        isValid = false;
+                        errorMessages.push(`Level ${levelNo || '(unknown)'} must have at least one Approver.`);
+                    }
+
+                    approvers.each(function () {
+                        let userId = $(this).val();
+                        let userName = $(this).find('option:selected').text().trim();
+
+                        if (!userId) {
+                            isValid = false;
+                            errorMessages.push(`An Approver is missing in Level ${levelNo || '(unknown)'}.`);
+                        } else {
+                            if (allApprovers.has(userId)) {
+                                duplicateApprovers.push(userName); // Add name instead of ID
+                            }
+                            allApprovers.add(userId);
+                        }
+                    });
+                });
+
+                // Check for duplicate approvers
+                if (duplicateApprovers.length > 0) {
+                    //allow by taking user input at last desided - 6-jun-2025 changed
+                    //isValid = false;
+                    //errorMessages.push("Duplicate approvers are not allowed. Name(s): " + [...new Set(duplicateApprovers)].join(", "));
+                }
+
+                // Check if level numbers are sequential from 1
+                actualLevels.sort((a, b) => a - b);
+                for (let i = 0; i < actualLevels.length; i++) {
+                    if (actualLevels[i] !== i + 1) {
+                        isValid = false;
+                        errorMessages.push("Level numbers must be sequential starting from 1 (e.g., 1, 2, 3...).");
+                        break;
+                    }
+                }
+
+                // Match total levels
+                if (totalLevels !== actualLevels.length) {
+                    isValid = false;
+                    errorMessages.push(`Total Levels (${totalLevels}) does not match number of levels added (${actualLevels.length}).`);
+                }
+
+                if (!isValid) {
+                    //alert("Validation Errors:\n" + errorMessages.join("\n"));
+                    debugger;
+                    showCustomModalValidation(errorMessages.join("<br>"), null, null);
+                }
+                return isValid;
+            }
+
+        }
+    </script>
+}

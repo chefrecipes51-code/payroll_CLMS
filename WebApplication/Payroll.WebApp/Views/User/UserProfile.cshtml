@@ -1,0 +1,322 @@
+﻿@using Payroll.WebApp.Models.DTOs
+@model UserInfoDTO
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet" />
+<link href="~/assets/src/css/croppie.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+@* <div class="breadcrumb-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/Index" class="breadcrumb-text"><span class="sprite-icons home-primary"></span></a>
+            </li>
+            <li class="breadcrumb-item primary">
+                <a href="/User/Index" class="breadcrumb-text">User List</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a class="breadcrumb-text">User Info</a>
+            </li>
+        </ol>
+    </nav>
+</div> *@
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+<div class="app-layout">
+    <div class="title-container">
+        <div class="current-back">
+            <a href="/User/Index" class="btn btn-back-icon">
+                <span class="sprite-icons back-violet"></span>
+            </a>
+            <p class="title-primary">User Profile</p>
+        </div>
+        <div class="button-group">
+            <div id="edit-button-wrapper" style="display: none;">
+                @foreach (var item in Model.userDetails)
+                {
+                   @*  <button type="button" data-userid="@item.UserId" id="userEditButton" class="btn btn_primary btn-edit-hide">Edit</button> *@
+                    @if (ViewBag.IsFromMenu == true)
+                    {
+                        <button type="button" data-userid="@item.UserId" id="userEditButton" class="btn btn_primary btn-edit-hide">Edit</button>
+
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-0">
+        <div class="col-lg-3 col-md-3">
+            <div class="vertical-tabs">
+                <div class="vertical-tabs-fixed-layout">
+
+                    @foreach (var item in Model.userDetails)
+                    {
+                        var username = item.Email;
+                        <div class="profile-image-crop">
+                            <label class="cabinet center-block">
+                                <figure id="upload-aphoto-@item.UserId" class="emp_profile_pic">
+                                    <img src="@Url.Action("GenerateProfileImage", "Account", new { username = username, width = 188, height = 188 })"
+                                         class="gambar img-responsive img-fluid" id="item-img-output-@item.UserId"
+                                         height="188" width="188" />
+                                    <div class="preview-img" style="display:none;">
+                                        <img class="img-fluid rounded" id="confirm-img-@item.UserId" height="64" width="64"
+                                             style="display: none;">
+                                    </div>
+                                    <figcaption>
+                                        @*  <button class="btn btn-dark-transparent icon-title upload_emp_img"
+                                    type="button" id="selectButton-@item.UserId">
+                                    <span class="sprite-icons camera-white"></span> Select
+                                    </button> *@
+
+                                        <div id="edit-delete-buttons-@item.UserId" style="display:none;">
+                                            <div class="btn-action-image">
+                                                <button class="btn btn-dark-transparent icon-title"
+                                                        id="deleteButton-@item.UserId">
+                                                    <span class="sprite-icons delete-white"></span> Remove
+                                                </button>
+                                                <button class="btn btn-dark-transparent icon-title"
+                                                        id="editButton-@item.UserId">
+                                                    <span class="sprite-icons edit-white"></span> Edit
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </figcaption>
+                                </figure>
+                                <input type="file" class="item-img file center-block" name="file_photo"
+                                       id="selectedFile-@item.UserId" style="display: none;" />
+                            </label>
+                        </div>
+                    }
+
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                         aria-orientation="vertical">
+                        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">User Information</button>
+                        @* <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Company Details</button> *@
+                        <button class="nav-link" id="v-pills-company-tab" data-bs-toggle="pill" data-bs-target="#v-pills-company" type="button" role="tab" aria-controls="v-pills-company" aria-selected="false">Company Details</button>
+                        <button class="nav-link" id="v-pills-permissions-tab" data-bs-toggle="pill" data-bs-target="#v-pills-permissions" type="button" role="tab" aria-controls="v-pills-permissions" aria-selected="false">Permission</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-md-9">
+            <div class="vertical-tab-content">
+                <div class="tab-content" id="v-pills-tabContent">
+
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
+                        <div class="vertical-tabs-content-fixed-layout form-body non-footer">
+
+                            <div class="bordered-title-content-wrapper">
+                                <div class="bordered-title">
+                                    <p class="title-primary">User Information</p>
+                                </div>
+                                <div class="row custom_form_page">
+                                    <div class="col-lg-12">
+                                        @foreach (var item in Model.userDetails)
+                                        {
+                                            var id = item.UserId;
+                                            <input hidden type="text" name="userId" id="userId" />
+
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">User Type</p>
+                                                    <p class="lg-text label-input-text">
+                                                        <span id="UserTypeName" data-field="UserTypeName" itemid="@item.UserId">@item.UserTypeName</span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Phone Number</p>
+                                                    <p class="lg-text label-input-text"><span data-field="PhoneNumber">@item.ContactNo</span></p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Salutation</p>
+                                                    <p class="lg-text label-input-text">
+                                                        <span data-field="Salutation">@item.Salutation</span>
+                                                    </p>
+                                                    
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Email</p>
+                                                    <p class="lg-text label-input-text">
+                                                        <span data-field="Email">@item.Email</span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">First Name</p>
+                                                    <p class="lg-text label-input-text">
+                                                        <span data-field="FirstName">
+                                                            @item.FirstName
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">User Name</p>
+                                                    <p class="lg-text label-input-text">
+                                                        <span data-field="UserName">@item.Username</span>
+                                                    </p>
+                                                    
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Middle Name</p>
+                                                    <p class="lg-text label-input-text">
+                                                        <span data-field="MiddleName">@item.MiddleName</span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Last Name</p>
+                                                    <p class="lg-text label-input-text"><span data-field="LastName">@item.LastName</span></p>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade " id="v-pills-company" role="tabpanel"
+                         aria-labelledby="v-pills-company-tab" tabindex="0">
+
+                        <div class="vertical-tabs-content-fixed-layout form-body non-footer">
+
+                            <div class="bordered-title-content-wrapper">
+                                <div class="bordered-title">
+                                    <p class="title-primary">Company Details</p>
+                                </div>
+                                <div class="row custom_form_page">
+                                    <div class="col-lg-12">
+                                        @foreach (var item in Model.userDetails)
+                                        {
+                                            var id = item.UserId;
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Company</p>
+                                                    <p class="lg-text label-input-text"><span id="CompanyName" data-field="CompanyName" itemid="@item.Company_Id">@item.CompanyName</span></p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Country</p>
+                                                    <p class="lg-text label-input-text"><span data-field="Country">@item.Country</span></p>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <input type="hidden" id="selectedStateIds" value="@item.StateIds" />
+                                                    <p class="md-text label-title">State</p>
+                                                    <p class="lg-text label-input-text"><span data-field="State">@Html.Raw(item.StateName.Replace(",", "<br/>"))</span></p>
+                                                </div>
+                                                <input type="hidden" id="selectedCityIds" value="@item.CityIds" />
+                                                <div id="cityContainer" class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">City</p>
+                                                    <p class="lg-text label-input-text"><span data-field="City">@Html.Raw(item.City.Replace(",", "<br/>"))</span></p>
+                                                </div>
+                                                
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Location</p>
+                                                    <p class="lg-text label-input-text"><span data-field="Location"> @Html.Raw(item.LocationName.Replace(",", "<br/>"))</span></p>
+                                                </div>
+                                                
+                                                <div class="col-lg-6 col-md-6 col-sm-12 mb-3 mb-sm-3 mb-md-3 mb-lg-3">
+                                                    <p class="md-text label-title">Role</p>
+                                                    <p class="lg-text label-input-text">
+                                                        <span data-field="Role">@Html.Raw(item.RoleName.Replace(",", "<br/>"))</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-permissions" role="tabpanel" aria-labelledby="v-pills-permissions-tab" tabindex="0">
+                        <div class="vertical-tabs-content-fixed-layout form-body non-footer">
+                            <div class="bordered-title-content-wrapper">
+                                <div class="bordered-title">
+                                    <p class="title-primary">Permissions as per location wise role</p>
+                                </div>
+                                <div class="row custom_form_page">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="userCity" class="form-label">City<sup>*</sup></label>
+                                                    <select class="form-control select2_search_ctm" data-placeholder="Select a City"
+                                                            id="userCity" required>
+                                                    </select>
+                                                    <span id="userCity-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="userLocation" class="form-label">Location<sup>*</sup></label>
+                                                    <select class="form-control select2_search_ctm" data-placeholder="Select a location"
+                                                            id="userLocation" required>
+                                                    </select>
+                                                    <span id="userLocation-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label for="userRole" class="form-label">
+                                                        Role
+                                                        <sup>*</sup>
+                                                    </label>
+                                                    <div class="userRole-selection">
+                                                        <select class="form-control select2_search_ctm" data-placeholder="Select a Role"
+                                                                id="userRole" required>
+                                                        </select>
+                                                    </div>
+                                                    <span id="userRole-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="treeview-container">
+                                        <ul class="treeview">
+                                            <!-- Dynamic menu structure will be generated User.Js -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Self Edit Not Allowed -->
+<div class="modal fade modal-custom modal-primary" id="selfEditNotAllowedModal" tabindex="-1"
+     aria-labelledby="selfEditNotAllowedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/icons/priamry-done-modal.svg" width="134" height="77" alt="Alert">
+                <p class="title-primary mb-2">Action Not Allowed</p>
+                <p class="sm-text-gray-neutral">You are not allowed to edit your own record.</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn_primary" data-bs-dismiss="modal">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/js/croppie.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/application/js/user/user.js"></script>
+    <script src="~/application/js/user/updateprofile.js"></script>
+}
+

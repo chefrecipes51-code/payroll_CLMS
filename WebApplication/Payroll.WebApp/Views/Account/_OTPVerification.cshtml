@@ -1,0 +1,53 @@
+﻿@model Payroll.WebApp.Models.DTOs.LoginDTO
+
+@{
+    Layout = null;
+}
+
+
+<!-- OTP Verification Form -->
+
+<div class="login_form_wrapper">
+
+    <input type="hidden" id="hdTemplateId" value="0" />
+
+    <img class="login-logo" src="assets/img/icons/mantra-logo.svg" height="60" width="222" alt="logo">
+
+    <p class="sub-title-secondary">Welcome!</p>
+    <p class="title-primary">Enter OTP</p>
+    <p class="sm-text-gray-neutral">
+        We have sent OTP on
+        <span class="sm-text text_primary" id="spanEmail">@Model.Email</span>
+    </p>
+
+    <div class="form-section">
+        <div class="form-group">
+            <label class="form-label">OTP <sup>*</sup></label>
+            <input id="txtOTP" class="form-control" placeholder="Enter OTP" tabindex="1">
+            <p id="OTP-validation-message" class="input_error_msg"></p>
+        </div>
+        <button type="button" id="verifyOTP-btn" onclick="verifyOTP()" class="btn_primary_md w-100 loader-dot-pulse">Verify OTP</button>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#txtOTP").on('input', function () {
+            // Replace any non-numeric characters with an empty string
+            this.value = this.value.replace(/\D/g, '');
+
+            // Limit input to 6 digits
+            if (this.value.length > 6) {
+                this.value = this.value.slice(0, 6);
+            }
+        });
+
+        $('#txtOTP').on('copy paste', disableCopyPaste);
+
+        function disableCopyPaste(e) {
+            e.preventDefault();
+            toastr.info('This functionality is disabled.', 'Error');
+        }
+    });
+</script>

@@ -1,0 +1,372 @@
+﻿@model List<Payroll.WebApp.Models.Employee>
+@{
+    ViewData["Title"] = "Employee Management";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"] - Your Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<h2>Employee Management</h2>
+
+<!-- Tabs -->
+<ul class="nav nav-tabs" id="employeeTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="list-tab" data-toggle="tab" href="#list" role="tab">List</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="add-tab" data-toggle="tab" href="#add" role="tab">Add</a>
+    </li>
+</ul>
+<div class="container mt-4">
+    <div class="tab-content" id="employeeTabContent">
+        <!-- List Tab -->
+        <div class="tab-pane fade show active" id="list" role="tabpanel">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search employees..." />
+            <table class="table" id="employeeTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Salary</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model)
+                    {
+                        <tr data-id="@employee.Id">
+                            <td class="emp-name">@employee.Name</td>
+                            <td class="emp-position">@employee.Position</td>
+                            <td class="emp-salary">@employee.Salary</td>
+                            <td>
+                                <button class="btn btn-primary edit-btn">Edit</button>
+                                <button class="btn btn-danger delete-btn">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Add Tab -->
+        <div class="tab-pane fade" id="add" role="tabpanel">
+            <form id="addForm">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="addName" name="Name" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label>Position</label>
+                    <input type="text" id="addPosition" name="Position" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label>Salary</label>
+                    <input type="number" id="addSalary" name="Salary" class="form-control" required />
+                </div>
+                <button type="button" id="addEmployeeBtn" class="btn btn-success">Add Employee</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Employee</h5>
+                <button type="button" class="close" id="closeEditBtn" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" id="editId" />
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="editName" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Position</label>
+                        <input type="text" id="editPosition" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Salary</label>
+                        <input type="text" id="editSalary" class="form-control" required />
+                    </div>
+                    <button type="button" id="saveEditBtn" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/jquery-3.6.0.min.js"></script>
+  @* @RenderSection("Scripts", required: false) *@
+@* @section Scripts { *@
+    <script>
+        $(document).ready(function () {
+            // Initialize selected row index
+            let selectedRowIndex = -1;
+            // Add Employee Functionality
+            $("#addEmployeeBtn").click(function () {
+                if ($("#addForm")[0].checkValidity()) {
+                    const data = {
+                        Name: $("#addName").val(),
+                        Position: $("#addPosition").val(),
+                        Salary: $("#addSalary").val()
+                    };
+
+                    $.post('/Employee/Add', data, function (response) {
+                        if (response.success) {
+                            $("#employeeTable tbody").append(`
+                                                 <tr data-id="${response.data.id}">
+                                                     <td class="emp-name">${response.data.name}</td>
+                                                     <td class="emp-position">${response.data.position}</td>
+                                                     <td class="emp-salary">${response.data.salary}</td>
+                                                     <td>
+                                                         <button class="btn btn-primary edit-btn">Edit</button>
+                                                         <button class="btn btn-danger delete-btn">Delete</button>
+                                                     </td>
+                                                 </tr>`);
+                            $("#addForm")[0].reset();
+                            $("#editModal").modal("hide");
+                            redirectToList(); // Redirect to the list tab
+                        } else {
+                            alert("Failed to add employee");
+                        }
+                    }).fail(function () {
+                        alert("Error while adding employee");
+                    });
+                } else {
+                    alert("Please fill in all required fields correctly.");
+                }
+            });
+
+            // Edit Employee Functionality
+            $(document).on("click", ".edit-btn", function () {
+                const row = $(this).closest("tr");
+                $("#editId").val(row.data("id"));
+                $("#editName").val(row.find(".emp-name").text());
+                $("#editPosition").val(row.find(".emp-position").text());
+                $("#editSalary").val(row.find(".emp-salary").text());
+                $("#editModal").modal("show");
+            });
+
+            $("#saveEditBtn").click(function () {
+                const data = {
+                    Id: $("#editId").val(),
+                    Name: $("#editName").val(),
+                    Position: $("#editPosition").val(),
+                    Salary: $("#editSalary").val()
+                };
+
+                $.post('/Employee/Edit', data, function (response) {
+                    if (response.success) {
+                        const row = $(`#employeeTable tbody tr[data-id='${response.data.id}']`);
+                        row.find(".emp-name").text(response.data.name);
+                        row.find(".emp-position").text(response.data.position);
+                        row.find(".emp-salary").text(response.data.salary);
+                        $("#editModal").modal("hide");
+                        redirectToList(); // Redirect to the list tab
+                    } else {
+                        alert("Failed to update employee");
+                    }
+                }).fail(function () {
+                    alert("Error while updating employee");
+                });
+            });
+            // Function to redirect to the list tab
+            function redirectToList() {
+                $("#list-tab").tab('show'); // Switch to the List tab
+            }
+            // Delete Employee Functionality
+            $(document).on("click", ".delete-btn", function () {
+                const row = $(this).closest("tr");
+                const id = row.data("id");
+
+                if (confirm("Are you sure you want to delete this employee?")) {
+                    $.post('/Employee/Delete', { id: id }, function (response) {
+                        if (response.success) {
+                            row.remove();
+                        } else {
+                            alert("Failed to delete employee");
+                        }
+                    }).fail(function () {
+                        alert("Error while deleting employee");
+                    });
+                }
+            });
+
+            // Search functionality
+            $("#searchInput").on("keyup", function () {
+                const searchTerm = $(this).val().toLowerCase();
+                $("#employeeTable tbody tr").each(function () {
+                    const rowText = $(this).text().toLowerCase();
+                    $(this).toggle(rowText.indexOf(searchTerm) > -1);
+                });
+            });
+
+            // Function to close the edit modal
+            function closeEditModal() {
+                $("#editModal").modal("hide");
+                isEditModalOpen = false; // Reset the flag
+                $(document).off('keydown', handleKeyDown); // Re-enable arrow key handling
+            }
+
+            // Close Button in Edit Modal
+            $("#closeEditBtn").click(function () {
+                closeEditModal(); // Close the modal
+            });
+
+            // Keyboard Shortcuts
+            $(document).keydown(function (e) {
+                if (e.altKey) { // Use Alt as the modifier key
+                    switch (e.key) {
+                        case "a": // Alt + A for Add tab
+                            $("#add-tab").tab('show');
+                            $("#addName").focus();
+                            e.preventDefault();
+                            break;
+                        case "l": // Alt + L for List tab
+                            $("#list-tab").tab('show');
+                            e.preventDefault();
+                            break;
+                        case "e": // Alt + E to trigger Edit on selected row
+                            editSelectedRow();
+                            e.preventDefault();
+                            break;
+                        case "d": // Alt + D to trigger Delete on selected row
+                            deleteSelectedRow();
+                            e.preventDefault();
+                            break;
+                        case "r": // Alt + R to reset Add form
+                            $("#addForm")[0].reset();
+                            e.preventDefault();
+                            break;
+                        case "s": // Alt + S to save changes in edit modal
+                            $("#saveEditBtn").click();
+                            e.preventDefault();
+                            break;
+                        case "k": // Alt + S to save changes in edit modal
+                            $("#addEmployeeBtn").click();
+                            e.preventDefault();
+                            break;
+                        case "f": // Alt + F to focus on Search
+                            $("#searchInput").focus();
+                            e.preventDefault();
+                            break;
+                        case "1": // Alt + 1 to focus on first text box in Add form
+                            $("#addName").focus();
+                            e.preventDefault();
+                            break;
+                        case "2": // Alt + 2 to focus on second text box in Add form
+                            $("#addPosition").focus();
+                            e.preventDefault();
+                            break;
+                        case "3": // Alt + 3 to focus on third text box in Add form
+                            $("#addSalary").focus();
+                            e.preventDefault();
+                            break;
+                        // Focus shortcuts for Edit form
+                        case "4": // Alt + 4 to focus on Name in Edit form
+                            $("#editName").focus();
+                            e.preventDefault();
+                            break;
+                        case "5": // Alt + 5 to focus on Position in Edit form
+                            $("#editPosition").focus();
+                            e.preventDefault();
+                            break;
+                        case "6": // Alt + 6 to focus on Salary in Edit form
+                            $("#editSalary").focus();
+                            e.preventDefault();
+                            break;
+                    }
+                } else {
+                    // Handle Arrow Down and Arrow Up keys for row navigation
+                    switch (e.key) {
+                        case "ArrowDown":
+                            navigateRow(1);
+                            e.preventDefault();
+                            break;
+                        case "ArrowUp":
+                            navigateRow(-1);
+                            e.preventDefault();
+                            break;
+                        case "Enter": // Edit the selected row
+                            editSelectedRow();
+                            e.preventDefault();
+                            break;
+                        case "Tab": // Tab to focus on Add Employee button
+                            $("#addEmployeeBtn").focus();
+                            e.preventDefault();
+                            break;
+                        // case "s": // Enter to click Add Employee button
+                        //     $("#addEmployeeBtn").click();
+                        //     $("#addForm")[0].reset();
+                        //     e.preventDefault();
+                        //     break;
+
+                    }
+                }
+            });
+
+            function navigateRow(direction) {
+                const rows = $("#employeeTable tbody tr:visible");
+                if (rows.length === 0) return;
+
+                // Remove highlight from previously selected row if exists
+                if (selectedRowIndex >= 0) {
+                    rows.eq(selectedRowIndex).removeClass("table-active");
+                }
+
+                // Calculate the new index
+                selectedRowIndex += direction;
+                if (selectedRowIndex < 0) selectedRowIndex = 0; // Prevent going above the first row
+                if (selectedRowIndex >= rows.length) selectedRowIndex = rows.length - 1; // Prevent going below the last row
+
+                // Highlight the new selected row
+                rows.eq(selectedRowIndex).addClass("table-active");
+                // Scroll the selected row into view
+                rows.eq(selectedRowIndex)[0].scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+
+            function editSelectedRow() {
+                if (selectedRowIndex >= 0) {
+                    const selectedRow = $("#employeeTable tbody tr:visible").eq(selectedRowIndex);
+                    selectedRow.find(".edit-btn").click();
+                }
+            }
+
+            function deleteSelectedRow() {
+                if (confirm("Are you sure you want to delete this employee?")) {
+                    // proceed with delete
+                    if (selectedRowIndex >= 0) {
+                        const selectedRow = $("#employeeTable tbody tr:visible").eq(selectedRowIndex);
+                        selectedRow.find(".delete-btn").click();
+                    }
+                }
+            }
+
+            // Adding a class to highlight selected row
+            $("<style>")
+                .prop("type", "text/css")
+                .html("\
+                     .table-active { \
+                         background-color: #e9ecef !important; \
+                     }")
+                .appendTo("head");
+        });
+
+    </script>
+@* } *@
+
+
+</html>

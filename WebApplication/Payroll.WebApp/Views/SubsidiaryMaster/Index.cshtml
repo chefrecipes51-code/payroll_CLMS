@@ -1,0 +1,162 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.SubsidiaryMasterDTO>
+
+@{
+
+	ViewBag.Title = "SubsidiaryMaster List";
+}
+
+<link rel="stylesheet" href="~/template/plugins/sweetalert2/sweetalert2.min.css">
+<script src="~/template/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+
+<nav>
+	<div class="alert-custom" style="display:none;">
+	</div>
+	<div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+		<button class="nav-link active" id="nav-subsidiarymaster-list-tab" data-bs-toggle="tab"
+				data-bs-target="#nav-subsidiarymaster-list" type="button" role="tab" aria-controls="nav-subsidiarymaster-list"
+				aria-selected="true">
+			Subsidiary Master List
+		</button>
+
+		<button class="nav-link active" id="subsidiarymaster" aria-controls="nav-subsidiarymaster-list"
+				type="button" role="tab">
+			Add SubsidiaryMaster
+		</button>
+
+	</div>
+</nav>
+
+
+<div class="button-group">
+	<div class="alert-custom" style="display:none;">
+		<!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+		<!-- Alert content will be dynamically inserted based on the alert type -->
+	</div>
+</div>
+
+<div class="tab-pane fade" id="v-pills-message" style="display: flex; justify-content: flex-end;">
+	<button class="btn btn_primary add-button mt-4" id="addSubsidiaryButton" aria-controls="addSubsidiary">
+		<span class="sprite-icons add-light"></span> Add Subsidiary
+	</button>
+</div>
+
+
+<div class="tab-content" id="nav-tabContent">	
+	<div class="tab-pane fade show active" id="nav-subsidiarymaster-list" role="tabpanel"
+		 aria-labelledby="nav-subsidiarymaster-list-tab">
+
+		<div class="table-card">
+			<div class="card">
+				<div class="card-body">
+					<div class="table-responsive table-subsidiarymaster-list">
+						<table id="subsidiarymaster-list" class="table custom-table">
+							<thead>
+								<tr>
+									<th hidden>#</th>
+									<th class="sticky_cell">Subsidiary Name</th>
+									<th>Subsidiary Code </th>
+									<th>Subsidiary Company</th>
+									<th>Subsidiary Location</th>
+									<th>Status</th>
+									<th class="sticky_cell">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								@if (Model != null && Model.Any())
+								{
+									int rowIndex = 1;
+									foreach (var items in Model)
+									{
+										<tr  itemid="@items.Subsidiary_Id">
+											<td hidden id="rowrd" itemid="@items.Subsidiary_Id">@rowIndex</td>
+											<td class="sticky_cell">@items.Subsidiary_Name</td>
+											<td>@items.Subsidiary_Code</td>
+											<td>@items.CompanyName</td>
+											<td>@items.LocationName</td>
+											<td>
+												<div class="form-check form-switch">
+													<input class="form-check-input" disabled type="checkbox" id="status-@items.Subsidiary_Id" @(items.IsActive ? "checked" : "")>
+													<label class="form-check-label" for="status-@items.Subsidiary_Id">
+														@(items.IsActive ? "Active" : "Inactive")
+													</label>
+												</div>
+											</td>
+											
+
+											<td class="sticky_cell">
+												<div class="table-button-group">
+
+													<button id="getDataButton" type="button" 
+													        value="@items.Subsidiary_Id" itemid="@items.Subsidiary_Id"
+															class="btn btn-primary-light-icon-md">
+														<span class="sprite-icons eye-primary-dark"></span>
+													</button>
+
+													<button id="subsidiaryMasterDelete" class="btn btn-danger-light-icon"
+															data-subsidiaryid="@items.Subsidiary_Id"
+															data-bs-toggle="modal"
+															data-bs-target="#deleteSubsidiary">
+														<span class="sprite-icons delete-danger"></span>
+													</button>
+                                                   
+													@*<button id="suspendSubsidiaryMaster" type="button" class="btn btn-danger-light-icon"
+															data-bs-toggle="modal" data-bs-target="#suspendSubsidiary">
+														<span class="sprite-icons user-suspend"></span>
+													</button> *@
+												</div>
+											</td>
+
+										</tr>
+										rowIndex++;
+									}
+								}
+								else
+								{
+									<tr>
+										<td colspan="8" class="text-center">No subsidiary found.</td>
+									</tr>
+								}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteSubsidiary" data-bs-backdrop="static"
+	 data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteSubsidiaryLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<p class="md-text-500">Want to delete this Subsidiary?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn_primary_outline" data-bs-dismiss="modal">No</button>
+
+				<button type="button" class="btn btn_danger loader-dot-pulse" id="confirmSubsidiaryDelete">Yes</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@section Scripts {
+	@*  Added By Harshida Parmar (31-12-'24) *@
+	@*  Download PDF and Excel From Grid:- Start *@
+	<script src="~/devassets/xlsx.full.min.js"></script>
+	<script src="~/devassets/jspdf.umd.min.js"></script>
+	<script src="~/devassets/jspdf.plugin.autotable.min.js"></script>
+	<script src="~/application/js/SubsidiaryMaster/SubsidiaryList.js"></script>
+
+	@*  Download PDF and Excel From Grid:- End *@
+}
+
+
+

@@ -1,0 +1,12 @@
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\bin\Release\net8.0\RoleService.BAL.deps.json
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\bin\Release\net8.0\RoleService.BAL.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\bin\Release\net8.0\RoleService.BAL.pdb
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\obj\Release\net8.0\RoleService.BAL.GeneratedMSBuildEditorConfig.editorconfig
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\obj\Release\net8.0\RoleService.BAL.AssemblyInfoInputs.cache
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\obj\Release\net8.0\RoleService.BAL.AssemblyInfo.cs
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\obj\Release\net8.0\RoleService.BAL.csproj.CoreCompileInputs.cache
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\obj\Release\net8.0\RoleService.BAL.sourcelink.json
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\obj\Release\net8.0\RoleService.BAL.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\obj\Release\net8.0\refint\RoleService.BAL.dll
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\obj\Release\net8.0\RoleService.BAL.pdb
+E:\Abhishek\Developers_Work\Abhishek\workforcemgmt\PayrollApplication\RoleService.BAL\obj\Release\net8.0\ref\RoleService.BAL.dll

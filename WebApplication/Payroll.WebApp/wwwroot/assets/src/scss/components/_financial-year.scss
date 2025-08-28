@@ -1,0 +1,37 @@
+.financial-year-list-container {
+    display: inline-grid;
+    height: calc(100vh - 228px);
+    overflow-y: auto;
+    padding-right: 4px;
+
+    .financial-year-wrapper {
+        display: inline-table;
+
+        ul {
+            display: table-row;
+            background-color: var(--lavender-pale);
+
+            &:first-child li {
+                background-color: var(--gray-soft);
+                color: var(--primary);
+            }
+
+            >li {
+                display: table-cell;
+                padding: 8px;
+
+                .form-control {
+                    height: 24px;
+                    font-size: 12px;
+                    padding: 6px;
+                }
+
+                .date-picker-container {
+                    .btn-datepicker {
+                        top: 0;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,92 @@
+.treeview-title {
+    margin-bottom: 32px;
+    color: var(--blue-deep-ink);
+}
+
+.treeview {
+
+    
+
+    ul {
+        // list-style: none;
+        // margin: 0;
+        // padding: 0;
+
+        li {
+            padding: 8px 16px;
+        }
+
+        ul {
+            margin-left: 20px;
+            display: none;
+
+            // label {
+            //     font-size: 16px;
+            //     line-height: 24px;
+            //     letter-spacing: 0.5px;
+            //     color: var(--primary);
+            // }
+        }
+    }
+
+
+    input[type="checkbox"] {
+        &:checked {
+            accent-color: var(--primary);
+
+            ~ {
+                ul {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .toggle {
+        display: inline-block;
+        // width: 12px;
+        // height: 12px;
+        // margin-right: 5px;
+        // font-size: 12px;
+        // font-weight: bold;
+        // text-align: center;
+        line-height: 12px;
+        // cursor: pointer;
+        // color: var(--primary);
+        // border-radius: 50%;
+        vertical-align: middle;
+        
+        .lg-text-500 {
+            color: var(--black-terminal);
+        }
+
+        &.open {
+            ~.lg-text-500 {
+                color: var(--primary);
+            }
+        }
+
+        &::before {
+            content: '';
+            background-image: url('../../img/icons/sprite-icons.svg');
+            // background-repeat: no-repeat;
+            display: block;
+            background-position: -582px -64px;
+            width: 8px;
+            height: 12px;
+            margin-top: -5px;
+        }
+
+        &.open {
+            &::before {
+                content: '';
+                background-image: url('../../img/icons/sprite-icons.svg');
+                background-repeat: no-repeat;
+                display: block;
+                background-position: -547px -66px;
+                width: 13px;
+                height: 8px;
+            }
+        }
+    }
+}

@@ -1,0 +1,650 @@
+﻿@using Payroll.WebApp.Models.DTOs
+@model UserInfoDTO
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<!-- date picker plugin -->
+<link rel="stylesheet" href="~/assets/src/css/bootstrap-datepicker.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+<style>
+    /* ✅ 1. Hide error messages for disabled inputs */
+    .disabled-input:disabled ~ .input_error_msg {
+        display: none !important;
+    }
+
+    /* ✅ 2. Remove red borders and box shadows for disabled inputs */
+    .disabled-input:disabled,
+    .select2-container--default.select2-container--disabled .select2-selection--single {
+        border-color: #ced4da !important; /* neutral border */
+        box-shadow: none !important;
+        background-color: #e9ecef; /* Optional: gray background */
+        cursor: not-allowed;
+    }
+
+    /* ✅ 3. Ensure select2 arrow is always visible */
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        right: 8px !important;
+    }
+
+    /* ✅ 4. Force dropdown arrow even when select2 is disabled */
+    .select2-container--disabled .select2-selection__arrow {
+        display: block !important;
+    }
+
+    /* ✅ 5. Hide built-in validation red icon (if using icons via background-image or pseudo elements) */
+    .disabled-input:disabled::-webkit-validation-bubble-message,
+    .disabled-input:disabled:invalid,
+    .disabled-input:disabled:required {
+        background-image: none !important;
+    }
+
+    /* ✅ 6. Remove red icon from select2 error state */
+    .select2-container--default.select2-container--disabled.select2-container--focus .select2-selection--single {
+        border-color: #ced4da !important;
+    }
+
+    /* ✅ 7. Hide input_error_msg for all disabled inputs/selects */
+    input:disabled ~ .input_error_msg,
+    select:disabled ~ .input_error_msg,
+    .select2-container--disabled ~ .input_error_msg {
+        display: none !important;
+    }
+</style>
+
+<style>
+    .disabled-input {
+        background-color: #e9ecef !important;
+        color: #6c757d !important;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+    /* Restrict table height and enable scrolling */
+    .table-container {
+        max-height: 300px; /* Adjust based on requirement */
+        overflow-y: auto;
+        overflow-x: hidden;
+        position: relative;
+        border: 1px solid #ddd;
+        width: 100%;
+    }
+
+    /* Ensure the table layout remains consistent */
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed; /* Ensures consistent column widths */
+    }
+
+        /* Sticky header */
+        .custom-table thead {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 2;
+        }
+
+    /* Sticky last column */
+    .sticky_cell {
+        position: sticky;
+        right: 0;
+        background: white;
+        z-index: 1;
+        min-width: 100px; /* Adjust based on content */
+        text-align: center; /* Ensure text alignment matches other columns */
+    }
+
+    /* Set fixed width for consistency */
+    .custom-table th,
+    .custom-table td {
+        padding: 10px;
+        text-align: left;
+        vertical-align: middle;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Ensure sticky column remains aligned */
+    .sticky_cell {
+        position: sticky;
+        right: 0;
+        background: white;
+        z-index: 1;
+        min-width: 120px; /* Adjust based on toggle switch size */
+        text-align: center;
+    }
+
+        /* Ensure the toggle switch is properly centered */
+        .sticky_cell .form-check {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+        }
+
+    .toggle {
+        cursor: pointer;
+        font-weight: bold;
+        padding-right: 5px;
+    }
+
+        .toggle.expanded::before {
+            content: "-";
+        }
+
+</style>
+<style>
+    .treeview ul {
+        display: none;
+        margin-left: 20px;
+    }
+
+    .treeview > ul {
+        display: block;
+    }
+
+    .treeview li {
+        margin-bottom: 5px;
+    }
+</style>
+
+
+
+@* <div class="breadcrumb-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Home/Index" class="breadcrumb-text"><span class="sprite-icons home-primary"></span></a>
+            </li>
+            <li class="breadcrumb-item primary">
+                <a href="/User/Index" class="breadcrumb-text">User List</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a class="breadcrumb-text">User Detail</a>
+            </li>
+        </ol>
+    </nav>
+</div> *@
+<div class="app-layout">
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+    <div class="title-container">
+        <div class="current-back">
+            <a href="/User/Index" class="btn btn-back-icon">
+                <span class="sprite-icons back-violet"></span>
+            </a>
+            <p class="title-primary">Update User</p>
+        </div>
+        <div class="button-group">
+            @* <div id="resetButtonWrapper" style="display: none;">
+                <button class="btn btn-transparent-danger" id="reseteditButton">Reset All</button>
+            </div> *@
+            <a href="/User/Index" class="btn btn_primary_outline_md">Cancel</a>
+        </div>
+    </div>
+    <div class="row g-0">
+        <div class="col-lg-3 col-md-3">
+            <div class="vertical-tabs">
+                <div class="vertical-tabs-fixed-layout">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                                aria-selected="true">
+                            User Information
+                        </button>
+
+                        <button class="nav-link" id="v-pills-profile-edit-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-profile-edit" type="button" role="tab" aria-controls="v-pills-profile-edit"
+                                aria-selected="false">
+                            Company Details
+                        </button>
+
+                        <button class="nav-link" id="v-pills-mapping-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-mapping" type="button" role="tab" aria-controls="v-pills-mapping"
+                                aria-selected="false">
+                            Location Role Mapping
+                        </button>
+                        <button class="nav-link" id="v-pills-messages-tab"  data-bs-toggle="pill"
+                                data-bs-target="#v-pills-messages" type="button" role="tab"
+                                aria-controls="v-pills-messages" aria-selected="false">
+                            Permission
+                        </button>
+                        @* <button type="button" class="btn btn_primary" id="goToPermissionTab">
+                            Next <span class="sprite-icons next-light"></span>
+                        </button> *@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9">
+            <form id="editUserForm" >
+                <div class="vertical-tab-content">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                             aria-labelledby="v-pills-home-tab" tabindex="0">
+                            <div class="vertical-tabs-content-fixed-layout form-body ">
+                                <div class="row">
+                                    <input type="hidden" id="userId" value="" />
+
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="usertype" class="form-label">User Type</label>
+                                                    <div class="usertype-selection">
+                                                        <select id="usertype" name="usertype" class="form-control select2_search_ctm disabled-input" disabled>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="salutationsDropdown"
+                                                           class="form-label">Salutation</label>
+                                                    <div class="salutationsDropdown-selection">
+                                                        <select id="salutationsDropdown" name="salutationsDropdown" class="form-control select2_search_ctm disabled-input" disabled>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="fname" class="form-label">
+                                                        First Name
+                                                    </label>
+                                                    <input type="text" class="form-control disabled-input"
+                                                           placeholder="Enter first name" id="fname" name="fname" maxlength="50" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="mname" class="form-label">Middle Name</label>
+                                                    <input type="text" class="form-control disabled-input"
+                                                           placeholder="Enter middle name" id="mname" name="mname" maxlength="50" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="lname" class="form-label">
+                                                        Last Name
+                                                    </label>
+                                                    <input type="text" class="form-control disabled-input"
+                                                           placeholder="Enter last name" id="lname" name="lname" maxlength="50" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="form-group countries-selection">
+                                                    <label for="countries" class="form-label">
+                                                        Country
+                                                    </label>
+                                                    <div class="countries-selection">
+                                                        <select class="form-control select2_search_ctm disabled-input" id="countries" name="countries" disabled>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-8">
+                                                <div class="form-group">
+                                                    <label for="phone" class="form-label">
+                                                        Phone Number
+                                                    </label>
+                                                    <input type="tel" class="form-control disabled-input"
+                                                           placeholder="Enter phone number" maxlength="15" id="phone"
+                                                           name="phone" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="email" class="form-label">
+                                                        Email
+                                                    </label>
+                                                    <input type="email" class="form-control disabled-input"
+                                                           placeholder="Enter email address" id="email"
+                                                           name="email" maxlength="150" disabled>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="username" class="form-label">
+                                                        Username
+                                                    </label>
+                                                    <input type="text" class="form-control disabled-input"
+                                                           placeholder="Enter username" id="username"
+                                                           name="username" maxlength="150" disabled>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-footer">
+                                <button type="button" class="btn btn_primary" id="nextEditTab">
+                                    Next<span class="sprite-icons next-light"></span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane fade " id="v-pills-profile-edit" role="tabpanel"
+                             aria-labelledby="v-pills-profile-edit-tab" tabindex="0">
+                            <div class="vertical-tabs-content-fixed-layout form-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="Companies" class="form-label">Company</label>
+                                                    <select class="form-control select2_search_ctm disabled-input" data-placeholder="Select a company"
+                                                            id="Companies" disabled>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="countriesname" class="form-label">Country</label>
+                                                    <select class="form-control select2_search_ctm disabled-input" id="countriesname"
+                                                            data-placeholder="Select a country" disabled>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="state" class="form-label">State</label>
+                                                    <select class="form-control select2_search_ctm disabled-input" data-placeholder="Select a state"
+                                                            id="state" disabled>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="branch" class="form-label">City</label>
+                                                    <select class="form-control select2_search_ctm resetcity" data-placeholder="Select a city"
+                                                            id="branch">
+                                                    </select>
+                                                    <span id="branch-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="department" class="form-label">Select New Locations<sup>*</sup></label>
+                                                    <select class="form-control multi-selection resetlocation" data-placeholder="Select locations"
+                                                            multiple="multiple" id="department" required>
+                                                    </select>
+                                                    <span id="department-error" class="input_error_msg"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <div class="table-card p-0">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <h5 class="title-primary">User Location Mapping</h5> <!-- Added Title Here -->
+                                                                <div class="table-container">
+                                                                    <table id="userLocationsGrid" class="table custom-table">
+                                                                        <thead class="sticky-header">
+                                                                            <tr>
+                                                                                <th hidden>Location ID</th>
+                                                                                <th>Location Name</th>
+                                                                                <th class="sticky_cell">Actions</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-footer">
+                                <!-- Save Locations Button -->
+                                <button type="button" class="btn btn_primary" id="saveLocations">Save Locations</button>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-mapping" role="tabpanel"
+                             aria-labelledby="v-pills-mapping-tab" tabindex="0">
+                            <div class="vertical-tabs-content-fixed-layout form-body">
+                                <div class="col-lg-12">
+                                    <div class="row g-3">
+                                        <!-- Location Dropdown -->
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="locationrole" class="form-label">Location</label>
+                                                <select class="form-control select2_search_ctm" data-placeholder="Select location"
+                                                        id="locationrole" required>
+                                                </select>
+                                                <span id="locationrole-error" class="input_error_msg"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Role Dropdown -->
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="role" class="form-label">Roles</label>
+                                                <select class="form-control multi-selection" data-placeholder="Select role"
+                                                        multiple="multiple" id="role" required>
+                                                </select>
+                                                <span id="role-error" class="input_error_msg"></span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Save Mapping Button -->
+                                        <div class="col-lg-2 d-flex align-items-end">
+                                            <div class="form-group">
+                                                <button class="btn btn_primary w-100" type="button" id="saveMapping">
+                                                   Map Roles
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Table Section -->
+                                <div class="col-lg-12">
+                                    <div class="table-card p-0">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table id="userRolesGrid" class="table custom-table">
+                                                        <thead class="sticky-header">
+                                                            <tr>
+                                                                <th hidden>Role ID</th>
+                                                                <th hidden>Location ID</th>
+                                                                <th>Location Name</th>
+                                                                <th>Role Name</th>
+                                                                <th>Date</th>
+                                                                <th class="sticky_cell">Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- Dynamic Data will be inserted here -->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <!-- Save Button -->
+                            <div class="form-footer text-end mt-3">
+                                <button type="button" class="btn btn_primary" id="saveRoles">Assign Permissions</button>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                             aria-labelledby="v-pills-messages-tab" tabindex="0">
+
+                            <div class="vertical-tabs-content-fixed-layout form-body">
+                                <p class="lg-text-500 treeview-title">
+                                    View permissions as per location wise role.
+                                </p>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="userRoleLocation" class="form-label">Location<sup>*</sup></label>
+                                                <select class="form-control select2_search_ctm" data-placeholder="Select a location"
+                                                        id="userRoleLocation" required>
+                                                </select>
+                                                <span id="userRoleLocation-error" class="input_error_msg"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="userRoleEdit" class="form-label">
+                                                    Role
+                                                    <sup>*</sup>
+                                                </label>
+                                                <div class="userRole-selection">
+                                                    <select class="form-control select2_search_ctm" data-placeholder="Select a Role"
+                                                            id="userRoleEdit" required>
+                                                    </select>
+                                                </div>
+                                                <span id="userRoleEdit-error" class="input_error_msg"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="effectiveFromDtEdit" class="form-label">
+                                                    Effective Date
+                                                    <sup>*</sup>
+                                                </label>
+                                                <div class="date-picker-container">
+                                                    <input type="text" class="form-control datepicker"
+                                                           placeholder="Enter Effective Date" id="effectiveFromDtEdit"
+                                                           name="effectiveFromDtEdit" required>
+                                                    <button class="btn btn-datepicker">
+                                                        <span class="sprite-icons2 date-picker"></span>
+                                                    </button>
+                                                </div>
+                                                <span id="effectiveFromDtEdit-error" class="input_error_msg"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="treeview-container">
+                                    <ul class="treeview">
+                                        <!-- Dynamic menu structure will be generated User.Js -->
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div class="form-footer">
+                                @*  <button class="btn btn_primary_outline_md">
+                                <span class="sprite-icons prev-primary"></span>Previous
+                                </button> *@
+                                @* Comment By Harshida 20-01-'25 *@
+
+                                @*  <button class="btn btn_primary" type="button" id="savePermissions" data-bs-toggle="modal" data-bs-target="#userAddedModal"> *@
+                                <button class="btn btn_primary" type="button" id="btnSavePermission" data-bs-toggle="modal">
+                                    Save Permissions<span class="sprite-icons next-light"></span>
+                                </button>
+                            </div>
+                            <div>
+                                <input hidden type="text" name="userId" id="userId" />
+                                <input hidden type="text" name="usereffectiveFromDt" id="usereffectiveFromDt" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<!-- Modal primary -->
+<div class="modal fade modal-custom modal-primary" id="userEditModal" tabindex="-1"
+     aria-labelledby="userEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/icons/priamry-done-modal.svg" width="134" height="77" alt="successfully done">
+                <p class="title-primary mb-2">User Updated Successfully</p>
+                <p class="sm-text-gray-neutral">Would you like to configure another role?</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" id="yesEditRole" class="btn btn_primary_outline_md" data-bs-dismiss="modal">
+                    Yes
+                </button>
+                <button type="button" id="noAnotherRole" class="btn btn_primary">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for No Location Selected -->
+<div class="modal fade modal-custom modal-primary" id="noLocationModal" tabindex="-1"
+     aria-labelledby="noLocationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/icons/priamry-done-modal.svg" width="134" height="77" alt="Alert">
+                <p class="title-primary mb-2">No New Location Selected</p>
+                <p class="sm-text-gray-neutral">You haven't selected any new locations. Would you like to proceed to the next tab?</p>
+            </div>
+            <div class="modal-footer text-center">
+                <button type="button" id="noStayHere" class="btn btn_primary" data-bs-dismiss="modal">
+                    No
+                </button>
+                <button type="button" id="yesMoveNextTab" class="btn btn_primary_outline_md" data-bs-dismiss="modal">
+                    Yes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    <script src="~/application/js/common/userdropdown.js"></script>
+    <script src="~/application/js/user/user.js"></script>
+    <script src="~/application/js/user/userupdate.js"></script>
+    <script src="~/application/js/user/updateprofile.js"></script>
+    <!-- date picker plugins -->
+    <script src="~/assets/src/js/bootstrap-datepicker.min.js"></script>
+    <!-- date picker custom js file -->
+    <script src="~/assets/src/custom-js/datepicker-ctm.js"></script>
+ 
+}

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<PayrollMasterService.BAL.Models.CompanyProfile>
+@{
+    ViewBag.HideBreadcrumb = true;
+}
+<style>
+    #btn1, #btn2, #btn3, #btn4 {
+        display: none !important;
+    }
+</style>
+@* <nav>
+    <div class="alert-custom" style="display:none;">
+    </div>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-company-list-tab" data-bs-toggle="tab"
+                data-bs-target="#nav-company-list" type="button" role="tab" aria-controls="nav-company-list"
+                aria-selected="true">
+            Company List
+        </button>
+
+    </div>
+</nav> *@
+
+@* Enable Add Company Button Code:- Start *@
+<div class="title-container">
+    <div class="current-back">
+        <p class="title-primary">Company List</p>
+    </div>
+    <div class="button-group">
+       @*  <a href="#" class="btn btn_primary add-button">
+            <span class="sprite-icons add-light"></span> Add Company
+        </a> *@
+    </div>
+</div>
+@* Enable Add Company Button Code:- End *@
+
+<!-- Company List Table (Paginated) -->
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-company-list" role="tabpanel"
+         aria-labelledby="nav-company-list-tab">
+        <div class="table-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive table-company-list">
+                        <table id="company-list" class="table custom-table">
+                            <thead>
+                                <tr>                                 
+                                    <th>Company Name</th>
+                                    <th>Company Code</th>
+                                    <th>Company Print Name</th>
+                                    <th>Company Short Name</th>
+                                    <th class="sticky_cell">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    int rowIndex = 1;
+                                    foreach (var company in Model)
+                                    {
+                                        <tr id="row-@company.Company_Id">                                         
+                                            <td>@company.CompanyName</td>
+                                            <td>@company.Company_Code</td>
+                                            <td>@company.CompanyPrintName</td>
+                                            <td>@company.CompanyShortName</td>
+                                            <td class="sticky_cell">
+                                                <div class="table-button-group">
+                                                    @* <button type="button" id="redirectFromCompanyList" data-companyid="@company.Company_Id"
+                                                            class="btn btn-primary-light-icon-md">
+                                                        <span class="sprite-icons eye-primary-dark"></span>
+                                                    </button> *@
+                                                    <button type="button" class="redirectFromCompanyList btn btn-primary-light-icon-md btn-edit-hide" id="btnEdit"
+                                                            data-companyid="@company.Company_Id">
+                                                        <span class="sprite-icons eye-primary-dark"></span>
+                                                       @*  <span class="sprite-icons edit-primary"></span> *@
+                                                    </button>
+                                                    <input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        rowIndex++;
+                                    }
+                                }
+                                else
+                                {
+                                  @*   <tr>
+                                        <td colspan="7" class="text-center">No companies found.</td>
+                                    </tr> *@
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @*  Added By Harshida Parmar (31-12-'24) *@
+    @*  Download PDF and Excel From Grid:- Start *@
+    <script src="~/devassets/xlsx.full.min.js"></script>
+    <script src="~/devassets/jspdf.umd.min.js"></script>
+    <script src="~/devassets/jspdf.plugin.autotable.min.js"></script>
+    @*  Download PDF and Excel From Grid:- End *@
+    <script src="~/application/js/companymaster/companylist.js"></script>   
+}

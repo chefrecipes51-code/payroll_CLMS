@@ -1,0 +1,429 @@
+﻿@using PayrollMasterService.BAL.Models
+@model SalaryStructureDTO
+
+
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+
+@{
+    //ViewData["Title"] = Model?.SalaryStructure_Hdr_Id > 0 ? "Edit Salary Structure" : "Add Salary Structure";
+}
+
+@* 
+
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css"> *@
+<style>
+
+
+    .approval-configuration .approval-configuration-right1 {
+        height: calc(100vh - 200px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+
+        .approval-configuration .approval-configuration-right1 .accordion-body {
+            /*     max-height: calc(100vh - 553px);
+                                              overflow-y: auto;
+                                              overflow-x: hidden; */
+        }
+
+
+
+    .disabled-input {
+        background-color: #e9ecef !important;
+        color: #6c757d !important;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    .approval-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* spacing between detail-rows */
+    }
+
+    .draggable-row {
+        /*  display: flex; */
+        align-items: center;
+        width: 100%; /* Ensure full width */
+        height: 48px; /* Set a consistent height */
+        background: #fff; /* Background color for rows */
+        border: 1px solid #ccc; /* Border for rows */
+        box-sizing: border-box; /* Include padding and border in dimensions */
+        margin: 4px 0; /* Add spacing between rows */
+    }
+
+    .drag-handle {
+        cursor: move; /* Show move cursor */
+        margin-right: 8px; /* Add spacing between handle and content */
+        font-size: 20px; /* Adjust font size for handle */
+        color: #666; /* Handle color */
+    }
+
+    .sortable-placeholder {
+        /*   display: flex; */
+        align-items: center;
+        justify-content: center;
+        width: 100%; /* Match the width of the dragged item */
+        height: 48px; /* Match the height of the dragged item */
+        background: #f0f0f0; /* Light background for visibility */
+        border: 2px dashed #bbb; /* Dashed border for placeholder */
+        box-sizing: border-box; /* Include padding and border in dimensions */
+        margin: 4px 0; /* Add spacing between items */
+        font-size: 14px; /* Adjust font size for placeholder text */
+        color: #888; /* Placeholder text color */
+        text-align: center;
+        font-style: italic;
+    }
+</style>
+
+
+<div class="alert-custom" style="display:none;">
+    <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+    <!-- Alert content will be dynamically inserted based on the alert type -->
+</div>
+
+@* <div class="breadcrumb-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <p class="breadcrumb-text"><span class="sprite-icons home-primary"></span></p>
+            </li>
+            <li class="breadcrumb-item primary">
+                <p class="breadcrumb-text">Master</p>
+            </li>
+            <li class="breadcrumb-item primary">
+                <p class="breadcrumb-text">Salary Structure</p>
+            </li>
+            <li class="breadcrumb-item active">
+                <p class="breadcrumb-text">Add Salary Structure</p>
+            </li>
+        </ol>
+    </nav>
+</div> *@
+
+<div class="app-layout">
+    <div class="title-container">
+        <div class="current-back">
+            <button class="btn btn-back-icon" onclick="window.location.href='/SalaryStructure/GetSalaryStructureSession'">
+                <span class="sprite-icons back-violet"></span>
+            </button>
+            <p class="title-primary">Formula Simulator</p>
+        </div>
+        <div class="button-group">
+            <button type="button" class="btn btn-transparent-danger" onclick="location.reload();"> reset All</button>
+            <!-- <button class="btn btn_primary_outline_md">Cancel</button> -->
+        </div>
+    </div>
+
+    <div class="salary-structure-card-wrapper">
+        <div class="salary-structure-card mb-3">
+            <p class="title-primary-sm mb-3">Salary Structure Details</p>
+            <div class="row">
+
+                <div class="col-lg-4">
+
+                    <div class="form-group">
+                        <label for="SalaryStructureName">Salary Structure Name<sup>*</sup></label>
+                        <input type="text" class="form-control" id="SalaryStructureName" name="SalaryStructureName" value="@Model.SalaryStructureName" required />
+                        <span id="SalaryStructureName-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="form-group">
+                        <label for="salaryBasicDropdown" class="form-label">
+                            Salary Basic
+                            
+                        </label>
+                        <div class="salaryBasicDropdown-selection">
+
+                            <input type="text" class="form-control" id="salaryBasicDropdown" name="salaryBasicDropdown" value="@Model.SalaryFrequencyName" />
+
+                            <span id="salaryBasicDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+              @*   <div class="col-lg-4">
+
+                    <div class="form-group" >
+                        <label for="salaryBasicDropdown" class="form-label">
+                            Grade
+                        
+                        </label>
+                        <div class="salaryBasicDropdown-selection">
+
+                            <input type="text" class="form-control" id="payGradeDropdown" name="payGradeDropdown" value="@Model.PayGradeConfigName" />
+                            <span id="payGradeDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+
+                </div> *@
+
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="amountval" class="form-label">
+                            Monthly CTC/Gross
+                           
+                        </label>
+                        <input type="text" class="form-control"
+                               placeholder="Enter amount" id="amountval" name="amountval" style="text-align: right;" maxlength="9">
+                        <span id="amountval-error" class="input_error_msg"></span>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+       
+        <hr />
+
+        <div class="table-card p-0 mt-3">
+            <p class="title-primary-sm mb-3">Component Salary Details List</p>
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="salary-detail-list1" class="table custom-table">
+                            <thead>
+                                <tr>
+                                    <th hidden></th>
+                                    <th>Component Name</th>
+                                    <th>Pay Head</th>
+                                    <th>Formula</th>
+                                   @*  <th>Input Value</th> *@
+                                    <th>Computed Value</th>
+                                    <th>Taxable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.SalaryStructureDetails)
+                                {
+                                    <tr id="row-@item.EarningDeductionID"
+                                        data-salarystructure_hdr_id="@item.EarningDeductionID">
+
+                                        <td hidden>@item.EarningDeductionID</td>
+                                        <td>@item.EarningDeductionName</td>
+                                        <td>@item.EarningDeductionTypeName</td>
+                                        <td>@item.Formula_Computation</td>
+                                     @*    <td>
+                                            <input type="text" 
+                                                   class="form-control earning-deduction-value-input"
+                                                   name="EarningDeductionValue_@item.EarningDeductionID"
+                                                   value="@item.EarningDeductionValue"
+                                                   data-salarystructure-hdr-id="@item.EarningDeductionID"
+                                                   style="width: 100px; text-align: right;" />
+                                        </td> *@
+                                        <td id="computedValue_@item.EarningDeductionID" class="computed-value-cell">--</td>
+                                        <td>@item.IStaxable</td>
+
+                                    @*     <td class="sticky_cell">
+                                            <div class="table-button-group">
+                                                <button class="btn btn-primary-light-icon-md SalaryStructure-row" data-salarystructure_hdr_id="@item.SalaryStructure_Hdr_Id">
+                                                    <span class="sprite-icons edit-primary"></span>
+                                                </button>
+                                                <button class="btn btn-danger-light-icon"
+                                                        data-salarystructure_hdr_id="@item.SalaryStructure_Hdr_Id"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deleteSalaryStructure">
+                                                    <span class="sprite-icons delete-danger"></span>
+                                                </button>
+                                            </div>
+                                        </td> *@
+                                        @*   <td>@(Convert.ToBoolean(item.IsActive) ? "Yes" : "No")</td> *@
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="table-card p-0 mt-3">
+            <p class="title-primary-sm mb-3">Salary Totals</p>
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="salary-totals-list" class="table custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Total Earnings</th>
+                                    <th>Total Deduction</th>
+                                    <th>Net Salary</th>
+                                    <th>Employer Contribution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.SalarySimulatorTotal != null && Model.SalarySimulatorTotal.Any())
+                                {
+                                    foreach (var total in Model.SalarySimulatorTotal)
+                                    {
+                                        <tr>
+                                            <td>@(total.TotalEarnings?.ToString("N2") ?? "--")</td>
+                                            <td>@(total.TotalDeduction?.ToString("N2") ?? "--")</td>
+                                            <td>@(total.NetSalary?.ToString("N2") ?? "--")</td>
+                                            <td>@(total.EmployerContribution?.ToString("N2") ?? "--")</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td id="TotalEarnings">--</td>
+                                        <td id="TotalDeduction">--</td>
+                                        <td id="NetSalary">--</td>
+                                        <td id="EmployerContribution">--</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div class="form-footer">
+            <button type="button" class="btn btn_danger_outline" onclick="window.location.href='/SalaryStructure/GetSalaryStructureSession'">Back</button>
+
+          @*   <button type="button" class="btn btn-primary" onclick="window.location.href='/SalaryStructure/GetSalaryStructureSession'">Back</button> *@
+        </div>
+
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteSalaryStructure"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deleteLocationLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this Salary Structure?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmSalaryStructureDetailDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+
+    @*  <script src="~/assets/src/js/jquery.min.js"></script>
+        <script src="~/assets/src/js/popper.min.js"></script>
+        <script src="~/assets/plugins/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script> *@
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+    @*  <script src="~/application/js/common/dropdown.js"></script>
+        <script src="~/application/js/user/user.js"></script> *@
+    <!-- date picker plugins -->
+    <script src="~/assets/src/js/bootstrap-datepicker.min.js"></script>
+    <!-- date picker custom js file -->
+    <script src="~/assets/src/custom-js/datepicker-ctm.js"></script>
+
+
+    @*   <script src="assets/src/js/select2.min.js"></script>
+        <script src="assets/src/custom-js/select2.js"></script> *@
+    <script src="assets/src/custom-js/placeholder.js"></script>
+    <script src="assets/src/custom-js/treeview.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <!--//Dropdown list binding and event.-->
+    <script>
+
+
+          $(document).ready(function () {
+
+                $('.select2_search_ctm').select2({
+                        placeholder: function () {
+                            return $(this).data('placeholder'); // Set dynamic placeholder from data-placeholder attribute
+                        },
+                        allowClear: true,  // Allows clearing the selection (if needed)
+                        multiple: false,   // Ensure it's a single select dropdown
+                        dropdownAutoWidth: true,  // Auto adjust dropdown width
+                        width: '100%'      // Ensures the dropdown takes up full width of its container
+                         });
+
+
+
+        });
+
+                $(document).ready(function () {
+            $('#amountval').on('change', function () {
+                debugger;
+                var simulatedAmount = $(this).val();
+
+                // Build the model from the current form fields
+                // Build the model from the current form fields
+                var model = {
+                    ...@Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model)),
+                    simulatedAmount: simulatedAmount
+                };
+             // alert('');
+
+                $.ajax({
+                    url: '/SalaryStructure/CalculateSalaryStructure',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(model),
+                           success: function (response) {
+                               debugger;
+            if (response.success) {
+        if (response.data && response.data.salarySimulatorDetails) {
+            response.data.salarySimulatorDetails.forEach(function (detail) {
+                const hdrId = detail.salaryComponentId;
+
+                       if (detail.computedValue !== undefined && detail.computedValue !== null && detail.computedValue !== "") {
+            // Update the computed value cell
+            $("#computedValue_" + hdrId).text(detail.computedValue);
+
+            // (Optional) Update the input field if you want to override the value
+            $("input[data-salarystructure-hdr-id='" + hdrId + "']")
+                .val(detail.computedValue)
+                .css("background-color", "#e8f0fe"); // optional highlight
+        }
+            });
+
+             debugger;
+            response.data.salarySimulatorTotal.forEach(function (detail) {
+                 debugger;
+                $("#TotalEarnings" ).text(detail.totalEarnings ?? "--");
+                 $("#TotalDeduction" ).text(detail.totalDeduction ?? "--");
+                  $("#NetSalary" ).text(detail.netSalary ?? "--");
+                   $("#EmployerContribution" ).text(detail.employerContribution ?? "--");
+                });
+
+        }} else {
+                debugger;
+                alert(response.message || "Failed to update simulation amount.");
+            }
+        },
+                    error: function () {
+                        alert("An error occurred while updating the simulation amount.");
+                    }
+                });
+            });
+        });
+
+    </script>
+      
+
+
+    }

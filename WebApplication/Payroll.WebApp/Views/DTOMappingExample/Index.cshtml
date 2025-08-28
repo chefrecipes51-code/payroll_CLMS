@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewData["Title"] = "Role Menu Mapping";
+}
+
+<!-- Include jQuery (if not already included) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Sample HTML Form for Data -->
+<form id="roleMenuForm">
+    <input type="number" id="RoleId" name="RoleId" placeholder="Enter Role ID" required />
+    <input type="number" id="MenuId1" name="MenuId1" placeholder="Enter Menu ID 1" required />
+    <input type="number" id="MenuId2" name="MenuId2" placeholder="Enter Menu ID 2" required />
+    <input type="number" id="CompanyId" name="CompanyId" placeholder="Enter Company ID" required />
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    $(document).ready(function () {
+        // Handle form submission
+        $('#roleMenuForm').submit(function (e) {
+            e.preventDefault(); // Prevent form from reloading page
+
+            // Collect form data
+            var roleMenuData = {
+                Header: {
+                    Role_Menu_Hdr_Id: 0,
+                    Role_Id: $('#RoleId').val(), // Get RoleId from the input field
+                    EffectiveFrom: new Date(),
+                    CreatedBy: 1
+                },
+                Details: [
+                    {
+                        Menu_Id: $('#MenuId1').val(), // Get MenuId1 from the input field
+                        Company_Id: $('#CompanyId').val() // Get CompanyId from the input field
+                    },
+                    {
+                        Menu_Id: $('#MenuId2').val(), // Get MenuId2 from the input field
+                        Company_Id: $('#CompanyId').val() // Get CompanyId from the input field
+                    }
+                ],
+                MessageType: 1, // Information (this can be dynamic as well)
+                MessageMode: 1, // Insert (this can be dynamic as well)
+                ModuleId: 1 // Module Enum for RoleMenuMapping
+            };
+
+            // Send data via AJAX
+            $.ajax({
+                url: '@Url.Action("Index", "DTOMappingExample")', // Adjust the controller name if needed
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(roleMenuData),
+                success: function (response) {
+                    if (response.IsSuccess) {
+                        alert("Role Menu Mapping was successful!");
+                        window.location.href = response.RedirectUrl; // Redirect to the page
+                    } else {
+                        alert(response.Message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("An error occurred while processing the request.");
+                }
+            });
+        });
+    });
+</script>

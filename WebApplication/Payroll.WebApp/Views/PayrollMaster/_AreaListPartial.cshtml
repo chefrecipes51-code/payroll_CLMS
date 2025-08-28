@@ -1,0 +1,285 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.AreaDTO>
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<style>
+    #btn1, #btn2, #btn3 {
+        display: none !important;
+    }
+</style>
+@{
+    var renderedAreaIds = new HashSet<int>(); // To track rendered AreaIds
+}
+
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+<div class="button-group">
+    <div class="alert-custom" style="display:none;">
+        <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+        <!-- Alert content will be dynamically inserted based on the alert type -->
+    </div>
+</div>
+<div class="title-container">
+    <div class="current-back">
+
+        <p class="title-primary"></p>
+    </div>
+    <div class="button-group">
+        <button class="btn btn_primary add-button btn-add-hide" data-bs-toggle="offcanvas" id="addAreaButton" data-bs-target="#addArea"
+                aria-controls="addArea">
+            <span class="sprite-icons add-light"></span> Add Area
+        </button>
+    </div>
+</div>
+<div class="table-responsive table-user-list">
+    <table id="area-master-list" class="table custom-table">
+        <thead>
+            <tr>
+                <th hidden>Area Id</th>
+                <th hidden>Location</th>
+                <th>Location</th>
+                <th>Area</th>
+                <th class="sticky_cell">Status</th>
+                <th class="sticky_cell">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                foreach (var area in Model)
+                {
+                    if (!renderedAreaIds.Contains(area.Area_Id)) // Only render if not already added
+                    {
+                        renderedAreaIds.Add(area.Area_Id);
+                        <tr id="row-@area.Area_Id">
+                            <!-- Added unique row ID -->
+                            <td hidden>@area.Area_Id</td>
+                            <td hidden>@area.Location_Id</td>
+                            <td>@area.LocationName</td>
+                            <td>@area.AreaName</td>
+                            <td class="sticky_cell">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" disabled type="checkbox" role="switch" id="status-@area.Area_Id" @(area.IsActive ? "checked" : "")>
+                                    <label class="form-check-label" for="status-@area.Area_Id">
+                                        @(area.IsActive ? "Active" : "Inactive")
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="sticky_cell">
+                                <div class="table-button-group">
+                                    <button class="btn btn-primary-light-icon-md edit-btn btn-edit-hide" data-bs-toggle="offcanvas" data-bs-target="#EditArea" data-id="@area.Area_Id" id="editArea-@area.Area_Id" aria-controls="EditArea">
+                                        <span class="sprite-icons edit-primary"></span>
+                                    </button>
+
+                                    <button class="btn btn-danger-light-icon btn-delete-hide"
+                                            data-area-id="@area.Area_Id"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteArea">
+                                        <span class="sprite-icons delete-danger"></span>
+                                    </button>
+
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="text-center">No data available</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- add area -->
+<div class="offcanvas offcanvas-end offcanvas-primary" tabindex="-1" id="addArea" aria-labelledby="addAreaLabel">
+    <div class="offcanvas-header">
+        <p class="title-primary-md-600" id="addAreaLabel">Add Area</p>
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <span class="sprite-icons close-icon"></span>
+        </button>
+
+    </div>
+    <div class="button-group">
+        <div class="alert-custom" style="display:none;">
+            <!-- use class for different alerts like (alert-success, alert-danger, alert-warning, alert-primary) -->
+            <!-- Alert content will be dynamically inserted based on the alert type -->
+        </div>
+    </div>
+    <div class="offcanvas-body">
+        <div class="offcanvas-fixed-form">
+            <div id="addareaContainer">
+                <!-- Add Area Form -->
+                <form id="addAreaForm">
+                    <div class="form-group">
+                        <label for="CountryDropdown" class="form-label">Country<sup>*</sup></label>
+                        <div class="countries-selection">
+                            <select class="form-control select2_search_ctm" id="CountryDropdown" data-placeholder="Select a company" required>
+                            </select>
+                            <span id="countryDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="StateDropdown" class="form-label">State<sup>*</sup></label>
+                        <div class="countries-selection">
+                            <select class="form-control select2_search_ctm" id="StateDropdown" data-placeholder="Select a state" required>
+                            </select>
+                            <span id="stateDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="CityDropdown" class="form-label">City<sup>*</sup></label>
+                        <div class="countries-selection">
+                            <select class="form-control select2_search_ctm" id="CityDropdown" data-placeholder="Select a city" required>
+                            </select>
+                            <span id="cityDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="LocationDropdown" class="form-label">Location<sup>*</sup></label>
+                        <div class="location-selection">
+                            <select class="form-control select2_search_ctm" id="LocationDropdown" data-placeholder="Select a location" required>
+                            </select>
+                            <span id="locationDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="areaname" class="form-label">Area Name<sup>*</sup></label>
+                        <input type="text" class="form-control" placeholder="Enter area name" id="areaname" name="areaname" maxlength="100" required>
+                        <span id="areaname-error" class="input_error_msg"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="offcanvas-footer">
+        <div class="btn_group">
+            <button class="btn btn-transparent-danger" id="resetButton">reset All</button>
+            <div class="btn-action-variants">
+                <button class="btn btn_primary_outline_md" data-bs-dismiss="offcanvas"
+                        aria-label="Close">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn_primary loader-dot-pulse" id="saveDetailsButton">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- edit area -->
+<div class="offcanvas offcanvas-end offcanvas-primary" tabindex="-1" id="EditArea" aria-labelledby="EditAreaLabel">
+    <div class="offcanvas-header">
+        <p class="title-primary-md-600" id="EditAreaLabel">Update Area</p>
+        <button type="button" class="btn" data-bs-dismiss="offcanvas" aria-label="Close">
+            <span class="sprite-icons close-icon"></span>
+        </button>
+
+    </div>
+
+    <div class="offcanvas-body">
+        <div class="offcanvas-fixed-form">
+            <div id="editareaContainer">
+
+                <form id="editAreaForm">
+                    <input type="hidden" id="areaId" />
+                    <div class="form-group">
+                        <label for="EditCountryDropdown" class="form-label">Country<sup>*</sup></label>
+                        <div class="countries-selection">
+                            <select class="form-control select2_search_ctm" name="EditCountryDropdown" id="EditCountryDropdown" data-placeholder="Select a company" required>
+                            </select>
+                            <span id="editcountryDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditStateDropdown" class="form-label">State<sup>*</sup></label>
+                        <div class="countries-selection">
+                            <select class="form-control select2_search_ctm" name="EditStateDropdown" id="EditStateDropdown" data-placeholder="Select a state" required>
+                            </select>
+                            <span id="editstateDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditCityDropdown" class="form-label">City<sup>*</sup></label>
+                        <div class="countries-selection">
+                            <select class="form-control select2_search_ctm" name="EditCityDropdown" id="EditCityDropdown" data-placeholder="Select a city" required>
+                            </select>
+                            <span id="editcityDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditLocationDropdown" class="form-label">Location<sup>*</sup></label>
+                        <div class="location-selection">
+                            <select class="form-control select2_search_ctm" name="EditLocationDropdown" id="EditLocationDropdown" data-placeholder="Select a location" required>
+                            </select>
+                            <span id="editlocationDropdown-error" class="input_error_msg"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editareaname" class="form-label">Area Name<sup>*</sup></label>
+                        <input type="text" class="form-control" placeholder="Enter area name" id="editareaname" name="editareaname" maxlength="100" required>
+                        <span id="editareaname-error" class="input_error_msg"></span>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="EditAreaIsActive" data-area-id="" />
+                        <label class="form-check-label" id="isActiveLabel">Inactive</label>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="offcanvas-footer">
+        <div class="btn_group">
+            <button class="btn btn-transparent-danger" id="editresetButton">reset All</button>
+            <div class="btn-action-variants">
+                <button class="btn btn_primary_outline_md" data-bs-dismiss="offcanvas"
+                        aria-label="Close">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn_primary loader-dot-pulse" id="editDetailsButton">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modal-custom modal-primary-confirmation" id="deleteArea"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deleteAreaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this area?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmAreaDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/assets/src/custom-js/select2.js"></script>
+<script src="~/application/js/common/form-validation.js"></script>
+<script>
+    $(document).ready(function () {
+        var userPermissionsData = $("#userPermissionsData").val();
+        if (userPermissionsData && userPermissionsData.trim() !== "" && userPermissionsData !== "null") {  // Check if element has a value
+            try {
+                var userPermissions = JSON.parse($("#userPermissionsData").val()); // Convert to object
+
+                if (!userPermissions.grantAdd) $(".btn-add-hide").hide();
+                if (!userPermissions.grantEdit) $(".btn-edit-hide").hide();
+                if (!userPermissions.grantDelete) $(".btn-delete-hide").hide();
+
+            }
+            catch (error) {
+                console.error("Error parsing userPermissionsData:", error);
+            }
+        }
+    });
+</script>
+@* <script src="~/application/js/payrollmaster/areamaster.js"></script>  *@
+

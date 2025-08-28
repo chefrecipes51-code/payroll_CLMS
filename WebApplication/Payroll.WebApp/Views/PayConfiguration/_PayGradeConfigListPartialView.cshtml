@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Payroll.WebApp.Models.DTOs.PayGradeConfigDTO>
+@{
+    var renderedPayGradeConfigIds = new HashSet<int>(); // To track rendered AreaIds
+}
+<link href="~/assets/src/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/assets/src/scss/style.css">
+<input type="hidden" id="userPermissionsData" value='@Html.Raw(Json.Serialize(ViewBag.UserPermissions))' />
+
+
+<table id="pay-grade-config-list" class="table custom-table">
+    <thead>
+        <tr>
+            <th hidden>PayGradeConfig_Id</th>
+            <th hidden>Cmp_Id</th>
+            <th>Pay Grade Name</th>
+            <th>Skill Category</th>
+            <th>Trade Name</th>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th class="sticky_cell">Status</th>
+            <th class="sticky_cell">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var pay in Model)
+            {
+                if (!renderedPayGradeConfigIds.Contains(pay.PayGradeConfig_Id)) // Only render if not already added
+                {
+                    renderedPayGradeConfigIds.Add(pay.PayGradeConfig_Id);
+                    <tr id="row-@pay.PayGradeConfig_Id">
+                        <!-- Added unique row ID -->
+                        <td hidden>@pay.PayGradeConfig_Id</td>
+                        <td hidden>@pay.Cmp_Id</td>
+                        <td>@pay.PayGradeName</td>
+                        <td>@pay.Skillcategory_Name</td>
+                        <td>@pay.Trade_Name</td>
+                        <td>@pay.GradeConfigName</td>
+                        <td>@pay.EffectiveFromStr</td>
+                        <td>@pay.EffectiveToStr</td>
+                        <td class="sticky_cell">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" disabled type="checkbox" role="switch" id="status-@pay.PayGrade_Id" @(pay.IsActive ? "checked" : "")>
+                                <label class="form-check-label" for="status-@pay.IsActive">
+                                    @(pay.IsActive ? "Active" : "Inactive")
+                                </label>
+                            </div>
+                        </td>
+                        <td class="sticky_cell">
+                            <div class="table-button-group">
+                                <button class="btn btn-primary-light-icon-md edit-btn editpayGradeConfig btn-edit-hide" data-id="@pay.PayGradeConfig_Id" id="editpayGradeConfig">
+                                    <span class="sprite-icons edit-primary"></span>
+                                </button>
+
+                                <button class="btn btn-danger-light-icon btn-delete-hide"
+                                        data-paygradeconfig-id="@pay.PayGradeConfig_Id"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deletePayGradeConfig">
+                                    <span class="sprite-icons delete-danger"></span>
+                                </button>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+        @* else
+        {
+        <tr>
+        <td colspan="10" class="text-center">No data available</td>
+        </tr>
+        } *@
+    </tbody>
+</table>
+<div class="modal fade modal-custom modal-primary-confirmation" id="deletePayGradeConfig"
+     data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="deletePayGradeConfigLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="~/assets/img/delete-big.svg" height="77" width="134" alt="delete-icon">
+                <p class="md-text-500">Are you sure you want to delete this pay grade configuration?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger loader-dot-pulse" id="confirmPayGradeConfigDelete">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/assets/src/js/select2.min.js"></script>
+    <script src="~/assets/src/custom-js/script.js"></script>
+    <script src="~/assets/src/custom-js/select2.js"></script>
+}
