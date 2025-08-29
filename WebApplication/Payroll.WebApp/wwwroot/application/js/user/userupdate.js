@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
 
     var userData = sessionStorage.getItem("userData");
     $(document).on('shown.bs.tab', 'button[data-bs-toggle="pill"]', function (e) {
@@ -94,18 +94,32 @@
                     if (response.isSuccess && response.result) {
                         let data = response.result;
 
-                        // ✅ Populate City Dropdown
+                        // ✅ Populate City Dropdown - FIXED: Filter by selected state
                         if (data.cities && data.cities.length > 0) {
                             let cityDropdown = $("#branch");
                             cityDropdown.empty();
                             cityDropdown.append(`<option value="">Select City</option>`);
-                            data.cities.forEach(function (city) {
+                            
+                            // ✅ CRITICAL FIX: Get the selected state ID to filter cities
+                            let selectedStateId = user.locationDetails ? user.locationDetails[0]?.state_Id : null;
+                            console.log('🏛️ Selected State ID for filtering:', selectedStateId);
+                            
+                            // ✅ Filter cities by selected state
+                            let filteredCities = selectedStateId 
+                                ? data.cities.filter(city => city.state_Id == selectedStateId || city.stateId == selectedStateId)
+                                : data.cities;
+                            
+                            console.log('🏙️ Filtered cities count:', filteredCities.length);
+                            console.log('🏙️ All cities count:', data.cities.length);
+                            
+                            filteredCities.forEach(function (city) {
                                 cityDropdown.append(`<option value="${city.city_ID}">${city.city_Name}</option>`);
                             });
 
                             // Set selected city if it exists
                             let selectedCityId = user.locationDetails ? user.locationDetails[0]?.city_ID : null;
                             if (selectedCityId) {
+                                console.log('🎯 Setting selected city:', selectedCityId);
                                 cityDropdown.val(selectedCityId).trigger("change");
                             }
                         }
@@ -135,6 +149,30 @@
 
                         // Populate locations initially
                         populateLocations();
+
+                        // ✅ State Change Event - Filter Cities by State
+                        $("#state").change(function () {
+                            let selectedStateId = $(this).val();
+                            console.log('🏛️ State changed to:', selectedStateId);
+                            
+                            let cityDropdown = $("#branch");
+                            cityDropdown.empty();
+                            cityDropdown.append(`<option value="">Select City</option>`);
+                            
+                            // Filter cities by selected state
+                            let filteredCities = selectedStateId 
+                                ? data.cities.filter(city => city.state_Id == selectedStateId || city.stateId == selectedStateId)
+                                : data.cities;
+                            
+                            console.log('🏙️ Cities filtered for state:', filteredCities.length);
+                            
+                            filteredCities.forEach(function (city) {
+                                cityDropdown.append(`<option value="${city.city_ID}">${city.city_Name}</option>`);
+                            });
+                            
+                            // Clear city selection and locations when state changes
+                            cityDropdown.val('').trigger("change");
+                        });
 
                         // ✅ City Change Event - Filter Locations
                         $("#branch").change(function () {
