@@ -253,8 +253,10 @@
                     let correspondanceId = role.correspondance_Id;
                     let locationName = role.locationName;
                     let effective_From = role.effective_From;
+                    let effective_To = role.effective_To;
                     let roleName = role.roleName || role.role_Id;
                     let statusText = role.isActive ? "Active" : "Inactive";
+                    let isdefaultRole = role.isDefault_role;
                     /* console.log(role);*/
                     if (roleId === "New") {
                         return ''; // API se aaye new fake rows skip karo
@@ -276,6 +278,7 @@
                     <td>${locationName}</td>
                     <td>${roleName}</td>
                     <td>${effective_From}</td>
+                    <td>${effective_To}</td>
                     <td class="sticky_cell">
                         <div class="form-check form-switch">
                             <input class="form-check-input role-toggle" type="checkbox" role="switch"
@@ -286,6 +289,7 @@
                         </div>
                     </td>
                     <td hidden>${correspondanceId || ""}</td> <!-- Hidden Location ID column -->
+                    <td hidden>${isdefaultRole || ""}</td> <!-- Hidden Default ID column -->
 
                 </tr>`;
                     } else {
@@ -296,14 +300,159 @@
                 userRolesGrid.append(rows); // Naye rows ko append karein
             }
 
-            $(".role-toggle").off("change").on("change", function () {
-                let roleId = $(this).data("role-id");
-                let isActive = $(this).prop("checked");
+            //$(".role-toggle").off("change").on("change", function () {
+            //    let roleId = $(this).data("role-id");
+            //    let isActive = $(this).prop("checked");
 
-                $("#label-" + roleId).text(isActive ? "Active" : "Inactive");
-                updateUserRoleStatus(roleId, isActive);
-            });
+            //    $("#label-" + roleId).text(isActive ? "Active" : "Inactive");
+            //    updateUserRoleStatus(roleId, isActive);
+            //});
         }
+        $(document).on("change", ".role-toggle", function () {
+            let $checkbox = $(this);
+            let roleId = $checkbox.data("role-id");
+            let isActive = $checkbox.prop("checked");
+
+            let $row = $checkbox.closest("tr");
+            let correspondanceId = $row.find("td:eq(6)").text().trim();
+            let isDefaultRole = $row.find("td:eq(7)").text().trim().toLowerCase() === "true";
+            console.log("isDefaultRole", isDefaultRole);
+            // Revert the UI immediately
+            $checkbox.prop("checked", !isActive);
+            $("#label-" + roleId).text(!isActive ? "Active" : "Inactive");
+
+            // 🆕 Step 1: Per-location check for "only active default role"
+            if (!isActive) { // Trying to inactivate
+                let activeRolesInLocation = $("#userRolesGrid tbody tr").filter(function () {
+                    return $(this).find("td:eq(6)").text().trim() === correspondanceId &&
+                        $(this).find(".role-toggle").prop("checked");
+                }).length;
+
+                if (activeRolesInLocation === 1 && isDefaultRole) {
+                    // Revert toggle immediately
+                    $checkbox.prop("checked", true);
+                    $("#label-" + roleId).text("Active");
+
+                    // Show warning
+                    showAlert("warning", "You cannot deactivate the only active default role in this location.");
+                    return; // 🚫 Stop execution
+                }
+            }
+
+            // Revert UI temporarily for popup handling
+            $checkbox.prop("checked", !isActive);
+            $("#label-" + roleId).text(!isActive ? "Active" : "Inactive");
+
+            if (!isActive) {
+                if (isDefaultRole) {
+                    let allRolesForLocation = $("#userRolesGrid tbody tr").filter(function () {
+                        return $(this).find("td:eq(6)").text().trim() === correspondanceId;
+                    });
+
+                    if (allRolesForLocation.length > 1) {
+                        showDefaultRolePopup(correspondanceId, roleId);
+                    } else {
+                        updateUserRoleStatus(roleId, isActive);
+                    }
+                } else {
+                    updateUserRoleStatus(roleId, isActive);
+                }
+            } else {
+                updateUserRoleStatus(roleId, isActive);
+            }
+        });
+        function showDefaultRolePopup(correspondanceId, inactivatingRoleId) {
+            let roles = $("#userRolesGrid tbody tr").filter(function () {
+                let sameLocation = $(this).find("td:eq(6)").text().trim() === correspondanceId;
+                let roleId = $(this).find("td:eq(0)").text().trim();
+                let isActive = $(this).find(".role-toggle").prop("checked");
+
+                return sameLocation && roleId !== inactivatingRoleId && isActive;
+            });
+
+            let $dropdownMenu = $("#dropdownMenu");
+            let $dropdownButton = $("#dropdownTextbox");
+            $dropdownMenu.empty();
+            $dropdownButton.text("Select Role");
+
+            if (roles.length === 0) {
+                $dropdownMenu.append(`<li><span class="dropdown-item disabled">No active roles available</span></li>`);
+            } else {
+                roles.each(function () {
+                    let roleId = $(this).find("td:eq(0)").text().trim();
+                    let roleName = $(this).find("td:eq(2)").text().trim();
+
+                    $dropdownMenu.append(`
+                <li><a class="dropdown-item" href="#" data-role-id="${roleId}">${roleName}</a></li>
+            `);
+                });
+            }
+
+
+
+            // Store inactivating role ID for later use
+            $("#defaultRolePopup").data("inactiveRoleId", inactivatingRoleId);
+            $("#defaultRolePopup").data("correspondanceId", correspondanceId);
+            $("#defaultRolePopup").modal("show");
+        }
+        // Handle dropdown selection
+        $(document).on("click", "#dropdownMenu .dropdown-item", function (e) {
+            e.preventDefault();
+            let selectedRoleName = $(this).text().trim();
+            let selectedRoleId = $(this).data("role-id");
+
+            // Set the selected text and store the selected role id
+            $("#dropdownTextbox").text(selectedRoleName).data("selected-role-id", selectedRoleId);
+            $("#dropdownTextbox-error").text(""); // Clear error if any
+        });
+        $("#confirmDefaultRole").click(function () {
+            let defaultRoleId = $("#dropdownTextbox").data("selected-role-id");
+            let inactivatedRoleId = $("#defaultRolePopup").data("inactiveRoleId");
+            let rolecorrespondanceId = $("#defaultRolePopup").data("correspondanceId");
+
+            console.log("Sending:", defaultRoleId, rolecorrespondanceId);
+
+            if (!defaultRoleId) {
+                $("#dropdownTextbox-error").text("Please select a role to assign as default.");
+                return;
+            }
+            console.log(Number(rolecorrespondanceId), Number(defaultRoleId), "Role");
+            $.ajax({
+                url: "/User/UpdateDefaultLocationRoleUserEdit",
+                type: "POST",
+                data: {
+                    locationId: rolecorrespondanceId,
+                    roleId: defaultRoleId,
+                    defaultType: "Role"
+                },
+                success: function (response) {
+                    if (response.success) {
+                        showAlert("success", response.message || "Default role set successfully.");
+                        $("#defaultRolePopup").modal("hide");
+
+                        // 🆕 Update DOM to reflect new default immediately
+                        $("#userRolesGrid tbody tr").each(function () {
+                            if ($(this).find("td:eq(6)").text().trim() === rolecorrespondanceId) {
+                                let thisRoleId = $(this).find("td:eq(0)").text().trim();
+                                $(this).find("td:eq(7)").text(thisRoleId === String(defaultRoleId) ? "true" : "false");
+                            }
+                        });
+
+
+                        setTimeout(function () {
+                            // After success, now update the toggle (status to inactive)
+                            updateUserRoleStatus(inactivatedRoleId, false);
+                        }, 1000);
+                    } else {
+                        showAlert("danger", response.message || "Failed to set default role.");
+                    }
+                },
+                error: function () {
+                    showAlert("danger", "An error occurred while assigning the default role.");
+                }
+            });
+        });
+
 
         // Function to update role status via AJAX
         function updateUserRoleStatus(roleId, isActive) {
@@ -334,7 +483,7 @@
                         let toggleSwitch = $(`#status-${roleId}`);
                         toggleSwitch.prop("checked", isActive);
                         $(`#label-${roleId}`).text(isActive ? "Active" : "Inactive");
-
+                        console.log("isActive", isActive);
                         // Update sessionStorage to reflect change
                         let userRoles = user.userRoles.map(role => {
                             if (role.role_User_Id === roleId) {
@@ -342,6 +491,7 @@
                             }
                             return role;
                         });
+                        console.log("userRoles", userRoles);
 
                         user.userRoles = userRoles;
                         sessionStorage.setItem("userData", JSON.stringify(user));
@@ -596,7 +746,7 @@
             let allMappings = [];
             //console.log("Grid row count: ", $("#userRolesGrid tbody tr").length);
             $("#userRolesGrid tbody tr").each(function () {
-                let isActive = $(this).find("td:eq(4)").find(".role-toggle").prop("checked");
+                let isActive = $(this).find("td:eq(5)").find(".role-toggle").prop("checked");
                 //console.log("Is active:", isActive);
                 if (!isActive) {
                     return;
@@ -605,11 +755,12 @@
                 let locationName = $(this).find("td:eq(1)").text().trim();
                 let roleName = $(this).find("td:eq(2)").text().trim();
                 let effectiveDate = $(this).find("td:eq(3)").text().trim();
+                let effectiveToDate = $(this).find("td:eq(4)").text().trim();
                 let roleId = $(this).find("td:eq(0)").text().trim();  // Get hidden role ID
                 //console.log("LocationName:", locationName);
                 //console.log("RoleName:", roleName);
                 //console.log("RoleId:", roleId);
-                let locationId = $(this).find("td:eq(5)").text().trim(); // Try getting hidden location ID
+                let locationId = $(this).find("td:eq(6)").text().trim(); // Try getting hidden location ID
 
                 if (!locationId) {
                     // If not found, resolve from dropdown
@@ -654,6 +805,7 @@
                     roleId: roleId,
                     roleName: roleName,
                     effectiveDate: effectiveDate,
+                    effectiveToDate: effectiveToDate,
                     roleMenuHdrId: roleMenuHdrId || "N/A"  // Ensure it is not null
                 });
             });
@@ -732,41 +884,142 @@
                 roleDropdown.trigger("change");
             }
         }
+        var isProgrammaticDateChange = false;
+        $('#effectiveToDtEdit').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true,
+            startDate: '0d'
+        });
+        $('#effectiveFromDtEdit').datepicker({
+            format: "dd-mm-yyyy",
+            autoclose: true,
+            todayHighlight: true
+        });
 
+
+        // Set default Effective To Date to 12-12-2099
+        const defaultEffectiveTo = '31-12-2099';
+        //$('#effectiveToDtEdit').datepicker('setDate', defaultEffectiveTo);
+        $('#effectiveToDtEdit').val(""); // Always clear Effective To
+        // When Effective From changes
+        $('#effectiveFromDtEdit').on('changeDate', function (e) {
+            if (isProgrammaticDateChange) return;
+
+            const fromDate = e.date;
+            const toDateStr = $('#effectiveToDtEdit').val();
+            const toDate = convertToDateObject(toDateStr);
+
+            // Validate past date
+            if (fromDate < new Date().setHours(0, 0, 0, 0)) {
+                $('#effectiveFromDtEdit').val('');
+                showAlert("warning", "Past dates are not allowed.");
+                return;
+            }
+
+            // Validate from > to
+            if (toDate && fromDate > toDate) {
+                $('#effectiveFromDtEdit').val('');
+                showAlert("warning", "Effective From cannot be greater than Effective To.");
+                return;
+            }
+
+            // 🔁 Now set Effective To based on DB or default
+            let locationId = $("#userRoleLocation").val();
+            let roleId = $("#userRoleEdit").val();
+            let storedData = sessionStorage.getItem("nextTabRoleLocation");
+
+            if (storedData && locationId && roleId) {
+                const roleLocationData = JSON.parse(storedData);
+
+                const matched = roleLocationData.find(item =>
+                    item.locationId === locationId &&
+                    item.roleMenuHdrId.toString() === roleId.toString()
+                );
+
+                isProgrammaticDateChange = true;
+
+                if (matched && matched.effectiveToDate && matched.effectiveToDate !== "null") {
+                    const toDateObj = convertToDateObject(matched.effectiveToDate);
+                    $("#effectiveToDtEdit").datepicker('setDate', toDateObj);
+                } else {
+                    $("#effectiveToDtEdit").datepicker('setDate', '31-12-2099');
+                }
+
+                setTimeout(() => {
+                    isProgrammaticDateChange = false;
+                }, 100);
+            }
+        });
+
+
+        // When Effective To changes
+        $('#effectiveToDtEdit').on('changeDate', function (e) {
+            if (isProgrammaticDateChange) return; // Skip validation
+            const toDate = e.date;
+            const fromDateStr = $('#effectiveFromDtEdit').val();
+            const fromDate = convertToDateObject(fromDateStr);
+
+            if (fromDate && fromDate > toDate) {
+                $('#effectiveToDtEdit').val('');
+                showAlert("warning", "Effective To cannot be less than Effective From.");
+            }
+        });
+
+        // Reset Effective From if manually cleared
+        $('#effectiveFromDtEdit').on('input', function () {
+            if (!$(this).val()) {
+                let locId = $("#userRoleLocation").val();
+                let roleId = $("#userRoleEdit").val();
+                if (locId && roleId) {
+                    setEffectiveDateFromMapping(locId, roleId);
+                }
+            }
+        });
         function setEffectiveDateFromMapping(locationId, roleMenuHdrId) {
             let storedData = sessionStorage.getItem("nextTabRoleLocation");
             if (!storedData) return;
 
             const roleLocationData = JSON.parse(storedData);
-
             const matched = roleLocationData.find(item =>
                 item.locationId === locationId &&
                 item.roleMenuHdrId.toString() === roleMenuHdrId.toString()
             );
 
+            isProgrammaticDateChange = true;
+
             if (matched && matched.effectiveDate) {
-                const dateObj = convertToDateObject(matched.effectiveDate);
-                $("#effectiveFromDtEdit").datepicker('setDate', dateObj);
-
-                // Double-check and fallback if input doesn't populate
-                setTimeout(() => {
-                    const current = $("#effectiveFromDtEdit").val();
-                    if (!current) {
-                        const day = String(dateObj.getDate()).padStart(2, '0');
-                        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-                        const year = dateObj.getFullYear();
-                        $("#effectiveFromDtEdit").val(`${day}/${month}/${year}`);
-                    }
-                }, 100);
+                const fromDateObj = convertToDateObject(matched.effectiveDate);
+                if (fromDateObj instanceof Date && !isNaN(fromDateObj)) {
+                    $('#effectiveFromDtEdit').datepicker('setDate', fromDateObj);
+                }
             } else {
-                $("#effectiveFromDtEdit").datepicker('setDate', new Date());
+                $('#effectiveFromDtEdit').datepicker('setDate', new Date());
             }
+
+            // ✅ Always clear Effective To on role/location selection
+            $('#effectiveToDtEdit').val("");
+
+            setTimeout(() => {
+                isProgrammaticDateChange = false;
+                $('#effectiveFromDtEdit').trigger("changeDate"); // Let Effective To be handled in onChange
+            }, 100);
         }
 
-        function convertToDateObject(dashedDate) {
-            const parts = dashedDate.split("-");
-            return new Date(parts[2], parts[1] - 1, parts[0]);
+        function convertToDateObject(dateStr) {
+            if (!dateStr || dateStr === "null") return null;
+
+            // Supports both dd-mm-yyyy and dd/mm/yyyy
+            const parts = dateStr.includes("-") ? dateStr.split("-") : dateStr.split("/");
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1; // Months are 0-indexed
+            const year = parseInt(parts[2], 10);
+
+            return new Date(year, month, day);
         }
+
+
+
         // Ensure dropdown and role lists are populated when switching to the next tab
 
         $("#userRoleLocation").on("change", function () {
@@ -774,7 +1027,7 @@
 
             // 🔁 Reset effective date when location changes
             $("#effectiveFromDtEdit").val(""); // or use .datepicker("setDate", null) if you're using jQuery UI Datepicker
-
+            $("#effectiveToDtEdit").val(""); // ✅ also clear Effective To
             sessionStorage.setItem("selectedLocation", selectedLocationId); // Store CorrespondanceId
             let storedData = sessionStorage.getItem("nextTabRoleLocation");
 
@@ -837,7 +1090,7 @@
 
                         // Ensure `response.data.result` exists
                         const menuData = response.data.result;
-                        console.log(menuData);
+                        console.log("menuData", menuData);
                         if (menuData && menuData.length > 0) {
                             const menuTreeHtml = generateTreeView(menuData, 0);  // Start with ParentMenu_Id = 0
                             $('.treeview').append(menuTreeHtml);
@@ -852,31 +1105,38 @@
                 },
             });
         }
-
         function generateTreeView(menuItems, parentId) {
             let treeHtml = '<ul>';
-            let hasCheckedChild = false; // Track if any child is checked
+            //let hasCheckedChild = false; // Track if any child is checked
 
             menuItems.forEach(function (item) {
                 if (item.parentMenuId === parentId) {
                     let permissionsHtml = '';
-                    let isChecked = item.hasPerDtl ? 'checked' : '';
+                    /*let isChecked = item.hasPerDtl ? 'checked' : '';*/
+                    /*let isChecked = item.isMenuChecked ? 'checked' : '';*/
+                    let hasPermissionChecked = item.grantAdd || item.grantView || item.grantEdit || item.grantDelete || item.grantApprove || item.grantRptPrint || item.grantRptDownload || item.grantDocDownload || item.grantDocUpload;
+
+                    let isChecked = (item.isMenuChecked || hasPermissionChecked || hasCheckedChilddata(menuItems, item.menu_Id)) ? 'checked' : '';
 
                     // Check if permissions need to be shown
-                    if (item.hasPerDtl || item.menuName == 'Home') {
+                    let shouldRenderPermissions = true; // Always render, but optionally hide
+                    // let hidePermissionStyle = (!item.hasPerDtl && item.menuName != 'Home') ? 'display:none;' : '';
+                    let hidePermissionStyle = ''; // Always show permissions by default
+                    if (shouldRenderPermissions) {
                         permissionsHtml = `
-                <div id="permissions-${item.menu_Id}" class="permissions" style="padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                        <label style="flex: 1 0 45%;"><input type="checkbox" id="add-${item.menu_Id}" ${item.grantAdd ? 'checked' : ''}> Add</label>
-                        <label style="flex: 1 0 45%;"><input type="checkbox" id="view-${item.menu_Id}" ${item.grantView ? 'checked' : ''}> View</label>
-                        <label style="flex: 1 0 45%;"><input type="checkbox" id="edit-${item.menu_Id}" ${item.grantEdit ? 'checked' : ''}> Edit</label>
-                        <label style="flex: 1 0 45%;"><input type="checkbox" id="delete-${item.menu_Id}" ${item.grantDelete ? 'checked' : ''}> Delete</label>
-                        <label style="flex: 1 0 45%;"><input type="checkbox" id="approve-${item.menu_Id}" ${item.grantApprove ? 'checked' : ''}> Approve</label>
-                        <label style="flex: 1 0 45%;"><input type="checkbox" id="rptprint-${item.menu_Id}" ${item.grantRptPrint ? 'checked' : ''}> Report Print</label>
-                        <label style="flex: 1 0 45%;"><input type="checkbox" id="rptdownload-${item.menu_Id}" ${item.grantRptDownload ? 'checked' : ''}> Report Download</label>
-                    </div>
-                </div>`;
+                                        <div id="permissions-${item.menu_Id}" class="permissions" style="${hidePermissionStyle} padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+                                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                                <label style="flex: 1 0 45%;"><input type="checkbox" id="add-${item.menu_Id}" ${item.grantAdd ? 'checked' : ''}> Add</label>
+                                                <label style="flex: 1 0 45%;"><input type="checkbox" id="view-${item.menu_Id}" ${item.grantView ? 'checked' : ''}> View</label>
+                                                <label style="flex: 1 0 45%;"><input type="checkbox" id="edit-${item.menu_Id}" ${item.grantEdit ? 'checked' : ''}> Edit</label>
+                                                <label style="flex: 1 0 45%;"><input type="checkbox" id="delete-${item.menu_Id}" ${item.grantDelete ? 'checked' : ''}> Delete</label>
+                                                <label style="flex: 1 0 45%;"><input type="checkbox" id="approve-${item.menu_Id}" ${item.grantApprove ? 'checked' : ''}> Approve</label>
+                                                <label style="flex: 1 0 45%;"><input type="checkbox" id="rptprint-${item.menu_Id}" ${item.grantRptPrint ? 'checked' : ''}> Report Print</label>
+                                                <label style="flex: 1 0 45%;"><input type="checkbox" id="rptdownload-${item.menu_Id}" ${item.grantRptDownload ? 'checked' : ''}> Report Download</label>
+                                            </div>
+                                        </div>`;
                     }
+
 
                     // Recursive call for child menus
                     let childTreeHtml = generateTreeView(menuItems, item.menu_Id);
@@ -895,7 +1155,8 @@
                                 <li>
                                    <i class="fa fa-angle-right toggle-arrow" data-menu-id="${item.menu_Id}" style="cursor: pointer; margin-right: 5px;"></i>
         <input type="checkbox" id="menu-${item.menu_Id}" class="menu-checkbox" data-menu-id="${item.menu_Id}" ${isChecked} />
-        <label for="menu-${item.menu_Id}">${item.menuName}</label>
+        <span class="menu-label">${item.menuName}</span>
+
                                     ${permissionsHtml}
                                     ${childTreeHtml}
                                 </li>`;
@@ -906,37 +1167,56 @@
 
             return treeHtml;
         }
+        function hasCheckedChilddata(menuItems, parentId) {
+            return menuItems.some(child => {
+                const hasPermission = child.grantAdd || child.grantView || child.grantEdit || child.grantDelete || child.grantApprove || child.grantRptPrint || child.grantRptDownload || child.grantDocDownload || child.grantDocUpload;
+                const isMenuChecked = child.isMenuChecked;
 
+                // Check if it's a direct child of current parent
+                if (child.parentMenuId === parentId) {
+                    // If this child is checked OR its own children are checked
+                    return isMenuChecked || hasPermission || hasCheckedChilddata(menuItems, child.menu_Id);
+                }
+
+                return false;
+            });
+        }
         function initializeCheckboxLogic() {
             $(document).on("change", ".menu-checkbox", function () {
                 let isChecked = $(this).is(":checked");
                 let menuId = $(this).data("menu-id");
                 let parentLi = $(this).closest("li");
 
-                if (!isChecked) {
-                    // Uncheck all child checkboxes and permissions
-                    parentLi.find("ul .menu-checkbox, .permissions input[type='checkbox']").prop("checked", false);
-                } else {
-                    // Check only the permissions that were originally granted
+                if (isChecked) {
                     restoreOriginalPermissions(menuId);
+                } else {
+                    // ✅ Only uncheck, don't collapse anything
+                    parentLi.find("ul .menu-checkbox, .permissions input[type='checkbox']").prop("checked", false);
+
+                    // 🔴 DO NOT include permissionBox.hide() anywhere here!
                 }
 
-                // Update parent checkboxes recursively
                 updateParentCheckbox($(this));
             });
+
+
 
             function updateParentCheckbox(childCheckbox) {
                 let parentLi = childCheckbox.closest("ul").parent("li");
                 if (parentLi.length) {
                     let parentCheckbox = parentLi.children("input.menu-checkbox");
                     let anyChildChecked = parentLi.find("> ul .menu-checkbox:checked").length > 0;
-                    let anyPermissionChecked = parentLi.find(".permissions input[type='checkbox']:checked").length > 0;
+                    let anyPermissionChecked = parentLi.find("> ul .permissions input[type='checkbox']:checked").length > 0;
 
-                    parentCheckbox.prop("checked", anyChildChecked || anyPermissionChecked);
+                    if (!anyChildChecked && !anyPermissionChecked) {
+                        parentCheckbox.prop("checked", false);
+                    } else {
+                        parentCheckbox.prop("checked", true);
+                    }
+
                     updateParentCheckbox(parentCheckbox);
                 }
             }
-
             function restoreOriginalPermissions(menuId) {
                 let permissions = $(`#permissions-${menuId}`);
                 if (permissions.length) {
@@ -953,16 +1233,61 @@
                 $(this).data("original", $(this).is(":checked"));
             });
 
+
             $(document).on("change", ".permissions input[type='checkbox']", function () {
-                let permissionDiv = $(this).closest(".permissions");
+                let checkbox = $(this);
+                let permissionDiv = checkbox.closest(".permissions");
                 let parentLi = permissionDiv.closest("li");
                 let menuCheckbox = parentLi.children(".menu-checkbox");
 
+                let inputId = checkbox.attr("id"); // 🔄 Fix: make sure to define it from the current checkbox
+                let menuId = inputId.split("-")[1];
+
+
+                let viewCheckbox = $(`#view-${menuId}`);
+                let editCheckbox = $(`#edit-${menuId}`);
+
+                // 🟢 If "Edit" is checked => auto-check "View"
+                if (inputId.startsWith("edit-") && $(this).is(":checked")) {
+                    if (!viewCheckbox.is(":checked")) {
+                        viewCheckbox.prop("checked", true);
+                    }
+                }
+
+                // 🔴 If "Edit" is unchecked => auto-uncheck "View"
+                if (inputId.startsWith("edit-") && !$(this).is(":checked")) {
+                    viewCheckbox.prop("checked", false);
+                }
+
+                // 🔒 (Optional) Prevent unchecking "View" while "Edit" is checked
+                if (inputId.startsWith("view-") && !$(this).is(":checked")) {
+                    if (editCheckbox.is(":checked")) {
+                        $(this).prop("checked", true); // Force re-check
+                    }
+                }
+
+                // ⬆️ Checkbox tree logic
                 if ($(this).is(":checked")) {
                     menuCheckbox.prop("checked", true);
                     updateParentCheckbox(menuCheckbox);
+                } else {
+                    let allUnchecked = permissionDiv.find("input[type='checkbox']:checked").length === 0;
+                    if (allUnchecked) {
+                        menuCheckbox.prop("checked", false);
+
+                        let anyChildChecked = parentLi.find(".permissions input[type='checkbox']:checked").length > 0 ||
+                            parentLi.find("ul .menu-checkbox:checked").length > 0;
+
+                        if (!anyChildChecked) {
+                            menuCheckbox.prop("checked", false);
+                        }
+
+                        updateParentCheckbox(menuCheckbox);
+                    }
                 }
             });
+
+
             $(document).on("click", ".menu-label", function (e) {
                 // Prevent triggering checkbox when label is clicked
                 e.preventDefault();
@@ -982,11 +1307,7 @@
                 parentLi.parents("li").children(".toggle-arrow")
                     .removeClass("fa-angle-right")
                     .addClass("fa-angle-down");
-                //let toggleButton = $(this).siblings(".toggle");
-                //if (!toggleButton.hasClass("expanded")) {
-                //    toggleButton.addClass("expanded").text("-");
-                //    $(this).siblings("ul").show();
-                //}
+
             });
             $(document).on("click", ".toggle-arrow", function (e) {
                 e.stopPropagation();
@@ -994,86 +1315,60 @@
                 const arrow = $(this);
                 const parentLi = arrow.closest("li");
                 const directChildUl = parentLi.children("ul");
+                const permissionBox = parentLi.children(".permissions");
 
                 const isExpanded = arrow.hasClass("fa-angle-down");
 
                 if (isExpanded) {
-                    // COLLAPSE: hide all nested children under this parent
-                    parentLi.find("ul").hide();
-                    parentLi.find(".toggle-arrow")
-                        .removeClass("fa-angle-down")
-                        .addClass("fa-angle-right");
+                    directChildUl.hide();
+                    // 🔴 REMOVE this line to avoid collapsing permissions
+                    // permissionBox.hide(); 
+                    arrow.removeClass("fa-angle-down").addClass("fa-angle-right");
                 } else {
-                    // COLLAPSE all nested items under this parent first
-                    parentLi.find("ul").hide();
-                    parentLi.find(".toggle-arrow")
-                        .removeClass("fa-angle-down")
-                        .addClass("fa-angle-right");
-
-                    // Then EXPAND only direct children
                     directChildUl.show();
+                    permissionBox.show(); // Show when expanding
                     arrow.removeClass("fa-angle-right").addClass("fa-angle-down");
                 }
             });
 
-
-            // Expand/Collapse toggle icon
-            //$(document).on("click", ".toggle", function () {
-            //    let childUl = $(this).siblings("ul");
-
-            //    if (childUl.length) {
-            //        childUl.toggle();
-
-            //        // Toggle class and update text accordingly
-            //        if ($(this).hasClass("expanded")) {
-            //            $(this).removeClass("expanded").text("+");
-            //        } else {
-            //            $(this).addClass("expanded").text("-");
-            //        }
-            //    }
-            //});
         }
-
         function collectSelectedPermissions() {
             let selectedMenus = [];
 
-            $(".menu-checkbox:checked").each(function () {
+            $(".menu-checkbox").each(function () {
                 let menuId = $(this).data("menu-id");
                 let roleMenuDtlId = $(this).data("role-menu-dtl-id") || 0;
-                // Check if any permission is checked
-                let hasPerDtl =
-                    $("#add-" + menuId).is(":checked") ||
-                    $("#view-" + menuId).is(":checked") ||
-                    $("#edit-" + menuId).is(":checked") ||
-                    $("#delete-" + menuId).is(":checked") ||
-                    $("#approve-" + menuId).is(":checked") ||
-                    $("#rptprint-" + menuId).is(":checked") ||
-                    $("#rptdownload-" + menuId).is(":checked") ||
-                    $("#docDownload-" + menuId).is(":checked") ||
-                    $("#docUpload-" + menuId).is(":checked");
+                let isChecked = $(this).is(":checked");
 
+                let permissions = {
+                    Add: $("#add-" + menuId).is(":checked"),
+                    View: $("#view-" + menuId).is(":checked"),
+                    Edit: $("#edit-" + menuId).is(":checked"),
+                    Delete: $("#delete-" + menuId).is(":checked"),
+                    Approve: $("#approve-" + menuId).is(":checked"),
+                    RptPrint: $("#rptprint-" + menuId).is(":checked"),
+                    RptDownload: $("#rptdownload-" + menuId).is(":checked"),
+                    DocDownload: $("#docDownload-" + menuId).is(":checked"),
+                    DocUpload: $("#docUpload-" + menuId).is(":checked")
+                };
+
+                // ✅ Correct condition: permissions only matter if menu is checked
+                permissions.HasPerDtl = isChecked && Object.values(permissions).some(Boolean);
+                console.log(`MenuId: ${menuId}, IsMenuChecked: ${isChecked}, hasPerDtl: ${permissions.HasPerDtl}`, permissions);
+                // ✔ Push even unchecked parent menus with no permissions
                 selectedMenus.push({
                     RoleMenuDtlId: roleMenuDtlId,
-                    RoleMenuHdrId: $("#userRoleEdit").val() || 0, // Get header ID dynamically
+                    RoleMenuHdrId: $("#userRoleEdit").val() || 0,
                     MenuId: menuId,
-                    HasPerDtl: hasPerDtl,
-                    Permissions: {
-                        Add: $("#add-" + menuId).is(":checked"),
-                        View: $("#view-" + menuId).is(":checked"),
-                        Edit: $("#edit-" + menuId).is(":checked"),
-                        Delete: $("#delete-" + menuId).is(":checked"),
-                        Approve: $("#approve-" + menuId).is(":checked"),
-                        RptPrint: $("#rptprint-" + menuId).is(":checked"),
-                        RptDownload: $("#rptdownload-" + menuId).is(":checked"),
-                        DocDownload: $("#docDownload-" + menuId).is(":checked"),
-                        DocUpload: $("#docUpload-" + menuId).is(":checked")
-                    }
+                    IsMenuChecked: isChecked,
+                    //HasPerDtl: hasPerDtl,
+                    Permissions: permissions
                 });
             });
-
+            console.log("selectedMenus", selectedMenus);
             return selectedMenus;
         }
-
+        var pendingRequestData = null;
         $("#btnSavePermission").click(function () {
 
             let isValid = true;
@@ -1098,27 +1393,34 @@
                 $("#userRoleEdit-error").text("").hide(); // ✅ Clear role error only when valid
             }
 
-            // Effective Date Validation
-            const dateValue = $("#effectiveFromDtEdit").val();
-            let formattedEditDate = null;
-            if (dateValue) {
-                const parts = dateValue.split('/'); // Split 'dd/mm/yyyy'
-                if (parts.length === 3) {
-                    formattedEditDate = `${parts[2]}-${parts[1]}-${parts[0]}`; // Convert to 'yyyy-mm-dd'
-                }
-            }
-
-            if (formattedEditDate) {
-            }
-            //const formattedEditDate = dateValue ? new Date(dateValue).toISOString().split('T')[0] : null;
-
-            if (!dateValue) {
-                $("#effectiveFromDtEdit-error").text("Effective Date is required.").show();
+            // Effective From Validation
+            const fromDateValue = $("#effectiveFromDtEdit").val();
+            const formattedFromDate = parseDateString($("#effectiveFromDtEdit").val());
+            if (!formattedFromDate) {
+                $("#effectiveFromDtEdit-error").text("Effective From date is required.").show();
                 isValid = false;
             } else {
-                $("#effectiveFromDtEdit-error").text("").hide(); // ✅ Clear date error only when valid
+                $("#effectiveFromDtEdit-error").text("").hide();
             }
 
+            // Effective To Validation
+            const toDateValue = $("#effectiveToDtEdit").val();
+            const formattedToDate = parseDateString($("#effectiveToDtEdit").val());
+            if (!formattedToDate) {
+                $("#effectiveToDtEdit-error").text("Effective To date is required.").show();
+                isValid = false;
+            } else {
+                $("#effectiveToDtEdit-error").text("").hide();
+            }
+
+            // Validate: From date should be <= To date
+            const fromDateObj = new Date(formattedFromDate);
+            const toDateObj = new Date(formattedToDate);
+
+            if (fromDateObj > toDateObj) {
+                showAlert("warning", "Effective From date cannot be greater than Effective To date.");
+                isValid = false;
+            }
 
 
             // Stop submission if validation fails
@@ -1137,22 +1439,54 @@
             }
 
 
-            let requestData = {
+            // Store request data to use after confirmation
+            pendingRequestData = {
                 RoleId: roleId, // Get selected RoleId from dropdown
                 RoleMenuHdrId: roleId || 0, // Auto-generated
                 UserId: user.user_id,
                 CompanyId: $("#Companies").val(),
                 CorrespondanceId: locationId,
-                EffectiveFromDt: formattedEditDate,
-                //EffectiveFromDt: new Date().toISOString(),
+                EffectiveFromDt: formattedFromDate,
+                EffectiveToDt: formattedToDate,
                 CreatedBy: user.user_id,
                 PermissionsData: selectedMenus
             };
+            // Show confirmation modal
+            const confirmModal = new bootstrap.Modal(document.getElementById('userPermissionEditModal'));
+            confirmModal.show();
+            //$.ajax({
+            //    url: "/User/SaveUserRoleMenuPermissions",
+            //    type: "POST",
+            //    contentType: "application/json",
+            //    data: JSON.stringify(requestData),
+            //    success: function (response) {
+            //        if (response.type === "success") {
+            //            //showAlert("success", response.message);
+            //            // Correct Bootstrap 5 Modal Initialization
+            //            const userEditModal = document.getElementById('userEditModal');
+            //            if (userEditModal) {
+            //                const modalInstance = new bootstrap.Modal(userEditModal);
+            //                modalInstance.show();
+            //            } else {
+            //            }
+            //        } else {
+            //            showAlert("danger", response.message);
+            //        }
+            //    },
+            //    error: function (xhr, status, error) {
+            //        showAlert("danger", "An error occurred while save permissions.");
+
+            //    }
+            //});
+        });
+        $("#yesEditRolePermission").click(function () {
+            if (!pendingRequestData) return;
+
             $.ajax({
                 url: "/User/SaveUserRoleMenuPermissions",
                 type: "POST",
                 contentType: "application/json",
-                data: JSON.stringify(requestData),
+                data: JSON.stringify(pendingRequestData),
                 success: function (response) {
                     if (response.type === "success") {
                         //showAlert("success", response.message);
@@ -1167,12 +1501,28 @@
                         showAlert("danger", response.message);
                     }
                 },
-                error: function (xhr, status, error) {
-                    showAlert("danger", "An error occurred while save permissions.");
-
+                error: function () {
+                    showAlert("danger", "An error occurred while saving permissions.");
                 }
             });
+
+            pendingRequestData = null; // Clear after use
         });
+        $("#noAnotherRolePermission").click(function () {
+            pendingRequestData = null;
+            const confirmModalEl = document.getElementById('userPermissionEditModal');
+            const modalInstance = bootstrap.Modal.getInstance(confirmModalEl);
+            modalInstance.hide();
+        });
+
+        function parseDateString(dateStr) {
+            if (!dateStr) return null;
+            const parts = dateStr.split('-');
+            if (parts.length !== 3) return null;
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+        }
+
+
 
         $("#yesEditRole").click(function () {
             var userEditModal = bootstrap.Modal.getInstance(document.getElementById('userEditModal'));
@@ -1197,23 +1547,13 @@
                 allowClear: true
             });
         }
-        // Load data based on tab click
-        //$('button[data-bs-toggle="pill"]').on("shown.bs.tab", function (e) {
-        //    var target = $(e.target).attr("data-bs-target");
-
-        //    if (target === "#v-pills-home") {
-        //        fillUserInformation();
-        //    } else if (target === "#v-pills-profile-edit") {
-        //        fillCompanyDetails();
-        //    } else if (target === "#v-pills-mapping") {
-        //        //fillUserLocationsAndRoles(); // ✅ Ensure grid refreshes
-        //        //fillUserRoles();
-        //        //loadRolesDropdown();
-        //    }
-        //});
-        //// Load User Information by default
-        //fillUserInformation();
-        // Unified handler for all tab switches
+        $(document).ready(function () {
+            // Manually trigger tab logic for the default active tab on load
+            const defaultTab = $(".nav-link.active[data-bs-toggle='pill']").attr("data-bs-target");
+            if (defaultTab) {
+                handleTabActivation(defaultTab);
+            }
+        });
         $(document).on("shown.bs.tab", 'button[data-bs-toggle="pill"]', function (e) {
             var target = $(e.target).attr("data-bs-target");
             handleTabActivation(target);
@@ -1222,6 +1562,8 @@
             switch (targetId) {
                 case "#v-pills-home":
                     fillUserInformation();
+                    fillCompanyDetails();
+                    fillUserLocations();
                     break;
                 case "#v-pills-profile-edit":
                     fillCompanyDetails();
@@ -1254,8 +1596,6 @@
                     }, 300);
             }
         }
-
-       
 
         // Handle Next Tab Button Click
         $("#nextEditTab").on("click", function () {
@@ -1330,6 +1670,7 @@
 
                 // Check if this location-role pair already exists in the grid
                 let isDuplicate = false;
+                let defaultEffectiveTo = "31-12-2099"; // Define once
                 $("#userRolesGrid tbody tr").each(function () {
                     let existingLocation = $(this).find("td:eq(1)").text();
                     let existingRole = $(this).find("td:eq(2)").text();
@@ -1346,6 +1687,7 @@
                 <td>${selectedLocationName}</td>
                 <td>${roleName}</td>
                 <td>${formattedDate}</td> <!-- Updated date format -->
+                 <td>${defaultEffectiveTo}</td> <!-- ✅ Effective To -->
                 <td class="sticky_cell">
                     <div class="form-check form-switch">
                         <input class="form-check-input role-toggle" type="checkbox" role="switch" checked>
@@ -1365,28 +1707,7 @@
             showAlert("success", "Mapping(s) added successfully.");
         });
     }
-    $('#effectiveFromDtEdit').datepicker({
-        format: 'dd/mm/yyyy',
-        startDate: '0d',
-        autoclose: true,
-        todayHighlight: true
-    }).on('changeDate', function (e) {
-        // Allow valid date
-        if (new Date(e.date) < new Date().setHours(0, 0, 0, 0)) {
-            $('#effectiveFromDtEdit').val('');
-            showAlert("warning", "Past dates are not allowed.");
-        }
-    });
 
-    // Detect manual clearing or backspace reset
-    $('#effectiveFromDtEdit').on('input', function () {
-        if (!$(this).val()) {
-            let locId = $("#userRoleLocation").val();
-            let roleId = $("#userRoleEdit").val();
-            if (locId && roleId) {
-                setEffectiveDateFromMapping(locId, roleId);
-            }
-        }
-    });
+
 
 });
